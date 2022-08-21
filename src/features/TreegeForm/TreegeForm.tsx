@@ -53,20 +53,21 @@ const TreegeForm = ({ tree, variant = "stepper" }: TreegeFormProps) => {
           </Box>
         )}
 
-        <Stack alignItems="flex-end" spacing={2}>
-          {fields && (
-            <ButtonGroup variant="outlined" aria-label="outlined button group">
-              <Button disabled={activeFieldIndex === 0} onClick={handlePrev}>
-                <NavigateBeforeRounded />
-              </Button>
-              <Button type="submit" disabled={isLastField}>
-                <NavigateNextRounded />
-              </Button>
-            </ButtonGroup>
-          )}
-
-          {isLastField && <FormValidation />}
-        </Stack>
+        {fields && (
+          <Stack alignItems="flex-end" spacing={2}>
+            <Slide direction="up" in mountOnEnter>
+              <ButtonGroup variant="outlined" aria-label="outlined button group">
+                <Button disabled={activeFieldIndex === 0} onClick={handlePrev}>
+                  <NavigateBeforeRounded />
+                </Button>
+                <Button type="submit" disabled={isLastField}>
+                  <NavigateNextRounded />
+                </Button>
+              </ButtonGroup>
+            </Slide>
+            {isLastField && <FormValidation />}
+          </Stack>
+        )}
       </Box>
     );
   }
