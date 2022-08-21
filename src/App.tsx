@@ -1,7 +1,6 @@
 import { Box, Container, ToggleButton, ToggleButtonGroup } from "design-system";
-import type { MouseEvent } from "react";
-import { useState } from "react";
-import data from "@/data/export.json";
+import { MouseEvent, useState } from "react";
+import tree from "@/data/export.json";
 import TreegeForm, { TreegeFormProps } from "@/features/TreegeForm";
 
 const App = () => {
@@ -19,7 +18,7 @@ const App = () => {
           <ToggleButton value="standard">Standard</ToggleButton>
         </ToggleButtonGroup>
       </Box>
-      <TreegeForm tree={data} variant={variant} />
+      <TreegeForm tree={tree} variant={variant} />
     </Container>
   );
 };
