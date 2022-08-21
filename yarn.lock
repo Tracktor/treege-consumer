@@ -2045,7 +2045,7 @@ define-properties@^1.1.3, define-properties@^1.1.4:
 
 "design-system@git+https://github.com/Tracktor/design-system.git":
   version "1.0.0"
-  resolved "git+https://github.com/Tracktor/design-system.git#a3b0c446050d1c7b194e97dd63b4aebccd0a1c49"
+  resolved "git+https://github.com/Tracktor/design-system.git#e4f6e0fc6e436ba96ee9233e03540c3d3db58d7c"
   dependencies:
     "@emotion/react" "^11.10.0"
     "@emotion/styled" "^11.10.0"
