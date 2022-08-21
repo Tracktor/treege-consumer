@@ -8,7 +8,8 @@ import { dependencies, name, peerDependencies } from "./package.json";
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, "lib/main.ts"),
+      entry: resolve(__dirname, "src/main.ts"),
+      fileName: "[name]",
       name,
     },
     rollupOptions: {
