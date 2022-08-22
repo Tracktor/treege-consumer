@@ -8,12 +8,19 @@ import useTreegeForm from "@/features/TreegeForm/useTreegeForm";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface TreegeFormProps {
+  dataFormatOnSubmit?: "formData" | "json";
   tree?: TreeNode;
   variant?: "standard" | "stepper";
+  onSubmit?(data: { [k: string]: FormDataEntryValue } | [string, FormDataEntryValue][]): void;
 }
 
-const TreegeForm = ({ tree, variant = "stepper" }: TreegeFormProps) => {
-  const { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField } = useTreegeForm({ tree, variant });
+const TreegeForm = ({ dataFormatOnSubmit, tree, onSubmit, variant = "stepper" }: TreegeFormProps) => {
+  const { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField } = useTreegeForm({
+    dataFormatOnSubmit,
+    onSubmit,
+    tree,
+    variant,
+  });
 
   if (variant === "stepper") {
     return (

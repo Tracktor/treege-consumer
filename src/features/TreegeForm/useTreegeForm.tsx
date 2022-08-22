@@ -4,7 +4,14 @@ import { ChangeEvent, FormEvent, MouseEvent as ReactMouseEvent, useCallback, use
 import type { TreegeFormProps } from "@/features/TreegeForm/TreegeForm";
 import type { TreeNode } from "@/types/TreeNode";
 
-const useTreegeForm = ({ tree, variant }: { tree?: TreeNode; variant: TreegeFormProps["variant"] }) => {
+export interface useTreegeFormParams {
+  dataFormatOnSubmit?: "formData" | "json";
+  onSubmit?(data: { [k: string]: FormDataEntryValue } | [string, FormDataEntryValue][]): void;
+  tree?: TreeNode;
+  variant: TreegeFormProps["variant"];
+}
+
+const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmit }: useTreegeFormParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>();
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -113,10 +120,11 @@ const useTreegeForm = ({ tree, variant }: { tree?: TreeNode; variant: TreegeForm
 
       if (!isLastField) return;
 
-      // Post data to api
-      console.log([...formData]);
+      const data = dataFormatOnSubmit === "formData" ? [...formData] : Object.fromEntries(formData);
+
+      onSubmit?.(data);
     },
-    [fields, isLastField, variant]
+    [dataFormatOnSubmit, fields, isLastField, onSubmit, variant]
   );
 
   const handlePrev = useCallback((_: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
