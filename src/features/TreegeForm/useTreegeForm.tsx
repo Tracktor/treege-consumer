@@ -105,11 +105,12 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
 
-      if (variant === "stepper") {
-        setActiveFieldIndex((prevFieldIndex) => {
-          const nextIndex = prevFieldIndex + 1;
+      if (variant === "stepper" && !isLastField) {
+        setActiveFieldIndex((prevActiveFieldIndex) => {
+          const nextIndex = prevActiveFieldIndex + 1;
+          const hasNextField = fields?.[nextIndex] !== undefined;
 
-          if (fields?.[nextIndex]) {
+          if (hasNextField) {
             return nextIndex;
           }
 

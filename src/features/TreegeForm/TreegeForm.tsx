@@ -49,12 +49,11 @@ const TreegeForm = ({ dataFormatOnSubmit, tree, onSubmit, variant = "stepper" }:
           {fields ? (
             fields.map((field, index) => {
               const active = index === activeFieldIndex;
-              const disabled = !active;
 
               return (
                 <Slide key={field.name} in={active} mountOnEnter>
                   <Box flexDirection="column" sx={{ display: active ? "flex" : "none" }}>
-                    <TreegeField key={field.name} data={field} onChange={handleChange} autoFocus={!disabled} />
+                    <TreegeField key={field.name} data={field} onChange={handleChange} autoFocus={active} />
                   </Box>
                 </Slide>
               );
