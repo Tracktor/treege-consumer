@@ -19,6 +19,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint .",
+    "prepare": "yarn run build",
     "preview": "vite preview"
   },
   "dependencies": {
