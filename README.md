@@ -45,13 +45,13 @@ Locally preview production build
 ## Installation
 
 ```console
-yarn add git+https://github.com/Tracktor/treege-consumer.git
+yarn add git+https://github.com/Tracktor/treege-consumer
 ```
 
 Specific version can be installed
 
 ```console
-yarn add git+https://github.com/Tracktor/treege-consumer.git#1.0.0
+yarn add git+https://github.com/Tracktor/treege-consumer#1.0.0
 ```
 
 ## Usage
