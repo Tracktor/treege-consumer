@@ -2043,9 +2043,9 @@ define-properties@^1.1.3, define-properties@^1.1.4:
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
 
-"design-system@git+https://github.com/Tracktor/design-system.git#v1.0.0":
+"design-system@git+https://github.com/Tracktor/design-system#v1.0.0":
   version "1.0.0"
-  resolved "git+https://github.com/Tracktor/design-system.git#499567751546aadb1609292f4037268960360405"
+  resolved "git+https://github.com/Tracktor/design-system#60b82113a80174027731226a31467fc21620e563"
   dependencies:
     "@emotion/react" "^11.10.0"
     "@emotion/styled" "^11.10.0"
