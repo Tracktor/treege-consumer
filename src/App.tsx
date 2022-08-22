@@ -40,6 +40,7 @@ const App = () => {
           <ToggleButton value="standard">Standard</ToggleButton>
         </ToggleButtonGroup>
       </Box>
+
       <TreegeForm tree={tree} variant={variant} onSubmit={handleSubmit} />
 
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
