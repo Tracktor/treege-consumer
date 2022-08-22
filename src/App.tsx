@@ -35,7 +35,7 @@ const App = () => {
   return (
     <Container>
       <Box display="flex" justifyContent="center" padding={5}>
-        <ToggleButtonGroup value={variant} exclusive onChange={handleChange}>
+        <ToggleButtonGroup value={variant} size="small" onChange={handleChange} exclusive>
           <ToggleButton value="stepper">Stepper</ToggleButton>
           <ToggleButton value="standard">Standard</ToggleButton>
         </ToggleButtonGroup>
