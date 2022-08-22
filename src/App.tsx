@@ -11,8 +11,8 @@ import {
   ToggleButtonGroup,
 } from "design-system";
 import { MouseEvent, useState } from "react";
-import tree from "@/data/export.json";
 import TreegeForm, { TreegeFormProps } from "@/features/TreegeForm";
+import tree from "@/mock/basic.json";
 
 const App = () => {
   const [dialogOpen, setDialogOpen] = useState(false);

@@ -7,6 +7,7 @@ import {
   Grow,
   InputLabel,
   MenuItem,
+  OutlinedInput,
   Radio,
   RadioGroup,
   Select,
@@ -46,8 +47,19 @@ const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeField
     return (
       <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
         <FormControl required={required} fullWidth>
-          <InputLabel id={`${name}-label`}>{label}</InputLabel>
-          <Select labelId={`${name}-label`} id={name} label={label} name={name} onChange={onChange} defaultValue="" inputRef={inputRef}>
+          <InputLabel id={`${name}-label`} shrink>
+            {label}
+          </InputLabel>
+          <Select
+            labelId={`${name}-label`}
+            id={name}
+            label={label}
+            name={name}
+            onChange={onChange}
+            defaultValue=""
+            inputRef={inputRef}
+            input={<OutlinedInput notched label={label} />}
+          >
             {children?.map((option) => (
               <MenuItem key={option.name} value={option.name}>
                 {option.attributes.label}
@@ -101,7 +113,17 @@ const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeField
 
   return (
     <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
-      <TextField name={name} label={label} type={type} onChange={onChange} required={required} inputRef={inputRef} />
+      <TextField
+        name={name}
+        label={label}
+        type={type}
+        onChange={onChange}
+        required={required}
+        inputRef={inputRef}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
     </Grow>
   );
 };
