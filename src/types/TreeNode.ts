@@ -1,6 +1,5 @@
 export interface TreeNodeField {
   depth: number;
-  disabled?: boolean;
   isDecisionField?: boolean;
   isLeaf?: boolean;
   isRoot?: boolean;
@@ -14,7 +13,6 @@ export interface TreeNodeField {
 
 export interface TreeNodeValues {
   depth: number;
-  disabled?: never;
   isDecisionField?: never;
   isLeaf?: boolean;
   isRoot?: never;
