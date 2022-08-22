@@ -9,6 +9,12 @@
   "files": [
     "dist"
   ],
+  "repository": "git@github.com:Tracktor/treege-consumer.git",
+  "author": "Mickaël Austoni",
+  "bugs": {
+    "url": "https://github.com/Tracktor/treege-consumer/issues"
+  },
+  "homepage": "https://github.com/Tracktor/treege-consumer#readme",
   "exports": {
     ".": {
       "import": "./dist/main.js",
