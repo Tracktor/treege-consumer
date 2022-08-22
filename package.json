@@ -1,6 +1,5 @@
 {
   "name": "treege-consumer",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
   "types": "dist/main.d.ts",
