@@ -26,7 +26,7 @@ type JsonTreegeFormProps = BaseTreegeFormProps & {
 
 export type TreegeFormProps = FormDataTreegeFormProps | JsonTreegeFormProps;
 
-const TreegeForm = ({ dataFormatOnSubmit, tree, onSubmit, variant = "stepper" }: TreegeFormProps) => {
+const TreegeForm = ({ dataFormatOnSubmit = "formData", tree, onSubmit, variant = "stepper" }: TreegeFormProps) => {
   const { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField } = useTreegeForm({
     dataFormatOnSubmit,
     onSubmit,
