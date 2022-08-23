@@ -3,6 +3,7 @@ import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from
 import { throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import useScript from "@/hooks/useScript";
+import { isString } from "@/types/TypeGuards";
 
 export interface AutocompleteProps {
   label: string;
@@ -23,10 +24,6 @@ interface StructuredFormatting {
 interface PlaceType {
   description: string;
   structured_formatting: StructuredFormatting;
-}
-
-function isString(x: any): x is string {
-  return typeof x === "string";
 }
 
 const Autocomplete = ({ label, name, inputRef, required }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
