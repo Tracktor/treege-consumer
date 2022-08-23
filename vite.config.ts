@@ -18,6 +18,9 @@ export default defineConfig({
       external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
       output: {
         globals: {
+          "design-system": "designSystem",
+          "find-and": "findAnd",
+          "lodash-es": "lodashEs",
           react: "React",
           "react-dom": "ReactDOM",
         },

@@ -49,6 +49,7 @@
               "children": [
                 {
                   "attributes": {
+                    "required": true,
                     "depth": 4,
                     "label": "Matérial",
                     "paths": [

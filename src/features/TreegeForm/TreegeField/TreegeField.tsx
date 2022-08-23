@@ -40,13 +40,13 @@ const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeField
       case "text":
         return <TextField name={name} label={label} type={type} onChange={onChange} required={required} inputRef={inputRef} />;
       case "address":
-        return <Autocomplete label={label} name={name} inputRef={inputRef} />;
+        return <Autocomplete label={label} name={name} inputRef={inputRef} required={required} />;
       case "checkbox":
         return <Checkbox label={label} inputRef={inputRef} name={name} />;
       case "radio":
-        return <Radio data={children} label={label} inputRef={inputRef} name={name} onChange={onChange} />;
+        return <Radio data={children} label={label} inputRef={inputRef} name={name} required={required} onChange={onChange} />;
       case "select":
-        return <Select data={children} label={label} inputRef={inputRef} name={name} onChange={onChange} />;
+        return <Select data={children} label={label} inputRef={inputRef} name={name} required={required} onChange={onChange} />;
       case "switch":
         return <Switch label={label} inputRef={inputRef} name={name} />;
       default:
