@@ -1,22 +1,11 @@
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grow,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectChangeEvent,
-  Skeleton,
-  Switch,
-  TextField,
-} from "design-system";
+import { Grow, SelectChangeEvent, Skeleton } from "design-system";
 import { ChangeEvent, memo, useCallback } from "react";
+import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
+import Checkbox from "@/components/Inputs/Checkbox/Checkbox";
+import Radio from "@/components/Inputs/Radio/Radio";
+import Select from "@/components/Inputs/Select/Select";
+import Switch from "@/components/Inputs/Switch/Switch";
+import TextField from "@/components/Inputs/TextField/TextField";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface TreegeFieldProps {
@@ -32,8 +21,8 @@ const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeField
   const animationTimeout = animated ? 200 : 0;
 
   const inputRef = useCallback(
-    (ref: HTMLInputElement, index?: number) => {
-      if (!ref || !autoFocus || (index && index > 0)) {
+    (ref: HTMLInputElement) => {
+      if (!ref || !autoFocus || ref?.tabIndex > 0) {
         return null;
       }
 
@@ -44,93 +33,32 @@ const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeField
     [animationTimeout, autoFocus]
   );
 
-  if (type === "select") {
-    return (
-      <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
-        <FormControl required={required} fullWidth>
-          <InputLabel id={`${name}-label`} shrink>
-            {label}
-          </InputLabel>
-          <Select
-            labelId={`${name}-label`}
-            id={name}
-            label={label}
-            name={name}
-            onChange={onChange}
-            defaultValue=""
-            inputRef={inputRef}
-            input={<OutlinedInput notched label={label} />}
-          >
-            {children?.map((option) => (
-              <MenuItem key={option.name} value={option.name}>
-                {option.attributes.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grow>
-    );
-  }
+  const field = () => {
+    switch (type) {
+      case "date":
+      case "number":
+      case "text":
+        return <TextField name={name} label={label} type={type} onChange={onChange} required={required} inputRef={inputRef} />;
+      case "address":
+        return <Autocomplete label={label} name={name} inputRef={inputRef} />;
+      case "checkbox":
+        return <Checkbox label={label} inputRef={inputRef} name={name} />;
+      case "radio":
+        return <Radio data={children} label={label} inputRef={inputRef} name={name} onChange={onChange} />;
+      case "select":
+        return <Select data={children} label={label} inputRef={inputRef} name={name} onChange={onChange} />;
+      case "switch":
+        return <Switch label={label} inputRef={inputRef} name={name} />;
+      default:
+        return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
+    }
+  };
 
-  if (type === "radio") {
-    return (
-      <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
-        <FormControl required={required} fullWidth>
-          <FormLabel id={`${name}-label`}>{label}</FormLabel>
-          <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={onChange} defaultValue="">
-            {children?.map((option, index) => (
-              <FormControlLabel
-                key={option.name}
-                value={option.name}
-                label={option.attributes.label}
-                control={<Radio inputRef={(ref) => inputRef(ref, index)} />}
-              />
-            ))}
-          </RadioGroup>
-        </FormControl>
-      </Grow>
-    );
-  }
-
-  if (type === "checkbox") {
-    return (
-      <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
-        <FormGroup>
-          <FormControlLabel label={label} control={<Checkbox name={name} inputRef={inputRef} />} />
-        </FormGroup>
-      </Grow>
-    );
-  }
-
-  if (type === "switch") {
-    return (
-      <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
-        <FormGroup>
-          <FormControlLabel label={label} control={<Switch name={name} inputRef={inputRef} />} />
-        </FormGroup>
-      </Grow>
-    );
-  }
-
-  if (type && ["text", "number", "date"]?.includes(type)) {
-    return (
-      <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
-        <TextField
-          name={name}
-          label={label}
-          type={type}
-          onChange={onChange}
-          required={required}
-          inputRef={inputRef}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-      </Grow>
-    );
-  }
-
-  return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
+  return (
+    <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
+      {field()}
+    </Grow>
+  );
 };
 
 export default memo(TreegeField);
