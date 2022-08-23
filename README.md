@@ -88,12 +88,12 @@ export default App;
 Render a form based
 on [Treege](https://github.com/Tracktor/treege) data
 
-| Props              | Type                       | Default    | Required | Detail                                |
-|--------------------|----------------------------|------------|----------|---------------------------------------|
-| dataFormatOnSubmit | "formData"<br/>  "json"    | "formData" | false    | Data ty returned by onSubmit callback |
-| tree               | TreeNode<br/>  undefined   | undefined  | false    | Treege data                           |
-| variant            | "standard"<br/>  "stepper" | "stepper"  | false    | The variant to use                    |
-| onSubmit           | "formData"<br/>  "json"    | "formData" | false    | Callback fired form is validate       |
+| Props              | Type                       | Default    | Required | Detail                                    |
+|--------------------|----------------------------|------------|----------|-------------------------------------------|
+| dataFormatOnSubmit | "formData"<br/>  "json"    | "formData" | false    | Data format returned by onSubmit callback |
+| tree               | TreeNode<br/>  undefined   | undefined  | false    | Treege data                               |
+| variant            | "standard"<br/>  "stepper" | "stepper"  | false    | The variant to use                        |
+| onSubmit           | "formData"<br/>  "json"    | "formData" | false    | Callback fired form is validate           |
 
 ## Convention
 
