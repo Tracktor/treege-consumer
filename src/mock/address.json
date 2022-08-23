@@ -1,0 +1,14 @@
+{
+  "attributes": {
+    "depth": 1,
+    "label": "Adresse",
+    "paths": [
+      "address"
+    ],
+    "type": "address",
+    "isRoot": true,
+    "isLeaf": true
+  },
+  "children": [],
+  "name": "address"
+}
