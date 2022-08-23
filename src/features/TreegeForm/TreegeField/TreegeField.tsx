@@ -12,6 +12,7 @@ import {
   RadioGroup,
   Select,
   SelectChangeEvent,
+  Skeleton,
   Switch,
   TextField,
 } from "design-system";
@@ -111,21 +112,25 @@ const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeField
     );
   }
 
-  return (
-    <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
-      <TextField
-        name={name}
-        label={label}
-        type={type}
-        onChange={onChange}
-        required={required}
-        inputRef={inputRef}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-    </Grow>
-  );
+  if (type && ["text", "number", "date"]?.includes(type)) {
+    return (
+      <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
+        <TextField
+          name={name}
+          label={label}
+          type={type}
+          onChange={onChange}
+          required={required}
+          inputRef={inputRef}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      </Grow>
+    );
+  }
+
+  return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
 };
 
 export default memo(TreegeField);
