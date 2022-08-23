@@ -8,8 +8,7 @@
   - [yarn preview](#yarn-preview)
 - [Installation](#Installation)  
 - [Usage](#Usage)
-  - [Provide tree data](#Provide-tree-data) 
-- [Changelog](#Changelog)  
+  - [Provide tree data](#Provide-tree-data)
 
 ## Features
 
@@ -79,7 +78,3 @@ export default App;
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 - [Versioning](https://semver.org)
 - [Conventional Commits](https://www.conventionalcommits.org)
-
-## Changelog
-
-### 1.0.0
