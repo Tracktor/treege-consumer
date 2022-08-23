@@ -1,14 +1,46 @@
 {
   "attributes": {
+    "required": false,
     "depth": 1,
     "label": "Adresse",
     "paths": [
-      "address"
+      "addrese"
     ],
     "type": "address",
-    "isRoot": true,
-    "isLeaf": true
+    "isRoot": true
   },
-  "children": [],
-  "name": "address"
+  "children": [
+    {
+      "attributes": {
+        "depth": 1,
+        "label": "Prénom",
+        "paths": [
+          "addrese",
+          "prenom"
+        ],
+        "type": "text",
+        "required": true
+      },
+      "children": [
+        {
+          "attributes": {
+            "required": true,
+            "depth": 2,
+            "label": "Test",
+            "paths": [
+              "addrese",
+              "prenom",
+              "test"
+            ],
+            "type": "number",
+            "isLeaf": true
+          },
+          "children": [],
+          "name": "test"
+        }
+      ],
+      "name": "prenom"
+    }
+  ],
+  "name": "addrese"
 }

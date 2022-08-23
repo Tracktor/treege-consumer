@@ -49,14 +49,7 @@ const TreegeForm = ({ dataFormatOnSubmit = "formData", tree, onSubmit, variant =
           {fields ? (
             fields.map((field, index) => {
               const active = index === activeFieldIndex;
-
-              return (
-                <Slide key={field.name} in={active} mountOnEnter>
-                  <Box flexDirection="column" sx={{ display: active ? "flex" : "none" }}>
-                    <TreegeField key={field.name} data={field} onChange={handleChange} autoFocus={active} />
-                  </Box>
-                </Slide>
-              );
+              return <TreegeField key={field.name} data={field} onChange={handleChange} autoFocus={active} visible={active} />;
             })
           ) : (
             <FormSkeleton />

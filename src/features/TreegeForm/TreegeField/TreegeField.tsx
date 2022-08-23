@@ -1,4 +1,4 @@
-import { Grow, SelectChangeEvent, Skeleton } from "design-system";
+import { Box, SelectChangeEvent, Skeleton, Slide } from "design-system";
 import { ChangeEvent, memo, useCallback } from "react";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
 import Checkbox from "@/components/Inputs/Checkbox/Checkbox";
@@ -12,13 +12,15 @@ export interface TreegeFieldProps {
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;
+  visible?: boolean;
   onChange?(event: SelectChangeEvent | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void;
 }
 
-const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeFieldProps) => {
+const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChange }: TreegeFieldProps) => {
   const { name, children, attributes } = data;
   const { type, label, required } = attributes;
   const animationTimeout = animated ? 200 : 0;
+  const isRequired = visible && required;
 
   const inputRef = useCallback(
     (ref: HTMLInputElement) => {
@@ -38,15 +40,15 @@ const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeField
       case "date":
       case "number":
       case "text":
-        return <TextField name={name} label={label} type={type} onChange={onChange} required={required} inputRef={inputRef} />;
+        return <TextField name={name} label={label} type={type} onChange={onChange} required={isRequired} inputRef={inputRef} />;
       case "address":
-        return <Autocomplete label={label} name={name} inputRef={inputRef} required={required} />;
+        return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} />;
       case "checkbox":
         return <Checkbox label={label} inputRef={inputRef} name={name} />;
       case "radio":
-        return <Radio data={children} label={label} inputRef={inputRef} name={name} required={required} onChange={onChange} />;
+        return <Radio data={children} label={label} inputRef={inputRef} name={name} required={isRequired} onChange={onChange} />;
       case "select":
-        return <Select data={children} label={label} inputRef={inputRef} name={name} required={required} onChange={onChange} />;
+        return <Select data={children} label={label} inputRef={inputRef} name={name} required={isRequired} onChange={onChange} />;
       case "switch":
         return <Switch label={label} inputRef={inputRef} name={name} />;
       default:
@@ -55,9 +57,11 @@ const TreegeField = ({ animated = true, autoFocus, data, onChange }: TreegeField
   };
 
   return (
-    <Grow timeout={animationTimeout} in unmountOnExit mountOnEnter>
-      {field()}
-    </Grow>
+    <Slide timeout={animationTimeout} in={visible} mountOnEnter>
+      <Box flexDirection="column" sx={{ display: visible ? "flex" : "none" }}>
+        {field()}
+      </Box>
+    </Slide>
   );
 };
 
