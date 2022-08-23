@@ -1,6 +1,6 @@
 import type { SelectChangeEvent } from "design-system";
 import { returnFound } from "find-and";
-import { ChangeEvent, FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useState } from "react";
 import type { TreegeFormProps } from "@/features/TreegeForm/TreegeForm";
 import type { TreeNode } from "@/types/TreeNode";
 
@@ -15,7 +15,6 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>();
   const [isLastField, setIsLastField] = useState<boolean>(false);
-  const isInit = useRef<boolean>(false);
 
   const resetNextFieldsFromTreeName = useCallback((name: string): void => {
     setIsLastField(true);
@@ -135,11 +134,8 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
 
   // Set initial field
   useEffect(() => {
-    if (isInit.current || !tree) {
-      return;
-    }
+    if (!tree) return;
 
-    isInit.current = true;
     const initialForm = getNextFieldsFromTreePoint(tree);
 
     setFields(initialForm);
