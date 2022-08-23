@@ -136,9 +136,14 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   useEffect(() => {
     if (!tree) return;
 
-    const initialForm = getNextFieldsFromTreePoint(tree);
+    const initialFields = getNextFieldsFromTreePoint(tree);
 
-    setFields(initialForm);
+    setFields(initialFields);
+
+    // If last field in initial fields has no children
+    if (initialFields && initialFields[initialFields.length - 1].children.length === 0) {
+      setIsLastField(true);
+    }
   }, [getNextFieldsFromTreePoint, tree]);
 
   return { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField };
