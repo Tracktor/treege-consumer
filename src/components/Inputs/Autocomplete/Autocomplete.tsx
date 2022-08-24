@@ -12,30 +12,19 @@ export interface AutocompleteProps {
   required?: boolean;
 }
 
-interface MainTextMatchedSubstrings {
-  offset: number;
-  length: number;
-}
-interface StructuredFormatting {
-  main_text: string;
-  secondary_text: string;
-  main_text_matched_substrings: readonly MainTextMatchedSubstrings[];
-}
-interface PlaceType {
-  description: string;
-  structured_formatting: StructuredFormatting;
-}
+type AutocompleteService = google.maps.places.AutocompleteService;
+type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
 const Autocomplete = ({ label, name, inputRef, required }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
   const API_KEY = "AIzaSyCEE2sZpLEpujo22Liix8ZizOYiqYQkWTc";
   const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`);
   const placesIsLoad = places === "ready";
-  const autocompleteService = useRef<google.maps.places.AutocompleteService>();
-  const [value, setValue] = useState<PlaceType | null>(null);
+  const autocompleteService = useRef<AutocompleteService>();
+  const [value, setValue] = useState<AutocompletePrediction | null>(null);
   const [inputValue, setInputValue] = useState("");
-  const [options, setOptions] = useState<readonly PlaceType[]>([]);
+  const [options, setOptions] = useState<readonly AutocompletePrediction[]>([]);
 
-  const handleChange = (_: SyntheticEvent<Element, Event>, newValue: PlaceType | string | null) => {
+  const handleChange = (_: SyntheticEvent<Element, Event>, newValue: AutocompletePrediction | string | null) => {
     if (isString(newValue)) return;
 
     setOptions(newValue ? [newValue, ...options] : options);
@@ -44,8 +33,8 @@ const Autocomplete = ({ label, name, inputRef, required }: AutocompleteProps, re
 
   const fetch = useMemo(
     () =>
-      throttle((request: { input: string }, callback: (results?: readonly PlaceType[]) => void) => {
-        (autocompleteService.current as any).getPlacePredictions(request, callback);
+      throttle((request: { input: string }, callback: (results: AutocompletePrediction[] | null) => void) => {
+        autocompleteService?.current?.getPlacePredictions(request, callback);
       }, 200),
     []
   );
@@ -66,9 +55,9 @@ const Autocomplete = ({ label, name, inputRef, required }: AutocompleteProps, re
       return undefined;
     }
 
-    fetch({ input: inputValue }, (results?: readonly PlaceType[]) => {
+    fetch({ input: inputValue }, (results?: AutocompletePrediction[] | null) => {
       if (active) {
-        let newOptions: readonly PlaceType[] = [];
+        let newOptions: readonly AutocompletePrediction[] = [];
 
         if (value) {
           newOptions = [value];

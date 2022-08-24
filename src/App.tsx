@@ -13,7 +13,7 @@ import {
 } from "design-system";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import TreegeForm, { TreegeFormProps } from "@/features/TreegeForm";
-import mockTree from "@/mock/basic.json";
+import mockTree from "@/mock/address.json";
 import type { TreeNode } from "@/types/TreeNode";
 
 const App = () => {
