@@ -19,8 +19,7 @@ type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
 const Autocomplete = ({ label, name, inputRef, required, country }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
   const { googleApiKey, countryAutocompleteService } = useContext(TreegeContext);
-  const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places`);
-  const placesIsLoad = places === "ready";
+  const places = useScript(googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places` : "");
   const autocompleteService = useRef<AutocompleteService>();
   const [value, setValue] = useState<AutocompletePrediction | null>(null);
   const [inputValue, setInputValue] = useState("");
@@ -42,6 +41,10 @@ const Autocomplete = ({ label, name, inputRef, required, country }: Autocomplete
   );
 
   useEffect(() => {
+    if (!googleApiKey) {
+      return undefined;
+    }
+
     let active = true;
 
     if (places === "loading") {
@@ -83,20 +86,19 @@ const Autocomplete = ({ label, name, inputRef, required, country }: Autocomplete
     return () => {
       active = false;
     };
-  }, [places, value, inputValue, fetch, country, countryAutocompleteService]);
+  }, [places, value, inputValue, fetch, country, countryAutocompleteService, googleApiKey]);
 
   return (
     <AutocompleteDS
+      autoComplete
+      includeInputInList
+      filterSelectedOptions
+      freeSolo
       ref={ref}
       getOptionLabel={(option) => (isString(option) ? option : option.description)}
       filterOptions={(filterOptions) => filterOptions}
       options={options}
-      autoComplete
-      includeInputInList
-      filterSelectedOptions
       value={value}
-      freeSolo={placesIsLoad}
-      noOptionsText="xx"
       onChange={handleChange}
       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
       renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
