@@ -133,14 +133,16 @@ const Autocomplete = ({ label, name, inputRef, required, country }: Autocomplete
               </Grid>
               <Grid item xs>
                 {parts.map((part) => (
-                  <span
+                  <Typography
+                    variant="body1"
+                    component="span"
                     key={part.text}
-                    style={{
+                    sx={{
                       fontWeight: part.highlight ? 700 : 400,
                     }}
                   >
                     {part.text}
-                  </span>
+                  </Typography>
                 ))}
                 <Typography variant="body2" color="text.secondary">
                   {option.structured_formatting.secondary_text}
