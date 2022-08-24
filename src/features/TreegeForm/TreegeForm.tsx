@@ -66,7 +66,7 @@ const TreegeForm = ({ dataFormatOnSubmit = "formData", tree, onSubmit, variant =
 
         {fields && (
           <Stack alignItems="flex-end" spacing={2}>
-            <Slide direction="up" in mountOnEnter>
+            <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
               <ButtonGroup variant="outlined" aria-label="outlined button group">
                 <Button disabled={activeFieldIndex === 0} onClick={handlePrev}>
                   <NavigateBeforeRounded />
