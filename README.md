@@ -12,6 +12,8 @@
     - [Provide tree data](#Provide-tree-data)
 - [Components](#Components)
     - [TreegeForm](#TreegeForm)
+- [Providers](#Providers)
+  - [TreegeProvider](#TreegeProvider)
 
 ## Features
 
@@ -84,7 +86,6 @@ export default App;
 ## Components
 
 ### TreegeForm
-
 Render a form based
 on [Treege](https://github.com/Tracktor/treege) data
 
@@ -94,6 +95,17 @@ on [Treege](https://github.com/Tracktor/treege) data
 | tree               | TreeNode<br/>  undefined   | undefined  | false    | Treege data                               |
 | variant            | "standard"<br/>  "stepper" | "stepper"  | false    | The variant to use                        |
 | onSubmit           | "formData"<br/>  "json"    | "formData" | false    | Callback fired form is validate           |
+
+## Providers
+
+### TreegeProvider
+Provide options
+
+| Options                    | Type   | Default | Required | Detail                                                                                                                                                                        |
+|----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| countryAutocompleteService | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
+| googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
+
 
 ## Convention
 
