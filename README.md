@@ -10,10 +10,11 @@
 - [Installation](#Installation)
 - [Usage](#Usage)
     - [Provide tree data](#Provide-tree-data)
+    - [Provide options](#Provide-options)
 - [Components](#Components)
     - [TreegeForm](#TreegeForm)
 - [Providers](#Providers)
-  - [TreegeProvider](#TreegeProvider)
+    - [TreegeProvider](#TreegeProvider)
 
 ## Features
 
@@ -83,9 +84,33 @@ const App = () => {
 export default App;
 ```
 
+### Provide options
+
+Some options can be provided. For example if you want to use place predictions from `address` field.
+
+```typescript jsx
+import tree from "./tree.json";
+import { TreegeForm, TreegeProvider } from "treege-consumer ";
+
+const App = () => {
+  const handleSubmit = (data: [string, FormDataEntryValue][]) => {
+    console.log(data);
+  };
+
+  return (
+    <TreegeProvider options={{googleApiKey: "YOUR_GOOGLE_API_KEY"}}>
+      <TreegeForm tree={tree} variant={variant} onSubmit={handleSubmit}/>
+    </TreegeProvider>
+  );
+};
+
+export default App;
+```
+
 ## Components
 
 ### TreegeForm
+
 Render a form based
 on [Treege](https://github.com/Tracktor/treege) data
 
@@ -99,13 +124,13 @@ on [Treege](https://github.com/Tracktor/treege) data
 ## Providers
 
 ### TreegeProvider
+
 Provide options
 
 | Options                    | Type   | Default | Required | Detail                                                                                                                                                                        |
 |----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | countryAutocompleteService | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
 | googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
-
 
 ## Convention
 
