@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Slide, Stack, Typography } from "design-system";
+import { Box, Button, ButtonGroup, Grow, Slide, Stack, Typography } from "design-system";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
@@ -57,25 +57,37 @@ const TreegeForm = ({ dataFormatOnSubmit = "formData", tree, onSubmit, variant =
         </Stack>
 
         {isLastField && (
-          <Box textAlign="right">
-            <Typography variant="h5" my={2}>
-              <div>Le formulaire est maintenant terminé,</div> <div>voulez-vous le valider ?</div>
-            </Typography>
-          </Box>
+          <Grow in mountOnEnter>
+            <Box textAlign="right">
+              <Typography variant="h5" my={2}>
+                <div>Le formulaire est maintenant terminé,</div> <div>voulez-vous le valider ?</div>
+              </Typography>
+            </Box>
+          </Grow>
         )}
 
         {fields && (
           <Stack alignItems="flex-end" spacing={2}>
-            <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
-              <ButtonGroup variant="outlined" aria-label="outlined button group">
-                <Button disabled={activeFieldIndex === 0} onClick={handlePrev}>
-                  <NavigateBeforeRounded />
-                </Button>
-                <Button type="submit" disabled={isLastField}>
-                  <NavigateNextRounded />
-                </Button>
-              </ButtonGroup>
-            </Slide>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              {!isLastField && (
+                <Slide direction="left" in mountOnEnter>
+                  <Typography variant="caption" textAlign="right">
+                    Pour valider, appuyer sur <strong>ENTRÉE ↵</strong>
+                  </Typography>
+                </Slide>
+              )}
+              <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
+                <ButtonGroup variant="outlined" aria-label="outlined button group">
+                  <Button disabled={activeFieldIndex === 0} onClick={handlePrev}>
+                    <NavigateBeforeRounded />
+                  </Button>
+                  <Button type="submit" disabled={isLastField}>
+                    <NavigateNextRounded />
+                  </Button>
+                </ButtonGroup>
+              </Slide>
+            </Stack>
+
             {isLastField && <FormValidation />}
           </Stack>
         )}
