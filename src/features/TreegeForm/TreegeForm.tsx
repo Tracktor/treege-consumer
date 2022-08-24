@@ -44,6 +44,7 @@ const TreegeForm = ({ dataFormatOnSubmit = "formData", tree, onSubmit, variant =
         justifyContent="center"
         display="flex"
         flexDirection="column"
+        overflow="hidden"
       >
         <Stack paddingY={2} spacing={fields ? 0 : 3} direction="column">
           {fields ? (
@@ -69,13 +70,11 @@ const TreegeForm = ({ dataFormatOnSubmit = "formData", tree, onSubmit, variant =
         {fields && (
           <Stack alignItems="flex-end" spacing={2}>
             <Stack direction="row" alignItems="center" spacing={2}>
-              {!isLastField && (
-                <Slide direction="left" in mountOnEnter>
-                  <Typography variant="caption" textAlign="right">
-                    Pour valider, appuyer sur <strong>ENTRÉE ↵</strong>
-                  </Typography>
-                </Slide>
-              )}
+              <Slide direction="right" in={!isLastField} mountOnEnter>
+                <Typography variant="caption" textAlign="right">
+                  Pour valider, appuyer sur <strong>ENTRÉE ↵</strong>
+                </Typography>
+              </Slide>
               <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
                 <ButtonGroup variant="outlined" aria-label="outlined button group">
                   <Button disabled={activeFieldIndex === 0} onClick={handlePrev}>
