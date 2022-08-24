@@ -12,8 +12,9 @@ import {
   ToggleButtonGroup,
 } from "design-system";
 import { ChangeEvent, MouseEvent, useState } from "react";
+import TreegeProvider from "@/context/TreegeProvider";
 import TreegeForm, { TreegeFormProps } from "@/features/TreegeForm";
-import mockTree from "@/mock/address.json";
+import mockTree from "@/mock/basic.json";
 import type { TreeNode } from "@/types/TreeNode";
 
 const App = () => {
@@ -41,34 +42,36 @@ const App = () => {
   };
 
   return (
-    <Grid container>
-      <Grid item md={6}>
-        <TextareaAutosize
-          minRows={40}
-          value={JSON.stringify(tree, null, 2)}
-          style={{ height: "100%", whiteSpace: "nowrap", width: "100%" }}
-          onChange={handleChangeTree}
-        />
+    <TreegeProvider options={{ googleApiKey: "AIzaSyCEE2sZpLEpujo22Liix8ZizOYiqYQkWTc" }}>
+      <Grid container>
+        <Grid item md={6}>
+          <TextareaAutosize
+            minRows={40}
+            value={JSON.stringify(tree, null, 2)}
+            style={{ height: "100%", whiteSpace: "nowrap", width: "100%" }}
+            onChange={handleChangeTree}
+          />
+        </Grid>
+        <Grid item md={6}>
+          <Box display="flex" justifyContent="center" padding={5}>
+            <ToggleButtonGroup value={variant} size="small" onChange={handleChangeVariant} exclusive>
+              <ToggleButton value="stepper">Stepper</ToggleButton>
+              <ToggleButton value="standard">Standard</ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+          <TreegeForm tree={tree} variant={variant} onSubmit={handleSubmit} />
+          <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+            <DialogTitle id="alert-dialog-title">Result:</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">{JSON.stringify(formData, null, 2)}</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog}>Close</Button>
+            </DialogActions>
+          </Dialog>
+        </Grid>
       </Grid>
-      <Grid item md={6}>
-        <Box display="flex" justifyContent="center" padding={5}>
-          <ToggleButtonGroup value={variant} size="small" onChange={handleChangeVariant} exclusive>
-            <ToggleButton value="stepper">Stepper</ToggleButton>
-            <ToggleButton value="standard">Standard</ToggleButton>
-          </ToggleButtonGroup>
-        </Box>
-        <TreegeForm tree={tree} variant={variant} onSubmit={handleSubmit} />
-        <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-          <DialogTitle id="alert-dialog-title">Result:</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">{JSON.stringify(formData, null, 2)}</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>Close</Button>
-          </DialogActions>
-        </Dialog>
-      </Grid>
-    </Grid>
+    </TreegeProvider>
   );
 };
 export default App;

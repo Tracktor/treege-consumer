@@ -1,7 +1,8 @@
 import parse from "autosuggest-highlight/parse";
 import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from "design-system";
 import { throttle } from "lodash-es";
-import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, Ref, SyntheticEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
+import TreegeContext from "@/context/TreegeContext";
 import useScript from "@/hooks/useScript";
 import { isString } from "@/types/TypeGuards";
 
@@ -16,9 +17,9 @@ export interface AutocompleteProps {
 type AutocompleteService = google.maps.places.AutocompleteService;
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
-const Autocomplete = ({ label, name, inputRef, required, country = "fr" }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
-  const API_KEY = "AIzaSyCEE2sZpLEpujo22Liix8ZizOYiqYQkWTc";
-  const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`);
+const Autocomplete = ({ label, name, inputRef, required, country }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+  const { googleApiKey, countryAutocompleteService } = useContext(TreegeContext);
+  const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places`);
   const placesIsLoad = places === "ready";
   const autocompleteService = useRef<AutocompleteService>();
   const [value, setValue] = useState<AutocompletePrediction | null>(null);
@@ -56,7 +57,12 @@ const Autocomplete = ({ label, name, inputRef, required, country = "fr" }: Autoc
       return undefined;
     }
 
-    const request = { componentRestrictions: { country }, input: inputValue };
+    const request = {
+      componentRestrictions: {
+        country: country ?? countryAutocompleteService,
+      },
+      input: inputValue,
+    };
 
     fetch(request, (results?: AutocompletePrediction[] | null) => {
       if (active) {
@@ -77,7 +83,7 @@ const Autocomplete = ({ label, name, inputRef, required, country = "fr" }: Autoc
     return () => {
       active = false;
     };
-  }, [places, value, inputValue, fetch, country]);
+  }, [places, value, inputValue, fetch, country, countryAutocompleteService]);
 
   return (
     <AutocompleteDS
