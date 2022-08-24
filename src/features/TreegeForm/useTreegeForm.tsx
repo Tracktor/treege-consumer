@@ -140,11 +140,11 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
 
     setFields(initialFields);
 
-    // If last field in initial fields has no children
-    if (initialFields && initialFields[initialFields.length - 1].children.length === 0) {
+    // If last initial fields in standard variant has no children
+    if (variant === "standard" && initialFields && initialFields[initialFields.length - 1].children.length === 0) {
       setIsLastField(true);
     }
-  }, [getNextFieldsFromTreePoint, tree]);
+  }, [getNextFieldsFromTreePoint, tree, variant]);
 
   return { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField };
 };
