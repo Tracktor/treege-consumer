@@ -45,7 +45,7 @@ const TreegeForm = ({ dataFormatOnSubmit = "formData", tree, onSubmit, variant =
         display="flex"
         flexDirection="column"
       >
-        <Stack paddingY={5} spacing={fields ? 0 : 3} direction="column">
+        <Stack paddingY={2} spacing={fields ? 0 : 3} direction="column">
           {fields ? (
             fields.map((field, index) => {
               const active = index === activeFieldIndex;
