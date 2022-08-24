@@ -1,0 +1,196 @@
+{
+  "attributes": {
+    "depth": 0,
+    "label": "Nom",
+    "type": "text",
+    "isRoot": true,
+    "required": true
+  },
+  "children": [
+    {
+      "attributes": {
+        "depth": 1,
+        "label": "Prénom",
+        "type": "text",
+        "required": true
+      },
+      "children": [
+        {
+          "attributes": {
+            "depth": 2,
+            "label": "Age",
+            "type": "number"
+          },
+          "children": [
+            {
+              "attributes": {
+                "depth": 3,
+                "label": "Avez-vous un véhicule ?",
+                "type": "switch"
+              },
+              "children": [
+                {
+                  "attributes": {
+                    "depth": 4,
+                    "label": "Voulez-vous recevoir des offres promotionnelles",
+                    "type": "checkbox"
+                  },
+                  "children": [
+                    {
+                      "attributes": {
+                        "depth": 5,
+                        "label": "Quel jour sommes-nous ?",
+                        "type": "date"
+                      },
+                      "children": [
+                        {
+                          "attributes": {
+                            "depth": 6,
+                            "label": "Choix radio",
+                            "type": "radio",
+                            "isDecisionField": true
+                          },
+                          "children": [
+                            {
+                              "attributes": {
+                                "depth": 7,
+                                "label": "Choix 1",
+                                "value": "choice_1"
+                              },
+                              "children": [
+                                {
+                                  "attributes": {
+                                    "depth": 8,
+                                    "label": "Un champ de texte",
+                                    "type": "text"
+                                  },
+                                  "children": [
+                                    {
+                                      "attributes": {
+                                        "depth": 9,
+                                        "label": "Machine",
+                                        "type": "select",
+                                        "isDecisionField": true
+                                      },
+                                      "children": [
+                                        {
+                                          "attributes": {
+                                            "depth": 10,
+                                            "label": "5 Tonnes",
+                                            "value": "5T"
+                                          },
+                                          "children": [
+                                            {
+                                              "attributes": {
+                                                "depth": 11,
+                                                "label": "Voulez-vous être livré ?",
+                                                "type": "select",
+                                                "isDecisionField": true
+                                              },
+                                              "children": [
+                                                {
+                                                  "attributes": {
+                                                    "depth": 12,
+                                                    "label": "Oui",
+                                                    "value": "oui"
+                                                  },
+                                                  "children": [
+                                                    {
+                                                      "attributes": {
+                                                        "depth": 13,
+                                                        "label": "Adresse de livraison",
+                                                        "type": "address",
+                                                        "isLeaf": true
+                                                      },
+                                                      "children": [],
+                                                      "name": "delivery_address"
+                                                    }
+                                                  ],
+                                                  "name": "want_delivered:oui"
+                                                },
+                                                {
+                                                  "attributes": {
+                                                    "depth": 12,
+                                                    "label": "Non",
+                                                    "value": "non",
+                                                    "isLeaf": true
+                                                  },
+                                                  "children": [],
+                                                  "name": "want_delivered:non"
+                                                }
+                                              ],
+                                              "name": "want_delivered"
+                                            }
+                                          ],
+                                          "name": "machine:5T"
+                                        },
+                                        {
+                                          "attributes": {
+                                            "depth": 10,
+                                            "label": "8 Tonnes",
+                                            "value": "8T",
+                                            "isLeaf": true
+                                          },
+                                          "children": [],
+                                          "name": "machine:8T"
+                                        },
+                                        {
+                                          "attributes": {
+                                            "depth": 10,
+                                            "label": "16 Tonnes",
+                                            "value": "16T",
+                                            "isLeaf": true
+                                          },
+                                          "children": [],
+                                          "name": "machine:16T"
+                                        }
+                                      ],
+                                      "name": "machine"
+                                    }
+                                  ],
+                                  "name": "some_text_field"
+                                }
+                              ],
+                              "name": "radio_choice:choice_1"
+                            },
+                            {
+                              "attributes": {
+                                "depth": 7,
+                                "label": "Choix 2",
+                                "value": "choice_2",
+                                "isLeaf": true
+                              },
+                              "children": [],
+                              "name": "radio_choice:choice_2"
+                            },
+                            {
+                              "attributes": {
+                                "depth": 7,
+                                "label": "Choix 3",
+                                "value": "choice_3",
+                                "isLeaf": true
+                              },
+                              "children": [],
+                              "name": "radio_choice:choice_3"
+                            }
+                          ],
+                          "name": "radio_choice"
+                        }
+                      ],
+                      "name": "what_day"
+                    }
+                  ],
+                  "name": "offer"
+                }
+              ],
+              "name": "has_car"
+            }
+          ],
+          "name": "age"
+        }
+      ],
+      "name": "prenom"
+    }
+  ],
+  "name": "nom"
+}
