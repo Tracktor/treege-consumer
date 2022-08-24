@@ -10,12 +10,13 @@ export interface AutocompleteProps {
   name: string;
   inputRef: Ref<any>;
   required?: boolean;
+  country?: string;
 }
 
 type AutocompleteService = google.maps.places.AutocompleteService;
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
-const Autocomplete = ({ label, name, inputRef, required }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+const Autocomplete = ({ label, name, inputRef, required, country = "fr" }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
   const API_KEY = "AIzaSyCEE2sZpLEpujo22Liix8ZizOYiqYQkWTc";
   const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`);
   const placesIsLoad = places === "ready";
@@ -55,7 +56,9 @@ const Autocomplete = ({ label, name, inputRef, required }: AutocompleteProps, re
       return undefined;
     }
 
-    fetch({ input: inputValue }, (results?: AutocompletePrediction[] | null) => {
+    const request = { componentRestrictions: { country }, input: inputValue };
+
+    fetch(request, (results?: AutocompletePrediction[] | null) => {
       if (active) {
         let newOptions: readonly AutocompletePrediction[] = [];
 
@@ -74,7 +77,7 @@ const Autocomplete = ({ label, name, inputRef, required }: AutocompleteProps, re
     return () => {
       active = false;
     };
-  }, [places, value, inputValue, fetch]);
+  }, [places, value, inputValue, fetch, country]);
 
   return (
     <AutocompleteDS
