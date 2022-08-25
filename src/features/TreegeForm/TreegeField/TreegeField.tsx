@@ -38,6 +38,7 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
   const field = () => {
     switch (type) {
       case "date":
+      case "email":
       case "number":
       case "text":
         return <TextField name={name} label={label} type={type} onChange={onChange} required={isRequired} inputRef={inputRef} />;
