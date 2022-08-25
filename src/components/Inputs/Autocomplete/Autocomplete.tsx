@@ -4,7 +4,7 @@ import { throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
 import TreegeContext from "@/context/TreegeContext";
 import useScript from "@/hooks/useScript";
-import { isString } from "@/types/TypeGuards";
+import { IsString } from "@/types/TypeGuards";
 
 export interface AutocompleteProps {
   label: string;
@@ -26,7 +26,7 @@ const Autocomplete = ({ label, name, inputRef, required, country }: Autocomplete
   const [options, setOptions] = useState<readonly AutocompletePrediction[]>([]);
 
   const handleChange = (_: SyntheticEvent<Element, Event>, newValue: AutocompletePrediction | string | null) => {
-    if (isString(newValue)) return;
+    if (IsString(newValue)) return;
 
     setOptions(newValue ? [newValue, ...options] : options);
     setValue(newValue);
@@ -95,7 +95,7 @@ const Autocomplete = ({ label, name, inputRef, required, country }: Autocomplete
       filterSelectedOptions
       freeSolo
       ref={ref}
-      getOptionLabel={(option) => (isString(option) ? option : option.description)}
+      getOptionLabel={(option) => (IsString(option) ? option : option.description)}
       filterOptions={(filterOptions) => filterOptions}
       options={options}
       value={value}
@@ -109,7 +109,7 @@ const Autocomplete = ({ label, name, inputRef, required, country }: Autocomplete
           disabled={disabled}
           label={label}
           inputRef={inputRef}
-          inputProps={inputProps}
+          inputProps={inputProps} // eslint-disable-next-line react/jsx-no-duplicate-props
           InputProps={InputProps}
           InputLabelProps={{
             ...InputLabelProps,

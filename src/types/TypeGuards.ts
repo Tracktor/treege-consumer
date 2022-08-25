@@ -1,5 +1,7 @@
-export function isString(x: any): x is string {
-  return typeof x === "string";
-}
+export const IsString = (x: any): x is string => typeof x === "string";
 
-export default { isString };
+const TypeGuards = {
+  IsString,
+};
+
+export default TypeGuards;
