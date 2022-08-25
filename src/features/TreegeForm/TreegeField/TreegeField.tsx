@@ -44,6 +44,7 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
       case "tel":
       case "time":
       case "text":
+      case "url":
         return <TextField name={name} label={label} type={type} onChange={onChange} required={isRequired} inputRef={inputRef} />;
       case "address":
         return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} />;
