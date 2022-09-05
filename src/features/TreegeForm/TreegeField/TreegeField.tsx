@@ -17,7 +17,7 @@ export interface TreegeFieldProps {
 }
 
 const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChange }: TreegeFieldProps) => {
-  const { name, children, attributes } = data;
+  const { name, attributes } = data;
   const { type, label, required } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
@@ -51,9 +51,9 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
       case "checkbox":
         return <Checkbox label={label} inputRef={inputRef} name={name} />;
       case "radio":
-        return <Radio data={children} label={label} inputRef={inputRef} name={name} required={isRequired} onChange={onChange} />;
+        return <Radio data={data} inputRef={inputRef} onChange={onChange} />;
       case "select":
-        return <Select data={children} label={label} inputRef={inputRef} name={name} required={isRequired} onChange={onChange} />;
+        return <Select data={data} inputRef={inputRef} onChange={onChange} />;
       case "switch":
         return <Switch label={label} inputRef={inputRef} name={name} />;
       default:
