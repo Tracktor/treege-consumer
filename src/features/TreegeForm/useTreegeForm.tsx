@@ -70,7 +70,7 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
 
     const children = returnFound(currentTree, { name: currentTree.children[0]?.name });
 
-    if (currentTree.attributes?.isDecisionField || !children) {
+    if (currentTree.attributes?.isDecision || !children) {
       return accumulator?.length ? accumulator : [currentTree];
     }
 
