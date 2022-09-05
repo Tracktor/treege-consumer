@@ -1,8 +1,8 @@
 {
   "attributes": {
     "depth": 0,
-    "label": "Nom",
-    "type": "text",
+    "label": "Ville ou adresse du site",
+    "type": "address",
     "isRoot": true,
     "required": true
   },
@@ -10,187 +10,157 @@
     {
       "attributes": {
         "depth": 1,
-        "label": "Prénom",
-        "type": "text",
+        "label": "À quelle phase de votre projet êtes-vous ?",
+        "type": "select",
+        "values": [
+          {
+            "id": "0",
+            "label": "J'ai un besoin pour un projet en cours ou à venir",
+            "value": "in_progress"
+          },
+          {
+            "id": "1",
+            "label": "Je veux juste obtenir un prix",
+            "value": "price_only"
+          }
+        ],
         "required": true
       },
       "children": [
         {
           "attributes": {
             "depth": 2,
-            "label": "Age",
-            "type": "number"
+            "label": "Ma date de début est flexible (+/- 1 jour)",
+            "type": "checkbox"
           },
           "children": [
             {
               "attributes": {
                 "depth": 3,
-                "label": "Avez-vous un véhicule ?",
-                "type": "switch"
+                "label": "Quantité",
+                "type": "number"
               },
               "children": [
                 {
                   "attributes": {
                     "depth": 4,
-                    "label": "Voulez-vous recevoir des offres promotionnelles",
-                    "type": "checkbox"
+                    "label": "Avec Livraison & Reprise",
+                    "type": "switch"
                   },
                   "children": [
                     {
                       "attributes": {
                         "depth": 5,
-                        "label": "Quel jour sommes-nous ?",
-                        "type": "date"
+                        "label": "Location avec opérateur",
+                        "type": "radio",
+                        "isDecision": true
                       },
                       "children": [
                         {
                           "attributes": {
                             "depth": 6,
-                            "label": "Choix radio",
-                            "type": "radio",
-                            "isDecisionField": true
+                            "label": "Oui",
+                            "value": "oui"
                           },
                           "children": [
                             {
                               "attributes": {
                                 "depth": 7,
-                                "label": "Choix 1",
-                                "value": "choice_1"
+                                "label": " 3 godets",
+                                "type": "switch"
                               },
                               "children": [
                                 {
                                   "attributes": {
                                     "depth": 8,
-                                    "label": "Un champ de texte",
-                                    "type": "text"
+                                    "label": "BRH",
+                                    "type": "switch"
                                   },
                                   "children": [
                                     {
                                       "attributes": {
                                         "depth": 9,
-                                        "label": "Machine",
-                                        "type": "select",
-                                        "isDecisionField": true
+                                        "label": "Benne Preneuse",
+                                        "type": "switch"
                                       },
                                       "children": [
                                         {
                                           "attributes": {
                                             "depth": 10,
-                                            "label": "5 Tonnes",
-                                            "value": "5T"
+                                            "label": "Godet curage orientable",
+                                            "type": "switch"
                                           },
                                           "children": [
                                             {
                                               "attributes": {
                                                 "depth": 11,
-                                                "label": "Voulez-vous être livré ?",
-                                                "type": "select",
-                                                "isDecisionField": true
+                                                "label": "Godet orientable",
+                                                "type": "switch"
                                               },
                                               "children": [
                                                 {
                                                   "attributes": {
                                                     "depth": 12,
-                                                    "label": "Oui",
-                                                    "value": "oui"
+                                                    "label": "Pince de Tri",
+                                                    "type": "switch"
                                                   },
                                                   "children": [
                                                     {
                                                       "attributes": {
                                                         "depth": 13,
-                                                        "label": "Adresse de livraison",
-                                                        "type": "address",
+                                                        "label": "Tarière hydraulique",
+                                                        "type": "switch",
                                                         "isLeaf": true
                                                       },
                                                       "children": [],
-                                                      "name": "delivery_address"
+                                                      "name": "tariere_hydraulique"
                                                     }
                                                   ],
-                                                  "name": "want_delivered:oui"
-                                                },
-                                                {
-                                                  "attributes": {
-                                                    "depth": 12,
-                                                    "label": "Non",
-                                                    "value": "non",
-                                                    "isLeaf": true
-                                                  },
-                                                  "children": [],
-                                                  "name": "want_delivered:non"
+                                                  "name": "pince_de_tri"
                                                 }
                                               ],
-                                              "name": "want_delivered"
+                                              "name": "godet_orientable"
                                             }
                                           ],
-                                          "name": "machine:5T"
-                                        },
-                                        {
-                                          "attributes": {
-                                            "depth": 10,
-                                            "label": "8 Tonnes",
-                                            "value": "8T",
-                                            "isLeaf": true
-                                          },
-                                          "children": [],
-                                          "name": "machine:8T"
-                                        },
-                                        {
-                                          "attributes": {
-                                            "depth": 10,
-                                            "label": "16 Tonnes",
-                                            "value": "16T",
-                                            "isLeaf": true
-                                          },
-                                          "children": [],
-                                          "name": "machine:16T"
+                                          "name": "godet_curage"
                                         }
                                       ],
-                                      "name": "machine"
+                                      "name": "benne_preneuse"
                                     }
                                   ],
-                                  "name": "some_text_field"
+                                  "name": "brh"
                                 }
                               ],
-                              "name": "radio_choice:choice_1"
-                            },
-                            {
-                              "attributes": {
-                                "depth": 7,
-                                "label": "Choix 2",
-                                "value": "choice_2",
-                                "isLeaf": true
-                              },
-                              "children": [],
-                              "name": "radio_choice:choice_2"
-                            },
-                            {
-                              "attributes": {
-                                "depth": 7,
-                                "label": "Choix 3",
-                                "value": "choice_3",
-                                "isLeaf": true
-                              },
-                              "children": [],
-                              "name": "radio_choice:choice_3"
+                              "name": "3_godets"
                             }
                           ],
-                          "name": "radio_choice"
+                          "name": "location:oui"
+                        },
+                        {
+                          "attributes": {
+                            "depth": 6,
+                            "label": "Non",
+                            "value": "non",
+                            "isLeaf": true
+                          },
+                          "children": [],
+                          "name": "location:non"
                         }
                       ],
-                      "name": "what_day"
+                      "name": "location"
                     }
                   ],
-                  "name": "offer"
+                  "name": "with_delivery"
                 }
               ],
-              "name": "has_car"
+              "name": "quantity"
             }
           ],
-          "name": "age"
+          "name": "flexible"
         }
       ],
-      "name": "prenom"
+      "name": "phase"
     }
   ],
-  "name": "nom"
+  "name": "address"
 }
