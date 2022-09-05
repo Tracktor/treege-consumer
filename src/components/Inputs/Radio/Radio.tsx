@@ -1,5 +1,6 @@
 import { FormControl, FormControlLabel, FormLabel, Radio as RadioDS, RadioGroup } from "design-system";
 import { ChangeEvent, forwardRef, Ref } from "react";
+import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface TextFieldProps {
@@ -10,12 +11,11 @@ export interface TextFieldProps {
 }
 
 const Radio = ({ data, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
+  const { getOptionsForDecisionsField } = useInputs();
   const { name, children, attributes } = data;
-  const { label, isDecision } = attributes;
+  const { label, values } = attributes;
 
-  const options = isDecision
-    ? children.map((option) => ({ key: option.name, label: option.attributes.label, value: option.name }))
-    : attributes.values?.map((option) => ({ key: option.id, label: option.label, value: option.value }));
+  const options = getOptionsForDecisionsField({ children, values });
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
