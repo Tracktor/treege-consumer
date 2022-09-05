@@ -51,9 +51,9 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
       case "checkbox":
         return <Checkbox label={label} inputRef={inputRef} name={name} />;
       case "radio":
-        return <Radio data={data} inputRef={inputRef} onChange={onChange} />;
+        return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} />;
       case "select":
-        return <Select data={data} inputRef={inputRef} onChange={onChange} />;
+        return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} />;
       case "switch":
         return <Switch label={label} inputRef={inputRef} name={name} />;
       default:

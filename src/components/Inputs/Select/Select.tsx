@@ -5,12 +5,13 @@ import type { TreeNode } from "@/types/TreeNode";
 export interface TextFieldProps {
   data: TreeNode;
   inputRef: Ref<any>;
+  required?: boolean;
   onChange?(event: SelectChangeEvent): void;
 }
 
-const Select = ({ data, inputRef, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
+const Select = ({ data, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const { name, children, attributes } = data;
-  const { label, required, isDecision } = attributes;
+  const { label, isDecision } = attributes;
 
   const options = isDecision
     ? children.map((option) => ({ key: option.name, label: option.attributes.label, value: option.name }))
