@@ -2,7 +2,7 @@
 
 **A React library to consume easily form generated from [Treege](https://github.com/Tracktor/treege)**
 
-- [Features](#Features)
+- [Installation](#Installation)
 - [Usage](#Usage)
     - [Provide tree data](#Provide-tree-data)
     - [Provide options](#Provide-options)
@@ -10,21 +10,13 @@
     - [TreegeForm](#TreegeForm)
 - [Providers](#Providers)
     - [TreegeProvider](#TreegeProvider)
+- [Features](#Features)
 - [Local installation](#local-installation)
 - [Available Scripts](#Available-Scripts)
-  - [yarn dev](#yarn-dev)
-  - [yarn build](#yarn-build)
-  - [yarn preview](#yarn-preview)
+    - [yarn dev](#yarn-dev)
+    - [yarn build](#yarn-build)
+    - [yarn preview](#yarn-preview)
 - [Convention](#Convention)
-
-## Features
-
-- 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
-- ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
-- 📐 **[ESLint](https://eslint.org)** - Code analyzer
-- 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
-- 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
-  utilities
 
 ## Installation
 
@@ -107,6 +99,15 @@ Provide options
 |----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | countryAutocompleteService | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
 | googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
+
+## Features
+
+- 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
+- ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
+- 📐 **[ESLint](https://eslint.org)** - Code analyzer
+- 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
+- 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
+  utilities
 
 ## Local installation
 
