@@ -18,6 +18,15 @@
     - [yarn preview](#yarn-preview)
 - [Convention](#Convention)
 
+## Features
+
+- 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
+- ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
+- 📐 **[ESLint](https://eslint.org)** - Code analyzer
+- 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
+- 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
+  utilities
+
 ## Installation
 
 ```console
@@ -99,15 +108,6 @@ Provide options
 |----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | countryAutocompleteService | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
 | googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
-
-## Features
-
-- 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
-- ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
-- 📐 **[ESLint](https://eslint.org)** - Code analyzer
-- 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
-- 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
-  utilities
 
 ## Local installation
 
