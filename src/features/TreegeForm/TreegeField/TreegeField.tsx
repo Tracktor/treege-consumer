@@ -39,6 +39,7 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
     switch (type) {
       case "date":
       case "email":
+      case "file":
       case "number":
       case "password":
       case "tel":
