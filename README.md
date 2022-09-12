@@ -3,6 +3,7 @@
 **A React library to consume easily form generated from [Treege](https://github.com/Tracktor/treege)**
 
 - [Features](#Features)
+- [Installation](#Installation)
 - [Available Scripts](#Available-Scripts)
     - [yarn dev](#yarn-dev)
     - [yarn build](#yarn-build)
@@ -24,6 +25,14 @@
 - 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
 - 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
   utilities
+
+## Installation
+
+Clone the repository and install dependencies
+
+```console 
+yarn install
+```
 
 ## Available Scripts
 
