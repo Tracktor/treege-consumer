@@ -3,12 +3,6 @@
 **A React library to consume easily form generated from [Treege](https://github.com/Tracktor/treege)**
 
 - [Features](#Features)
-- [Installation](#Installation)
-- [Available Scripts](#Available-Scripts)
-    - [yarn dev](#yarn-dev)
-    - [yarn build](#yarn-build)
-    - [yarn preview](#yarn-preview)
-- [Installation](#Installation)
 - [Usage](#Usage)
     - [Provide tree data](#Provide-tree-data)
     - [Provide options](#Provide-options)
@@ -16,6 +10,12 @@
     - [TreegeForm](#TreegeForm)
 - [Providers](#Providers)
     - [TreegeProvider](#TreegeProvider)
+- [Local installation](#local-installation)
+- [Available Scripts](#Available-Scripts)
+  - [yarn dev](#yarn-dev)
+  - [yarn build](#yarn-build)
+  - [yarn preview](#yarn-preview)
+- [Convention](#Convention)
 
 ## Features
 
@@ -25,39 +25,6 @@
 - 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
 - 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
   utilities
-
-## Installation
-
-Clone the repository and install dependencies
-
-```console 
-yarn install
-```
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn dev`
-
-Runs the app in the development mode.\
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn build`
-
-Builds the library for production to the `dist` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.
-
-See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) for more information.
-
-### `yarn preview`
-
-Locally preview production build
 
 ## Installation
 
@@ -140,6 +107,39 @@ Provide options
 |----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | countryAutocompleteService | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
 | googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
+
+## Local installation
+
+Clone the repository and install dependencies
+
+```console 
+yarn install
+```
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `yarn dev`
+
+Runs the app in the development mode.\
+Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `yarn build`
+
+Builds the library for production to the `dist` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.
+
+See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) for more information.
+
+### `yarn preview`
+
+Locally preview production build
 
 ## Convention
 
