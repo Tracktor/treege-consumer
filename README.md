@@ -26,6 +26,7 @@
 - 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
 - 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
   utilities
+- 🐶 **[Husky](https://typicode.github.io/husky)** - Modern native git hooks made easy
 
 ## Installation
 
