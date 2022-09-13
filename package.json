@@ -24,7 +24,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint .",
+    "lint": "eslint && tsc --noEmit",
     "prepare": "yarn run build && husky install",
     "preview": "vite preview"
   },
