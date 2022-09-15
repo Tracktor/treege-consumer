@@ -1,4 +1,4 @@
-import { Box, SelectChangeEvent, Skeleton, Slide } from "design-system";
+import { Box, SelectChangeEvent, Skeleton, Slide } from "design-system-tracktor";
 import { ChangeEvent, memo, useCallback } from "react";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
 import Checkbox from "@/components/Inputs/Checkbox/Checkbox";

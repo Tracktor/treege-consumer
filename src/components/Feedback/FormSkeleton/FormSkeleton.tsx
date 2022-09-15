@@ -1,4 +1,4 @@
-import { Box, Skeleton, Stack } from "design-system";
+import { Box, Skeleton, Stack } from "design-system-tracktor";
 
 const FormSkeleton = () => (
   <>

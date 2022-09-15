@@ -10,7 +10,7 @@ import {
   TextareaAutosize,
   ToggleButton,
   ToggleButtonGroup,
-} from "design-system";
+} from "design-system-tracktor";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import TreegeProvider from "@/context/TreegeProvider";
 import TreegeForm, { TreegeFormProps } from "@/features/TreegeForm";

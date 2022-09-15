@@ -2085,9 +2085,10 @@ define-properties@^1.1.3, define-properties@^1.1.4:
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
 
-"design-system@git+https://github.com/Tracktor/design-system#v1.0.1":
-  version "1.0.1"
-  resolved "git+https://github.com/Tracktor/design-system#640ea86ab0f7ed3cf1077109227b5e98217acbc0"
+design-system-tracktor@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/design-system-tracktor/-/design-system-tracktor-1.0.0.tgz#137baba24cac1e55aa9fd633714c5a7ae499b730"
+  integrity sha512-L++lpRi9vB4h7r7k/pyKtv3i19nm+BBXYGp/AzVwpZCUPiBFJF4Yw6dA58Ri4JbpnZ7z7rsKfGHWhPA/MvmvPg==
   dependencies:
     "@emotion/react" "^11.10.0"
     "@emotion/styled" "^11.10.0"
@@ -4114,6 +4115,19 @@ vite-plugin-dts@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-1.4.1.tgz#013a2a3505ad543869d1118f346cb54c58de10a4"
   integrity sha512-jo7E4ZeheD2o48oGiI3EygPbej7ZkGFHg3GVTt7Wuo6NgzThLvuzGGuduaFpnhJOGi1piDFsu6oui/wDKIIORQ==
+  dependencies:
+    "@microsoft/api-extractor" "^7.20.0"
+    "@rushstack/node-core-library" "^3.45.1"
+    chalk "^4.1.2"
+    debug "^4.3.4"
+    fast-glob "^3.2.11"
+    fs-extra "^10.0.1"
+    ts-morph "^14.0.0"
+
+vite-plugin-dts@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-1.5.0.tgz#38633b120c5d32f0f5185ba80b9fe4b68139ca70"
+  integrity sha512-O78YnwomiEu+vKMdj1gvJfi2PnSOdB/RKWSOaNDjzr5bGvB6G7AskSczy+74sLwj3hkh0qO0L0U1UuLSjAqtqA==
   dependencies:
     "@microsoft/api-extractor" "^7.20.0"
     "@rushstack/node-core-library" "^3.45.1"
