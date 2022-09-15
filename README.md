@@ -31,13 +31,7 @@
 ## Installation
 
 ```console
-yarn add git+https://github.com/Tracktor/treege-consumer
-```
-
-Specific version can be installed
-
-```console
-yarn add git+https://github.com/Tracktor/treege-consumer#1.0.0
+yarn add treege-consumer
 ```
 
 ## Usage

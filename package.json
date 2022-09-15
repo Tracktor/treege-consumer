@@ -1,7 +1,7 @@
 {
   "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.cjs",
@@ -24,10 +24,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . && tsc --noEmit",
-    "prepare": "husky install",
-    "preview": "vite preview",
-    "publish": "yarn run build"
+    "lint": "eslint && tsc --noEmit",
+    "prepare": "yarn run build && husky install",
+    "preview": "vite preview"
   },
   "dependencies": {
     "autosuggest-highlight": "^3.3.4",
