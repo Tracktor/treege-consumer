@@ -18,7 +18,7 @@ export interface TreegeFieldProps {
 
 const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChange }: TreegeFieldProps) => {
   const { name, attributes } = data;
-  const { type, label, required, description } = attributes;
+  const { type, label, required, helperText } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
 
@@ -54,19 +54,19 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
             onChange={onChange}
             required={isRequired}
             inputRef={inputRef}
-            helperText={attributes.description}
+            helperText={helperText}
           />
         );
       case "address":
-        return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} helperText={description} />;
+        return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} helperText={helperText} />;
       case "checkbox":
-        return <Checkbox label={label} inputRef={inputRef} name={name} helperText={description} />;
+        return <Checkbox label={label} inputRef={inputRef} name={name} helperText={helperText} />;
       case "radio":
-        return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={description} />;
+        return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
       case "select":
-        return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={description} />;
+        return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
       case "switch":
-        return <Switch label={label} inputRef={inputRef} name={name} helperText={description} />;
+        return <Switch label={label} inputRef={inputRef} name={name} helperText={helperText} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
