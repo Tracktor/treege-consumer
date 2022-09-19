@@ -1,16 +1,17 @@
-import { FormControl, InputLabel, MenuItem, OutlinedInput, Select as SelectDS, SelectChangeEvent } from "design-system";
+import { FormControl, FormHelperText, InputLabel, MenuItem, OutlinedInput, Select as SelectDS, SelectChangeEvent } from "design-system";
 import { forwardRef, Ref } from "react";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface TextFieldProps {
   data: TreeNode;
+  helperText?: string;
   inputRef: Ref<any>;
   required?: boolean;
   onChange?(event: SelectChangeEvent): void;
 }
 
-const Select = ({ data, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
+const Select = ({ data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField } = useInputs();
   const { name, children, attributes } = data;
   const { label, values } = attributes;
@@ -38,6 +39,7 @@ const Select = ({ data, inputRef, required, onChange }: TextFieldProps, ref: Ref
           </MenuItem>
         ))}
       </SelectDS>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 };

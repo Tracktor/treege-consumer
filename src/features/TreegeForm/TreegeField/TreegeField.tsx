@@ -18,7 +18,7 @@ export interface TreegeFieldProps {
 
 const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChange }: TreegeFieldProps) => {
   const { name, attributes } = data;
-  const { type, label, required } = attributes;
+  const { type, label, required, description } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
 
@@ -46,17 +46,27 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
       case "time":
       case "text":
       case "url":
-        return <TextField name={name} label={label} type={type} onChange={onChange} required={isRequired} inputRef={inputRef} />;
+        return (
+          <TextField
+            name={name}
+            label={label}
+            type={type}
+            onChange={onChange}
+            required={isRequired}
+            inputRef={inputRef}
+            helperText={attributes.description}
+          />
+        );
       case "address":
-        return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} />;
+        return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} helperText={description} />;
       case "checkbox":
-        return <Checkbox label={label} inputRef={inputRef} name={name} />;
+        return <Checkbox label={label} inputRef={inputRef} name={name} helperText={description} />;
       case "radio":
-        return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} />;
+        return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={description} />;
       case "select":
-        return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} />;
+        return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={description} />;
       case "switch":
-        return <Switch label={label} inputRef={inputRef} name={name} />;
+        return <Switch label={label} inputRef={inputRef} name={name} helperText={description} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }

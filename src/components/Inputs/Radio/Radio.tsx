@@ -1,16 +1,17 @@
-import { FormControl, FormControlLabel, FormLabel, Radio as RadioDS, RadioGroup } from "design-system";
+import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "design-system";
 import { ChangeEvent, forwardRef, Ref } from "react";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface TextFieldProps {
   data: TreeNode;
+  helperText?: string;
   inputRef: Ref<any>;
   required?: boolean;
   onChange?(event: ChangeEvent<HTMLInputElement>): void;
 }
 
-const Radio = ({ data, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
+const Radio = ({ data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField } = useInputs();
   const { name, children, attributes } = data;
   const { label, values } = attributes;
@@ -30,6 +31,7 @@ const Radio = ({ data, inputRef, required, onChange }: TextFieldProps, ref: Ref<
           />
         ))}
       </RadioGroup>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 };
