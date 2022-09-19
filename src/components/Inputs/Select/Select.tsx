@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, OutlinedInput, Select as SelectDS, SelectChangeEvent } from "design-system";
+import { FormControl, FormHelperText, InputLabel, MenuItem, OutlinedInput, Select as SelectDS, SelectChangeEvent } from "design-system-tracktor";
 import { forwardRef, Ref } from "react";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";

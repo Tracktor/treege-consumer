@@ -1,7 +1,7 @@
 {
   "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
-  "version": "1.1.0",
+  "version": "1.0.5",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.cjs",
@@ -24,16 +24,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint .",
-    "prepare": "yarn run build",
+    "lint": "eslint && tsc --noEmit",
+    "prepare": "yarn run build && husky install",
     "preview": "vite preview"
   },
   "dependencies": {
     "autosuggest-highlight": "^3.3.4",
-    "design-system": "git+https://github.com/Tracktor/design-system#v1.0.1",
+    "design-system-tracktor": "^1.0.3",
     "find-and": "^1.3.1",
-    "lodash-es": "^4.17.21",
-    "vite-plugin-dts": "^1.4.1"
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@types/autosuggest-highlight": "^3.2.0",
@@ -42,11 +41,13 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
-    "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react#v1.0.1",
+    "eslint-config-react-tracktor": "^1.0.2",
+    "husky": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^4.6.4",
-    "vite": "^3.0.7"
+    "vite": "^3.0.7",
+    "vite-plugin-dts": "^1.5.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",

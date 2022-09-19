@@ -26,17 +26,12 @@
 - 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
 - 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
   utilities
+- 🐶 **[Husky](https://typicode.github.io/husky)** - Modern native git hooks made easy
 
 ## Installation
 
 ```console
-yarn add git+https://github.com/Tracktor/treege-consumer
-```
-
-Specific version can be installed
-
-```console
-yarn add git+https://github.com/Tracktor/treege-consumer#1.0.0
+yarn add treege-consumer
 ```
 
 ## Usage

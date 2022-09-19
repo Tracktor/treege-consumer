@@ -1,4 +1,4 @@
-import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "design-system";
+import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "design-system-tracktor";
 import { ChangeEvent, forwardRef, Ref } from "react";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";

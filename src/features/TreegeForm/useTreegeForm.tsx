@@ -1,4 +1,4 @@
-import type { SelectChangeEvent } from "design-system";
+import type { SelectChangeEvent } from "design-system-tracktor";
 import { returnFound } from "find-and";
 import { ChangeEvent, FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useState } from "react";
 import type { TreegeFormProps } from "@/features/TreegeForm/TreegeForm";

@@ -1,4 +1,4 @@
-import { FormControl, FormControlLabel, FormGroup, FormHelperText, Switch as SwitchDS } from "design-system";
+import { FormControl, FormControlLabel, FormGroup, FormHelperText, Switch as SwitchDS } from "design-system-tracktor";
 import { forwardRef, Ref } from "react";
 
 export interface TextFieldProps {

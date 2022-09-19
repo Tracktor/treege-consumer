@@ -1,4 +1,4 @@
-import { TextField as TextFieldDS } from "design-system";
+import { TextField as TextFieldDS } from "design-system-tracktor";
 import { ChangeEvent, forwardRef, Ref } from "react";
 
 export interface TextFieldProps {

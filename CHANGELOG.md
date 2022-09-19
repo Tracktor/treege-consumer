@@ -1,7 +1,5 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
-## v1.1.0
-- Add input file type
-
-## v1.0.1
-- Update dependencies
+## v1.0.5
+- update dependencies
+- config eslint

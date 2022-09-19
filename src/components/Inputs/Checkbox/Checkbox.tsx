@@ -1,4 +1,4 @@
-import { Checkbox as CheckboxDS, FormControl, FormControlLabel, FormGroup, FormHelperText } from "design-system";
+import { Checkbox as CheckboxDS, FormControl, FormControlLabel, FormGroup, FormHelperText } from "design-system-tracktor";
 import { forwardRef, Ref } from "react";
 
 export interface TextFieldProps {
