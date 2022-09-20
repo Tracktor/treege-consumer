@@ -1,5 +1,14 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, OutlinedInput, Select as SelectDS, SelectChangeEvent } from "design-system-tracktor";
-import { forwardRef, Ref } from "react";
+import {
+  Alert,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select as SelectDS,
+  SelectChangeEvent,
+} from "design-system-tracktor";
+import { forwardRef, Ref, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
 
@@ -12,11 +21,17 @@ export interface TextFieldProps {
 }
 
 const Select = ({ data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
-  const { getOptionsForDecisionsField } = useInputs();
+  const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
   const { label, values } = attributes;
+  const [message, setMessage] = useState<string | undefined>("");
 
   const options = getOptionsForDecisionsField({ children, values });
+
+  const handleChange = (e: SelectChangeEvent) => {
+    onChange?.(e);
+    setMessage(getMessageByValue({ options, value: e.target.value }));
+  };
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
@@ -28,7 +43,7 @@ const Select = ({ data, helperText, inputRef, required, onChange }: TextFieldPro
         id={name}
         label={label}
         name={name}
-        onChange={onChange}
+        onChange={handleChange}
         defaultValue=""
         inputRef={inputRef}
         input={<OutlinedInput notched label={label} />}
@@ -40,6 +55,11 @@ const Select = ({ data, helperText, inputRef, required, onChange }: TextFieldPro
         ))}
       </SelectDS>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {message && (
+        <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
+          {message}
+        </Alert>
+      )}
     </FormControl>
   );
 };

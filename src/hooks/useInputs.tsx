@@ -6,6 +6,7 @@ export interface GetOptionsForDecisionsFieldParams {
 }
 
 export interface GetOptionsForDecisionsFieldReturn {
+  message?: string;
   label: string;
   value: string;
   key: string;
@@ -14,13 +15,21 @@ export interface GetOptionsForDecisionsFieldReturn {
 const useInputs = () => {
   const getOptionsForDecisionsField = ({ children, values }: GetOptionsForDecisionsFieldParams): GetOptionsForDecisionsFieldReturn[] => {
     if (values) {
-      return values?.map((option) => ({ key: option.id, label: option.label, value: option.value }));
+      return values?.map((option) => ({ key: option.id, label: option.label, message: option?.message, value: option.value }));
     }
 
-    return children.map((option) => ({ key: option.name, label: option.attributes.label, value: option.name }));
+    return children.map((option) => ({
+      key: option.name,
+      label: option.attributes.label,
+      message: option.attributes?.message,
+      value: option.name,
+    }));
   };
 
-  return { getOptionsForDecisionsField };
+  const getMessageByValue = ({ options, value }: { options: GetOptionsForDecisionsFieldReturn[]; value: string }) =>
+    options.find((item) => item.value === value)?.message || "";
+
+  return { getMessageByValue, getOptionsForDecisionsField };
 };
 
 export default useInputs;

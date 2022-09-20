@@ -135,7 +135,6 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   // Set initial field
   useEffect(() => {
     if (!tree) return;
-
     const initialFields = getNextFieldsFromTreePoint(tree);
 
     setFields(initialFields);
