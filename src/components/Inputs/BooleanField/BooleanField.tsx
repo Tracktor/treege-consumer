@@ -1,5 +1,5 @@
 import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "design-system-tracktor";
-import { Ref, SyntheticEvent, useState } from "react";
+import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 
 export interface BooleanFieldProps {
   type: "checkbox" | "switch";
@@ -33,4 +33,4 @@ const BooleanField = ({ type, label, inputRef, name, helperText, messages }: Boo
   );
 };
 
-export default BooleanField;
+export default forwardRef(BooleanField);
