@@ -1,7 +1,8 @@
-import { Alert, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch as SwitchDS } from "design-system-tracktor";
-import { forwardRef, Ref, SyntheticEvent, useState } from "react";
+import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "design-system-tracktor";
+import { Ref, SyntheticEvent, useState } from "react";
 
-export interface TextFieldProps {
+export interface BooleanFieldProps {
+  type: "checkbox" | "switch";
   label: string;
   helperText?: string;
   name: string;
@@ -9,7 +10,8 @@ export interface TextFieldProps {
   messages?: { on?: string; off?: string };
 }
 
-const Switch = ({ label, helperText, name, inputRef, messages }: TextFieldProps, ref: Ref<unknown | undefined>) => {
+const BooleanField = ({ type, label, inputRef, name, helperText, messages }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
+  const Field = type === "checkbox" ? Checkbox : Switch;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
 
   const handleCheck = (_: SyntheticEvent<Element, Event>, checked: boolean) => {
@@ -19,7 +21,7 @@ const Switch = ({ label, helperText, name, inputRef, messages }: TextFieldProps,
   return (
     <FormControl fullWidth>
       <FormGroup ref={ref}>
-        <FormControlLabel label={label} onChange={handleCheck} control={<SwitchDS name={name} inputRef={inputRef} />} />
+        <FormControlLabel label={label} onChange={handleCheck} control={<Field name={name} inputRef={inputRef} />} />
       </FormGroup>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       {message && (
@@ -31,4 +33,4 @@ const Switch = ({ label, helperText, name, inputRef, messages }: TextFieldProps,
   );
 };
 
-export default forwardRef(Switch);
+export default BooleanField;

@@ -1,10 +1,9 @@
 import { Box, SelectChangeEvent, Skeleton, Slide } from "design-system-tracktor";
 import { ChangeEvent, memo, useCallback } from "react";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
-import Checkbox from "@/components/Inputs/Checkbox/Checkbox";
+import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
 import Radio from "@/components/Inputs/Radio/Radio";
 import Select from "@/components/Inputs/Select/Select";
-import Switch from "@/components/Inputs/Switch/Switch";
 import TextField from "@/components/Inputs/TextField/TextField";
 import type { TreeNode } from "@/types/TreeNode";
 
@@ -59,14 +58,13 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
         );
       case "address":
         return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} helperText={helperText} />;
-      case "checkbox":
-        return <Checkbox label={label} inputRef={inputRef} name={name} helperText={helperText} messages={messages} />;
       case "radio":
         return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
       case "select":
         return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
       case "switch":
-        return <Switch label={label} inputRef={inputRef} name={name} helperText={helperText} messages={messages} />;
+      case "checkbox":
+        return <BooleanField type={type} label={label} inputRef={inputRef} name={name} helperText={helperText} messages={messages} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
