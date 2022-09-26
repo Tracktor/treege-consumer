@@ -1,27 +1,34 @@
 import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "design-system-tracktor";
-import { forwardRef, Ref, SyntheticEvent, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useState } from "react";
+import type { ChangeEventField } from "@/features/TreegeForm/type";
+import type { TreeNode } from "@/types/TreeNode";
 
 export interface BooleanFieldProps {
-  type: "checkbox" | "switch";
-  label: string;
+  data: TreeNode;
   helperText?: string;
-  name: string;
   inputRef: Ref<any>;
-  messages?: { on?: string; off?: string };
+  onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const BooleanField = ({ type, label, inputRef, name, helperText, messages }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
+const BooleanField = ({ data, inputRef, helperText, onChange }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
+  const { name, attributes } = data;
+  const { label, type, isLeaf, messages } = attributes;
+
   const Field = type === "checkbox" ? Checkbox : Switch;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
 
-  const handleCheck = (_: SyntheticEvent<Element, Event>, checked: boolean) => {
-    setMessage(checked ? messages?.on : messages?.off);
+  const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
+    const hasMsg = checked ? messages?.on : messages?.off;
+
+    onChange?.({ event, hasMsg: !!hasMsg, isLeaf, name, type, value: checked });
+    setMessage(hasMsg);
   };
 
   return (
     <FormControl fullWidth>
       <FormGroup ref={ref}>
-        <FormControlLabel label={label} onChange={handleCheck} control={<Field name={name} inputRef={inputRef} />} />
+        <FormControlLabel label={label} control={<Field name={name} onChange={handleCheck} inputRef={inputRef} />} />
       </FormGroup>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       {message && (

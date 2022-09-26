@@ -9,6 +9,7 @@ import {
   SelectChangeEvent,
 } from "design-system-tracktor";
 import { forwardRef, Ref, useState } from "react";
+import type { ChangeEventField } from "@/features/TreegeForm/type";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
 
@@ -17,20 +18,22 @@ export interface TextFieldProps {
   helperText?: string;
   inputRef: Ref<any>;
   required?: boolean;
-  onChange?(event: SelectChangeEvent): void;
+  onChange?(dataAttribute: ChangeEventField): void;
 }
 
 const Select = ({ data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
-  const { label, values } = attributes;
+  const { label, values, type, isLeaf } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
-
   const options = getOptionsForDecisionsField({ children, values });
 
-  const handleChange = (e: SelectChangeEvent) => {
-    onChange?.(e);
-    setMessage(getMessageByValue({ options, value: e.target.value }));
+  const handleChange = (event: SelectChangeEvent) => {
+    const { value } = event.target;
+    const messageValue = getMessageByValue({ options, value });
+
+    onChange?.({ event, hasMsg: !!messageValue, isLeaf, name, type, value });
+    setMessage(messageValue);
   };
 
   return (

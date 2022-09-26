@@ -1,10 +1,11 @@
-import { Box, SelectChangeEvent, Skeleton, Slide } from "design-system-tracktor";
-import { ChangeEvent, memo, useCallback } from "react";
+import { Box, Skeleton, Slide } from "design-system-tracktor";
+import { memo, useCallback } from "react";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
 import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
 import Radio from "@/components/Inputs/Radio/Radio";
 import Select from "@/components/Inputs/Select/Select";
 import TextField from "@/components/Inputs/TextField/TextField";
+import type { ChangeEventField } from "@/features/TreegeForm/type";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface TreegeFieldProps {
@@ -12,7 +13,7 @@ export interface TreegeFieldProps {
   autoFocus?: boolean;
   data: TreeNode;
   visible?: boolean;
-  onChange?(event: SelectChangeEvent | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void;
+  onChange?(dataAttribute?: ChangeEventField): void;
 }
 
 const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChange }: TreegeFieldProps) => {
@@ -64,7 +65,7 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
         return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
       case "switch":
       case "checkbox":
-        return <BooleanField type={type} label={label} inputRef={inputRef} name={name} helperText={helperText} messages={messages} />;
+        return <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
