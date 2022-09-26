@@ -9,6 +9,7 @@ import { IsString } from "@/types/TypeGuards";
 export interface AutocompleteProps {
   label: string;
   name: string;
+  helperText?: string;
   inputRef: Ref<any>;
   required?: boolean;
   country?: string;
@@ -17,7 +18,7 @@ export interface AutocompleteProps {
 type AutocompleteService = google.maps.places.AutocompleteService;
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
-const Autocomplete = ({ label, name, inputRef, required, country }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+const Autocomplete = ({ label, name, helperText, inputRef, required, country }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
   const { googleApiKey, countryAutocompleteService } = useContext(TreegeContext);
   const places = useScript(googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places` : "");
   const autocompleteService = useRef<AutocompleteService>();
@@ -106,6 +107,7 @@ const Autocomplete = ({ label, name, inputRef, required, country }: Autocomplete
           fullWidth
           required={required}
           name={name}
+          helperText={helperText}
           disabled={disabled}
           label={label}
           inputRef={inputRef}

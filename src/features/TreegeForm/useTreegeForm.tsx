@@ -1,7 +1,8 @@
-import type { SelectChangeEvent } from "design-system-tracktor";
 import { returnFound } from "find-and";
-import { ChangeEvent, FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useState } from "react";
+import fieldMessageTypes from "@/features/TreegeForm/constants/fieldMessageTypes";
 import type { TreegeFormProps } from "@/features/TreegeForm/TreegeForm";
+import type { ChangeEventField } from "@/features/TreegeForm/type";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface useTreegeFormParams {
@@ -16,8 +17,10 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   const [fields, setFields] = useState<TreeNode[]>();
   const [isLastField, setIsLastField] = useState<boolean>(false);
 
-  const resetNextFieldsFromTreeName = useCallback((name: string): void => {
-    setIsLastField(true);
+  const resetNextFieldsFromTreeName = useCallback((name: string, hasMessage?: boolean): void => {
+    if (!hasMessage) {
+      setIsLastField(true);
+    }
     setFields((prevState) => {
       const lastField = prevState && prevState[prevState.length - 1];
 
@@ -34,8 +37,19 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   }, []);
 
   const setNextFieldsFromTargetName = useCallback(
-    (fieldsFromPoint: TreeNode[] | undefined, name: string): void => {
+    (fieldsFromPoint: TreeNode[] | undefined, name: string, dataAttribute: Partial<ChangeEventField>): void => {
+      const { hasMessage, isLeaf, type } = dataAttribute;
+      const isSelectField = fieldMessageTypes.includes(type || "");
+
       if (!fieldsFromPoint) {
+        if (!hasMessage && isSelectField) {
+          setActiveFieldIndex((prevFieldIndex) => {
+            if (isLeaf) {
+              setIsLastField(true);
+            }
+            return prevFieldIndex + 1;
+          });
+        }
         return;
       }
 
@@ -51,7 +65,9 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
         const lastFieldIsLeaf = lastField?.attributes?.isLeaf || false;
         const allValueHasNoChildren = lastField?.children.every((item) => item.children.length === 0) || false;
 
-        setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+        if (!hasMessage) {
+          setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+        }
 
         if (variant === "standard") {
           setIsLastField(lastFieldIsLeaf || allValueHasNoChildren);
@@ -80,21 +96,22 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   }, []);
 
   const handleChange = useCallback(
-    (event: SelectChangeEvent | ChangeEvent<HTMLInputElement>): void => {
-      const { value, name } = event.target || {};
+    (dataAttribute: ChangeEventField): void => {
+      const { value, name, hasMessage } = dataAttribute;
       const { children } = returnFound(tree, { name: value }) || {};
       const isEmptyChildren = Array.isArray(children) && children.length === 0;
 
       if (isEmptyChildren) {
-        setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
-        resetNextFieldsFromTreeName(name);
+        if (!hasMessage) {
+          setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+        }
+        resetNextFieldsFromTreeName(name, hasMessage);
         return;
       }
 
       const nestedChildren = children?.[0];
       const fieldsFromPoint = getNextFieldsFromTreePoint(nestedChildren);
-
-      setNextFieldsFromTargetName(fieldsFromPoint, name);
+      setNextFieldsFromTargetName(fieldsFromPoint, name, dataAttribute);
     },
     [getNextFieldsFromTreePoint, resetNextFieldsFromTreeName, setNextFieldsFromTargetName, tree]
   );
@@ -135,7 +152,6 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   // Set initial field
   useEffect(() => {
     if (!tree) return;
-
     const initialFields = getNextFieldsFromTreePoint(tree);
 
     setFields(initialFields);

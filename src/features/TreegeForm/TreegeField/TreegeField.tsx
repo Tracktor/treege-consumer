@@ -1,11 +1,11 @@
-import { Box, SelectChangeEvent, Skeleton, Slide } from "design-system-tracktor";
-import { ChangeEvent, memo, useCallback } from "react";
+import { Box, Skeleton, Slide } from "design-system-tracktor";
+import { memo, useCallback } from "react";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
-import Checkbox from "@/components/Inputs/Checkbox/Checkbox";
+import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
 import Radio from "@/components/Inputs/Radio/Radio";
 import Select from "@/components/Inputs/Select/Select";
-import Switch from "@/components/Inputs/Switch/Switch";
 import TextField from "@/components/Inputs/TextField/TextField";
+import type { ChangeEventField } from "@/features/TreegeForm/type";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface TreegeFieldProps {
@@ -13,12 +13,12 @@ export interface TreegeFieldProps {
   autoFocus?: boolean;
   data: TreeNode;
   visible?: boolean;
-  onChange?(event: SelectChangeEvent | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void;
+  onChange?(dataAttribute?: ChangeEventField): void;
 }
 
 const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChange }: TreegeFieldProps) => {
   const { name, attributes } = data;
-  const { type, label, required } = attributes;
+  const { type, label, required, helperText, messages } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
 
@@ -46,17 +46,26 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
       case "time":
       case "text":
       case "url":
-        return <TextField name={name} label={label} type={type} onChange={onChange} required={isRequired} inputRef={inputRef} />;
+        return (
+          <TextField
+            name={name}
+            label={label}
+            type={type}
+            onChange={onChange}
+            required={isRequired}
+            inputRef={inputRef}
+            helperText={helperText}
+          />
+        );
       case "address":
-        return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} />;
-      case "checkbox":
-        return <Checkbox label={label} inputRef={inputRef} name={name} />;
+        return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} helperText={helperText} />;
       case "radio":
-        return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} />;
+        return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
       case "select":
-        return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} />;
+        return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
       case "switch":
-        return <Switch label={label} inputRef={inputRef} name={name} />;
+      case "checkbox":
+        return <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
