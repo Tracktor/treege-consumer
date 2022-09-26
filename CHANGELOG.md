@@ -1,9 +1,10 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
 ## v1.1.0
-- Boolean field refactor (CheckBox & Switch)
-- Helper message on all fields
-- Conditional message on:
-  - Select
-  - Radio
-  - BooleanField
+
+- (refactor) Checkbox & switch to boolean field refactor
+- (feat) Add helper message on all fields
+- (feat) Add message to field
+    - Select
+    - Radio
+    - BooleanField
