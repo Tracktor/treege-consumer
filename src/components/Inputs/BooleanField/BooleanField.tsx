@@ -19,10 +19,10 @@ const BooleanField = ({ data, inputRef, helperText, onChange }: BooleanFieldProp
 
   const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
-    const hasMsg = checked ? messages?.on : messages?.off;
+    const hasMessage = checked ? messages?.on : messages?.off;
 
-    onChange?.({ event, hasMsg: !!hasMsg, isLeaf, name, type, value: checked });
-    setMessage(hasMsg);
+    onChange?.({ event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
+    setMessage(hasMessage);
   };
 
   return (

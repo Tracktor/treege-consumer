@@ -6,6 +6,6 @@ export interface ChangeEventField {
   value: string | boolean;
   name: string;
   type?: string;
-  hasMsg?: boolean;
+  hasMessage?: boolean;
   isLeaf?: boolean;
 }

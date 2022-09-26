@@ -32,7 +32,7 @@ const Select = ({ data, helperText, inputRef, required, onChange }: TextFieldPro
     const { value } = event.target;
     const messageValue = getMessageByValue({ options, value });
 
-    onChange?.({ event, hasMsg: !!messageValue, isLeaf, name, type, value });
+    onChange?.({ event, hasMessage: !!messageValue, isLeaf, name, type, value });
     setMessage(messageValue);
   };
 

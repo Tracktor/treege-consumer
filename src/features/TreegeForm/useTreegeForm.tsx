@@ -17,8 +17,8 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   const [fields, setFields] = useState<TreeNode[]>();
   const [isLastField, setIsLastField] = useState<boolean>(false);
 
-  const resetNextFieldsFromTreeName = useCallback((name: string, hasMsg?: boolean): void => {
-    if (!hasMsg) {
+  const resetNextFieldsFromTreeName = useCallback((name: string, hasMessage?: boolean): void => {
+    if (!hasMessage) {
       setIsLastField(true);
     }
     setFields((prevState) => {
@@ -38,11 +38,11 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
 
   const setNextFieldsFromTargetName = useCallback(
     (fieldsFromPoint: TreeNode[] | undefined, name: string, dataAttribute: Partial<ChangeEventField>): void => {
-      const { hasMsg, isLeaf, type } = dataAttribute;
+      const { hasMessage, isLeaf, type } = dataAttribute;
       const isSelectField = fieldMessageTypes.includes(type || "");
 
       if (!fieldsFromPoint) {
-        if (!hasMsg && isSelectField) {
+        if (!hasMessage && isSelectField) {
           setActiveFieldIndex((prevFieldIndex) => {
             if (isLeaf) {
               setIsLastField(true);
@@ -65,7 +65,7 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
         const lastFieldIsLeaf = lastField?.attributes?.isLeaf || false;
         const allValueHasNoChildren = lastField?.children.every((item) => item.children.length === 0) || false;
 
-        if (!hasMsg) {
+        if (!hasMessage) {
           setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
         }
 
@@ -97,15 +97,15 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField): void => {
-      const { value, name, hasMsg } = dataAttribute;
+      const { value, name, hasMessage } = dataAttribute;
       const { children } = returnFound(tree, { name: value }) || {};
       const isEmptyChildren = Array.isArray(children) && children.length === 0;
 
       if (isEmptyChildren) {
-        if (!hasMsg) {
+        if (!hasMessage) {
           setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
         }
-        resetNextFieldsFromTreeName(name, hasMsg);
+        resetNextFieldsFromTreeName(name, hasMessage);
         return;
       }
 

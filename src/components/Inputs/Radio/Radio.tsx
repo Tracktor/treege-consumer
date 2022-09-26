@@ -23,7 +23,7 @@ const Radio = ({ data, helperText, inputRef, required, onChange }: TextFieldProp
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: string) => {
     const messageValue = getMessageByValue({ options, value });
 
-    onChange?.({ event, hasMsg: !!messageValue, isLeaf, name, type, value });
+    onChange?.({ event, hasMessage: !!messageValue, isLeaf, name, type, value });
     setMessage(messageValue);
   };
 
