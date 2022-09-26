@@ -8,3 +8,4 @@
     - Select
     - Radio
     - BooleanField
+- (feat) Auto step for Select Boolean & Radio field
