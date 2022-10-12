@@ -18,7 +18,7 @@ export interface TreegeFieldProps {
 
 const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChange }: TreegeFieldProps) => {
   const { name, attributes } = data;
-  const { type, label, required, helperText, messages } = attributes;
+  const { type, label, required, helperText } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
 
