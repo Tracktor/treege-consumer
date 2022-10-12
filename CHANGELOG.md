@@ -1,5 +1,6 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
-## v1.1.1
+## v1.1.2
 
-- Fix export cjs
+- Upgrade design system
+- Vite config
