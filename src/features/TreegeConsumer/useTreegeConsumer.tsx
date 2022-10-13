@@ -21,6 +21,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
     if (!hasMessage) {
       setIsLastField(true);
     }
+
     setFields((prevState) => {
       const lastField = prevState && prevState[prevState.length - 1];
 
@@ -43,12 +44,8 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
 
       if (!fieldsFromPoint) {
         if (!hasMessage && isSelectField) {
-          setActiveFieldIndex((prevFieldIndex) => {
-            if (isLeaf) {
-              setIsLastField(true);
-            }
-            return prevFieldIndex + 1;
-          });
+          setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+          setIsLastField(!!isLeaf);
         }
         return;
       }
