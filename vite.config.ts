@@ -18,7 +18,7 @@ export default defineConfig({
       external: [...Object.keys(dependencies)],
       output: {
         globals: {
-          "design-system-tracktor": "designSystem",
+          "design-system-tracktor": "designSystemTracktor",
           "find-and": "findAnd",
           "lodash-es": "lodashEs",
           react: "React",
