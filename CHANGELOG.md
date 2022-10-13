@@ -3,4 +3,4 @@
 ## v1.2.1
 
 - Bug fix
-- Upgrade `@vitejs/plugin-react`
+- Upgrade dependencies
