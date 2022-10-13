@@ -1,7 +1,7 @@
 {
   "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.umd.cjs",
@@ -50,7 +50,7 @@
     "vite-plugin-dts": "^1.6.5"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }
