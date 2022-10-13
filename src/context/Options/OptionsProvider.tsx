@@ -1,5 +1,5 @@
 import { ReactNode, useMemo } from "react";
-import OptionsContext, { defaultValueTreegeContext } from "@/context/Options/OptionsContext";
+import OptionsContext, { defaultValueOptionsContext } from "@/context/Options/OptionsContext";
 
 export interface TreegeProviderProps {
   children: ReactNode;
@@ -10,7 +10,7 @@ export interface TreegeProviderProps {
 }
 
 const OptionsProvider = ({ children, options }: TreegeProviderProps) => {
-  const mergedOptions = useMemo(() => ({ ...defaultValueTreegeContext, ...options }), [options]);
+  const mergedOptions = useMemo(() => ({ ...defaultValueOptionsContext, ...options }), [options]);
 
   return <OptionsContext.Provider value={mergedOptions}>{children}</OptionsContext.Provider>;
 };

@@ -1,5 +1,6 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
-## v1.2.0
+## v1.2.1
 
-- Fix export name
+- Bug fix
+- Upgrade `@vitejs/plugin-react`

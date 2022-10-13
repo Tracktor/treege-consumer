@@ -1,10 +1,15 @@
 import { createContext } from "react";
 
-export const defaultValueTreegeContext = {
+interface DefaultValueOptionsContext {
+  countryAutocompleteService?: string;
+  googleApiKey?: string;
+}
+
+export const defaultValueOptionsContext: DefaultValueOptionsContext = {
   countryAutocompleteService: "fr",
   googleApiKey: "",
 };
 
-const OptionsContext = createContext(defaultValueTreegeContext);
+const OptionsContext = createContext(defaultValueOptionsContext);
 
 export default OptionsContext;
