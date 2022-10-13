@@ -1,5 +1,5 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
-## v1.1.3
+## v1.2.0
 
-- Replace exported options provider with a props
+- Fix export name

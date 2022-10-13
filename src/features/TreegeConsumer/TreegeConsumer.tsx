@@ -5,10 +5,10 @@ import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateN
 import OptionsProvider from "@/context/Options/OptionsProvider";
 import FormValidation from "@/features/TreegeConsumer/components/FormValidation/FormValidation";
 import TreegeField from "@/features/TreegeConsumer/components/TreegeField/TreegeField";
-import useTreegeForm from "@/features/TreegeConsumer/useTreegeForm";
+import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import type { TreeNode } from "@/types/TreeNode";
 
-interface BaseTreegeFormProps {
+interface BaseTreegeConsumerProps {
   dataFormatOnSubmit?: "formData" | "json";
   tree?: TreeNode;
   variant?: "standard" | "stepper";
@@ -19,20 +19,20 @@ interface BaseTreegeFormProps {
   onSubmit?(data: { [k: string]: FormDataEntryValue } | [string, FormDataEntryValue][]): void;
 }
 
-type FormDataTreegeFormProps = BaseTreegeFormProps & {
+type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {
   dataFormatOnSubmit?: "formData";
   onSubmit?(data: [string, FormDataEntryValue][]): void;
 };
 
-type JsonTreegeFormProps = BaseTreegeFormProps & {
+type JsonTreegeConsumerProps = BaseTreegeConsumerProps & {
   dataFormatOnSubmit?: "json";
   onSubmit?(data: { [key: string]: FormDataEntryValue }): void;
 };
 
-export type TreegeFormProps = FormDataTreegeFormProps | JsonTreegeFormProps;
+export type TreegeConsumerProps = FormDataTreegeConsumerProps | JsonTreegeConsumerProps;
 
-const TreegeConsumer = ({ tree, onSubmit, options, variant = "stepper", dataFormatOnSubmit = "formData" }: TreegeFormProps) => {
-  const { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField } = useTreegeForm({
+const TreegeConsumer = ({ tree, onSubmit, options, variant = "stepper", dataFormatOnSubmit = "formData" }: TreegeConsumerProps) => {
+  const { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField } = useTreegeConsumer({
     dataFormatOnSubmit,
     onSubmit,
     tree,

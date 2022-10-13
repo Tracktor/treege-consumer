@@ -1,18 +1,18 @@
 import { returnFound } from "find-and";
 import { FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useState } from "react";
-import type { TreegeFormProps } from "@/features/TreegeConsumer";
+import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import fieldMessageTypes from "@/features/TreegeConsumer/constants/fieldMessageTypes";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
 
-export interface useTreegeFormParams {
+export interface useTreegeConsumerParams {
   dataFormatOnSubmit?: "formData" | "json";
   onSubmit?(data: { [k: string]: FormDataEntryValue } | [string, FormDataEntryValue][]): void;
   tree?: TreeNode;
-  variant: TreegeFormProps["variant"];
+  variant: TreegeConsumerProps["variant"];
 }
 
-const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmit }: useTreegeFormParams) => {
+const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmit }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>();
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -165,4 +165,4 @@ const useTreegeForm = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmi
   return { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField };
 };
 
-export default useTreegeForm;
+export default useTreegeConsumer;

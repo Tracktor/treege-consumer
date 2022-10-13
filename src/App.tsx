@@ -12,21 +12,21 @@ import {
   ToggleButtonGroup,
 } from "design-system-tracktor";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import TreegeConsumer, { TreegeFormProps } from "@/features/TreegeConsumer";
+import TreegeConsumer, { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import mockTree from "@/mock/export.json";
 import type { TreeNode } from "@/types/TreeNode";
 
 const App = () => {
   const [tree, setTree] = useState<TreeNode>(mockTree);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [variant, setVariant] = useState<TreegeFormProps["variant"]>("stepper");
+  const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("stepper");
   const [formData, setFormData] = useState<[string, FormDataEntryValue][]>();
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
 
-  const handleChangeVariant = (_: MouseEvent<HTMLElement>, newAlignment: TreegeFormProps["variant"]) => {
+  const handleChangeVariant = (_: MouseEvent<HTMLElement>, newAlignment: TreegeConsumerProps["variant"]) => {
     setVariant(newAlignment);
   };
 

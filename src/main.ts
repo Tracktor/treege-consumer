@@ -1,3 +1,3 @@
 // Components
-export { default as TreegeForm } from "@/features/TreegeConsumer";
+export { default as TreegeConsumer } from "@/features/TreegeConsumer";
 export * from "@/features/TreegeConsumer";
