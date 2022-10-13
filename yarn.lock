@@ -1262,7 +1262,7 @@
     "@microsoft/tsdoc-config" "~0.16.1"
     "@rushstack/node-core-library" "3.53.2"
 
-"@microsoft/api-extractor@^7.32.0":
+"@microsoft/api-extractor@^7.33.1":
   version "7.33.1"
   resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.33.1.tgz#3bfcbe3ce90fe7f3c86deb6d198cd1eadc42ba6a"
   integrity sha512-FwhBbG4RlV2CqEsps2acIVCZz0evSDwotaJGwPhBvAKMYI9xm0pk2Jpuq6tTn2Xtjg4vPXH7bzJ2dPGl3FzgzQ==
@@ -1424,7 +1424,7 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
   integrity sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==
 
-"@rushstack/node-core-library@3.53.2", "@rushstack/node-core-library@^3.53.0":
+"@rushstack/node-core-library@3.53.2", "@rushstack/node-core-library@^3.53.2":
   version "3.53.2"
   resolved "https://registry.yarnpkg.com/@rushstack/node-core-library/-/node-core-library-3.53.2.tgz#f442e121f9e6c8bef9a23b7337e6399ab5c0c579"
   integrity sha512-FggLe5DQs0X9MNFeJN3/EXwb+8hyZUTEp2i+V1e8r4Va4JgkjBNY0BuEaQI+3DW6S4apV3UtXU3im17MSY00DA==
@@ -1951,7 +1951,7 @@ chalk@^2.0.0:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^4.0.0, chalk@^4.1.2:
+chalk@^4.0.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -4129,13 +4129,12 @@ validator@^13.7.0:
   integrity sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==
 
 vite-plugin-dts@^1.6.5:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-1.6.5.tgz#c7dec7a38063e48986cd5118d198a7b166d75b50"
-  integrity sha512-5X6itICUfV8AT0WkHKkE573KMRQE30j4tKzDyvZ770VEZbkGBt87b3j99ENKsW9PZJfI/9br96juq9NbuWoYFg==
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-1.6.6.tgz#aa572d40cb371f91470b37300ab632cf83734ab7"
+  integrity sha512-XEZQlcAN5Bi1PWL0l/E08cI3VpjTCWY5x7C4/bVyC7lpS+/q9CDBCV8gGsqV97/g34N7gNNRNhqs8r0m6JAmIQ==
   dependencies:
-    "@microsoft/api-extractor" "^7.32.0"
-    "@rushstack/node-core-library" "^3.53.0"
-    chalk "^4.1.2"
+    "@microsoft/api-extractor" "^7.33.1"
+    "@rushstack/node-core-library" "^3.53.2"
     debug "^4.3.4"
     fast-glob "^3.2.12"
     fs-extra "^10.1.0"
