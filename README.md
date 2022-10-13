@@ -7,9 +7,7 @@
     - [Provide tree data](#Provide-tree-data)
     - [Provide options](#Provide-options)
 - [Components](#Components)
-    - [TreegeForm](#TreegeForm)
-- [Providers](#Providers)
-    - [TreegeProvider](#TreegeProvider)
+    - [TreegeConsumer](#TreegeConsumer)
 - [Features](#Features)
 - [Local installation](#local-installation)
 - [Available Scripts](#Available-Scripts)
@@ -43,14 +41,14 @@ Data can be fetched from your API.
 
 ```typescript jsx
 import tree from "./tree.json";
-import { TreegeForm } from "treege-consumer ";
+import { TreegeConsumer } from "treege-consumer ";
 
 const App = () => {
   const handleSubmit = (data: [string, FormDataEntryValue][]) => {
     console.log(data);
   };
 
-  return <TreegeForm tree={tree} onSubmit={handleSubmit}/>;
+  return <TreegeConsumer tree={tree} onSubmit={handleSubmit}/>;
 };
 
 export default App;
@@ -62,7 +60,7 @@ Some options can be provided. For example if you want to use place predictions f
 
 ```typescript jsx
 import tree from "./tree.json";
-import { TreegeForm, TreegeProvider } from "treege-consumer ";
+import { TreegeConsumer } from "treege-consumer ";
 
 const App = () => {
   const handleSubmit = (data: [string, FormDataEntryValue][]) => {
@@ -70,9 +68,11 @@ const App = () => {
   };
 
   return (
-    <TreegeProvider options={{googleApiKey: "YOUR_GOOGLE_API_KEY"}}>
-      <TreegeForm tree={tree} variant={variant} onSubmit={handleSubmit}/>
-    </TreegeProvider>
+    <TreegeConsumer
+      tree={tree}
+      variant={variant}
+      onSubmit={handleSubmit}
+      options={{googleApiKey: "AIzaSyCEE2sZpLEpujo22Liix8ZizOYiqYQkWTc"}}/>
   );
 };
 
@@ -81,23 +81,20 @@ export default App;
 
 ## Components
 
-### TreegeForm
+### TreegeConsumer
 
 Render a form based
 on [Treege](https://github.com/Tracktor/treege) data
 
-| Props              | Type                       | Default    | Required | Detail                                    |
-|--------------------|----------------------------|------------|----------|-------------------------------------------|
-| dataFormatOnSubmit | "formData"<br/>  "json"    | "formData" | false    | Data format returned by onSubmit callback |
-| tree               | TreeNode<br/>  undefined   | undefined  | false    | Treege data                               |
-| variant            | "standard"<br/>  "stepper" | "stepper"  | false    | The variant to use                        |
-| onSubmit           | "formData"<br/>  "json"    | "formData" | false    | Callback fired form is validate           |
+| Props              | Type                                              | Default    | Required | Detail                                    |
+|--------------------|---------------------------------------------------|------------|----------|-------------------------------------------|
+| dataFormatOnSubmit | "formData"<br/>  "json"                           | "formData" | false    | Data format returned by onSubmit callback |
+| tree               | TreeNode<br/>  undefined                          | undefined  | false    | Treege data                               |
+| variant            | "standard"<br/>  "stepper"                        | "stepper"  | false    | The variant to use                        |
+| onSubmit           | "formData"<br/>  "json"                           | "formData" | false    | Callback fired form is validate           |
+| Options            | "countryAutocompleteService"<br/>  "googleApiKey" | undefined  | false    | Consumer options                          |
 
-## Providers
-
-### TreegeProvider
-
-Provide options
+#### Options
 
 | Options                    | Type   | Default | Required | Detail                                                                                                                                                                        |
 |----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

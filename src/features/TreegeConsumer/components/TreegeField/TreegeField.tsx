@@ -5,7 +5,7 @@ import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
 import Radio from "@/components/Inputs/Radio/Radio";
 import Select from "@/components/Inputs/Select/Select";
 import TextField from "@/components/Inputs/TextField/TextField";
-import type { ChangeEventField } from "@/features/TreegeForm/type";
+import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface TreegeFieldProps {

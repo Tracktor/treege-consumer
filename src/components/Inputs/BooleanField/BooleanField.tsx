@@ -1,6 +1,6 @@
 import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "design-system-tracktor";
 import { ChangeEvent, forwardRef, Ref, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeForm/type";
+import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface BooleanFieldProps {

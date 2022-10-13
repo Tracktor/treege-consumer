@@ -1,8 +1,8 @@
 import { returnFound } from "find-and";
 import { FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useState } from "react";
-import fieldMessageTypes from "@/features/TreegeForm/constants/fieldMessageTypes";
-import type { TreegeFormProps } from "@/features/TreegeForm/TreegeForm";
-import type { ChangeEventField } from "@/features/TreegeForm/type";
+import type { TreegeFormProps } from "@/features/TreegeConsumer";
+import fieldMessageTypes from "@/features/TreegeConsumer/constants/fieldMessageTypes";
+import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
 
 export interface useTreegeFormParams {

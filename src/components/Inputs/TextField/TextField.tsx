@@ -1,6 +1,6 @@
 import { TextField as TextFieldDS } from "design-system-tracktor";
 import { ChangeEvent, forwardRef, Ref } from "react";
-import type { ChangeEventField } from "@/features/TreegeForm/type";
+import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 
 export interface TextFieldProps {
   label: string;

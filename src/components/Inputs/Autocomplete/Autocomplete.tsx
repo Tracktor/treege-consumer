@@ -2,7 +2,7 @@ import parse from "autosuggest-highlight/parse";
 import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from "design-system-tracktor";
 import { throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
-import TreegeContext from "@/context/TreegeContext";
+import OptionsContext from "@/context/Options/OptionsContext";
 import useScript from "@/hooks/useScript";
 import { IsString } from "@/types/TypeGuards";
 
@@ -19,7 +19,7 @@ type AutocompleteService = google.maps.places.AutocompleteService;
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
 const Autocomplete = ({ label, name, helperText, inputRef, required, country }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
-  const { googleApiKey, countryAutocompleteService } = useContext(TreegeContext);
+  const { googleApiKey, countryAutocompleteService } = useContext(OptionsContext);
   const places = useScript(googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places` : "");
   const autocompleteService = useRef<AutocompleteService>();
   const [value, setValue] = useState<AutocompletePrediction | null>(null);

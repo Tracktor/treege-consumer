@@ -9,7 +9,7 @@ import {
   SelectChangeEvent,
 } from "design-system-tracktor";
 import { forwardRef, Ref, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeForm/type";
+import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
 

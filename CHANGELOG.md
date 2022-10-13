@@ -1,6 +1,5 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
-## v1.1.2
+## v1.1.3
 
-- Upgrade design system
-- Vite config
+- Replace exported options provider with a props

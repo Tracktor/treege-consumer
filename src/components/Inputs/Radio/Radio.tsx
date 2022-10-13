@@ -1,6 +1,6 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "design-system-tracktor";
 import { ChangeEvent, forwardRef, Ref, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeForm/type";
+import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
 

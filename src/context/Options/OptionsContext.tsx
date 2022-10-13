@@ -5,6 +5,6 @@ export const defaultValueTreegeContext = {
   googleApiKey: "",
 };
 
-const TreegeContext = createContext(defaultValueTreegeContext);
+const OptionsContext = createContext(defaultValueTreegeContext);
 
-export default TreegeContext;
+export default OptionsContext;
