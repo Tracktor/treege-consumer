@@ -1,7 +1,7 @@
 {
   "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.umd.cjs",
@@ -43,8 +43,6 @@
     "@vitejs/plugin-react": "^2.1.0",
     "eslint-config-react-tracktor": "^1.0.3",
     "husky": "^8.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "typescript": "^4.8.4",
     "vite": "^3.1.8",
     "vite-plugin-dts": "^1.6.5"
