@@ -3,8 +3,10 @@
     "depth": 0,
     "label": "Ville ou adresse du site",
     "type": "address",
-    "isRoot": true,
-    "required": true
+    "helperText": "Utiliser l'auto completion",
+    "required": true,
+    "isLeaf": false,
+    "isRoot": true
   },
   "children": [
     {
@@ -24,28 +26,31 @@
             "value": "price_only"
           }
         ],
-        "required": true
+        "isLeaf": false
       },
       "children": [
         {
           "attributes": {
             "depth": 2,
             "label": "Ma date de début est flexible (+/- 1 jour)",
-            "type": "checkbox"
+            "type": "checkbox",
+            "isLeaf": false
           },
           "children": [
             {
               "attributes": {
                 "depth": 3,
                 "label": "Quantité",
-                "type": "number"
+                "type": "number",
+                "isLeaf": false
               },
               "children": [
                 {
                   "attributes": {
                     "depth": 4,
                     "label": "Avec Livraison & Reprise",
-                    "type": "switch"
+                    "type": "switch",
+                    "isLeaf": false
                   },
                   "children": [
                     {
@@ -53,56 +58,68 @@
                         "depth": 5,
                         "label": "Location avec opérateur",
                         "type": "radio",
-                        "isDecision": true
+                        "isDecision": true,
+                        "isLeaf": false
                       },
                       "children": [
                         {
                           "attributes": {
                             "depth": 6,
                             "label": "Oui",
-                            "value": "oui"
+                            "value": "yes",
+                            "isLeaf": false
                           },
                           "children": [
                             {
                               "attributes": {
                                 "depth": 7,
                                 "label": " 3 godets",
-                                "type": "switch"
+                                "type": "switch",
+                                "isLeaf": false
                               },
                               "children": [
                                 {
                                   "attributes": {
                                     "depth": 8,
                                     "label": "BRH",
-                                    "type": "switch"
+                                    "type": "switch",
+                                    "isLeaf": false
                                   },
                                   "children": [
                                     {
                                       "attributes": {
                                         "depth": 9,
                                         "label": "Benne Preneuse",
-                                        "type": "switch"
+                                        "type": "switch",
+                                        "isLeaf": false
                                       },
                                       "children": [
                                         {
                                           "attributes": {
                                             "depth": 10,
                                             "label": "Godet curage orientable",
-                                            "type": "switch"
+                                            "type": "switch",
+                                            "isLeaf": false
                                           },
                                           "children": [
                                             {
                                               "attributes": {
                                                 "depth": 11,
                                                 "label": "Godet orientable",
-                                                "type": "switch"
+                                                "type": "switch",
+                                                "messages": {
+                                                  "on": "Le prix du transport peut varier"
+                                                },
+                                                "isLeaf": false,
+                                                "isRoot": false
                                               },
                                               "children": [
                                                 {
                                                   "attributes": {
                                                     "depth": 12,
                                                     "label": "Pince de Tri",
-                                                    "type": "switch"
+                                                    "type": "switch",
+                                                    "isLeaf": false
                                                   },
                                                   "children": [
                                                     {
@@ -131,20 +148,20 @@
                                   "name": "brh"
                                 }
                               ],
-                              "name": "3_godets"
+                              "name": " 3 godets"
                             }
                           ],
-                          "name": "location:oui"
+                          "name": "location:yes"
                         },
                         {
                           "attributes": {
                             "depth": 6,
                             "label": "Non",
-                            "value": "non",
+                            "value": "no",
                             "isLeaf": true
                           },
                           "children": [],
-                          "name": "location:non"
+                          "name": "location:no"
                         }
                       ],
                       "name": "location"

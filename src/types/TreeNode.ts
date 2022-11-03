@@ -12,7 +12,7 @@ export interface TreeNodeField {
   isRoot?: boolean;
   label: string;
   helperText?: string;
-  messages?: { on: string; off: string };
+  messages?: { on?: string; off?: string };
   required?: boolean;
   step?: string;
   type: string;

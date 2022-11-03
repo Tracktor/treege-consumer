@@ -3,7 +3,8 @@ import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import fieldMessageTypes from "@/features/TreegeConsumer/constants/fieldMessageTypes";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
-import { getFieldsFormTreePoint, getFieldsFromTreeRest } from "@/utils";
+import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
+import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
 
 export interface useTreegeConsumerParams {
   dataFormatOnSubmit?: "formData" | "json";
@@ -31,7 +32,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
           const indexDecisionField = prevState?.findIndex((item) => item.name === name);
           const treeRest = prevState?.[indexDecisionField]?.childrenTreeRest;
           const childrenTreeRestDecision = getFieldsFromTreeRest(treeRest);
-          const decisionChildrenSelected = getFieldsFormTreePoint({
+          const decisionChildrenSelected = getFieldsFromTreePoint({
             currentTree: decisionSelected?.children[0] || null,
             treePath: prevState?.[indexDecisionField]?.treePath,
           });
@@ -117,7 +118,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
   // Set initial field
   useEffect(() => {
     if (!tree) return;
-    const initialFields = getFieldsFormTreePoint({ currentTree: tree });
+    const initialFields = getFieldsFromTreePoint({ currentTree: tree });
     setFields(initialFields);
 
     // If last initial fields in standard variant has no children
