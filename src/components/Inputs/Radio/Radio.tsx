@@ -15,7 +15,7 @@ export interface TextFieldProps {
 const Radio = ({ data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
-  const { label, values, type, isLeaf } = attributes;
+  const { label, values, type, isLeaf, isDecision } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
 
   const options = getOptionsForDecisionsField({ children, values });
@@ -23,7 +23,7 @@ const Radio = ({ data, helperText, inputRef, required, onChange }: TextFieldProp
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: string) => {
     const messageValue = getMessageByValue({ options, value });
 
-    onChange?.({ event, hasMessage: !!messageValue, isLeaf, name, type, value });
+    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
     setMessage(messageValue);
   };
 

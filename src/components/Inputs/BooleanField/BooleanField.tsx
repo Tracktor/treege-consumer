@@ -11,7 +11,7 @@ export interface BooleanFieldProps {
 }
 
 const BooleanField = ({ data, inputRef, helperText, onChange }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
-  const { name, attributes } = data;
+  const { name, attributes, children } = data;
   const { label, type, isLeaf, messages } = attributes;
 
   const Field = type === "checkbox" ? Checkbox : Switch;
@@ -21,7 +21,7 @@ const BooleanField = ({ data, inputRef, helperText, onChange }: BooleanFieldProp
     const { checked } = event.target;
     const hasMessage = checked ? messages?.on : messages?.off;
 
-    onChange?.({ event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
+    onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
     setMessage(hasMessage);
   };
 
