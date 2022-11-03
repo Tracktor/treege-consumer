@@ -1,9 +1,9 @@
-import { returnFound } from "find-and";
 import { FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useState } from "react";
 import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import fieldMessageTypes from "@/features/TreegeConsumer/constants/fieldMessageTypes";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
+import { getFieldsFormTreePoint, getFieldsFromTreeRest, prefixFieldsName } from "@/utils";
 
 export interface useTreegeConsumerParams {
   dataFormatOnSubmit?: "formData" | "json";
@@ -14,103 +14,67 @@ export interface useTreegeConsumerParams {
 
 const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmit }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
-  const [fields, setFields] = useState<TreeNode[]>();
+  const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
-
-  const resetNextFieldsFromTreeName = useCallback((name: string, hasMessage?: boolean): void => {
-    if (!hasMessage) {
-      setIsLastField(true);
-    }
-
-    setFields((prevState) => {
-      const lastField = prevState && prevState[prevState.length - 1];
-
-      if (lastField?.name === name) {
-        return prevState;
-      }
-
-      const fieldsLength = prevState?.length || 0;
-      const indexTarget = prevState?.findIndex((item) => item.name === name) || 0;
-      const numberFieldsToRemoveFromEnd = fieldsLength - (indexTarget + 1);
-
-      return prevState?.slice(0, Math.abs(numberFieldsToRemoveFromEnd) * -1); // Remove fields from the end
-    });
-  }, []);
-
-  const setNextFieldsFromTargetName = useCallback(
-    (fieldsFromPoint: TreeNode[] | undefined, name: string, dataAttribute: Partial<ChangeEventField>): void => {
-      const { hasMessage, isLeaf, type } = dataAttribute;
-      const isSelectField = fieldMessageTypes.includes(type || "");
-
-      if (!fieldsFromPoint) {
-        if (!hasMessage && isSelectField) {
-          setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
-          setIsLastField(!!isLeaf);
-        }
-        return;
-      }
-
-      setFields((prevFields) => {
-        if (!prevFields) {
-          return fieldsFromPoint;
-        }
-
-        const selectedFieldIndex = prevFields.findIndex((item) => item.name === name);
-        const fieldsSelectedBeforeIndex = prevFields?.slice(0, selectedFieldIndex + 1);
-        const nextFields = [...fieldsSelectedBeforeIndex, ...fieldsFromPoint];
-        const lastField = nextFields && nextFields[nextFields.length - 1];
-        const lastFieldIsLeaf = lastField?.attributes?.isLeaf || false;
-        const allValueHasNoChildren = lastField?.children.every((item) => item.children.length === 0) || false;
-
-        if (!hasMessage) {
-          setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
-        }
-
-        if (variant === "standard") {
-          setIsLastField(lastFieldIsLeaf || allValueHasNoChildren);
-        }
-
-        return [...fieldsSelectedBeforeIndex, ...fieldsFromPoint];
-      });
-    },
-    [variant]
-  );
-
-  const getNextFieldsFromTreePoint = useCallback((currentTree: TreeNode, accumulator?: TreeNode[]): undefined | TreeNode[] => {
-    if (!currentTree) {
-      return undefined;
-    }
-
-    const children = returnFound(currentTree, { name: currentTree.children[0]?.name });
-
-    if (currentTree.attributes?.isDecision || !children) {
-      return accumulator?.length ? accumulator : [currentTree];
-    }
-
-    const nextResult = [...(accumulator || [currentTree]), children];
-
-    return getNextFieldsFromTreePoint(children, nextResult);
-  }, []);
+  const isStepper = variant === "stepper";
+  const isStandard = variant === "standard";
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField): void => {
-      const { value, name, hasMessage } = dataAttribute;
-      const { children } = returnFound(tree, { name: value }) || {};
-      const isEmptyChildren = Array.isArray(children) && children.length === 0;
+      const { value, name, hasMessage, type, isDecision, children } = dataAttribute;
+      const isSelectField = fieldMessageTypes.includes(type || "");
+      const isAutoStep = isSelectField && !hasMessage;
 
-      if (isEmptyChildren) {
-        if (!hasMessage) {
-          setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
-        }
-        resetNextFieldsFromTreeName(name, hasMessage);
-        return;
+      if (isDecision) {
+        setFields((prevState) => {
+          const decisionSelected = children?.find((child) => child.name === value);
+          const indexDecisionField = prevState?.findIndex((item) => item.name === name);
+          const treeRest = prevState?.[indexDecisionField]?.childrenTreeRest;
+          const childrenTreeRestDecision = getFieldsFromTreeRest(treeRest);
+          const decisionChildrenSelected = prefixFieldsName(decisionSelected?.children, prevState?.[indexDecisionField]?.treePath);
+          const noChildren = !decisionChildrenSelected?.length && !childrenTreeRestDecision?.length;
+
+          // Remove all field after decision
+          const initialField = prevState.slice(0, indexDecisionField + 1);
+
+          // if the decision & treeDecision don't have children
+          if (noChildren) {
+            setIsLastField(true);
+
+            if (isStepper && isAutoStep) {
+              // AUTO NEXT STEP
+              setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+            }
+            // return Initial Field when decision & treeDecision don't have Children
+            return initialField;
+          }
+
+          const newFields = [...initialField, ...decisionChildrenSelected, ...childrenTreeRestDecision];
+
+          const lastField = newFields.at(-1);
+          const lastFieldIsLeaf = !!lastField?.attributes?.isLeaf && !lastField.treePath;
+
+          if (isStandard) {
+            setIsLastField(lastFieldIsLeaf);
+          }
+
+          if (isStepper && isAutoStep) {
+            // AUTO NEXT STEP
+            setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+          }
+
+          return newFields;
+        });
       }
 
-      const nestedChildren = children?.[0];
-      const fieldsFromPoint = getNextFieldsFromTreePoint(nestedChildren);
-      setNextFieldsFromTargetName(fieldsFromPoint, name, dataAttribute);
+      // AUTO NEXT STEP
+      if (isStepper && !isDecision) {
+        if (isAutoStep) {
+          setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+        }
+      }
     },
-    [getNextFieldsFromTreePoint, resetNextFieldsFromTreeName, setNextFieldsFromTargetName, tree]
+    [isStepper, isStandard]
   );
 
   const handleSubmit = useCallback(
@@ -118,7 +82,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
 
-      if (variant === "stepper" && !isLastField) {
+      if (isStepper && !isLastField) {
         setActiveFieldIndex((prevActiveFieldIndex) => {
           const nextIndex = prevActiveFieldIndex + 1;
           const hasNextField = fields?.[nextIndex] !== undefined;
@@ -138,26 +102,26 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
 
       onSubmit?.(data);
     },
-    [dataFormatOnSubmit, fields, isLastField, onSubmit, variant]
+    [dataFormatOnSubmit, fields, isLastField, isStepper, onSubmit]
   );
 
   const handlePrev = useCallback((_: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
     setIsLastField(false);
+
     setActiveFieldIndex((prevState) => prevState - 1);
   }, []);
 
   // Set initial field
   useEffect(() => {
     if (!tree) return;
-    const initialFields = getNextFieldsFromTreePoint(tree);
-
+    const initialFields = getFieldsFormTreePoint({ currentTree: tree });
     setFields(initialFields);
 
     // If last initial fields in standard variant has no children
-    if (variant === "standard" && initialFields && initialFields[initialFields.length - 1].children.length === 0) {
+    if (isStandard && initialFields && initialFields[initialFields.length - 1].children.length === 0) {
       setIsLastField(true);
     }
-  }, [getNextFieldsFromTreePoint, tree, variant]);
+  }, [isStandard, tree, variant]);
 
   return { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField };
 };
