@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
-## v1.2.6
-- peer dependencies
+# v1.3.0
+- Compatibility with treege 0.5.XX
