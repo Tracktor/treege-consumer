@@ -3,13 +3,12 @@ import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 
 const getFieldsFromTreeRest = (childrenTreeRest?: ChildrenTreeRest[]): TreeNode[] | [] => {
   let fieldArray: [] | TreeNode[] = [];
-  let breaker = false;
 
   if (!childrenTreeRest) {
     return [];
   }
 
-  for (let i = 0; !breaker && i < childrenTreeRest.length; i += 1) {
+  for (let i = 0; i < childrenTreeRest.length; i += 1) {
     const { currentTree, treePath } = childrenTreeRest[i];
     const fieldArrayResultFunction = getFieldsFromTreePoint({ currentTree: currentTree.children[0], treePath });
     const lastFieldArrayFunction = fieldArrayResultFunction?.at(-1);
@@ -20,10 +19,10 @@ const getFieldsFromTreeRest = (childrenTreeRest?: ChildrenTreeRest[]): TreeNode[
 
       fieldArrayResultFunction.splice(-1, 1, { ...lastFieldArrayFunction, childrenTreeRest: restChildrenTree } as TreeNode);
       fieldArray = [...fieldArray, ...fieldArrayResultFunction];
-      breaker = true;
-    } else {
-      fieldArray = [...fieldArray, ...fieldArrayResultFunction];
+      break;
     }
+
+    fieldArray = [...fieldArray, ...fieldArrayResultFunction];
   }
 
   return fieldArray;
