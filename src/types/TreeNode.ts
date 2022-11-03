@@ -1,3 +1,10 @@
+interface TreeValues {
+  id: string;
+  label: string;
+  value: string;
+  message?: string;
+}
+
 export interface TreeNodeField {
   depth: number;
   isDecision?: boolean;
@@ -5,13 +12,15 @@ export interface TreeNodeField {
   isRoot?: boolean;
   label: string;
   helperText?: string;
-  messages?: { on: string; off: string };
+  messages?: { on?: string; off?: string };
   required?: boolean;
   step?: string;
   type: string;
   value?: never;
-  values?: { id: string; label: string; value: string; message?: string }[];
+  values?: TreeValues[];
   message?: never;
+  tree?: TreeNode;
+  treePath?: string;
 }
 
 export interface TreeNodeValues {
@@ -28,12 +37,19 @@ export interface TreeNodeValues {
   value: string;
   values?: never;
   message?: string;
+  tree?: never;
+  treePath?: never;
 }
 
 export type TreeNodeAttributes = TreeNodeField | TreeNodeValues;
+
+export type ChildrenTreeRest = { currentTree: TreeNode; treePath?: string };
 
 export interface TreeNode {
   name: string;
   attributes: TreeNodeAttributes;
   children: TreeNode[];
+  treeId?: string;
+  treePath?: string;
+  childrenTreeRest?: ChildrenTreeRest[];
 }
