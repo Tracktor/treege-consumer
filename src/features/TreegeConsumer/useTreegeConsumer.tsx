@@ -3,7 +3,7 @@ import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import fieldMessageTypes from "@/features/TreegeConsumer/constants/fieldMessageTypes";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
-import { getFieldsFormTreePoint, getFieldsFromTreeRest, prefixFieldsName } from "@/utils";
+import { getFieldsFormTreePoint, getFieldsFromTreeRest } from "@/utils";
 
 export interface useTreegeConsumerParams {
   dataFormatOnSubmit?: "formData" | "json";
@@ -31,7 +31,10 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
           const indexDecisionField = prevState?.findIndex((item) => item.name === name);
           const treeRest = prevState?.[indexDecisionField]?.childrenTreeRest;
           const childrenTreeRestDecision = getFieldsFromTreeRest(treeRest);
-          const decisionChildrenSelected = prefixFieldsName(decisionSelected?.children, prevState?.[indexDecisionField]?.treePath);
+          const decisionChildrenSelected = getFieldsFormTreePoint({
+            currentTree: decisionSelected?.children[0] || null,
+            treePath: prevState?.[indexDecisionField]?.treePath,
+          });
           const noChildren = !decisionChildrenSelected?.length && !childrenTreeRestDecision?.length;
 
           // Remove all field after decision
