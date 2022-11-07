@@ -83,7 +83,7 @@ const TreegeConsumer = ({ tree, onSubmit, options, variant = "stepper", dataForm
                 </Slide>
                 <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
                   <ButtonGroup variant="outlined" aria-label="outlined button group">
-                    <Button disabled={activeFieldIndex === 0 || activeFieldIndex === isFirstField} onClick={handlePrev}>
+                    <Button disabled={activeFieldIndex === isFirstField} onClick={handlePrev}>
                       <NavigateBeforeRounded />
                     </Button>
                     <Button type="submit" disabled={isLastField}>
