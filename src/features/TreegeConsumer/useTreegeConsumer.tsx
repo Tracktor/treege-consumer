@@ -17,8 +17,8 @@ export interface useTreegeConsumerParams {
 const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmit }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
-  const [isLastField, setIsLastField] = useState<boolean>(false);
-  const [isFirstField, setIsFirstField] = useState(0);
+  const [isLastField, setIsLastField] = useState(false);
+  const [firstFieldIndex, setFirstFieldIndex] = useState(0);
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -142,7 +142,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
     const stepper = getNextStepper(initialFields);
     if (isStepper && stepper) {
       setActiveFieldIndex(stepper);
-      setIsFirstField(stepper);
+      setFirstFieldIndex(stepper);
     }
 
     // If last initial fields in standard variant has no children
@@ -151,7 +151,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
     }
   }, [isStandard, isStepper, tree, variant]);
 
-  return { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isFirstField, isLastField };
+  return { activeFieldIndex, fields, firstFieldIndex, handleChange, handlePrev, handleSubmit, isLastField };
 };
 
 export default useTreegeConsumer;
