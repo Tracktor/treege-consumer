@@ -1,9 +1,10 @@
 {
   "attributes": {
     "depth": 0,
-    "label": "hidden1",
-    "type": "hidden",
-    "hiddenValue": "1",
+    "label": "Ville ou adresse du site",
+    "type": "address",
+    "helperText": "Utiliser l'auto completion",
+    "required": true,
     "isLeaf": false,
     "isRoot": true
   },
@@ -11,27 +12,172 @@
     {
       "attributes": {
         "depth": 1,
-        "label": "1",
-        "type": "text",
-        "isLeaf": false,
-        "isRoot": false
+        "label": "À quelle phase de votre projet êtes-vous ?",
+        "type": "select",
+        "values": [
+          {
+            "id": "0",
+            "label": "J'ai un besoin pour un projet en cours ou à venir",
+            "value": "in_progress"
+          },
+          {
+            "id": "1",
+            "label": "Je veux juste obtenir un prix",
+            "value": "price_only"
+          }
+        ],
+        "isLeaf": false
       },
       "children": [
         {
           "attributes": {
             "depth": 2,
-            "label": "hidden2",
-            "type": "hidden",
-            "hiddenValue": "2",
-            "isLeaf": true,
-            "isRoot": false
+            "label": "Ma date de début est flexible (+/- 1 jour)",
+            "type": "checkbox",
+            "isLeaf": false
           },
-          "children": [],
-          "name": "hidden2"
+          "children": [
+            {
+              "attributes": {
+                "depth": 3,
+                "label": "Quantité",
+                "type": "number",
+                "isLeaf": false
+              },
+              "children": [
+                {
+                  "attributes": {
+                    "depth": 4,
+                    "label": "Avec Livraison & Reprise",
+                    "type": "switch",
+                    "isLeaf": false
+                  },
+                  "children": [
+                    {
+                      "attributes": {
+                        "depth": 5,
+                        "label": "Location avec opérateur",
+                        "type": "radio",
+                        "isDecision": true,
+                        "isLeaf": false
+                      },
+                      "children": [
+                        {
+                          "attributes": {
+                            "depth": 6,
+                            "label": "Oui",
+                            "value": "yes",
+                            "isLeaf": false
+                          },
+                          "children": [
+                            {
+                              "attributes": {
+                                "depth": 7,
+                                "label": " 3 godets",
+                                "type": "switch",
+                                "isLeaf": false
+                              },
+                              "children": [
+                                {
+                                  "attributes": {
+                                    "depth": 8,
+                                    "label": "BRH",
+                                    "type": "switch",
+                                    "isLeaf": false
+                                  },
+                                  "children": [
+                                    {
+                                      "attributes": {
+                                        "depth": 9,
+                                        "label": "Benne Preneuse",
+                                        "type": "switch",
+                                        "isLeaf": false
+                                      },
+                                      "children": [
+                                        {
+                                          "attributes": {
+                                            "depth": 10,
+                                            "label": "Godet curage orientable",
+                                            "type": "switch",
+                                            "isLeaf": false
+                                          },
+                                          "children": [
+                                            {
+                                              "attributes": {
+                                                "depth": 11,
+                                                "label": "Godet orientable",
+                                                "type": "switch",
+                                                "messages": {
+                                                  "on": "Le prix du transport peut varier"
+                                                },
+                                                "isLeaf": false,
+                                                "isRoot": false
+                                              },
+                                              "children": [
+                                                {
+                                                  "attributes": {
+                                                    "depth": 12,
+                                                    "label": "Pince de Tri",
+                                                    "type": "switch",
+                                                    "isLeaf": false
+                                                  },
+                                                  "children": [
+                                                    {
+                                                      "attributes": {
+                                                        "depth": 13,
+                                                        "label": "Tarière hydraulique",
+                                                        "type": "switch",
+                                                        "isLeaf": true
+                                                      },
+                                                      "children": [],
+                                                      "name": "tariere_hydraulique"
+                                                    }
+                                                  ],
+                                                  "name": "pince_de_tri"
+                                                }
+                                              ],
+                                              "name": "godet_orientable"
+                                            }
+                                          ],
+                                          "name": "godet_curage"
+                                        }
+                                      ],
+                                      "name": "benne_preneuse"
+                                    }
+                                  ],
+                                  "name": "brh"
+                                }
+                              ],
+                              "name": " 3 godets"
+                            }
+                          ],
+                          "name": "location:yes"
+                        },
+                        {
+                          "attributes": {
+                            "depth": 6,
+                            "label": "Non",
+                            "value": "no",
+                            "isLeaf": true
+                          },
+                          "children": [],
+                          "name": "location:no"
+                        }
+                      ],
+                      "name": "location"
+                    }
+                  ],
+                  "name": "with_delivery"
+                }
+              ],
+              "name": "quantity"
+            }
+          ],
+          "name": "flexible"
         }
       ],
-      "name": "1"
+      "name": "phase"
     }
   ],
-  "name": "hidden1"
+  "name": "address"
 }
