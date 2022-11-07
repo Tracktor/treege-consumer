@@ -7,13 +7,17 @@ const getNextStepper = (restArray?: TreeNode[]) => {
 
   let stepper = 0;
 
-  restArray.some(({ attributes: { type } }) => {
+  for (let i = 0; i < restArray.length; i += 1) {
+    const {
+      attributes: { type },
+    } = restArray[i];
+
     if (type === "hidden") {
       stepper += 1;
-      return false;
+    } else {
+      break;
     }
-    return true;
-  });
+  }
 
   return stepper;
 };
