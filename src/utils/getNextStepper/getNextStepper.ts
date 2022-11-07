@@ -1,6 +1,10 @@
 import type { TreeNode } from "@/types/TreeNode";
 
-const getNextStepper = (restArray: TreeNode[], revert?: boolean) => {
+const getNextStepper = (restArray?: TreeNode[], revert?: boolean) => {
+  if (!restArray?.length) {
+    return 0;
+  }
+
   let stepper = 0;
   const restArrayStepper = [...(revert ? restArray.reverse() : restArray)];
 
@@ -8,6 +12,7 @@ const getNextStepper = (restArray: TreeNode[], revert?: boolean) => {
     const {
       attributes: { type },
     } = restArrayStepper[i];
+
     if (type === "hidden") {
       stepper += 1;
     } else {

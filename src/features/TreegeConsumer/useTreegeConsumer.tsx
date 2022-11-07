@@ -5,7 +5,7 @@ import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
-import getNextStepper from "@/utils/getNextStepper/getNextStepper";
+import getNextStepper from "@/utils/getNextStepper";
 
 export interface useTreegeConsumerParams {
   dataFormatOnSubmit?: "formData" | "json";
@@ -18,6 +18,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
+  const [isFirstField, setIsFirstField] = useState(0);
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -110,14 +111,6 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
 
       if (!isLastField) return;
 
-      const hiddenField = fields.filter(({ attributes }) => attributes.type === "hidden");
-
-      hiddenField.forEach(({ attributes, name }) => {
-        if (attributes?.hiddenValue) {
-          formData.append(name, attributes.hiddenValue);
-        }
-      });
-
       const data = dataFormatOnSubmit === "formData" ? [...formData] : Object.fromEntries(formData);
 
       onSubmit?.(data);
@@ -144,13 +137,20 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
     const initialFields = getFieldsFromTreePoint({ currentTree: tree });
     setFields(initialFields);
 
+    // Check if the first fields is Hidden
+    const stepper = getNextStepper(initialFields);
+    if (isStepper && stepper) {
+      setActiveFieldIndex(stepper);
+      setIsFirstField(stepper);
+    }
+
     // If last initial fields in standard variant has no children
     if (isStandard && initialFields && initialFields[initialFields.length - 1].children.length === 0) {
       setIsLastField(true);
     }
-  }, [isStandard, tree, variant]);
+  }, [isStandard, isStepper, tree, variant]);
 
-  return { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField };
+  return { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isFirstField, isLastField };
 };
 
 export default useTreegeConsumer;

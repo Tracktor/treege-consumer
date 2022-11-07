@@ -1,90 +1,37 @@
 {
   "attributes": {
     "depth": 0,
-    "label": "Type",
-    "type": "select",
-    "isDecision": true
+    "label": "hidden1",
+    "type": "hidden",
+    "hiddenValue": "1",
+    "isLeaf": false,
+    "isRoot": true
   },
   "children": [
     {
       "attributes": {
         "depth": 1,
-        "label": "Erreur Tracktor",
-        "value": "Erreur Tracktor",
-        "isLeaf": false
+        "label": "1",
+        "type": "text",
+        "isLeaf": false,
+        "isRoot": false
       },
       "children": [
         {
           "attributes": {
             "depth": 2,
-            "label": "Type d'erreur",
+            "label": "hidden2",
             "type": "hidden",
             "hiddenValue": "2",
-            "isLeaf": false,
+            "isLeaf": true,
             "isRoot": false
           },
-          "children": [
-            {
-              "attributes": {
-                "depth": 3,
-                "label": "Prq tracktor",
-                "type": "text",
-                "isLeaf": false
-              },
-              "children": [
-                {
-                  "attributes": {
-                    "depth": 4,
-                    "label": "final",
-                    "type": "text",
-                    "isLeaf": true
-                  },
-                  "children": [],
-                  "name": "final"
-                }
-              ],
-              "name": "Prq tracktor"
-            }
-          ],
-          "name": "error2"
+          "children": [],
+          "name": "hidden2"
         }
       ],
-      "name": "Type:Erreur Tracktor"
-    },
-    {
-      "attributes": {
-        "depth": 1,
-        "label": "Erreur Loc",
-        "value": "Erreur Loc",
-        "isLeaf": false
-      },
-      "children": [
-        {
-          "attributes": {
-            "depth": 2,
-            "label": "Type d'erreur",
-            "type": "hidden",
-            "hiddenValue": "4",
-            "isLeaf": false,
-            "isRoot": false
-          },
-          "children": [
-            {
-              "attributes": {
-                "depth": 3,
-                "label": "Prq loc",
-                "type": "text",
-                "isLeaf": true
-              },
-              "children": [],
-              "name": "Prq loc"
-            }
-          ],
-          "name": "error"
-        }
-      ],
-      "name": "Type:Erreur Loc"
+      "name": "1"
     }
   ],
-  "name": "Type"
+  "name": "hidden1"
 }

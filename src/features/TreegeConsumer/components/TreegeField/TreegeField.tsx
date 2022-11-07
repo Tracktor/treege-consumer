@@ -22,6 +22,7 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
   const { type, label, required, helperText } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
+  const isHidden = type === "hidden";
 
   const inputRef = useCallback(
     (ref: HTMLInputElement) => {
@@ -67,12 +68,14 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
       case "switch":
       case "checkbox":
         return <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} />;
-      case "hidden":
-        return <HiddenField data={data} inputRef={inputRef} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
   };
+
+  if (isHidden) {
+    return <HiddenField data={data} />;
+  }
 
   return (
     <Slide timeout={animationTimeout} in={visible} mountOnEnter>
