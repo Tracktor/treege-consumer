@@ -2,6 +2,7 @@ import { Box, Skeleton, Slide } from "design-system-tracktor";
 import { memo, useCallback } from "react";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
 import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
+import HiddenField from "@/components/Inputs/HiddenField/HiddenField";
 import Radio from "@/components/Inputs/Radio/Radio";
 import Select from "@/components/Inputs/Select/Select";
 import TextField from "@/components/Inputs/TextField/TextField";
@@ -66,6 +67,8 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
       case "switch":
       case "checkbox":
         return <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} />;
+      case "hidden":
+        return <HiddenField data={data} inputRef={inputRef} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
