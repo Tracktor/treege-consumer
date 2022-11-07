@@ -32,7 +32,7 @@ type JsonTreegeConsumerProps = BaseTreegeConsumerProps & {
 export type TreegeConsumerProps = FormDataTreegeConsumerProps | JsonTreegeConsumerProps;
 
 const TreegeConsumer = ({ tree, onSubmit, options, variant = "stepper", dataFormatOnSubmit = "formData" }: TreegeConsumerProps) => {
-  const { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField } = useTreegeConsumer({
+  const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField } = useTreegeConsumer({
     dataFormatOnSubmit,
     onSubmit,
     tree,
@@ -83,7 +83,7 @@ const TreegeConsumer = ({ tree, onSubmit, options, variant = "stepper", dataForm
                 </Slide>
                 <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
                   <ButtonGroup variant="outlined" aria-label="outlined button group">
-                    <Button disabled={activeFieldIndex === 0} onClick={handlePrev}>
+                    <Button disabled={activeFieldIndex === firstFieldIndex} onClick={handlePrev}>
                       <NavigateBeforeRounded />
                     </Button>
                     <Button type="submit" disabled={isLastField}>

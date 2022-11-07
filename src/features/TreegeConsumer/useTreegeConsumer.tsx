@@ -5,6 +5,7 @@ import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
+import getNextStepper from "@/utils/getNextStepper";
 
 export interface useTreegeConsumerParams {
   dataFormatOnSubmit?: "formData" | "json";
@@ -17,6 +18,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
+  const [firstFieldIndex, setFirstFieldIndex] = useState<number>(0);
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -64,7 +66,12 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
 
           if (isStepper && isAutoStep) {
             // AUTO NEXT STEP
-            setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+            setActiveFieldIndex((prevFieldIndex) => {
+              const restNewFields = newFields.slice(prevFieldIndex + 1);
+              const stepper = getNextStepper(restNewFields) + 1;
+
+              return prevFieldIndex + stepper;
+            });
           }
 
           return newFields;
@@ -88,7 +95,9 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
 
       if (isStepper && !isLastField) {
         setActiveFieldIndex((prevActiveFieldIndex) => {
-          const nextIndex = prevActiveFieldIndex + 1;
+          const restNewFields = fields.slice(prevActiveFieldIndex + 1);
+          const stepper = getNextStepper(restNewFields) + 1;
+          const nextIndex = prevActiveFieldIndex + stepper;
           const hasNextField = fields?.[nextIndex] !== undefined;
 
           if (hasNextField) {
@@ -109,11 +118,19 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
     [dataFormatOnSubmit, fields, isLastField, isStepper, onSubmit]
   );
 
-  const handlePrev = useCallback((_: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setIsLastField(false);
+  const handlePrev = useCallback(
+    (_: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
+      setIsLastField(false);
 
-    setActiveFieldIndex((prevState) => prevState - 1);
-  }, []);
+      setActiveFieldIndex((prevState) => {
+        // Revert fields array to DECREMENT stepper !!
+        const restNewFields = fields.slice(0, prevState).reverse();
+        const stepper = getNextStepper(restNewFields) + 1;
+        return prevState - stepper;
+      });
+    },
+    [fields]
+  );
 
   // Set initial field
   useEffect(() => {
@@ -121,13 +138,20 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
     const initialFields = getFieldsFromTreePoint({ currentTree: tree });
     setFields(initialFields);
 
+    // Check if the first fields is Hidden
+    const stepper = getNextStepper(initialFields);
+    if (isStepper && stepper) {
+      setActiveFieldIndex(stepper);
+      setFirstFieldIndex(stepper);
+    }
+
     // If last initial fields in standard variant has no children
     if (isStandard && initialFields && initialFields[initialFields.length - 1].children.length === 0) {
       setIsLastField(true);
     }
-  }, [isStandard, tree, variant]);
+  }, [isStandard, isStepper, tree, variant]);
 
-  return { activeFieldIndex, fields, handleChange, handlePrev, handleSubmit, isLastField };
+  return { activeFieldIndex, fields, firstFieldIndex, handleChange, handlePrev, handleSubmit, isLastField };
 };
 
 export default useTreegeConsumer;
