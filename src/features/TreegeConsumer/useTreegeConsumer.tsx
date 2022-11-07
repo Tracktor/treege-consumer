@@ -123,6 +123,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
       setIsLastField(false);
 
       setActiveFieldIndex((prevState) => {
+        // Revert fields array to DECREMENT stepper !!
         const restNewFields = fields.slice(0, prevState).reverse();
         const stepper = getNextStepper(restNewFields) + 1;
         return prevState - stepper;
