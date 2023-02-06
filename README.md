@@ -29,7 +29,7 @@
 ## Installation
 
 ```console
-yarn add treege-consumer
+yarn add @tracktor/treege-consumer
 ```
 
 ## Usage
