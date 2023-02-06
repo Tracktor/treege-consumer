@@ -10,7 +10,7 @@ import {
   TextareaAutosize,
   ToggleButton,
   ToggleButtonGroup,
-} from "design-system-tracktor";
+} from "@tracktor/design-system";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import TreegeConsumer, { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import mockTree from "@/mock/export.json";

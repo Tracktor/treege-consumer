@@ -1,4 +1,4 @@
-import { Box, Skeleton, Slide } from "design-system-tracktor";
+import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import { memo, useCallback } from "react";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
 import BooleanField from "@/components/Inputs/BooleanField/BooleanField";

@@ -1,4 +1,4 @@
-import type { SelectChangeEvent } from "design-system-tracktor";
+import type { SelectChangeEvent } from "@tracktor/design-system";
 import type { ChangeEvent } from "react";
 import type { TreeNode } from "@/types/TreeNode";
 

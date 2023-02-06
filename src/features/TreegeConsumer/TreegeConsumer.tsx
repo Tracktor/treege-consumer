@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Grow, Slide, Stack, Typography } from "design-system-tracktor";
+import { Box, Button, ButtonGroup, Grow, Slide, Stack, Typography } from "@tracktor/design-system";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";

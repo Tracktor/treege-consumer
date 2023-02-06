@@ -1,4 +1,4 @@
-import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "design-system-tracktor";
+import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useState } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";

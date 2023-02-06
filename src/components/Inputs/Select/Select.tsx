@@ -7,7 +7,7 @@ import {
   OutlinedInput,
   Select as SelectDS,
   SelectChangeEvent,
-} from "design-system-tracktor";
+} from "@tracktor/design-system";
 import { forwardRef, Ref, useState } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";

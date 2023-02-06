@@ -1,4 +1,4 @@
-import { TextField as TextFieldDS } from "design-system-tracktor";
+import { TextField as TextFieldDS } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 

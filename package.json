@@ -1,5 +1,5 @@
 {
-  "name": "@tracktor/treege-consumer",
+  "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
   "version": "1.4.2",
   "type": "module",
@@ -32,8 +32,8 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "@tracktor/design-system": "^1.13.1",
     "autosuggest-highlight": "^3.3.4",
-    "design-system-tracktor": "^1.0.8",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {

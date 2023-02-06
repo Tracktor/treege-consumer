@@ -1,4 +1,4 @@
-import { Box, Button, Slide } from "design-system-tracktor";
+import { Box, Button, Slide } from "@tracktor/design-system";
 
 const FormValidation = () => (
   <Slide direction="up" in mountOnEnter>

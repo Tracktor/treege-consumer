@@ -1,4 +1,4 @@
-import { Box, Skeleton, Stack } from "design-system-tracktor";
+import { Box, Skeleton, Stack } from "@tracktor/design-system";
 
 const FormSkeleton = () => (
   <Stack direction="column" spacing={2} aria-busy role="alert">

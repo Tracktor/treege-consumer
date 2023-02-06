@@ -1,4 +1,4 @@
-import { SvgIcon } from "design-system-tracktor";
+import { SvgIcon } from "@tracktor/design-system";
 
 const NavigateNextRounded = () => (
   <SvgIcon>

@@ -1,5 +1,5 @@
+import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from "@tracktor/design-system";
 import parse from "autosuggest-highlight/parse";
-import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from "design-system-tracktor";
 import { throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
 import OptionsContext from "@/context/Options/OptionsContext";
