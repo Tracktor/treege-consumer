@@ -39,9 +39,9 @@ const TreegeConsumer = ({ tree, onSubmit, options, variant = "stepper", dataForm
     variant,
   });
 
-  if (variant === "stepper") {
-    return (
-      <OptionsProvider options={options}>
+  return (
+    <OptionsProvider options={options}>
+      {variant === "stepper" ? (
         <Box
           onSubmit={handleSubmit}
           component="form"
@@ -97,22 +97,18 @@ const TreegeConsumer = ({ tree, onSubmit, options, variant = "stepper", dataForm
             </Stack>
           )}
         </Box>
-      </OptionsProvider>
-    );
-  }
-
-  return (
-    <OptionsProvider options={options}>
-      <Box onSubmit={handleSubmit} component="form" paddingX={15}>
-        <Stack paddingY={5} spacing={3} direction="column">
-          {fields ? (
-            fields.map((field, index) => <TreegeField data={field} key={field.name} onChange={handleChange} autoFocus={index === 0} />)
-          ) : (
-            <FormSkeleton />
-          )}
-        </Stack>
-        {isLastField && <FormValidation />}
-      </Box>
+      ) : (
+        <Box onSubmit={handleSubmit} component="form" paddingX={15}>
+          <Stack paddingY={5} spacing={3} direction="column">
+            {fields ? (
+              fields.map((field, index) => <TreegeField data={field} key={field.name} onChange={handleChange} autoFocus={index === 0} />)
+            ) : (
+              <FormSkeleton />
+            )}
+          </Stack>
+          {isLastField && <FormValidation />}
+        </Box>
+      )}
     </OptionsProvider>
   );
 };
