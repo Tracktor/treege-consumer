@@ -91,6 +91,7 @@ on [Treege](https://github.com/Tracktor/treege) data
 | dataFormatOnSubmit | "formData"<br/>  "json"                           | "formData" | false    | Data format returned by onSubmit callback |
 | tree               | TreeNode<br/>  undefined                          | undefined  | false    | Treege data                               |
 | variant            | "standard"<br/>  "stepper"                        | "stepper"  | false    | The variant to use                        |
+| theme              | "light"<br/>  "dark"                              | "light"    | false    | Theme color mode                          |
 | onSubmit           | "formData"<br/>  "json"                           | "formData" | false    | Callback fired form is validate           |
 | Options            | "countryAutocompleteService"<br/>  "googleApiKey" | undefined  | false    | Consumer options                          |
 
