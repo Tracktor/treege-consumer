@@ -20,7 +20,9 @@ type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
 const Autocomplete = ({ label, name, helperText, inputRef, required, country }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
   const { googleApiKey, countryAutocompleteService } = useContext(OptionsContext);
-  const places = useScript(googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places` : "");
+  const places = useScript(
+    googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : ""
+  );
   const autocompleteService = useRef<AutocompleteService>();
   const [value, setValue] = useState<AutocompletePrediction | null>(null);
   const [inputValue, setInputValue] = useState("");
