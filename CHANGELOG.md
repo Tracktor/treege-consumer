@@ -2,3 +2,4 @@
 
 # v1.5.0
 - fix theme 
+- improve bundle size

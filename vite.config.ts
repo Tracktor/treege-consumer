@@ -2,7 +2,7 @@ import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import { defineConfig } from "vitest/config";
-import { name } from "./package.json";
+import { dependencies, name, peerDependencies } from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,14 +13,13 @@ export default defineConfig({
       name,
     },
     rollupOptions: {
-      external: ["design-system-tracktor", "react", "react-dom"],
+      external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
       output: {
         globals: {
-          "design-system-tracktor": "designSystemTracktor",
-          "find-and": "findAnd",
+          "@tracktor/design-system": "ReactDOM",
           "lodash-es": "lodashEs",
           react: "React",
-          "react-dom": "ReactDOM",
+          "react-dom": "designSystem",
         },
       },
     },
