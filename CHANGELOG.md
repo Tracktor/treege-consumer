@@ -1,6 +1,4 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
-# v1.6.0
-- Remove google api warning
-- Add loading props
-- Improve theme options
+# v1.7.0
+- Add default theme from parent theme if not provided
