@@ -1,4 +1,6 @@
 # [Versions](https://github.com/Tracktor/treege-consumer/releases)
 
-# v1.7.0
-- Add default theme from parent theme if not provided
+# v1.8.0
+- change all hook extension
+- update dependencies
+- improve theme

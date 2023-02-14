@@ -9,7 +9,6 @@ import {
   ThemeOptions,
   ThemeProvider,
   Typography,
-  useTheme,
 } from "@tracktor/design-system";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
@@ -19,6 +18,7 @@ import FormValidation from "@/features/TreegeConsumer/components/FormValidation/
 import TreegeField from "@/features/TreegeConsumer/components/TreegeField/TreegeField";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import type { TreeNode } from "@/types/TreeNode";
+import getTheme from "@/utils/getTheme";
 
 interface BaseTreegeConsumerProps {
   dataFormatOnSubmit?: "formData" | "json";
@@ -54,7 +54,6 @@ const TreegeConsumer = ({
   variant = "stepper",
   dataFormatOnSubmit = "formData",
 }: TreegeConsumerProps) => {
-  const defaultTheme = useTheme();
   const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField } = useTreegeConsumer({
     dataFormatOnSubmit,
     onSubmit,
@@ -63,7 +62,7 @@ const TreegeConsumer = ({
   });
 
   return (
-    <ThemeProvider theme={theme || defaultTheme}>
+    <ThemeProvider theme={getTheme(theme)}>
       {loading ? (
         <Box display="flex" alignItems="center" justifyContent="center" height="100%">
           <CircularProgress color="primary" />
