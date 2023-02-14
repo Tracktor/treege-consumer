@@ -15,6 +15,15 @@ export const lightTheme: ThemeOptions = {
 };
 
 export const darkTheme: ThemeOptions = {
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...(ownerState.color === "primary" && ownerState.variant === "contained" && { color: `${COLORS.tertiary} !important` }),
+        }),
+      },
+    },
+  },
   palette: {
     background: {
       default: COLORS.background,
@@ -22,7 +31,6 @@ export const darkTheme: ThemeOptions = {
     },
     mode: "dark",
     primary: {
-      dark: COLORS.tertiary,
       main: COLORS.primary,
     },
     secondary: {
