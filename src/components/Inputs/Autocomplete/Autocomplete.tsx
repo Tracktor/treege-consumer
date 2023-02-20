@@ -136,18 +136,22 @@ const Autocomplete = ({ label, name, helperText, inputRef, required, country }: 
                 <Box sx={{ color: "text.secondary", height: 10, mr: 2, width: 10 }} />
               </Grid>
               <Grid item xs>
-                {parts.map((part) => (
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    key={part.text}
-                    sx={{
-                      fontWeight: part.highlight ? 700 : 400,
-                    }}
-                  >
-                    {part.text}
-                  </Typography>
-                ))}
+                {parts.map((part, i) => {
+                  const id = `${option.place_id}-${i}`;
+
+                  return (
+                    <Typography
+                      variant="body1"
+                      component="span"
+                      key={id}
+                      sx={{
+                        fontWeight: part.highlight ? 700 : 400,
+                      }}
+                    >
+                      {part.text}
+                    </Typography>
+                  );
+                })}
                 <Typography variant="body2" color="text.secondary">
                   {option.structured_formatting.secondary_text}
                 </Typography>
