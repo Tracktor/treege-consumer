@@ -1,5 +1,7 @@
 # Treege consumer
 
+[![npm version](https://badge.fury.io/js/treege-consumer.svg)](https://badge.fury.io/js/treege-consumer)
+
 **A React library to consume easily form generated from [Treege](https://github.com/Tracktor/treege)**
 
 - [Installation](#Installation)
