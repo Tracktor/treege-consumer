@@ -156,7 +156,7 @@ const TreegeConsumer = ({
               )}
             </Box>
           ) : (
-            <Box onSubmit={handleSubmit} component="form" paddingX={15}>
+            <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
               <Stack paddingY={5} spacing={3} direction="column">
                 {fields ? (
                   fields.map((field, index) => (
