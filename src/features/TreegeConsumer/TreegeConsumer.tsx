@@ -9,6 +9,7 @@ import {
   ThemeOptions,
   ThemeProvider,
   Typography,
+  useTheme,
 } from "@tracktor/design-system";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
@@ -18,18 +19,39 @@ import FormValidation from "@/features/TreegeConsumer/components/FormValidation/
 import TreegeField from "@/features/TreegeConsumer/components/TreegeField/TreegeField";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import type { TreeNode } from "@/types/TreeNode";
-import getTheme from "@/utils/getTheme";
 
 interface BaseTreegeConsumerProps {
+  /**
+   * Data format returned by onSubmit callback
+   */
   dataFormatOnSubmit?: "formData" | "json";
+  /**
+   * Tree data from treege
+   */
   tree?: TreeNode;
+  /**
+   * Loading state
+   */
   loading?: boolean;
+  /**
+   * The variant of the stepper. If not set, it will use the variant of the parent ThemeProvider.
+   */
   variant?: "standard" | "stepper";
+  /**
+   *  The theme of Treege Consumer. If not set, it will use the theme of the parent ThemeProvider.
+   */
   theme?: "dark" | "light" | ThemeOptions;
+  /**
+   * Consumer options
+   */
   options?: {
     countryAutocompleteService?: string;
     googleApiKey?: string;
   };
+  /**
+   * Callback fired when the user submit form.
+   * @param data
+   */
   onSubmit?(data: { [k: string]: FormDataEntryValue } | [string, FormDataEntryValue][]): void;
 }
 
@@ -60,9 +82,10 @@ const TreegeConsumer = ({
     tree,
     variant,
   });
+  const themeProvider = useTheme();
 
   return (
-    <ThemeProvider theme={getTheme(theme)}>
+    <ThemeProvider theme={theme || themeProvider.palette.mode}>
       {loading ? (
         <Box display="flex" alignItems="center" justifyContent="center" height="100%">
           <CircularProgress color="primary" />
