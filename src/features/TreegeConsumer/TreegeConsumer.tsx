@@ -11,6 +11,7 @@ import {
   Typography,
   useTheme,
 } from "@tracktor/design-system";
+import type { CSSProperties } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
@@ -49,6 +50,10 @@ interface BaseTreegeConsumerProps {
     googleApiKey?: string;
   };
   /**
+   * Custom form style
+   */
+  style?: CSSProperties;
+  /**
    * Callback fired when the user submit form.
    * @param data
    */
@@ -73,6 +78,7 @@ const TreegeConsumer = ({
   options,
   theme,
   loading,
+  style,
   variant = "stepper",
   dataFormatOnSubmit = "formData",
 }: TreegeConsumerProps) => {
@@ -102,6 +108,7 @@ const TreegeConsumer = ({
               display="flex"
               flexDirection="column"
               overflow="hidden"
+              style={style}
             >
               <Stack paddingY={2} spacing={fields ? 0 : 3} direction="column">
                 {fields ? (

@@ -95,7 +95,8 @@ on [Treege](https://github.com/Tracktor/treege) data
 | variant            | "standard"<br/>  "stepper"                        | "stepper"  | false    | The variant to use                        |
 | theme              | "light"<br/>  "dark" <br/> ThemeOptions           | "light"    | false    | Theme color mode                          |
 | onSubmit           | "formData"<br/>  "json"                           | "formData" | false    | Callback fired form is validate           |
-| Options            | "countryAutocompleteService"<br/>  "googleApiKey" | undefined  | false    | Consumer options                          |
+| options            | "countryAutocompleteService"<br/>  "googleApiKey" | undefined  | false    | Consumer options                          |
+| style              | CSSProperties                                     | undefined  | false    | Custom form style                         |
 
 #### Options
 
