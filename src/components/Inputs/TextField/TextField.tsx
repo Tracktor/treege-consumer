@@ -1,5 +1,5 @@
 import { TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref } from "react";
+import { ChangeEvent, forwardRef, Ref, useCallback } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 
 export interface TextFieldProps {
@@ -9,15 +9,21 @@ export interface TextFieldProps {
   inputRef: Ref<any>;
   onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
+  defaultValue?: unknown;
   type: string;
 }
 
-const TextField = ({ label, name, helperText, inputRef, onChange, required, type }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
-  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { value } = event.target;
-
-    onChange?.({ event, name, type, value });
-  };
+const TextField = (
+  { label, name, helperText, inputRef, onChange, required, type, defaultValue }: TextFieldProps,
+  ref: Ref<HTMLDivElement>
+) => {
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { value } = event.target;
+      onChange?.({ event, name, type, value });
+    },
+    [name, onChange, type]
+  );
 
   return (
     <TextFieldDS
@@ -28,6 +34,7 @@ const TextField = ({ label, name, helperText, inputRef, onChange, required, type
       helperText={helperText}
       onChange={handleChange}
       required={required}
+      defaultValue={defaultValue}
       inputRef={inputRef}
       InputLabelProps={{
         shrink: true,

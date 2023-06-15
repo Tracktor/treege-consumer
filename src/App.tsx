@@ -62,6 +62,9 @@ const App = () => {
           variant={variant}
           onSubmit={handleSubmit}
           options={{ googleApiKey: "AIzaSyCEE2sZpLEpujo22Liix8ZizOYiqYQkWTc" }}
+          initialValues={{
+            quantity: 1,
+          }}
         />
         <Dialog open={dialogOpen} onClose={handleCloseDialog}>
           <DialogTitle id="alert-dialog-title">Result:</DialogTitle>

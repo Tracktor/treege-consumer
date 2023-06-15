@@ -14,15 +14,27 @@ export interface TreegeFieldProps {
   autoFocus?: boolean;
   data: TreeNode;
   visible?: boolean;
+  defaultValue?: unknown;
   onChange?(dataAttribute?: ChangeEventField): void;
 }
 
-const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChange }: TreegeFieldProps) => {
+/**
+ * TreegeField factory
+ * @param defaultValueProps
+ * @param onChange
+ * @param autoFocus
+ * @param data
+ * @param animated
+ * @param visible
+ * @constructor
+ */
+const TreegeField = ({ defaultValue: defaultValueProps, onChange, autoFocus, data, animated = true, visible = true }: TreegeFieldProps) => {
   const { name, attributes } = data;
-  const { type, label, required, helperText } = attributes;
+  const { type, label, required, helperText, defaultValue: defaultValueAttribute } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
+  const defaultValue = defaultValueProps || defaultValueAttribute;
 
   const inputRef = useCallback(
     (ref: HTMLInputElement) => {
@@ -57,17 +69,45 @@ const TreegeField = ({ animated = true, autoFocus, data, visible = true, onChang
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
+            defaultValue={defaultValue}
           />
         );
       case "address":
-        return <Autocomplete label={label} name={name} inputRef={inputRef} required={isRequired} helperText={helperText} />;
+        return (
+          <Autocomplete
+            label={label}
+            name={name}
+            inputRef={inputRef}
+            required={isRequired}
+            helperText={helperText}
+            defaultValue={defaultValue}
+          />
+        );
       case "radio":
-        return <Radio data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
+        return (
+          <Radio
+            data={data}
+            inputRef={inputRef}
+            required={isRequired}
+            onChange={onChange}
+            helperText={helperText}
+            defaultValue={defaultValue}
+          />
+        );
       case "select":
-        return <Select data={data} inputRef={inputRef} required={isRequired} onChange={onChange} helperText={helperText} />;
+        return (
+          <Select
+            data={data}
+            inputRef={inputRef}
+            required={isRequired}
+            onChange={onChange}
+            helperText={helperText}
+            defaultValue={defaultValue}
+          />
+        );
       case "switch":
       case "checkbox":
-        return <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} />;
+        return <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} defaultValue={defaultValue} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }

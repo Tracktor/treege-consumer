@@ -8,7 +8,7 @@ import {
   Select as SelectDS,
   SelectChangeEvent,
 } from "@tracktor/design-system";
-import { forwardRef, Ref, useState } from "react";
+import { forwardRef, Ref, useCallback, useState } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
@@ -18,23 +18,27 @@ export interface TextFieldProps {
   helperText?: string;
   inputRef: Ref<any>;
   required?: boolean;
+  defaultValue?: unknown;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const Select = ({ data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
+const Select = ({ defaultValue = "", data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
   const { label, values, type, isLeaf, isDecision } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const { value } = event.target;
-    const messageValue = getMessageByValue({ options, value });
+  const handleChange = useCallback(
+    (event: SelectChangeEvent) => {
+      const { value } = event.target;
+      const messageValue = getMessageByValue({ options, value });
 
-    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
-    setMessage(messageValue);
-  };
+      onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
+      setMessage(messageValue);
+    },
+    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type]
+  );
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
@@ -42,12 +46,12 @@ const Select = ({ data, helperText, inputRef, required, onChange }: TextFieldPro
         {label}
       </InputLabel>
       <SelectDS
+        defaultValue={defaultValue as string}
         labelId={`${name}-label`}
         id={name}
         label={label}
         name={name}
         onChange={handleChange}
-        defaultValue=""
         inputRef={inputRef}
         input={<OutlinedInput notched label={label} />}
       >

@@ -9,10 +9,11 @@ export interface TextFieldProps {
   helperText?: string;
   inputRef: Ref<any>;
   required?: boolean;
+  defaultValue?: unknown;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const Radio = ({ data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
+const Radio = ({ defaultValue = "", data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
   const { label, values, type, isLeaf, isDecision } = attributes;
@@ -30,7 +31,7 @@ const Radio = ({ data, helperText, inputRef, required, onChange }: TextFieldProp
   return (
     <FormControl required={required} ref={ref} fullWidth>
       <FormLabel id={`${name}-label`}>{label}</FormLabel>
-      <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} defaultValue="">
+      <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} defaultValue={defaultValue}>
         {options?.map((option, index) => (
           <FormControlLabel
             key={option.key}

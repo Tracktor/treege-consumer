@@ -1,7 +1,7 @@
 import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from "@tracktor/design-system";
 import parse from "autosuggest-highlight/parse";
 import { throttle } from "lodash-es";
-import { forwardRef, Ref, SyntheticEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, Ref, SyntheticEvent, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import OptionsContext from "@/context/Options/OptionsContext";
 import useScript from "@/hooks/useScript";
 import { IsString } from "@/types/TypeGuards";
@@ -13,12 +13,16 @@ export interface AutocompleteProps {
   inputRef: Ref<any>;
   required?: boolean;
   country?: string;
+  defaultValue?: unknown;
 }
 
 type AutocompleteService = google.maps.places.AutocompleteService;
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
-const Autocomplete = ({ label, name, helperText, inputRef, required, country }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+const Autocomplete = (
+  { defaultValue, label, name, helperText, inputRef, required, country }: AutocompleteProps,
+  ref: Ref<unknown> | undefined
+) => {
   const { googleApiKey, countryAutocompleteService } = useContext(OptionsContext);
   const places = useScript(
     googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : ""
@@ -28,12 +32,15 @@ const Autocomplete = ({ label, name, helperText, inputRef, required, country }: 
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState<readonly AutocompletePrediction[]>([]);
 
-  const handleChange = (_: SyntheticEvent<Element, Event>, newValue: AutocompletePrediction | string | null) => {
-    if (IsString(newValue)) return;
+  const handleChange = useCallback(
+    (_: SyntheticEvent<Element, Event>, newValue: AutocompletePrediction | string | null) => {
+      if (IsString(newValue)) return;
 
-    setOptions(newValue ? [newValue, ...options] : options);
-    setValue(newValue);
-  };
+      setOptions(newValue ? [newValue, ...options] : options);
+      setValue(newValue);
+    },
+    [options]
+  );
 
   const fetch = useMemo(
     () =>
@@ -97,6 +104,7 @@ const Autocomplete = ({ label, name, helperText, inputRef, required, country }: 
       includeInputInList
       filterSelectedOptions
       freeSolo
+      defaultValue={defaultValue as AutocompletePrediction}
       ref={ref}
       getOptionLabel={(option) => (IsString(option) ? option : option.description)}
       filterOptions={(filterOptions) => filterOptions}

@@ -97,6 +97,7 @@ on [Treege](https://github.com/Tracktor/treege) data
 | onSubmit           | "formData"<br/>  "json"                           | "formData" | false    | Callback fired form is validate           |
 | options            | "countryAutocompleteService"<br/>  "googleApiKey" | undefined  | false    | Consumer options                          |
 | style              | CSSProperties                                     | undefined  | false    | Custom form style                         |
+| initialValues      | { [key: string]: unknown; }                       | undefined  | false    | Set initial value to form                 |
 
 #### Options
 

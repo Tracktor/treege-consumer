@@ -46,13 +46,25 @@ interface BaseTreegeConsumerProps {
    * Consumer options
    */
   options?: {
+    /**
+     * The language of the autocomplete service google
+     */
     countryAutocompleteService?: string;
+    /**
+     * Provide google api key for autocomplete service
+     */
     googleApiKey?: string;
   };
   /**
    * Custom form style
    */
   style?: CSSProperties;
+  /**
+   * Initial values of the form
+   */
+  initialValues?: {
+    [key: string]: unknown;
+  };
   /**
    * Callback fired when the user submit form.
    * @param data
@@ -61,12 +73,26 @@ interface BaseTreegeConsumerProps {
 }
 
 type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {
+  /**
+   * Data format returned by onSubmit callback
+   */
   dataFormatOnSubmit?: "formData";
+  /**
+   * Callback fired when the user submit form.
+   * @param data
+   */
   onSubmit?(data: [string, FormDataEntryValue][]): void;
 };
 
 type JsonTreegeConsumerProps = BaseTreegeConsumerProps & {
+  /**
+   * Data format returned by onSubmit callback
+   */
   dataFormatOnSubmit?: "json";
+  /**
+   * Callback fired when the user submit form.
+   * @param data
+   */
   onSubmit?(data: { [key: string]: FormDataEntryValue }): void;
 };
 
@@ -79,6 +105,7 @@ const TreegeConsumer = ({
   theme,
   loading,
   style,
+  initialValues,
   variant = "stepper",
   dataFormatOnSubmit = "formData",
 }: TreegeConsumerProps) => {
@@ -114,7 +141,18 @@ const TreegeConsumer = ({
                 {fields ? (
                   fields.map((field, index) => {
                     const active = index === activeFieldIndex;
-                    return <TreegeField key={field.name} data={field} onChange={handleChange} autoFocus={active} visible={active} />;
+                    const initialValuesValue = initialValues && initialValues[field.name];
+
+                    return (
+                      <TreegeField
+                        key={field.name}
+                        data={field}
+                        onChange={handleChange}
+                        autoFocus={active}
+                        visible={active}
+                        defaultValue={initialValuesValue}
+                      />
+                    );
                   })
                 ) : (
                   <FormSkeleton />
@@ -159,9 +197,19 @@ const TreegeConsumer = ({
             <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
               <Stack paddingY={5} spacing={3} direction="column">
                 {fields ? (
-                  fields.map((field, index) => (
-                    <TreegeField data={field} key={field.name} onChange={handleChange} autoFocus={index === 0} />
-                  ))
+                  fields.map((field, index) => {
+                    const initialValuesValue = initialValues && initialValues[field.name];
+
+                    return (
+                      <TreegeField
+                        key={field.name}
+                        data={field}
+                        onChange={handleChange}
+                        autoFocus={index === 0}
+                        defaultValue={initialValuesValue}
+                      />
+                    );
+                  })
                 ) : (
                   <FormSkeleton />
                 )}

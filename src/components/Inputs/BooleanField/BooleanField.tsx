@@ -1,5 +1,5 @@
 import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useCallback, useState } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
 
@@ -7,28 +7,34 @@ export interface BooleanFieldProps {
   data: TreeNode;
   helperText?: string;
   inputRef: Ref<any>;
+  defaultValue?: unknown;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const BooleanField = ({ data, inputRef, helperText, onChange }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
+const BooleanField = ({ defaultValue, data, inputRef, helperText, onChange }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
   const { name, attributes, children } = data;
   const { label, type, isLeaf, messages } = attributes;
-
-  const Field = type === "checkbox" ? Checkbox : Switch;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
+  const Field = type === "checkbox" ? Checkbox : Switch;
 
-  const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
-    const { checked } = event.target;
-    const hasMessage = checked ? messages?.on : messages?.off;
+  const handleCheck = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const { checked } = event.target;
+      const hasMessage = checked ? messages?.on : messages?.off;
 
-    onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
-    setMessage(hasMessage);
-  };
+      onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
+      setMessage(hasMessage);
+    },
+    [children, isLeaf, messages, name, onChange, type]
+  );
 
   return (
     <FormControl fullWidth>
       <FormGroup ref={ref}>
-        <FormControlLabel label={label} control={<Field name={name} onChange={handleCheck} inputRef={inputRef} />} />
+        <FormControlLabel
+          label={label}
+          control={<Field name={name} onChange={handleCheck} inputRef={inputRef} defaultValue={defaultValue as string} />}
+        />
       </FormGroup>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       {message && (

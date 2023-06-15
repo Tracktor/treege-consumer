@@ -22,6 +22,7 @@ export interface TreeNodeField {
   tree?: TreeNode;
   treePath?: string;
   hiddenValue?: string;
+  defaultValue?: unknown;
 }
 
 export interface TreeNodeValues {
@@ -41,6 +42,7 @@ export interface TreeNodeValues {
   tree?: never;
   treePath?: never;
   hiddenValue?: never;
+  defaultValue?: unknown;
 }
 
 export type TreeNodeAttributes = TreeNodeField | TreeNodeValues;
