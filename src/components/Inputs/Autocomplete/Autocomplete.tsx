@@ -98,6 +98,13 @@ const Autocomplete = (
     };
   }, [places, value, inputValue, fetch, country, countryAutocompleteService, googleApiKey]);
 
+  // Initialize default value
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(defaultValue as AutocompletePrediction);
+    }
+  }, [defaultValue]);
+
   return (
     <AutocompleteDS
       autoComplete
