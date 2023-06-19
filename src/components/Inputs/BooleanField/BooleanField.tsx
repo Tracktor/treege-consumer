@@ -16,6 +16,7 @@ const BooleanField = ({ defaultValue, data, inputRef, helperText, onChange }: Bo
   const { label, type, isLeaf, messages } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
   const Field = type === "checkbox" ? Checkbox : Switch;
+  const defaultChecked = defaultValue === "true" || defaultValue === true || defaultValue === "on" || defaultValue === "yes";
 
   const handleCheck = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +34,7 @@ const BooleanField = ({ defaultValue, data, inputRef, helperText, onChange }: Bo
       <FormGroup ref={ref}>
         <FormControlLabel
           label={label}
-          control={<Field name={name} onChange={handleCheck} inputRef={inputRef} defaultValue={defaultValue as string} />}
+          control={<Field name={name} onChange={handleCheck} inputRef={inputRef} defaultChecked={defaultChecked} />}
         />
       </FormGroup>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
