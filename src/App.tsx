@@ -11,7 +11,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@tracktor/design-system";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useCallback, useState } from "react";
 import TreegeConsumer, { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import mockTree from "@/mock/export.json";
 import type { TreeNode } from "@/types/TreeNode";
@@ -22,23 +22,23 @@ const App = () => {
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("stepper");
   const [formData, setFormData] = useState<[string, FormDataEntryValue][]>();
 
-  const handleCloseDialog = () => {
+  const handleCloseDialog = useCallback(() => {
     setDialogOpen(false);
-  };
+  }, []);
 
-  const handleChangeVariant = (_: MouseEvent<HTMLElement>, newAlignment: TreegeConsumerProps["variant"]) => {
+  const handleChangeVariant = useCallback((_: MouseEvent<HTMLElement>, newAlignment: TreegeConsumerProps["variant"]) => {
     setVariant(newAlignment);
-  };
+  }, []);
 
-  const handleChangeTree = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeTree = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.currentTarget;
     setTree(JSON.parse(value));
-  };
+  }, []);
 
-  const handleSubmit = (data: [string, FormDataEntryValue][]) => {
+  const handleSubmit = useCallback((data: [string, FormDataEntryValue][]) => {
     setFormData(data);
     setDialogOpen(true);
-  };
+  }, []);
 
   return (
     <Grid container>
