@@ -63,10 +63,7 @@ const App = () => {
           onSubmit={handleSubmit}
           options={{ googleApiKey: "AIzaSyCEE2sZpLEpujo22Liix8ZizOYiqYQkWTc" }}
           initialValues={{
-            address: "82 Chemin de Cafon 2, Trans-en-Provence, France",
-            phase: "in_progress",
-            quantity: 3,
-            with_delivery: true,
+            quantity: 1,
           }}
         />
         <Dialog open={dialogOpen} onClose={handleCloseDialog}>
