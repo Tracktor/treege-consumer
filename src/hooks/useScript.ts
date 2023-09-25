@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 export type UseScriptStatus = "idle" | "loading" | "ready" | "error";
 export type UseScriptScriptElement = HTMLScriptElement | null;
 
+/**
+ * useScript hook to load external scripts
+ * @param src
+ */
 function useScript(src: string): UseScriptStatus {
   const [status, setStatus] = useState<UseScriptStatus>(src ? "loading" : "idle");
 
@@ -58,7 +62,7 @@ function useScript(src: string): UseScriptStatus {
         }
       };
     },
-    [src] // Only re-run effect if script src changes
+    [src], // Only re-run effect if script src changes
   );
 
   return status;

@@ -13,16 +13,16 @@ import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
 import type { TreeNode } from "@/types/TreeNode";
 
-export interface TextFieldProps {
+export interface SelectProps<T = unknown> {
   data: TreeNode;
   helperText?: string;
   inputRef: Ref<any>;
   required?: boolean;
-  defaultValue?: unknown;
+  defaultValue?: T;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const Select = ({ defaultValue = "", data, helperText, inputRef, required, onChange }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
+const Select = ({ defaultValue = "", data, helperText, inputRef, required, onChange }: SelectProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
   const { label, values, type, isLeaf, isDecision } = attributes;
@@ -37,7 +37,7 @@ const Select = ({ defaultValue = "", data, helperText, inputRef, required, onCha
       onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
       setMessage(messageValue);
     },
-    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type]
+    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type],
   );
 
   return (
@@ -46,7 +46,7 @@ const Select = ({ defaultValue = "", data, helperText, inputRef, required, onCha
         {label}
       </InputLabel>
       <SelectDS
-        defaultValue={defaultValue as string}
+        defaultValue={String(defaultValue)}
         labelId={`${name}-label`}
         id={name}
         label={label}

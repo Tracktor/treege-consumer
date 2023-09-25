@@ -46,7 +46,7 @@ const TreegeField = ({ defaultValue: defaultValueProps, onChange, autoFocus, dat
 
       return null;
     },
-    [animationTimeout, autoFocus]
+    [animationTimeout, autoFocus],
   );
 
   const field = () => {

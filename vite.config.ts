@@ -26,15 +26,16 @@ export default defineConfig({
   },
   plugins: [dts(), react()],
   resolve: {
-    alias: [{ find: "@", replacement: resolve(__dirname, "src") }],
+    alias: [
+      {
+        find: "@",
+        replacement: resolve(__dirname, "src"),
+      },
+    ],
   },
   test: {
-    coverage: {
-      exclude: ["node_modules/", "src/config/setupTests.ts"],
-      reporter: ["text", "html"],
-    },
     environment: "jsdom",
     globals: true,
-    setupFiles: "src/config/setupTests.ts",
+    setupFiles: "src/test.config.ts",
   },
 });

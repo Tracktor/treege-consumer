@@ -12,6 +12,9 @@ export interface GetOptionsForDecisionsFieldReturn {
   key: string;
 }
 
+/**
+ * useInputs hook
+ */
 const useInputs = () => {
   const getOptionsForDecisionsField = ({ children, values }: GetOptionsForDecisionsFieldParams): GetOptionsForDecisionsFieldReturn[] => {
     if (values) {

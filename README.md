@@ -10,17 +10,24 @@
     - [Provide options](#Provide-options)
 - [Components](#Components)
     - [TreegeConsumer](#TreegeConsumer)
-- [Local installation](#local-installation)
-- [Available Scripts](#Available-Scripts)
-    - [yarn dev](#yarn-dev)
-    - [yarn build](#yarn-build)
-    - [yarn preview](#yarn-preview)
-- [Convention](#Convention)
 
 ## Installation
 
-```console
+**npm:**
+```bash
+npm install treege-consumer
+```
+**bun:**
+```bash
+bun add treege-consumer
+```
+**yarn**:
+```bash
 yarn add treege-consumer
+```
+**pnpm**:
+```bash
+pnpm add treege-consumer
 ```
 
 ## Usage
@@ -94,42 +101,3 @@ on [Treege](https://github.com/Tracktor/treege) data
 |----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | countryAutocompleteService | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
 | googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
-
-## Local installation
-
-Clone the repository and install dependencies
-
-```console 
-yarn install
-```
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn dev`
-
-Runs the app in the development mode.\
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn build`
-
-Builds the library for production to the `dist` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.
-
-See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) for more information.
-
-### `yarn preview`
-
-Locally preview production build
-
-## Convention
-
-- [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
-- [Versioning](https://semver.org)
-- [Conventional Commits](https://www.conventionalcommits.org)
