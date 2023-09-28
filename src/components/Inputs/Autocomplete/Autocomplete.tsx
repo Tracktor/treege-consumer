@@ -21,11 +21,11 @@ type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
 const Autocomplete = (
   { defaultValue, label, name, helperText, inputRef, required, country }: AutocompleteProps,
-  ref: Ref<unknown> | undefined,
+  ref: Ref<unknown> | undefined
 ) => {
   const { googleApiKey, countryAutocompleteService } = useContext(OptionsContext);
   const places = useScript(
-    googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : "",
+    googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : ""
   );
   const autocompleteService = useRef<AutocompleteService>();
   const [value, setValue] = useState<AutocompletePrediction | null>(null);
@@ -39,7 +39,7 @@ const Autocomplete = (
       setOptions(newValue ? [newValue, ...options] : options);
       setValue(newValue);
     },
-    [options],
+    [options]
   );
 
   const fetch = useMemo(
@@ -47,7 +47,7 @@ const Autocomplete = (
       throttle((request: { input: string }, callback: (results: AutocompletePrediction[] | null) => void) => {
         autocompleteService?.current?.getPlacePredictions(request, callback);
       }, 200),
-    [],
+    []
   );
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const Autocomplete = (
         const matches = option.structured_formatting.main_text_matched_substrings;
         const parts = parse(
           option.structured_formatting.main_text,
-          matches.map((match: any) => [match.offset, match.offset + match.length]),
+          matches.map((match: any) => [match.offset, match.offset + match.length])
         );
 
         return (

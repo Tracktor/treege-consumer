@@ -26,7 +26,7 @@ const BooleanField = ({ defaultValue, data, inputRef, helperText, onChange }: Bo
       onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
       setMessage(hasMessage);
     },
-    [children, isLeaf, messages, name, onChange, type],
+    [children, isLeaf, messages, name, onChange, type]
   );
 
   return (

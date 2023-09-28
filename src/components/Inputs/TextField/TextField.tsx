@@ -15,14 +15,14 @@ export interface TextFieldProps {
 
 const TextField = (
   { label, name, helperText, inputRef, onChange, required, type, defaultValue }: TextFieldProps,
-  ref: Ref<HTMLDivElement>,
+  ref: Ref<HTMLDivElement>
 ) => {
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = event.target;
       onChange?.({ event, name, type, value });
     },
-    [name, onChange, type],
+    [name, onChange, type]
   );
 
   return (
