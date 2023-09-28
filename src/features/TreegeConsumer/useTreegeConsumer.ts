@@ -87,7 +87,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
         }
       }
     },
-    [isStepper, isStandard]
+    [isStepper, isStandard],
   );
 
   const handleSubmit = useCallback(
@@ -117,7 +117,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
 
       onSubmit?.(data);
     },
-    [dataFormatOnSubmit, fields, isLastField, isStepper, onSubmit]
+    [dataFormatOnSubmit, fields, isLastField, isStepper, onSubmit],
   );
 
   const handlePrev = useCallback(
@@ -131,7 +131,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
         return prevState - stepper;
       });
     },
-    [fields]
+    [fields],
   );
 
   // Set initial field

@@ -62,7 +62,7 @@ function useScript(src: string): UseScriptStatus {
         }
       };
     },
-    [src] // Only re-run effect if script src changes
+    [src], // Only re-run effect if script src changes
   );
 
   return status;

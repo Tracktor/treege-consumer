@@ -37,7 +37,7 @@ const Select = ({ defaultValue = "", data, helperText, inputRef, required, onCha
       onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
       setMessage(messageValue);
     },
-    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type]
+    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type],
   );
 
   return (
