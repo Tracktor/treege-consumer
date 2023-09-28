@@ -5,16 +5,18 @@ import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
+import getJsonFormValue from "@/utils/getJsonFormValue";
+import { JsonFormValue } from "@/utils/getJsonFormValue/getJsonFormValue";
 import getNextStepper from "@/utils/getNextStepper";
 
 export interface useTreegeConsumerParams {
   dataFormatOnSubmit?: "formData" | "json";
-  onSubmit?(data: { [k: string]: FormDataEntryValue } | [string, FormDataEntryValue][]): void;
+  onSubmit?(data: JsonFormValue[] | [string, FormDataEntryValue][]): void;
   tree?: TreeNode;
   variant: TreegeConsumerProps["variant"];
 }
 
-const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmit }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmit }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -111,7 +113,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onS
 
       if (!isLastField) return;
 
-      const data = dataFormatOnSubmit === "formData" ? [...formData] : Object.fromEntries(formData);
+      const data = dataFormatOnSubmit === "formData" ? [...formData] : getJsonFormValue([...formData], fields);
 
       onSubmit?.(data);
     },

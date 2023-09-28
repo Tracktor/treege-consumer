@@ -20,6 +20,7 @@ import FormValidation from "@/features/TreegeConsumer/components/FormValidation/
 import TreegeField from "@/features/TreegeConsumer/components/TreegeField/TreegeField";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import type { TreeNode } from "@/types/TreeNode";
+import { JsonFormValue } from "@/utils/getJsonFormValue/getJsonFormValue";
 
 interface BaseTreegeConsumerProps {
   /**
@@ -93,7 +94,7 @@ type JsonTreegeConsumerProps = BaseTreegeConsumerProps & {
    * Callback fired when the user submit form.
    * @param data
    */
-  onSubmit?(data: { [key: string]: FormDataEntryValue }): void;
+  onSubmit?(data: JsonFormValue[]): void;
 };
 
 export type TreegeConsumerProps = FormDataTreegeConsumerProps | JsonTreegeConsumerProps;
