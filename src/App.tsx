@@ -18,89 +18,185 @@ import type { TreeNode } from "@/types/TreeNode";
 const data = {
   attributes: {
     depth: 0,
+    helperText: "Utiliser l'auto completion",
     isLeaf: false,
     isRoot: true,
-    label: "Select",
-    type: "select",
-    values: [
-      {
-        id: "0",
-        label: "a",
-        value: "a",
-      },
-      {
-        id: "1",
-        label: "b",
-        value: "b",
-      },
-      {
-        id: "2",
-        label: "c",
-        value: "c",
-      },
-      {
-        id: "3",
-        label: "d",
-        value: "d",
-      },
-    ],
+    label: "Ville ou adresse du site",
+    required: true,
+    type: "address",
   },
   children: [
     {
       attributes: {
         depth: 1,
-        isDecision: true,
         isLeaf: false,
-        isRoot: false,
-        label: "Select 2",
+        label: "À quelle phase de votre projet êtes-vous ?",
         type: "select",
+        values: [
+          {
+            id: "0",
+            label: "J'ai un besoin pour un projet en cours ou à venir",
+            value: "in_progress",
+          },
+          {
+            id: "1",
+            label: "Je veux juste obtenir un prix",
+            value: "price_only",
+          },
+        ],
       },
       children: [
         {
           attributes: {
             depth: 2,
-            isLeaf: true,
-            label: "A",
-            value: "a",
+            isLeaf: false,
+            label: "Ma date de début est flexible (+/- 1 jour)",
+            type: "checkbox",
           },
-          children: [],
-          name: "select_2:a",
-        },
-        {
-          attributes: {
-            depth: 2,
-            isLeaf: true,
-            label: "B",
-            value: "b",
-          },
-          children: [],
-          name: "select_2:b",
-        },
-        {
-          attributes: {
-            depth: 2,
-            isLeaf: true,
-            label: "C",
-            value: "c",
-          },
-          children: [],
-          name: "select_2:c",
-        },
-        {
-          attributes: {
-            depth: 2,
-            isLeaf: true,
-            label: "D",
-            value: "d",
-          },
-          children: [],
-          name: "select_2:d",
+          children: [
+            {
+              attributes: {
+                depth: 3,
+                isLeaf: false,
+                label: "Quantité",
+                type: "number",
+              },
+              children: [
+                {
+                  attributes: {
+                    depth: 4,
+                    isLeaf: false,
+                    label: "Avec Livraison & Reprise",
+                    type: "switch",
+                  },
+                  children: [
+                    {
+                      attributes: {
+                        depth: 5,
+                        isDecision: true,
+                        isLeaf: false,
+                        label: "Location avec opérateur",
+                        type: "radio",
+                      },
+                      children: [
+                        {
+                          attributes: {
+                            depth: 6,
+                            isLeaf: false,
+                            label: "Oui",
+                            value: "yes",
+                          },
+                          children: [
+                            {
+                              attributes: {
+                                depth: 7,
+                                isLeaf: false,
+                                label: " 3 godets",
+                                type: "switch",
+                              },
+                              children: [
+                                {
+                                  attributes: {
+                                    depth: 8,
+                                    isLeaf: false,
+                                    label: "BRH",
+                                    type: "switch",
+                                  },
+                                  children: [
+                                    {
+                                      attributes: {
+                                        depth: 9,
+                                        isLeaf: false,
+                                        label: "Benne Preneuse",
+                                        type: "switch",
+                                      },
+                                      children: [
+                                        {
+                                          attributes: {
+                                            depth: 10,
+                                            isLeaf: false,
+                                            label: "Godet curage orientable",
+                                            type: "switch",
+                                          },
+                                          children: [
+                                            {
+                                              attributes: {
+                                                depth: 11,
+                                                isLeaf: false,
+                                                isRoot: false,
+                                                label: "Godet orientable",
+                                                messages: {
+                                                  on: "Le prix du transport peut varier",
+                                                },
+                                                type: "switch",
+                                              },
+                                              children: [
+                                                {
+                                                  attributes: {
+                                                    depth: 12,
+                                                    isLeaf: false,
+                                                    label: "Pince de Tri",
+                                                    type: "switch",
+                                                  },
+                                                  children: [
+                                                    {
+                                                      attributes: {
+                                                        depth: 13,
+                                                        isLeaf: true,
+                                                        label: "Tarière hydraulique",
+                                                        type: "switch",
+                                                      },
+                                                      children: [],
+                                                      name: "tariere_hydraulique",
+                                                    },
+                                                  ],
+                                                  name: "pince_de_tri",
+                                                },
+                                              ],
+                                              name: "godet_orientable",
+                                            },
+                                          ],
+                                          name: "godet_curage",
+                                        },
+                                      ],
+                                      name: "benne_preneuse",
+                                    },
+                                  ],
+                                  name: "brh",
+                                },
+                              ],
+                              name: " 3 godets",
+                            },
+                          ],
+                          name: "location:yes",
+                        },
+                        {
+                          attributes: {
+                            depth: 6,
+                            isLeaf: true,
+                            label: "Non",
+                            value: "no",
+                          },
+                          children: [],
+                          name: "location:no",
+                        },
+                      ],
+                      name: "location",
+                    },
+                  ],
+                  name: "with_delivery",
+                },
+              ],
+              name: "quantity",
+            },
+          ],
+          name: "flexible",
         },
       ],
-      name: "select_2",
+      name: "phase",
     },
   ],
-  name: "select",
+  name: "address",
 };
 
 const App = () => {
