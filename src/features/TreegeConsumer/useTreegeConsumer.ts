@@ -16,7 +16,7 @@ export interface useTreegeConsumerParams {
   variant: TreegeConsumerProps["variant"];
 }
 
-const useTreegeConsumer = ({ dataFormatOnSubmit = "formData", tree, variant, onSubmit }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmit }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);

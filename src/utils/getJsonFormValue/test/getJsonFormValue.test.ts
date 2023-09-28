@@ -36,8 +36,6 @@ describe("test getJsonFormValue", () => {
     const { fields, formValue, output } = formWithSwitchFields;
     const result = getJsonFormValue(formValue, fields);
 
-    console.log(result);
-
     expect(result).toEqual(output);
   });
 
