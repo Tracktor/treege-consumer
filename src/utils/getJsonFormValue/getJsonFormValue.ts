@@ -5,6 +5,7 @@ export interface JsonFormValue {
   name: string;
   type?: string;
   value?: string | boolean | FormDataEntryValue;
+  tag?: string;
 }
 /**
  * Get the value of the form in json format
@@ -20,15 +21,15 @@ function getJsonFormValue(formData: [string, FormDataEntryValue][], fields: Tree
       return acc;
     }
     const { attributes } = currentField;
-    const { type, label, isDecision } = attributes;
+    const { type, label, isDecision, tag } = attributes;
 
     if (isDecision) {
       const decisionValue = currentField.children.find((child) => child.name === value)?.attributes?.label;
-      return [...acc, { label, name, type, value: decisionValue }];
+      return [...acc, { label, name, type, value: decisionValue, ...(tag && { tag }) }];
     }
 
     const isBooleanField = ["switch", "checkbox"].includes(type || "");
-    return [...acc, { label, name, type, value: isBooleanField ? value === "on" : value }];
+    return [...acc, { label, name, type, value: isBooleanField ? value === "on" : value, ...(tag && { tag }) }];
   }, []);
 }
 export default getJsonFormValue;

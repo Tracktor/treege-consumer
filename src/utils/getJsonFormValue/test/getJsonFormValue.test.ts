@@ -5,6 +5,7 @@ import {
   formWithRadioFields,
   formWithSelectFields,
   formWithSwitchFields,
+  formWithTagFields,
   formWithTextFields,
 } from "@/utils/getJsonFormValue/test/mock";
 
@@ -49,6 +50,14 @@ describe("test getJsonFormValue", () => {
   // Decision
   test("Decision", () => {
     const { fields, formValue, output } = formWithDecisionFields;
+    const result = getJsonFormValue(formValue, fields);
+
+    expect(result).toEqual(output);
+  });
+
+  // Tag
+  test("Tag", () => {
+    const { fields, formValue, output } = formWithTagFields;
     const result = getJsonFormValue(formValue, fields);
 
     expect(result).toEqual(output);
