@@ -246,7 +246,7 @@ const App = () => {
               tree={data}
               variant={variant}
               onSubmit={handleSubmit}
-              options={{ googleApiKey: "AIzaSyCEE2sZpLEpujo22Liix8ZizOYiqYQkWTc" }}
+              options={{ googleApiKey: "YOUR_SECRET_KEY" }}
               initialValues={{
                 address: "17ème Arrondissement, Paris, France",
                 quantity: 1,
