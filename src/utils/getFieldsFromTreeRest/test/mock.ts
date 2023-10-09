@@ -1,6 +1,6 @@
-import type { ChildrenTreeRest, TreeNode } from "@/types/TreeNode";
+import type { TreeNode } from "@/types/TreeNode";
 
-type Mock = { restFieldsArray?: ChildrenTreeRest[]; output: TreeNode[] };
+type Mock = { restFieldsArray?: TreeNode["childrenTreeRest"]; output: TreeNode[] };
 
 const simpleRestFieldsArray: Mock = {
   output: [{ attributes: { depth: 2, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],

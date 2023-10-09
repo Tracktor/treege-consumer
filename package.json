@@ -1,7 +1,7 @@
 {
   "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
-  "version": "1.14.1",
+  "version": "1.14.2",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.umd.cjs",
@@ -32,7 +32,7 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@tracktor/design-system": "^1.40.2",
+    "@tracktor/design-system": "^1.44.0",
     "autosuggest-highlight": "^3.3.4",
     "lodash-es": "^4.17.21"
   },
@@ -40,20 +40,20 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@types/autosuggest-highlight": "^3.2.0",
-    "@types/google.maps": "^3.54.1",
+    "@types/google.maps": "^3.54.3",
     "@types/lodash-es": "^4.17.9",
-    "@types/react": "^18.2.22",
-    "@types/react-dom": "^18.2.7",
+    "@types/react": "^18.2.26",
+    "@types/react-dom": "^18.2.11",
     "@vitejs/plugin-react": "^4.1.0",
-    "eslint-config-react-tracktor": "^1.5.0",
+    "eslint-config-react-tracktor": "^1.7.0",
     "husky": "^8.0.3",
     "jsdom": "^22.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9",
-    "vite-plugin-dts": "^3.5.4",
-    "vitest": "^0.34.5"
+    "vite": "^4.4.11",
+    "vite-plugin-dts": "^3.6.0",
+    "vitest": "^0.34.6"
   },
   "peerDependencies": {
     "@tracktor/design-system" : ">=1",
