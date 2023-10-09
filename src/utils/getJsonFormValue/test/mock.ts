@@ -681,6 +681,52 @@ const formWithDecisionFields: Mock = {
   ],
 };
 
+const formWithTagFields: Mock = {
+  fields: [
+    {
+      attributes: {
+        depth: 0,
+        isLeaf: false,
+        isRoot: true,
+        label: "Nom",
+        tag: "last_name",
+        type: "text",
+      },
+      children: [
+        {
+          attributes: {
+            depth: 1,
+            isLeaf: true,
+            label: "Prénom",
+            type: "text",
+          },
+          children: [],
+          name: "first_name",
+        },
+      ],
+      name: "last_name",
+    },
+    {
+      attributes: {
+        depth: 1,
+        isLeaf: true,
+        label: "Prénom",
+        type: "text",
+      },
+      children: [],
+      name: "first_name",
+    },
+  ],
+  formValue: [
+    ["last_name", "Doe"],
+    ["first_name", "John"],
+  ],
+  output: [
+    { label: "Nom", name: "last_name", tag: "last_name", type: "text", value: "Doe" },
+    { label: "Prénom", name: "first_name", type: "text", value: "John" },
+  ],
+};
+
 export {
   formWithTextFields,
   formWithSelectFields,
@@ -688,4 +734,5 @@ export {
   formWithSwitchFields,
   formWithCheckboxFields,
   formWithDecisionFields,
+  formWithTagFields,
 };
