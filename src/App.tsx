@@ -14,6 +14,7 @@ import {
 import { ChangeEvent, MouseEvent, useCallback, useState } from "react";
 import TreegeConsumer, { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import type { TreeNode } from "@/types/TreeNode";
+import { JsonFormValue } from "@/utils/getJsonFormValue/getJsonFormValue";
 
 const data = {
   attributes: {
@@ -203,7 +204,7 @@ const App = () => {
   const [tree, setTree] = useState<TreeNode>(data);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("stepper");
-  const [formData, setFormData] = useState<[string, FormDataEntryValue][]>();
+  const [formData, setFormData] = useState<JsonFormValue[]>();
 
   const handleCloseDialog = useCallback(() => {
     setDialogOpen(false);
@@ -218,7 +219,7 @@ const App = () => {
     setTree(JSON.parse(value));
   }, []);
 
-  const handleSubmit = useCallback((submitData: [string, FormDataEntryValue][]) => {
+  const handleSubmit = useCallback((submitData: JsonFormValue[]) => {
     setFormData(submitData);
     setDialogOpen(true);
   }, []);

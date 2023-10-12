@@ -4,7 +4,7 @@ export interface JsonFormValue {
   label: string;
   name: string;
   type?: string;
-  value?: string | boolean | FormDataEntryValue;
+  value?: string | boolean | FormDataEntryValue | { label?: string; value?: string };
   tag?: string;
 }
 /**
@@ -22,10 +22,17 @@ function getJsonFormValue(formData: [string, FormDataEntryValue][], fields: Tree
     }
     const { attributes } = currentField;
     const { type, label, isDecision, tag } = attributes;
+    const isSelectOrRadio = type === "select" || type === "radio";
 
-    if (isDecision) {
-      const decisionValue = currentField.children.find((child) => child.name === value)?.attributes?.label;
-      return [...acc, { label, name, type, value: decisionValue, ...(tag && { tag }) }];
+    if (isSelectOrRadio || isDecision) {
+      const currentAttributes = isDecision
+        ? currentField.children.find((child) => child.name === value)?.attributes
+        : currentField.attributes.values?.find((option) => option.value === value);
+
+      return [
+        ...acc,
+        { label, name, type, value: { label: currentAttributes?.label, value: currentAttributes?.value }, ...(tag && { tag }) },
+      ];
     }
 
     const isBooleanField = ["switch", "checkbox"].includes(type || "");
