@@ -70,7 +70,7 @@ interface BaseTreegeConsumerProps {
    * Callback fired when the user submit form.
    * @param data
    */
-  onSubmit?(data: { [k: string]: FormDataEntryValue } | [string, FormDataEntryValue][]): void;
+  onSubmit?(data: { [k: string]: FormDataEntryValue } | JsonFormValue[]): void;
 }
 
 type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {
@@ -108,7 +108,7 @@ const TreegeConsumer = ({
   style,
   initialValues,
   variant = "stepper",
-  dataFormatOnSubmit = "formData",
+  dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
   const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField } = useTreegeConsumer({
     dataFormatOnSubmit,

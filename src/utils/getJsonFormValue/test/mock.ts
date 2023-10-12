@@ -162,7 +162,7 @@ const formWithSelectFields: Mock = {
   output: [
     { label: "Nom", name: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "John" },
-    { label: "Sexe", name: "gender", type: "select", value: "male" },
+    { label: "Sexe", name: "gender", type: "select", value: { label: "Homme", value: "male" } },
   ],
 };
 
@@ -277,7 +277,7 @@ const formWithRadioFields: Mock = {
   output: [
     { label: "Nom", name: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "John" },
-    { label: "Sexe", name: "gender", type: "radio", value: "male" },
+    { label: "Sexe", name: "gender", type: "radio", value: { label: "Homme", value: "male" } },
   ],
 };
 
@@ -670,7 +670,7 @@ const formWithDecisionFields: Mock = {
       label: "Type d'evenement",
       name: "event_type",
       type: "select",
-      value: "Incident",
+      value: { label: "Incident", value: "incident" },
     },
     {
       label: "Type d'incident",
