@@ -220,7 +220,6 @@ const App = () => {
   }, []);
 
   const handleSubmit = useCallback((submitData: JsonFormValue[]) => {
-    console.log(submitData);
     setFormData(submitData);
     setDialogOpen(true);
   }, []);

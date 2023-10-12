@@ -22,16 +22,17 @@ function getJsonFormValue(formData: [string, FormDataEntryValue][], fields: Tree
     }
     const { attributes } = currentField;
     const { type, label, isDecision, tag } = attributes;
-    const isSelect = type === "select" || type === "radio";
+    const isSelectOrRadio = type === "select" || type === "radio";
 
-    if (isDecision) {
-      const decisionValue = currentField.children.find((child) => child.name === value)?.attributes;
-      return [...acc, { label, name, type, value: { label: decisionValue?.label, value: decisionValue?.value }, ...(tag && { tag }) }];
-    }
+    if (isSelectOrRadio || isDecision) {
+      const currentAttributes = isDecision
+        ? currentField.children.find((child) => child.name === value)?.attributes
+        : currentField.attributes.values?.find((option) => option.value === value);
 
-    if (isSelect) {
-      const selectValue = currentField.attributes.values?.find((option) => option.value === value);
-      return [...acc, { label, name, type, value: { label: selectValue?.label, value: selectValue?.value }, ...(tag && { tag }) }];
+      return [
+        ...acc,
+        { label, name, type, value: { label: currentAttributes?.label, value: currentAttributes?.value }, ...(tag && { tag }) },
+      ];
     }
 
     const isBooleanField = ["switch", "checkbox"].includes(type || "");
