@@ -24,7 +24,12 @@ export default defineConfig({
       },
     },
   },
-  plugins: [dts(), react()],
+  plugins: [
+    dts({
+      exclude: ["**/*.test.ts", "**/*.test.tsx", "vite.config.ts", "src/test.config.ts", "**/test/**/*"],
+    }),
+    react(),
+  ],
   resolve: {
     alias: [
       {
