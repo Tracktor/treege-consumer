@@ -2,18 +2,64 @@ version: 2.1
 
 orbs:
   gh: circleci/github-cli@2.1.0
+  sre: tracktor/ci-tools@0.6.1
 
 references:
   production_context: &production_context
     - npm
     - github
+  filters_not_tagged: &filters_not_tagged
+    tags:
+      ignore: /.*/
+  only_main: &only_main
+    tags:
+      ignore: /.*/
+    branches:
+      only: /^main$/
+  filters_only_tags: &filters_only_tags
+    tags:
+      only: /.*/
+    branches:
+      ignore: /.*/
 
 executors:
+  tests:
+    docker:
+      - image: cimg/node:20.9.0
   publish-npm:
     docker:
       - image: cimg/node:16.17.0
 
 jobs:
+  bump-version:
+    executor: tests
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+      - add_ssh_keys:
+          fingerprints:
+            - "75:c5:78:b6:86:27:6d:20:3e:81:4c:3d:70:9d:c7:bd"
+      - sre/bump-version:
+          lang: "js"
+          branch: "main"
+  run-unit-tests:
+    executor: tests
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Yarn install
+          command: yarn
+      - run:
+          command: yarn run test
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
   publish-npm:
     executor: publish-npm
     steps:
@@ -23,20 +69,22 @@ jobs:
           name: Yarn install
           command: yarn
       - run:
-          name: Create Github release
-          command: |
-            export TAG=$(grep '"version":' ./package.json | cut -d\" -f4)
-            gh release create -F CHANGELOG.md $TAG
-      - run:
           name: publish on npm
           command: yarn publish --access public
 
 workflows:
-  release:
-    when:
-      matches:
-        pattern: "^master$"
-        value: << pipeline.git.branch >>
+  Run Tests:
+    jobs:
+      - run-unit-tests:
+          filters: *filters_not_tagged
+          name: Run unit tests
+      - bump-version:
+          filters: *only_main
+          context: *production_context
+          requires:
+            - Run unit tests
+  Publish:
     jobs:
       - publish-npm:
           context: *production_context
+          filters: *filters_only_tags
