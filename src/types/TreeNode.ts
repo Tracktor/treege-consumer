@@ -1,4 +1,4 @@
-interface TreeValues {
+export interface TreeValues {
   id: string;
   label: string;
   value: string;
