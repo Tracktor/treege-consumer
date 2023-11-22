@@ -11,11 +11,11 @@ references:
   filters_not_tagged: &filters_not_tagged
     tags:
       ignore: /.*/
-  only_main: &only_main
+  only_master: &only_master
     tags:
       ignore: /.*/
     branches:
-      only: /^main$/
+      only: /^master$/
   filters_only_tags: &filters_only_tags
     tags:
       only: /.*/
@@ -40,10 +40,10 @@ jobs:
             - dependencies-{{ checksum "package.json" }}
       - add_ssh_keys:
           fingerprints:
-            - "75:c5:78:b6:86:27:6d:20:3e:81:4c:3d:70:9d:c7:bd"
+            - "66:22:37:b5:81:f7:c2:63:3e:98:7b:a3:88:16:75:93"
       - sre/bump-version:
           lang: "js"
-          branch: "main"
+          branch: "master"
   run-unit-tests:
     executor: tests
     steps:
@@ -79,7 +79,7 @@ workflows:
           filters: *filters_not_tagged
           name: Run unit tests
       - bump-version:
-          filters: *only_main
+          filters: *only_master
           context: *production_context
           requires:
             - Run unit tests
