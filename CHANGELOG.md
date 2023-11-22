@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.3](https://github.com/Tracktor/treege-consumer/compare/1.17.2...1.17.3) (2023-11-22)
+
+
+### Bug Fixes
+
+* updating config.yml ([0b92dbf](https://github.com/Tracktor/treege-consumer/commit/0b92dbf2d3757ecaf54782faf093a25db221c78a))
+
 ## [1.17.2](https://github.com/Tracktor/treege-consumer/compare/1.17.1...1.17.2) (2023-11-22)
 
 
