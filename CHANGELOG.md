@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.1](https://github.com/Tracktor/treege-consumer/compare/1.17.0...1.17.1) (2023-11-22)
+
 ## [1.17.0](https://github.com/Tracktor/treege-consumer/compare/1.16.1...1.17.0) (2023-11-22)
 
 
