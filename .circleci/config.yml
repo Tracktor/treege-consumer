@@ -31,6 +31,7 @@ jobs:
   bump-version:
     executor: default
     steps:
+      - gh/setup
       - checkout
       - restore_cache:
           keys:
