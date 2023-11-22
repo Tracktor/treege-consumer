@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.4](https://github.com/Tracktor/treege-consumer/compare/1.17.3...1.17.4) (2023-11-22)
+
+
+### Bug Fixes
+
+* update config.yml orb version ([c98f033](https://github.com/Tracktor/treege-consumer/commit/c98f0334802265fe04da80cf88c33ad4ee8f5c43))
+
 ## [1.17.3](https://github.com/Tracktor/treege-consumer/compare/1.17.2...1.17.3) (2023-11-22)
 
 
