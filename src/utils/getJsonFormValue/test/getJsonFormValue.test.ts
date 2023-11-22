@@ -4,9 +4,11 @@ import {
   formWithDecisionFields,
   formWithRadioFields,
   formWithSelectFields,
+  formWithSelectFieldsUndefined,
   formWithSwitchFields,
   formWithTagFields,
   formWithTextFields,
+  formWithTextFieldsUndefined,
 } from "@/utils/getJsonFormValue/test/mock";
 
 describe("test getJsonFormValue", () => {
@@ -58,6 +60,30 @@ describe("test getJsonFormValue", () => {
   // Tag
   test("Tag", () => {
     const { fields, formValue, output } = formWithTagFields;
+    const result = getJsonFormValue(formValue, fields);
+
+    expect(result).toEqual(output);
+  });
+
+  // Text field value undefined
+  test("Value undefined", () => {
+    const { fields, formValue, output } = formWithTextFieldsUndefined;
+    const result = getJsonFormValue(formValue, fields);
+
+    expect(result).toEqual(output);
+  });
+
+  // Select field value undefined
+  test("Select undefined", () => {
+    const { fields, formValue, output } = formWithSelectFieldsUndefined;
+    const result = getJsonFormValue(formValue, fields);
+
+    expect(result).toEqual(output);
+  });
+
+  // Switch undefined
+  test("Select undefined", () => {
+    const { fields, formValue, output } = formWithSelectFieldsUndefined;
     const result = getJsonFormValue(formValue, fields);
 
     expect(result).toEqual(output);

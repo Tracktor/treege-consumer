@@ -727,6 +727,166 @@ const formWithTagFields: Mock = {
   ],
 };
 
+const formWithTextFieldsUndefined: Mock = {
+  fields: [
+    {
+      attributes: {
+        depth: 0,
+        isLeaf: false,
+        isRoot: true,
+        label: "Nom",
+        type: "text",
+      },
+      children: [
+        {
+          attributes: {
+            depth: 1,
+            isLeaf: true,
+            label: "Prénom",
+            type: "text",
+          },
+          children: [],
+          name: "first_name",
+        },
+      ],
+      name: "last_name",
+    },
+    {
+      attributes: {
+        depth: 1,
+        isLeaf: true,
+        label: "Prénom",
+        type: "text",
+      },
+      children: [],
+      name: "first_name",
+    },
+  ],
+  formValue: [
+    ["last_name", "Doe"],
+    ["first_name", ""],
+  ],
+  output: [
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
+    { label: "Prénom", name: "first_name", type: "text", value: "" },
+  ],
+};
+
+const formWithSelectFieldsUndefined: Mock = {
+  fields: [
+    {
+      attributes: {
+        depth: 0,
+        isLeaf: false,
+        isRoot: true,
+        label: "Nom",
+        type: "text",
+      },
+      children: [
+        {
+          attributes: {
+            depth: 1,
+            isLeaf: false,
+            label: "Prénom",
+            type: "text",
+          },
+          children: [
+            {
+              attributes: {
+                depth: 2,
+                isLeaf: true,
+                label: "Sexe",
+                type: "select",
+                values: [
+                  {
+                    id: "0",
+                    label: "Homme",
+                    value: "male",
+                  },
+                  {
+                    id: "1",
+                    label: "Femme",
+                    value: "female",
+                  },
+                ],
+              },
+              children: [],
+              name: "gender",
+            },
+          ],
+          name: "first_name",
+        },
+      ],
+      name: "last_name",
+    },
+    {
+      attributes: {
+        depth: 1,
+        isLeaf: false,
+        label: "Prénom",
+        type: "text",
+      },
+      children: [
+        {
+          attributes: {
+            depth: 2,
+            isLeaf: true,
+            label: "Sexe",
+            type: "select",
+            values: [
+              {
+                id: "0",
+                label: "Homme",
+                value: "male",
+              },
+              {
+                id: "1",
+                label: "Femme",
+                value: "female",
+              },
+            ],
+          },
+          children: [],
+          name: "gender",
+        },
+      ],
+      name: "first_name",
+    },
+    {
+      attributes: {
+        depth: 2,
+        isLeaf: true,
+        label: "Sexe",
+        type: "select",
+        values: [
+          {
+            id: "0",
+            label: "Homme",
+            value: "male",
+          },
+          {
+            id: "1",
+            label: "Femme",
+            value: "female",
+          },
+        ],
+      },
+      children: [],
+      name: "gender",
+    },
+  ],
+  formValue: [
+    ["last_name", "Doe"],
+    ["first_name", "John"],
+    ["gender", ""],
+  ],
+  output: [
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
+    { label: "Prénom", name: "first_name", type: "text", value: "John" },
+    { label: "Sexe", name: "gender", type: "select", value: { label: "", value: "" } },
+  ],
+};
+
 export {
   formWithTextFields,
   formWithSelectFields,
@@ -735,4 +895,6 @@ export {
   formWithCheckboxFields,
   formWithDecisionFields,
   formWithTagFields,
+  formWithTextFieldsUndefined,
+  formWithSelectFieldsUndefined,
 };
