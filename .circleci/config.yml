@@ -23,16 +23,13 @@ references:
       ignore: /.*/
 
 executors:
-  tests:
+  default:
     docker:
       - image: cimg/node:20.9.0
-  publish-npm:
-    docker:
-      - image: cimg/node:16.17.0
 
 jobs:
   bump-version:
-    executor: tests
+    executor: default
     steps:
       - checkout
       - restore_cache:
@@ -45,7 +42,7 @@ jobs:
           lang: "js"
           branch: "master"
   run-unit-tests:
-    executor: tests
+    executor: default
     steps:
       - checkout
       - restore_cache:
@@ -61,7 +58,7 @@ jobs:
           paths:
             - node_modules
   publish-npm:
-    executor: publish-npm
+    executor: default
     steps:
       - gh/setup
       - checkout
