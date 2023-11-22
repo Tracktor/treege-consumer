@@ -31,7 +31,7 @@ function getJsonFormValue(formData: [string, FormDataEntryValue][], fields: Tree
 
       return [
         ...acc,
-        { label, name, type, value: { label: currentAttributes?.label, value: currentAttributes?.value }, ...(tag && { tag }) },
+        { label, name, type, value: { label: currentAttributes?.label || "", value: currentAttributes?.value || "" }, ...(tag && { tag }) },
       ];
     }
 

@@ -32,8 +32,11 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "@tracktor/design-system": "^1.44.0",
     "autosuggest-highlight": "^3.3.4",
+    "commit-and-tag-version": "^12.0.0",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
@@ -55,8 +58,17 @@
     "vite-plugin-dts": "^3.6.0",
     "vitest": "^0.34.6"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "commit-and-tag-version": {
+    "releaseCommitMessageFormat": "chore(release): {{currentTag}} [skip ci]",
+    "tagPrefix": ""
+  },
   "peerDependencies": {
-    "@tracktor/design-system" : ">=1",
+    "@tracktor/design-system": ">=1",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
