@@ -10,7 +10,6 @@ All notable changes to this project will be documented in this file. See [commit
 * support undefined value for json format [#12](https://github.com/Tracktor/treege-consumer/issues/12) ([110b27a](https://github.com/Tracktor/treege-consumer/commit/110b27a4cd2e36f543c62488fe65ad4264431682))
 * **undefined-value:** Ci config ([3f6252a](https://github.com/Tracktor/treege-consumer/commit/3f6252a618ef7965d6fd00dce89e31a62c954a1f))
 * **undefined-value:** Undefined value ([a2541b6](https://github.com/Tracktor/treege-consumer/commit/a2541b6a99aacf45df678da757f5905167cef155))
-* **undefined-value:** Undefined value ([6826be1](https://github.com/Tracktor/treege-consumer/commit/6826be18f4a109cdfccaf525ca9426ea3f9f9e0a))
 
 
 ### Bug Fixes
