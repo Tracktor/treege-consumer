@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.19.0](https://github.com/Tracktor/treege-consumer/compare/1.18.0...1.19.0) (2023-12-14)
+
+
+### Features
+
+* add TreegeValuesConsumer component ([9079382](https://github.com/Tracktor/treege-consumer/commit/9079382757bac6569d9d277052409cc64193bab9))
+
 ## [1.18.0](https://github.com/Tracktor/treege-consumer/compare/1.17.4...1.18.0) (2023-12-14)
 
 
