@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.19.1](https://github.com/Tracktor/treege-consumer/compare/1.19.0...1.19.1) (2023-12-14)
+
+
+### Bug Fixes
+
+* disable gutter from TreegeValuesConsumer ([757b845](https://github.com/Tracktor/treege-consumer/commit/757b84522da86b4e851330109bc7e23689f67926))
+
 ## [1.19.0](https://github.com/Tracktor/treege-consumer/compare/1.18.0...1.19.0) (2023-12-14)
 
 
