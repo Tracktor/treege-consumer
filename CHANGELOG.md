@@ -1,5 +1,14 @@
 # Changelog
 
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [1.18.0](https://github.com/Tracktor/treege-consumer/compare/1.17.4...1.18.0) (2023-12-14)
+
+
+### Features
+
+* readonly ([731e927](https://github.com/Tracktor/treege-consumer/commit/731e9276c92922259ca84076619507f10e38636a))
+
 ## [1.17.4](https://github.com/Tracktor/treege-consumer/compare/1.17.3...1.17.4) (2023-11-22)
 
 
