@@ -16,7 +16,7 @@ const TreegeValuesConsumer = ({ values }: TreegeValuesConsumerProps) => (
       const key = `${index}-${label}-${value}`;
 
       return (
-        <ListItem key={key}>
+        <ListItem key={key} disableGutters>
           <TextField
             fullWidth
             multiline
