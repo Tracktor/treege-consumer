@@ -10,6 +10,7 @@
     - [Provide options](#Provide-options)
 - [Components](#Components)
     - [TreegeConsumer](#TreegeConsumer)
+    - [TreegeValuesConsumer](#TreegeValuesConsumer)
 
 ## Installation
 
@@ -101,3 +102,12 @@ on [Treege](https://github.com/Tracktor/treege) data
 |----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | countryAutocompleteService | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
 | googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
+
+
+### TreegeValuesConsumer
+
+Render values from form based on [Treege](https://github.com/Tracktor/treege)
+
+| Props  | Type                                                                                                                                        | Default   | Required | Detail         |
+|--------|---------------------------------------------------------------------------------------------------------------------------------------------|-----------|----------|----------------|
+| values | {<br/>label: string;<br/>name: string;<br/>type: string;<br/>tag?: string;<br/>value: string; &#124; { label: string; value: string }<br/>} | undefined | true     | Object of data |
