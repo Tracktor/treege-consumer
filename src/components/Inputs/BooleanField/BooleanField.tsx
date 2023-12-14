@@ -8,10 +8,14 @@ export interface BooleanFieldProps {
   helperText?: string;
   inputRef: Ref<any>;
   defaultValue?: unknown;
+  readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const BooleanField = ({ defaultValue, data, inputRef, helperText, onChange }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
+const BooleanField = (
+  { defaultValue, data, inputRef, helperText, readOnly, onChange }: BooleanFieldProps,
+  ref: Ref<unknown | undefined>,
+) => {
   const { name, attributes, children } = data;
   const { label, type, isLeaf, messages } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
@@ -30,11 +34,28 @@ const BooleanField = ({ defaultValue, data, inputRef, helperText, onChange }: Bo
   );
 
   return (
-    <FormControl fullWidth>
+    <FormControl aria-readonly={readOnly} fullWidth>
       <FormGroup ref={ref}>
         <FormControlLabel
           label={label}
-          control={<Field name={name} onChange={handleCheck} inputRef={inputRef} defaultChecked={defaultChecked} />}
+          aria-readonly={readOnly}
+          control={
+            <Field
+              name={name}
+              onChange={handleCheck}
+              inputRef={inputRef}
+              defaultChecked={defaultChecked}
+              readOnly={readOnly}
+              disabled={readOnly}
+            />
+          }
+          sx={{
+            ...(readOnly && {
+              "& .MuiFormControlLabel-label.Mui-disabled": {
+                color: "text.primary",
+              },
+            }),
+          }}
         />
       </FormGroup>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}

@@ -137,6 +137,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
   // Set initial field
   useEffect(() => {
     if (!tree) return;
+
     const initialFields = getFieldsFromTreePoint({ currentTree: tree });
     setFields(initialFields);
 

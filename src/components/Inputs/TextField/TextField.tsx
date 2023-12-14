@@ -11,10 +11,11 @@ export interface TextFieldProps {
   required?: boolean;
   defaultValue?: unknown;
   type: string;
+  readOnly?: boolean;
 }
 
 const TextField = (
-  { label, name, helperText, inputRef, onChange, required, type, defaultValue }: TextFieldProps,
+  { label, name, helperText, inputRef, onChange, required, type, defaultValue, readOnly }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const handleChange = useCallback(
@@ -36,6 +37,9 @@ const TextField = (
       required={required}
       defaultValue={defaultValue}
       inputRef={inputRef}
+      InputProps={{
+        readOnly,
+      }}
       InputLabelProps={{
         shrink: true,
       }}

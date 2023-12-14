@@ -15,6 +15,7 @@ export interface TreegeFieldProps {
   data: TreeNode;
   visible?: boolean;
   defaultValue?: unknown;
+  readOnly?: boolean;
   onChange?(dataAttribute?: ChangeEventField): void;
 }
 
@@ -24,11 +25,20 @@ export interface TreegeFieldProps {
  * @param onChange
  * @param autoFocus
  * @param data
+ * @param readOnly
  * @param animated
  * @param visible
  * @constructor
  */
-const TreegeField = ({ defaultValue: defaultValueProps, onChange, autoFocus, data, animated = true, visible = true }: TreegeFieldProps) => {
+const TreegeField = ({
+  defaultValue: defaultValueProps,
+  onChange,
+  autoFocus,
+  data,
+  readOnly,
+  animated = true,
+  visible = true,
+}: TreegeFieldProps) => {
   const { name, attributes } = data;
   const { type, label, required, helperText, defaultValue: defaultValueAttribute } = attributes;
   const animationTimeout = animated ? 200 : 0;
@@ -70,6 +80,7 @@ const TreegeField = ({ defaultValue: defaultValueProps, onChange, autoFocus, dat
             inputRef={inputRef}
             helperText={helperText}
             defaultValue={defaultValue}
+            readOnly={readOnly}
           />
         );
       case "address":
@@ -81,6 +92,7 @@ const TreegeField = ({ defaultValue: defaultValueProps, onChange, autoFocus, dat
             required={isRequired}
             helperText={helperText}
             defaultValue={defaultValue}
+            readOnly={readOnly}
           />
         );
       case "radio":
@@ -92,6 +104,7 @@ const TreegeField = ({ defaultValue: defaultValueProps, onChange, autoFocus, dat
             onChange={onChange}
             helperText={helperText}
             defaultValue={defaultValue}
+            readOnly={readOnly}
           />
         );
       case "select":
@@ -103,11 +116,21 @@ const TreegeField = ({ defaultValue: defaultValueProps, onChange, autoFocus, dat
             onChange={onChange}
             helperText={helperText}
             defaultValue={defaultValue}
+            readOnly={readOnly}
           />
         );
       case "switch":
       case "checkbox":
-        return <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} defaultValue={defaultValue} />;
+        return (
+          <BooleanField
+            data={data}
+            inputRef={inputRef}
+            onChange={onChange}
+            helperText={helperText}
+            defaultValue={defaultValue}
+            readOnly={readOnly}
+          />
+        );
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }

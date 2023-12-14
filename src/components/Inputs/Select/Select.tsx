@@ -19,10 +19,11 @@ export interface SelectProps<T = unknown> {
   inputRef: Ref<any>;
   required?: boolean;
   defaultValue?: T;
+  readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const Select = ({ defaultValue = "", data, helperText, inputRef, required, onChange }: SelectProps, ref: Ref<HTMLDivElement>) => {
+const Select = ({ data, helperText, inputRef, required, onChange, readOnly, defaultValue = "" }: SelectProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
   const { label, values, type, isLeaf, isDecision } = attributes;
@@ -46,6 +47,7 @@ const Select = ({ defaultValue = "", data, helperText, inputRef, required, onCha
         {label}
       </InputLabel>
       <SelectDS
+        fullWidth
         defaultValue={String(defaultValue)}
         labelId={`${name}-label`}
         id={name}
@@ -53,6 +55,7 @@ const Select = ({ defaultValue = "", data, helperText, inputRef, required, onCha
         name={name}
         onChange={handleChange}
         inputRef={inputRef}
+        readOnly={readOnly}
         input={<OutlinedInput notched label={label} />}
       >
         {options?.map((option) => (

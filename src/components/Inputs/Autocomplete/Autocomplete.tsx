@@ -14,13 +14,14 @@ export interface AutocompleteProps {
   required?: boolean;
   country?: string;
   defaultValue?: unknown;
+  readOnly?: boolean;
 }
 
 type AutocompleteService = google.maps.places.AutocompleteService;
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
 const Autocomplete = (
-  { defaultValue, label, name, helperText, inputRef, required, country }: AutocompleteProps,
+  { defaultValue, label, name, helperText, inputRef, required, country, readOnly }: AutocompleteProps,
   ref: Ref<unknown> | undefined,
 ) => {
   const { googleApiKey, countryAutocompleteService } = useContext(OptionsContext);
@@ -119,6 +120,7 @@ const Autocomplete = (
       value={value}
       onChange={handleChange}
       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
+      readOnly={readOnly}
       renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
         <TextField
           fullWidth

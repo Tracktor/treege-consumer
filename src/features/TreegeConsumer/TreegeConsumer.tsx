@@ -67,6 +67,11 @@ interface BaseTreegeConsumerProps {
     [key: string]: unknown;
   };
   /**
+   * If true, the form input will be disabled.
+   * @default false
+   */
+  readOnly?: boolean;
+  /**
    * Callback fired when the user submit form.
    * @param data
    */
@@ -107,6 +112,7 @@ const TreegeConsumer = ({
   loading,
   style,
   initialValues,
+  readOnly,
   variant = "stepper",
   dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
@@ -152,6 +158,7 @@ const TreegeConsumer = ({
                         autoFocus={active}
                         visible={active}
                         defaultValue={initialValuesValue}
+                        readOnly={readOnly}
                       />
                     );
                   })
@@ -208,6 +215,7 @@ const TreegeConsumer = ({
                         onChange={handleChange}
                         autoFocus={index === 0}
                         defaultValue={initialValuesValue}
+                        readOnly={readOnly}
                       />
                     );
                   })
@@ -215,7 +223,7 @@ const TreegeConsumer = ({
                   <FormSkeleton />
                 )}
               </Stack>
-              {isLastField && <FormValidation />}
+              {isLastField && !readOnly && <FormValidation />}
             </Box>
           )}
         </OptionsProvider>

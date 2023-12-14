@@ -10,15 +10,15 @@ export interface RadioProps {
   inputRef: Ref<any>;
   required?: boolean;
   defaultValue?: unknown;
+  readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const Radio = ({ defaultValue = "", data, helperText, inputRef, required, onChange }: RadioProps, ref: Ref<HTMLDivElement>) => {
+const Radio = ({ data, helperText, inputRef, required, onChange, readOnly, defaultValue = "" }: RadioProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
   const { label, values, type, isLeaf, isDecision } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
-
   const options = getOptionsForDecisionsField({ children, values });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: string) => {
@@ -29,15 +29,30 @@ const Radio = ({ defaultValue = "", data, helperText, inputRef, required, onChan
   };
 
   return (
-    <FormControl required={required} ref={ref} fullWidth>
+    <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>
       <FormLabel id={`${name}-label`}>{label}</FormLabel>
-      <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} defaultValue={defaultValue}>
+      <RadioGroup
+        aria-labelledby={`${name}-label`}
+        name={name}
+        onChange={handleChange}
+        defaultValue={defaultValue ? `${name}:${defaultValue}` : undefined}
+        aria-readonly={readOnly}
+      >
         {options?.map((option, index) => (
           <FormControlLabel
             key={option.key}
             value={option.value}
             label={option.label}
-            control={<RadioDS inputRef={inputRef} data-index={index} inputProps={{ tabIndex: index }} />}
+            control={
+              <RadioDS inputRef={inputRef} data-index={index} inputProps={{ tabIndex: index }} readOnly={readOnly} disabled={readOnly} />
+            }
+            sx={{
+              ...(readOnly && {
+                "& .MuiFormControlLabel-label.Mui-disabled": {
+                  color: "text.primary",
+                },
+              }),
+            }}
           />
         ))}
       </RadioGroup>
