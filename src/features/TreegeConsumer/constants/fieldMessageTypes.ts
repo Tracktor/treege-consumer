@@ -1,3 +1,3 @@
-const fieldMessageTypes = ["select", "radio", "switch", "checkbox", "autocomplete"];
+const fieldMessageTypes = ["select", "radio", "switch", "checkbox"];
 
 export default fieldMessageTypes;
