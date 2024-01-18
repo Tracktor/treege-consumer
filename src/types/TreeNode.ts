@@ -5,6 +5,11 @@ export interface TreeValues {
   message?: string;
 }
 
+interface Route {
+  url: string;
+  searchKey: string;
+}
+
 export interface TreeNode {
   name: string;
   attributes:
@@ -27,6 +32,7 @@ export interface TreeNode {
         hiddenValue?: never;
         defaultValue?: unknown;
         tag?: string;
+        route?: Route;
       }
     | {
         depth: number;
@@ -47,6 +53,7 @@ export interface TreeNode {
         hiddenValue?: string;
         defaultValue?: unknown;
         tag?: string;
+        route?: Route;
       };
   children: TreeNode[];
   treeId?: string;

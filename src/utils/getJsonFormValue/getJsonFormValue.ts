@@ -28,7 +28,7 @@ function getJsonFormValue(formData: [string, FormDataEntryValue][], fields: Tree
       const currentAttributes = isDecision
         ? currentField.children.find((child) => child.name === value)?.attributes
         : currentField.attributes.values?.find((option) => option.value === value);
-
+      console.log(currentAttributes);
       return [
         ...acc,
         { label, name, type, value: { label: currentAttributes?.label || "", value: currentAttributes?.value || "" }, ...(tag && { tag }) },
