@@ -82,8 +82,6 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
 
       // AUTO NEXT STEP
       if (isStepper && !isDecision) {
-        console.log(dataAttribute);
-
         if (isAutoStep) {
           setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
         }
