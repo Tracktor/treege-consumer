@@ -19,13 +19,7 @@ interface ApiAutocompleteProps {
   readOnly?: boolean;
 }
 
-const getSearch = (url: string, searchKey: string, value: string) =>
-  fetch(`${url}?${searchKey}=${value}`, {
-    headers: {
-      Authorization:
-        "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5IiwiZW50aXR5X2lkIjoyLCJleHAiOjE3MDU1OTExNzZ9.-v5hRDHdckQaPQsXwpIvyfrCrcaiR-TG6R3hkmu9Xfg",
-    },
-  }).then((r) => r.json());
+const getSearch = (url: string, searchKey: string, value: string) => fetch(`${url}?${searchKey}=${value}`).then((r) => r.json());
 
 const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
   const { attributes, name } = node;
