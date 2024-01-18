@@ -60,12 +60,12 @@ const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: A
       );
       if (!isValid) {
         console.warn(
-          "Attention : la réponse attendu pour la consumer n'est pas valide ! Elle doit être de format {label: string; value:string; img?:string}[]",
+          "Warning: The expected response for the consumer is not valid! It must be in the format: {label: string; value:string; img?:string}[]",
         );
       }
     } else {
       console.warn(
-        "Attention : la réponse attendu pour la consumer n'est pas valide ! Elle doit être de format {label: string; value:string; img?:string}[]",
+        "Warning: The expected response for the consumer is not valid! It must be in the format: {label: string; value:string; img?:string}[]",
       );
     }
   }
