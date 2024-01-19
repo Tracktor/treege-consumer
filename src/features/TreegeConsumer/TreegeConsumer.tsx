@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Box,
   Button,
@@ -123,112 +124,115 @@ const TreegeConsumer = ({
     variant,
   });
   const themeProvider = useTheme();
+  const queryClient = new QueryClient();
 
   return (
-    <ThemeProvider theme={theme || themeProvider.palette.mode}>
-      {loading ? (
-        <Box display="flex" alignItems="center" justifyContent="center" height="100%">
-          <CircularProgress color="primary" />
-        </Box>
-      ) : (
-        <OptionsProvider options={options}>
-          {variant === "stepper" ? (
-            <Box
-              onSubmit={handleSubmit}
-              component="form"
-              paddingX={15}
-              height="100%"
-              justifyContent="center"
-              display="flex"
-              flexDirection="column"
-              overflow="hidden"
-              style={style}
-            >
-              <Stack paddingY={2} spacing={fields ? 0 : 3} direction="column">
-                {fields ? (
-                  fields.map((field, index) => {
-                    const active = index === activeFieldIndex;
-                    const initialValuesValue = initialValues && initialValues[field.name];
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme || themeProvider.palette.mode}>
+        {loading ? (
+          <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+            <CircularProgress color="primary" />
+          </Box>
+        ) : (
+          <OptionsProvider options={options}>
+            {variant === "stepper" ? (
+              <Box
+                onSubmit={handleSubmit}
+                component="form"
+                paddingX={15}
+                height="100%"
+                justifyContent="center"
+                display="flex"
+                flexDirection="column"
+                overflow="hidden"
+                style={style}
+              >
+                <Stack paddingY={2} spacing={fields ? 0 : 3} direction="column">
+                  {fields ? (
+                    fields.map((field, index) => {
+                      const active = index === activeFieldIndex;
+                      const initialValuesValue = initialValues && initialValues[field.name];
 
-                    return (
-                      <TreegeField
-                        key={field.name}
-                        data={field}
-                        onChange={handleChange}
-                        autoFocus={active}
-                        visible={active}
-                        defaultValue={initialValuesValue}
-                        readOnly={readOnly}
-                      />
-                    );
-                  })
-                ) : (
-                  <FormSkeleton />
-                )}
-              </Stack>
-
-              {isLastField && (
-                <Grow in mountOnEnter>
-                  <Box textAlign="right">
-                    <Typography variant="h5" my={2}>
-                      <div>Le formulaire est maintenant terminé,</div> <div>voulez-vous le valider ?</div>
-                    </Typography>
-                  </Box>
-                </Grow>
-              )}
-
-              {fields && (
-                <Stack alignItems="flex-end" spacing={2}>
-                  <Stack direction="row" alignItems="center" spacing={2}>
-                    <Slide direction="right" in={!isLastField} mountOnEnter>
-                      <Typography variant="caption" textAlign="right">
-                        Pour valider, appuyer sur <strong>ENTRÉE ↵</strong>
-                      </Typography>
-                    </Slide>
-                    <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
-                      <ButtonGroup variant="outlined" aria-label="outlined button group">
-                        <Button disabled={activeFieldIndex === firstFieldIndex} onClick={handlePrev}>
-                          <NavigateBeforeRounded />
-                        </Button>
-                        <Button type="submit" disabled={isLastField}>
-                          <NavigateNextRounded />
-                        </Button>
-                      </ButtonGroup>
-                    </Slide>
-                  </Stack>
-
-                  {isLastField && <FormValidation />}
+                      return (
+                        <TreegeField
+                          key={field.name}
+                          data={field}
+                          onChange={handleChange}
+                          autoFocus={active}
+                          visible={active}
+                          defaultValue={initialValuesValue}
+                          readOnly={readOnly}
+                        />
+                      );
+                    })
+                  ) : (
+                    <FormSkeleton />
+                  )}
                 </Stack>
-              )}
-            </Box>
-          ) : (
-            <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
-              <Stack paddingY={5} spacing={3} direction="column">
-                {fields ? (
-                  fields.map((field, index) => {
-                    const initialValuesValue = initialValues && initialValues[field.name];
 
-                    return (
-                      <TreegeField
-                        key={field.name}
-                        data={field}
-                        onChange={handleChange}
-                        autoFocus={index === 0}
-                        defaultValue={initialValuesValue}
-                        readOnly={readOnly}
-                      />
-                    );
-                  })
-                ) : (
-                  <FormSkeleton />
+                {isLastField && (
+                  <Grow in mountOnEnter>
+                    <Box textAlign="right">
+                      <Typography variant="h5" my={2}>
+                        <div>Le formulaire est maintenant terminé,</div> <div>voulez-vous le valider ?</div>
+                      </Typography>
+                    </Box>
+                  </Grow>
                 )}
-              </Stack>
-              {isLastField && !readOnly && <FormValidation />}
-            </Box>
-          )}
-        </OptionsProvider>
-      )}
-    </ThemeProvider>
+
+                {fields && (
+                  <Stack alignItems="flex-end" spacing={2}>
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                      <Slide direction="right" in={!isLastField} mountOnEnter>
+                        <Typography variant="caption" textAlign="right">
+                          Pour valider, appuyer sur <strong>ENTRÉE ↵</strong>
+                        </Typography>
+                      </Slide>
+                      <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
+                        <ButtonGroup variant="outlined" aria-label="outlined button group">
+                          <Button disabled={activeFieldIndex === firstFieldIndex} onClick={handlePrev}>
+                            <NavigateBeforeRounded />
+                          </Button>
+                          <Button type="submit" disabled={isLastField}>
+                            <NavigateNextRounded />
+                          </Button>
+                        </ButtonGroup>
+                      </Slide>
+                    </Stack>
+
+                    {isLastField && <FormValidation />}
+                  </Stack>
+                )}
+              </Box>
+            ) : (
+              <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
+                <Stack paddingY={5} spacing={3} direction="column">
+                  {fields ? (
+                    fields.map((field, index) => {
+                      const initialValuesValue = initialValues && initialValues[field.name];
+
+                      return (
+                        <TreegeField
+                          key={field.name}
+                          data={field}
+                          onChange={handleChange}
+                          autoFocus={index === 0}
+                          defaultValue={initialValuesValue}
+                          readOnly={readOnly}
+                        />
+                      );
+                    })
+                  ) : (
+                    <FormSkeleton />
+                  )}
+                </Stack>
+                {isLastField && !readOnly && <FormValidation />}
+              </Box>
+            )}
+          </OptionsProvider>
+        )}
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 

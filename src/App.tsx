@@ -302,16 +302,7 @@ const App = () => {
               </ToggleButtonGroup>
             </Box>
             <Box flex={1}>
-              <TreegeConsumer
-                tree={data}
-                variant={variant}
-                onSubmit={handleSubmit}
-                options={{ googleApiKey: "YOUR_SECRET_KEY" }}
-                initialValues={{
-                  address: "17ème Arrondissement, Paris, France",
-                  quantity: 1,
-                }}
-              />
+              <TreegeConsumer tree={data} variant={variant} onSubmit={handleSubmit} options={{ googleApiKey: "YOUR_SECRET_KEY" }} />
             </Box>
           </Box>
           <Dialog open={dialogOpen} onClose={handleCloseDialog}>

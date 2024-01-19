@@ -2056,6 +2056,18 @@
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.27.8.tgz#6667fac16c436b5434a387a34dedb013198f6e6e"
   integrity sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==
 
+"@tanstack/query-core@5.17.15":
+  version "5.17.15"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.17.15.tgz#e73a3036e72398493ef9eee1678f89938111344c"
+  integrity sha512-QURxpu77/ICA4d61aPvV7EcJ2MwmksxUejKBaq/xLcO2TUJAlXf4PFKHC/WxnVFI/7F1jeLx85AO3Vpk0+uBXw==
+
+"@tanstack/react-query@^5.17.15":
+  version "5.17.15"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.17.15.tgz#2214491b97d77613155a3607a3af163ecde613b6"
+  integrity sha512-9qur91mOihaUN7pXm6ioDtS+4qgkBcCiIaZyvi3lZNcQZsrMGCYZ+eP3hiFrV4khoJyJrFUX1W0NcCVlgwNZxQ==
+  dependencies:
+    "@tanstack/query-core" "5.17.15"
+
 "@testing-library/dom@^9.0.0":
   version "9.3.3"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-9.3.3.tgz#108c23a5b0ef51121c26ae92eb3179416b0434f5"
@@ -2107,6 +2119,14 @@
     "@emotion/react" "^11.11.1"
     "@emotion/styled" "^11.11.0"
     "@mui/material" "^5.14.10"
+
+"@tracktor/react-utils@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@tracktor/react-utils/-/react-utils-1.11.0.tgz#175fab1b489430262d4128c9e8d7c6437e167988"
+  integrity sha512-bCZGEMmppNQTqy9Ppm5TETZDcWk2xmYGwr887cex3lU8MGzMXTwO85togNOlhmaO2sibjslwdbmJCnzKTZ2Dew==
+  dependencies:
+    react "^18.2.0"
+    react-dom "^18.2.0"
 
 "@types/argparse@1.0.38":
   version "1.0.38"
