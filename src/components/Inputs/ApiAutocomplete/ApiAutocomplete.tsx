@@ -5,17 +5,11 @@ import { forwardRef, Ref, SyntheticEvent, useCallback, useState } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import { TreeNode } from "@/types/TreeNode";
 
-export interface AutocompleteOption {
-  label: string;
-  value: string;
-  img?: string;
-}
-
 interface ApiAutocompleteProps {
   inputRef: Ref<any>;
   node: TreeNode;
   onChange?(dataAttribute: ChangeEventField): void;
-  defaultValue?: AutocompleteOption;
+  defaultValue?: unknown;
   readOnly?: boolean;
 }
 
@@ -26,9 +20,10 @@ const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: A
   const { type, label, required, route, helperText } = attributes;
 
   const handleChange = useCallback(
-    (event: SyntheticEvent, value: AutocompleteOption | null) => {
-      if (!value) return;
-      onChange?.({ event, name, type, value });
+    (event: SyntheticEvent, value: unknown) => {
+      if (value !== null && typeof value === "object" && Object.keys(value).includes("label") && Object.keys(value).includes("value")) {
+        onChange?.({ event, name, type, value });
+      }
     },
     [name, onChange, type],
   );
@@ -36,7 +31,7 @@ const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: A
   const [inputValue, setInputValue] = useState("");
   const debounceSearch = useDebounce(inputValue, 300);
 
-  const { data, isError, isLoading } = useQuery<unknown, unknown, AutocompleteOption[]>({
+  const { data, isError, isLoading } = useQuery<unknown, unknown, unknown[]>({
     enabled: !!debounceSearch,
     queryFn: () => getSearch(route?.url || "", route?.searchKey || "", debounceSearch),
     queryKey: ["search", debounceSearch],
@@ -50,7 +45,7 @@ const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: A
     if (Array.isArray(data)) {
       // Check if data is an array of objects with label and value
       const isValid = data.every(
-        (item) => typeof item === "object" && item !== null && typeof item.label === "string" && typeof item.value !== "string",
+        (item) => typeof item === "object" && item !== null && Object.keys(item).includes("label") && Object.keys(item).includes("value"),
       );
       if (!isValid) {
         console.warn(
@@ -64,30 +59,38 @@ const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: A
     }
   }
 
+  const checkIfObjectAsKey = (obj: unknown, key: string) => {
+    if (typeof obj !== "object" || obj === null) {
+      return "";
+    }
+
+    if (Object.keys(obj).includes(key)) {
+      return obj[key as keyof typeof obj];
+    }
+
+    return "";
+  };
+
   return (
     <Autocomplete
       filterOptions={(o) => o}
       ref={ref}
-      options={data || []}
+      options={Array.isArray(data) ? data : []}
       onInputChange={handleInputChange}
       defaultValue={defaultValue}
       noOptionsText="Aucune suggestion"
       onChange={(event, value) => handleChange(event, value)}
-      isOptionEqualToValue={(option, value) => option.value === value.value}
-      getOptionLabel={(option) => option.label}
+      isOptionEqualToValue={(option, value) => checkIfObjectAsKey(option, "value") === checkIfObjectAsKey(value, "value")}
+      getOptionLabel={(option) => checkIfObjectAsKey(option, "label") || ""}
       renderOption={(props, option) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <ListItem {...props}>
-          {option?.img && (
+          {!!checkIfObjectAsKey(option, "img") && (
             <ListItemAvatar>
-              <Avatar
-                variant="square"
-                alt={option.label}
-                src="https://assets-global.website-files.com/62987134cee3f41ed59eeb9d/6374bbbae94f94c5f3b9108f_62b5dd2e7c7da80f1ee46297_3526-min.jpeg"
-              />
+              <Avatar variant="square" alt={checkIfObjectAsKey(option, "label")} src={checkIfObjectAsKey(option, "img")} />
             </ListItemAvatar>
           )}
-          <ListItemText primary={option.label} />
+          <ListItemText primary={checkIfObjectAsKey(option, "label")} />
         </ListItem>
       )}
       loading={isLoading}

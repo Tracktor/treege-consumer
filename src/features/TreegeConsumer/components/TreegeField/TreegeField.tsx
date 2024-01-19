@@ -1,6 +1,6 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import { memo, useCallback } from "react";
-import ApiAutocomplete, { AutocompleteOption } from "@/components/Inputs/ApiAutocomplete/ApiAutocomplete";
+import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete/ApiAutocomplete";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
 import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
 import HiddenField from "@/components/Inputs/HiddenField/HiddenField";
@@ -132,15 +132,7 @@ const TreegeField = ({
           />
         );
       case "autocomplete":
-        return (
-          <ApiAutocomplete
-            node={data}
-            onChange={onChange}
-            inputRef={inputRef}
-            defaultValue={defaultValue as AutocompleteOption}
-            readOnly={readOnly}
-          />
-        );
+        return <ApiAutocomplete node={data} onChange={onChange} inputRef={inputRef} defaultValue={defaultValue} readOnly={readOnly} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
