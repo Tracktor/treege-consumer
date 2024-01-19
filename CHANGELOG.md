@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.20.0](https://github.com/Tracktor/treege-consumer/compare/1.19.1...1.20.0) (2024-01-19)
+
+
+### Features
+
+* **api-autocomplete:** adding api autocomplete[#17](https://github.com/Tracktor/treege-consumer/issues/17) f ([3dd9652](https://github.com/Tracktor/treege-consumer/commit/3dd96520ae063e3f9b168de4ce2b076d01066b66))
+* **api-autocomplete:** data default ([4632ae1](https://github.com/Tracktor/treege-consumer/commit/4632ae1d7820e4ec65fd701450c41a96486b5e2d))
+* **api-autocomplete:** data default ([76e49bc](https://github.com/Tracktor/treege-consumer/commit/76e49bc1273a1aebe1001077fe3eb317c9d5c1b8))
+* **api-autocomplete:** data default ([29046d5](https://github.com/Tracktor/treege-consumer/commit/29046d5b9446c724b3e2437e7c38b60fe9a6de0e))
+* **api-autocomplete:** data default ([da228c0](https://github.com/Tracktor/treege-consumer/commit/da228c0a447250187b5db85e66433c665e81595f))
+* **api-autocomplete:** data default ([bea27a2](https://github.com/Tracktor/treege-consumer/commit/bea27a24af999cadeae3aeb3cbd7c18a358362a2))
+* **api-autocomplete:** remove token ([79989d5](https://github.com/Tracktor/treege-consumer/commit/79989d5baaa40fb46965c5b6591a6f2552ce51c6))
+
+
+### Bug Fixes
+
+* adding release ([fc21c3c](https://github.com/Tracktor/treege-consumer/commit/fc21c3c2f4d2b6f24167269d0cf604c4ef9af3e7))
+* test ([72c9ddc](https://github.com/Tracktor/treege-consumer/commit/72c9ddc630f29019afc59319e85690d506634549))
+
 ## [1.19.1](https://github.com/Tracktor/treege-consumer/compare/1.19.0...1.19.1) (2023-12-14)
 
 
