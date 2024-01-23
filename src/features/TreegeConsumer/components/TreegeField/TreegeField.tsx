@@ -3,6 +3,7 @@ import { memo, useCallback } from "react";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete/ApiAutocomplete";
 import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
 import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
+import DateRange from "@/components/Inputs/DateRange/DateRange";
 import HiddenField from "@/components/Inputs/HiddenField/HiddenField";
 import Radio from "@/components/Inputs/Radio/Radio";
 import Select from "@/components/Inputs/Select/Select";
@@ -73,6 +74,20 @@ const TreegeField = ({
       case "url":
         return (
           <TextField
+            name={name}
+            label={label}
+            type={type}
+            onChange={onChange}
+            required={isRequired}
+            inputRef={inputRef}
+            helperText={helperText}
+            defaultValue={defaultValue}
+            readOnly={readOnly}
+          />
+        );
+      case "dateRange":
+        return (
+          <DateRange
             name={name}
             label={label}
             type={type}

@@ -25,6 +25,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --max-warnings=0 && tsc --noEmit",
+    "lint:fix": "eslint . --fix",
     "prepare": "yarn run build && husky install",
     "preview": "vite preview",
     "test": "vitest",
