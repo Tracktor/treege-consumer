@@ -1,9 +1,9 @@
 import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from "@tracktor/design-system";
+import { useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
 import { throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import OptionsContext from "@/context/Options/OptionsContext";
-import useScript from "@/hooks/useScript";
 import { IsString } from "@/types/TypeGuards";
 
 export interface AutocompleteProps {

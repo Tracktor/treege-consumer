@@ -72,11 +72,6 @@ interface BaseTreegeConsumerProps {
    * @default false
    */
   readOnly?: boolean;
-  /**
-   * Callback fired when the user submit form.
-   * @param data
-   */
-  onSubmit?(data: { [k: string]: FormDataEntryValue } | JsonFormValue[]): void;
 }
 
 type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {

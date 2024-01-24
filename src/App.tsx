@@ -208,7 +208,7 @@ const App = () => {
   const [tree, setTree] = useState<TreeNode>(data);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("stepper");
-  const [formData, setFormData] = useState<JsonFormValue[]>();
+  const [formData, setFormData] = useState<JsonFormValue[] | [string, FormDataEntryValue][]>();
   const [component, setComponent] = useState<"TreegeValuesConsumer" | "TreegeConsumer">("TreegeConsumer");
 
   const handleCloseDialog = useCallback(() => {
@@ -220,11 +220,12 @@ const App = () => {
   }, []);
 
   const handleChangeTree = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
+    console.log("HERE");
     const { value } = event.currentTarget;
     setTree(JSON.parse(value));
   }, []);
 
-  const handleSubmit = useCallback((submitData: JsonFormValue[]) => {
+  const handleSubmit = useCallback((submitData: JsonFormValue[] | [string, FormDataEntryValue][]) => {
     setFormData(submitData);
     setDialogOpen(true);
   }, []);
@@ -302,7 +303,13 @@ const App = () => {
               </ToggleButtonGroup>
             </Box>
             <Box flex={1}>
-              <TreegeConsumer tree={data} variant={variant} onSubmit={handleSubmit} options={{ googleApiKey: "YOUR_SECRET_KEY" }} />
+              <TreegeConsumer
+                tree={tree}
+                variant={variant}
+                onSubmit={handleSubmit}
+                options={{ googleApiKey: "YOUR_SECRET_KEY" }}
+                dataFormatOnSubmit="formData"
+              />
             </Box>
           </Box>
           <Dialog open={dialogOpen} onClose={handleCloseDialog}>
