@@ -4,9 +4,14 @@ export interface TreegeValuesConsumerProps {
   values: {
     label: string;
     name: string;
-    value: string | { label: string; value: string };
     type: string;
-    tag?: string;
+    tag?: string | null;
+    value:
+      | string
+      | {
+          label: string;
+          value: string;
+        };
   }[];
 }
 
