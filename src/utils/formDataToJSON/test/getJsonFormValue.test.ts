@@ -1,4 +1,4 @@
-import getJsonFormValue from "@/utils/getJsonFormValue";
+import getJsonFormValue from "@/utils/formDataToJSON";
 import {
   formWithCheckboxFields,
   formWithDecisionFields,
@@ -9,9 +9,9 @@ import {
   formWithTagFields,
   formWithTextFields,
   formWithTextFieldsUndefined,
-} from "@/utils/getJsonFormValue/test/mock";
+} from "@/utils/formDataToJSON/test/mock";
 
-describe("test getJsonFormValue", () => {
+describe("test formDataToJSON", () => {
   test("Text", () => {
     const { fields, formValue, output } = formWithTextFields;
     const result = getJsonFormValue(formValue, fields);

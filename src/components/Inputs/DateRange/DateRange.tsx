@@ -1,4 +1,4 @@
-import { TextField as TextFieldDS, Box, FormLabel } from "@tracktor/design-system";
+import { TextField as TextFieldDS, Stack, Box } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 
@@ -48,12 +48,11 @@ const DateRange = (
   }, [fromDate, toDate]);
 
   return (
-    <Box alignItems="center" justifyContent="center" height="100%" display="flex">
-      <FormLabel id={`${name}-label`}>{label}</FormLabel>
+    <Stack direction="row" spacing={0.5} alignItems="center">
       <TextFieldDS
         ref={ref}
         name={name}
-        label="start"
+        label={label}
         type="date"
         helperText={helperText}
         onChange={handleChange("start")}
@@ -67,10 +66,10 @@ const DateRange = (
         }}
         error={error}
       />
+      <Box>→</Box>
       <TextFieldDS
         ref={ref}
         name={name}
-        label="end"
         type="date"
         helperText={helperText}
         onChange={handleChange("end")}
@@ -85,7 +84,7 @@ const DateRange = (
         }}
         error={error}
       />
-    </Box>
+    </Stack>
   );
 };
 

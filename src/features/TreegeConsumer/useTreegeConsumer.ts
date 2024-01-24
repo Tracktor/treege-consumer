@@ -3,10 +3,9 @@ import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import fieldMessageTypes from "@/features/TreegeConsumer/constants/fieldMessageTypes";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
+import getJsonFormValue, { JsonFormValue } from "@/utils/formDataToJSON/getJsonFormValue";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
-import getJsonFormValue from "@/utils/getJsonFormValue";
-import { JsonFormValue } from "@/utils/getJsonFormValue/getJsonFormValue";
 import getNextStepper from "@/utils/getNextStepper";
 
 export interface useTreegeConsumerParams {

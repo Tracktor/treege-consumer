@@ -18,7 +18,7 @@ import { ChangeEvent, MouseEvent, useCallback, useState } from "react";
 import TreegeConsumer, { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import TreegeValuesConsumer from "@/features/TreegeValuesConsumer";
 import type { TreeNode } from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/getJsonFormValue/getJsonFormValue";
+import { JsonFormValue } from "@/utils/formDataToJSON/getJsonFormValue";
 
 const data = {
   attributes: {
