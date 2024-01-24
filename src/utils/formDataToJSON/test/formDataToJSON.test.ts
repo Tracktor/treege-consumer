@@ -1,4 +1,4 @@
-import getJsonFormValue from "@/utils/getJsonFormValue";
+import formDataToJSON from "@/utils/formDataToJSON";
 import {
   formWithCheckboxFields,
   formWithDecisionFields,
@@ -9,12 +9,13 @@ import {
   formWithTagFields,
   formWithTextFields,
   formWithTextFieldsUndefined,
-} from "@/utils/getJsonFormValue/test/mock";
+  formWithDateRangeFields,
+} from "@/utils/formDataToJSON/test/mock";
 
-describe("test getJsonFormValue", () => {
+describe("test formDataToJSON", () => {
   test("Text", () => {
     const { fields, formValue, output } = formWithTextFields;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
@@ -22,14 +23,14 @@ describe("test getJsonFormValue", () => {
   // Select & Radio have the same logic
   test("Select", () => {
     const { fields, formValue, output } = formWithSelectFields;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
 
   test("Radio", () => {
     const { fields, formValue, output } = formWithRadioFields;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
@@ -37,14 +38,14 @@ describe("test getJsonFormValue", () => {
   // Switch & Checkbox have the same logic
   test("Switch", () => {
     const { fields, formValue, output } = formWithSwitchFields;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
 
   test("Checkbox", () => {
     const { fields, formValue, output } = formWithCheckboxFields;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
@@ -52,7 +53,7 @@ describe("test getJsonFormValue", () => {
   // Decision
   test("Decision", () => {
     const { fields, formValue, output } = formWithDecisionFields;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
@@ -60,7 +61,7 @@ describe("test getJsonFormValue", () => {
   // Tag
   test("Tag", () => {
     const { fields, formValue, output } = formWithTagFields;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
@@ -68,7 +69,7 @@ describe("test getJsonFormValue", () => {
   // Text field value undefined
   test("Value undefined", () => {
     const { fields, formValue, output } = formWithTextFieldsUndefined;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
@@ -76,7 +77,7 @@ describe("test getJsonFormValue", () => {
   // Select field value undefined
   test("Select undefined", () => {
     const { fields, formValue, output } = formWithSelectFieldsUndefined;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });
@@ -84,7 +85,14 @@ describe("test getJsonFormValue", () => {
   // Switch undefined
   test("Select undefined", () => {
     const { fields, formValue, output } = formWithSelectFieldsUndefined;
-    const result = getJsonFormValue(formValue, fields);
+    const result = formDataToJSON(formValue, fields);
+
+    expect(result).toEqual(output);
+  });
+
+  test("Date Range", () => {
+    const { fields, formValue, output } = formWithDateRangeFields;
+    const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
   });

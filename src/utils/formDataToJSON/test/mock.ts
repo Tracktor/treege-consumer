@@ -1,5 +1,5 @@
 import { TreeNode } from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/getJsonFormValue/getJsonFormValue";
+import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface Mock {
   fields: TreeNode[];
@@ -887,6 +887,34 @@ const formWithSelectFieldsUndefined: Mock = {
   ],
 };
 
+const formWithDateRangeFields: Mock = {
+  fields: [
+    {
+      attributes: {
+        depth: 0,
+        isLeaf: true,
+        isRoot: true,
+        label: "Name",
+        type: "dateRange",
+      },
+      children: [],
+      name: "a",
+    },
+  ],
+  formValue: [
+    ["a", "2024-01-10"],
+    ["a", "2024-01-15"],
+  ],
+  output: [
+    {
+      label: "Name",
+      name: "a",
+      type: "dateRange",
+      value: ["2024-01-10", "2024-01-15"],
+    },
+  ],
+};
+
 export {
   formWithTextFields,
   formWithSelectFields,
@@ -897,4 +925,5 @@ export {
   formWithTagFields,
   formWithTextFieldsUndefined,
   formWithSelectFieldsUndefined,
+  formWithDateRangeFields,
 };

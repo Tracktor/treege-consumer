@@ -4,7 +4,7 @@ export interface JsonFormValue {
   label: string;
   name: string;
   type?: string;
-  value?: string | boolean | FormDataEntryValue | { label?: string; value?: string };
+  value?: string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[];
   tag?: string;
 }
 /**
@@ -12,11 +12,14 @@ export interface JsonFormValue {
  * @param formData
  * @param fields
  */
-function getJsonFormValue(formData: [string, FormDataEntryValue][], fields: TreeNode[]): JsonFormValue[] {
-  const formDataMap = Object.fromEntries(formData);
+const formDataToJSON = (formData: [string, FormDataEntryValue][], fields: TreeNode[]): JsonFormValue[] => {
+  const formDataMap: { [p: number]: FormDataEntryValue } = [
+    ...formData.reduce((acc, [key, value]) => acc.set(key, [...(acc.get(key) || []), value]), new Map()).entries(),
+  ].reduce((acc, [key, values]) => Object.assign(acc, { [key]: values.length > 1 ? values : values[0] }), {});
 
   return Object.entries(formDataMap).reduce((acc: JsonFormValue[], [name, value]) => {
     const currentField = fields.find((field) => field.name === name);
+
     if (!currentField) {
       return acc;
     }
@@ -36,7 +39,8 @@ function getJsonFormValue(formData: [string, FormDataEntryValue][], fields: Tree
     }
 
     const isBooleanField = ["switch", "checkbox"].includes(type || "");
+
     return [...acc, { label, name, type, value: isBooleanField ? value === "on" : value, ...(tag && { tag }) }];
   }, []);
-}
-export default getJsonFormValue;
+};
+export default formDataToJSON;

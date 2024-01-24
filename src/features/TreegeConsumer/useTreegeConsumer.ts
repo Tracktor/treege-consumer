@@ -3,10 +3,9 @@ import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import fieldMessageTypes from "@/features/TreegeConsumer/constants/fieldMessageTypes";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import type { TreeNode } from "@/types/TreeNode";
+import formDataToJSON, { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
-import getJsonFormValue from "@/utils/getJsonFormValue";
-import { JsonFormValue } from "@/utils/getJsonFormValue/getJsonFormValue";
 import getNextStepper from "@/utils/getNextStepper";
 
 export interface useTreegeConsumerParams {
@@ -113,7 +112,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
 
       if (!isLastField) return;
 
-      const data = dataFormatOnSubmit === "formData" ? [...formData] : getJsonFormValue([...formData], fields);
+      const data = dataFormatOnSubmit === "formData" ? [...formData] : formDataToJSON([...formData], fields);
 
       onSubmit?.(data);
     },
