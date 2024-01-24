@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.21.0](https://github.com/Tracktor/treege-consumer/compare/1.20.0...1.21.0) (2024-01-24)
+
+
+### Features
+
+* **dateRange:** add dateRange consumer ([ec5532f](https://github.com/Tracktor/treege-consumer/commit/ec5532fe94c9da789ed8ea9edbc1c3ea0be37c05))
+* **dateRange:** add test dateRange call ([46a3d61](https://github.com/Tracktor/treege-consumer/commit/46a3d6130424ab0799742453181e6a627ba8d67b))
+* **dateRange:** rename add test to test file ([7103bc6](https://github.com/Tracktor/treege-consumer/commit/7103bc68222f114fb96cdfdda6eaf41894cb0787))
+* **dateRange:** rename test file ([a4024a8](https://github.com/Tracktor/treege-consumer/commit/a4024a8241abd64f6a1046290595d4d5f89e2a67))
+* **dateRange:** resolve review ([cd54237](https://github.com/Tracktor/treege-consumer/commit/cd5423779791fb2269e5477381b9e68547f7e550))
+* **dateRange:** resolve review p2 ([60dc286](https://github.com/Tracktor/treege-consumer/commit/60dc286c1a398a0608e880fcc18d8a025207bb9a))
+* improvement [SKIP CI] ([facea44](https://github.com/Tracktor/treege-consumer/commit/facea44120245c435bcca38ad9d55dfeab960cd6))
+* improvement [SKIP CI] ([eaf4d87](https://github.com/Tracktor/treege-consumer/commit/eaf4d8785cc11e9c97b8e2dc7c2c285657a1b234))
+
 ## [1.20.0](https://github.com/Tracktor/treege-consumer/compare/1.19.1...1.20.0) (2024-01-19)
 
 
