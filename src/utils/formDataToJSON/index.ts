@@ -1,3 +1,3 @@
-import getJsonFormValue from "./getJsonFormValue";
+import formDataToJSON from "./formDataToJSON";
 
-export default getJsonFormValue;
+export default formDataToJSON;

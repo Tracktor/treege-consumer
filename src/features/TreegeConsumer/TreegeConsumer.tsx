@@ -21,7 +21,7 @@ import FormValidation from "@/features/TreegeConsumer/components/FormValidation/
 import TreegeField from "@/features/TreegeConsumer/components/TreegeField/TreegeField";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import type { TreeNode } from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/formDataToJSON/getJsonFormValue";
+import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface BaseTreegeConsumerProps {
   /**

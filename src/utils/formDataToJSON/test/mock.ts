@@ -1,5 +1,5 @@
 import { TreeNode } from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/formDataToJSON/getJsonFormValue";
+import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface Mock {
   fields: TreeNode[];

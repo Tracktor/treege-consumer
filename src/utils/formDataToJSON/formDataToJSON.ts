@@ -12,7 +12,7 @@ export interface JsonFormValue {
  * @param formData
  * @param fields
  */
-const getJsonFormValue = (formData: [string, FormDataEntryValue][], fields: TreeNode[]): JsonFormValue[] => {
+const formDataToJSON = (formData: [string, FormDataEntryValue][], fields: TreeNode[]): JsonFormValue[] => {
   const formDataMap: { [p: number]: FormDataEntryValue } = [
     ...formData.reduce((acc, [key, value]) => acc.set(key, [...(acc.get(key) || []), value]), new Map()).entries(),
   ].reduce((acc, [key, values]) => Object.assign(acc, { [key]: values.length > 1 ? values : values[0] }), {});
@@ -43,4 +43,4 @@ const getJsonFormValue = (formData: [string, FormDataEntryValue][], fields: Tree
     return [...acc, { label, name, type, value: isBooleanField ? value === "on" : value, ...(tag && { tag }) }];
   }, []);
 };
-export default getJsonFormValue;
+export default formDataToJSON;
