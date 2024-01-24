@@ -4,7 +4,7 @@ export interface JsonFormValue {
   label: string;
   name: string;
   type?: string;
-  value?: string | boolean | FormDataEntryValue | { label?: string; value?: string };
+  value?: string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[];
   tag?: string;
 }
 /**

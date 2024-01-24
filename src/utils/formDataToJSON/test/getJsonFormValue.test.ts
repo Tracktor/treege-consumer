@@ -9,6 +9,7 @@ import {
   formWithTagFields,
   formWithTextFields,
   formWithTextFieldsUndefined,
+  formWithDateRangeFields,
 } from "@/utils/formDataToJSON/test/mock";
 
 describe("test formDataToJSON", () => {
@@ -84,6 +85,13 @@ describe("test formDataToJSON", () => {
   // Switch undefined
   test("Select undefined", () => {
     const { fields, formValue, output } = formWithSelectFieldsUndefined;
+    const result = formDataToJSON(formValue, fields);
+
+    expect(result).toEqual(output);
+  });
+
+  test("Date Range", () => {
+    const { fields, formValue, output } = formWithDateRangeFields;
     const result = formDataToJSON(formValue, fields);
 
     expect(result).toEqual(output);
