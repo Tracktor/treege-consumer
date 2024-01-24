@@ -220,7 +220,6 @@ const App = () => {
   }, []);
 
   const handleChangeTree = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log("HERE");
     const { value } = event.currentTarget;
     setTree(JSON.parse(value));
   }, []);
@@ -303,19 +302,15 @@ const App = () => {
               </ToggleButtonGroup>
             </Box>
             <Box flex={1}>
-              <TreegeConsumer
-                tree={tree}
-                variant={variant}
-                onSubmit={handleSubmit}
-                options={{ googleApiKey: "YOUR_SECRET_KEY" }}
-                dataFormatOnSubmit="formData"
-              />
+              <TreegeConsumer tree={tree} variant={variant} onSubmit={handleSubmit} options={{ googleApiKey: "YOUR_SECRET_KEY" }} />
             </Box>
           </Box>
-          <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+          <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">
             <DialogTitle id="alert-dialog-title">Result:</DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description">{JSON.stringify(formData, null, 2)}</DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+                <pre>{JSON.stringify(formData, null, 2)}</pre>
+              </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleCloseDialog}>Close</Button>
