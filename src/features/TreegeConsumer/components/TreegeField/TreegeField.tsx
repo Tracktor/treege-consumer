@@ -42,7 +42,7 @@ const TreegeField = ({
   visible = true,
 }: TreegeFieldProps) => {
   const { name, attributes } = data;
-  const { type, label, required, helperText, defaultValue: defaultValueAttribute } = attributes;
+  const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
@@ -83,6 +83,7 @@ const TreegeField = ({
             helperText={helperText}
             defaultValue={defaultValue}
             readOnly={readOnly}
+            multiple={isMultiple}
           />
         );
       case "dateRange":

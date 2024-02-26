@@ -12,10 +12,11 @@ export interface TextFieldProps {
   defaultValue?: unknown;
   type: string;
   readOnly?: boolean;
+  multiple?: boolean;
 }
 
 const TextField = (
-  { label, name, helperText, inputRef, onChange, required, type, defaultValue, readOnly }: TextFieldProps,
+  { label, name, helperText, inputRef, onChange, required, type, defaultValue, readOnly, multiple }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const handleChange = useCallback(
@@ -37,11 +38,15 @@ const TextField = (
       required={required}
       defaultValue={defaultValue}
       inputRef={inputRef}
-      InputProps={{
-        readOnly,
+      inputProps={{
+        multiple,
       }}
       InputLabelProps={{
         shrink: true,
+      }}
+      // eslint-disable-next-line react/jsx-no-duplicate-props
+      InputProps={{
+        readOnly,
       }}
     />
   );

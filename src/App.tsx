@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Grid,
   Stack,
@@ -308,9 +307,7 @@ const App = () => {
           <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">
             <DialogTitle id="alert-dialog-title">Result:</DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                <pre>{JSON.stringify(formData, null, 2)}</pre>
-              </DialogContentText>
+              <pre>{JSON.stringify(formData, null, 2)}</pre>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleCloseDialog}>Close</Button>

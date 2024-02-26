@@ -16,6 +16,7 @@ export interface TreeNode {
     | {
         depth: number;
         isDecision?: never;
+        isMultiple?: never;
         isLeaf?: boolean;
         isRoot?: never;
         label: string;
@@ -37,6 +38,7 @@ export interface TreeNode {
     | {
         depth: number;
         isDecision?: boolean;
+        isMultiple?: boolean;
         isLeaf?: boolean;
         isRoot?: boolean;
         label: string;
