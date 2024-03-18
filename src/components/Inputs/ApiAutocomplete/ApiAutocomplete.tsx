@@ -8,7 +8,7 @@ import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/ada
 import getSearch from "@/utils/getSearch/getSearch";
 
 interface ApiAutocompleteProps {
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   node: TreeNode;
   onChange?(dataAttribute: ChangeEventField): void;
   defaultValue?: unknown;
@@ -68,11 +68,8 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
       value={selectedValue}
       options={options || []}
       onInputChange={handleSearchChange}
-      // defaultValue={defaultValue}
-      // noOptionsText="Aucune suggestion"
+      noOptionsText="Aucune suggestion"
       onChange={handleChange}
-      // isOptionEqualToValue={(option, value) => checkIfObjectAsKey(option, "value") === checkIfObjectAsKey(value, "value")}
-      // getOptionLabel={(option) => checkIfObjectAsKey(option, "label") || ""}
       renderOption={(props, option) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <ListItem {...props}>

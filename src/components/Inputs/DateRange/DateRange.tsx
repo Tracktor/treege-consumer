@@ -6,7 +6,7 @@ export interface DateRangeProps {
   label: string;
   name: string;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   defaultValue?: unknown;

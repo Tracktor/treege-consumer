@@ -10,7 +10,7 @@ export interface AutocompleteProps {
   label: string;
   name: string;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   required?: boolean;
   country?: string;
   defaultValue?: unknown;

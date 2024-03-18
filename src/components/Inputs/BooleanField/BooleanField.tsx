@@ -6,7 +6,7 @@ import type TreeNode from "@/types/TreeNode";
 export interface BooleanFieldProps {
   data: TreeNode;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<HTMLInputElement>;
   defaultValue?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;

@@ -7,7 +7,7 @@ import type TreeNode from "@/types/TreeNode";
 export interface RadioProps {
   data: TreeNode;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   required?: boolean;
   defaultValue?: unknown;
   readOnly?: boolean;

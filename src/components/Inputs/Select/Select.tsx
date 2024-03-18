@@ -16,7 +16,7 @@ import type TreeNode from "@/types/TreeNode";
 export interface SelectProps<T = unknown> {
   data: TreeNode;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   required?: boolean;
   defaultValue?: T;
   readOnly?: boolean;
