@@ -16,8 +16,15 @@ import {
 import { ChangeEvent, MouseEvent, useCallback, useState } from "react";
 import TreegeConsumer, { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import TreegeValuesConsumer from "@/features/TreegeValuesConsumer";
-import type { TreeNode } from "@/types/TreeNode";
+import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
+import getApiAccessToken from "@/utils/getApiAccessToken/getApiAccessToken";
+
+const accessToken = await getApiAccessToken("arsene.lupin@tracktor.fr", "TestPassword!2023");
+
+const customHeaders = {
+  Authorization: `Bearer ${accessToken}`,
+};
 
 const data = {
   attributes: {
@@ -301,7 +308,13 @@ const App = () => {
               </ToggleButtonGroup>
             </Box>
             <Box flex={1}>
-              <TreegeConsumer tree={tree} variant={variant} onSubmit={handleSubmit} options={{ googleApiKey: "YOUR_SECRET_KEY" }} />
+              <TreegeConsumer
+                tree={tree}
+                variant={variant}
+                onSubmit={handleSubmit}
+                options={{ googleApiKey: "YOUR_SECRET_KEY" }}
+                headers={customHeaders}
+              />
             </Box>
           </Box>
           <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">

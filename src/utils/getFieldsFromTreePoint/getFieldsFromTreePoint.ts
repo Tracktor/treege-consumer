@@ -1,4 +1,4 @@
-import type { TreeNode } from "@/types/TreeNode";
+import type TreeNode from "@/types/TreeNode";
 import prefixFieldName from "@/utils/prefixFieldName";
 
 interface GetFieldsFormTreePointParams {

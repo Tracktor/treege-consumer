@@ -11,7 +11,7 @@ import {
 import { forwardRef, Ref, useCallback, useState } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
-import type { TreeNode } from "@/types/TreeNode";
+import type TreeNode from "@/types/TreeNode";
 
 export interface SelectProps<T = unknown> {
   data: TreeNode;

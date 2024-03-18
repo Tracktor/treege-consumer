@@ -2,7 +2,7 @@ import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio 
 import { ChangeEvent, forwardRef, Ref, useState } from "react";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
-import type { TreeNode } from "@/types/TreeNode";
+import type TreeNode from "@/types/TreeNode";
 
 export interface RadioProps {
   data: TreeNode;

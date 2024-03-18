@@ -5,18 +5,32 @@ export interface TreeValues {
   message?: string;
 }
 
-interface Route {
-  url: string;
-  searchKey: string;
+export interface Params {
+  id: string;
+  key: string;
+  value: string;
 }
 
-export interface TreeNode {
+interface PathKey {
+  object?: string;
+  value?: string;
+  label?: string;
+  image?: string;
+}
+
+export interface Route {
+  url?: string;
+  searchKey?: string;
+  pathKey?: PathKey;
+  params?: Params[];
+}
+
+interface TreeNode {
   name: string;
   attributes:
     | {
         depth: number;
         isDecision?: never;
-        isMultiple?: never;
         isLeaf?: boolean;
         isRoot?: never;
         label: string;
@@ -34,11 +48,13 @@ export interface TreeNode {
         defaultValue?: unknown;
         tag?: string;
         route?: Route;
+        parentRef?: string;
+        isMultiple?: boolean;
+        initialQuery?: boolean;
       }
     | {
         depth: number;
         isDecision?: boolean;
-        isMultiple?: boolean;
         isLeaf?: boolean;
         isRoot?: boolean;
         label: string;
@@ -56,6 +72,9 @@ export interface TreeNode {
         defaultValue?: unknown;
         tag?: string;
         route?: Route;
+        parentRef?: string;
+        isMultiple?: boolean;
+        initialQuery?: boolean;
       };
   children: TreeNode[];
   treeId?: string;
@@ -86,3 +105,5 @@ export interface TreeNodeField {
   defaultValue?: unknown;
   tag?: string;
 }
+
+export default TreeNode;

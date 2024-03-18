@@ -1,17 +1,19 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import { memo, useCallback } from "react";
-import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete/ApiAutocomplete";
-import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
-import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
-import DateRange from "@/components/Inputs/DateRange/DateRange";
-import HiddenField from "@/components/Inputs/HiddenField/HiddenField";
-import Radio from "@/components/Inputs/Radio/Radio";
-import Select from "@/components/Inputs/Select/Select";
-import TextField from "@/components/Inputs/TextField/TextField";
+import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
+import Autocomplete from "@/components/Inputs/Autocomplete";
+import BooleanField from "@/components/Inputs/BooleanField";
+import DateRange from "@/components/Inputs/DateRange";
+import DynamicSelect from "@/components/Inputs/DynamicSelect";
+import HiddenField from "@/components/Inputs/HiddenField";
+import Radio from "@/components/Inputs/Radio";
+import Select from "@/components/Inputs/Select";
+import TextField from "@/components/Inputs/TextField";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
-import type { TreeNode } from "@/types/TreeNode";
+import Headers from "@/types/Headers";
+import type TreeNode from "@/types/TreeNode";
 
-export interface TreegeFieldProps {
+export interface FielFactorydProps {
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;
@@ -19,10 +21,11 @@ export interface TreegeFieldProps {
   defaultValue?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute?: ChangeEventField): void;
+  headers?: Headers;
 }
 
 /**
- * TreegeField factory
+ * FieldFactory factory
  * @param defaultValueProps
  * @param onChange
  * @param autoFocus
@@ -30,17 +33,19 @@ export interface TreegeFieldProps {
  * @param readOnly
  * @param animated
  * @param visible
+ * @param headers
  * @constructor
  */
-const TreegeField = ({
+const FieldFactory = ({
   defaultValue: defaultValueProps,
   onChange,
   autoFocus,
   data,
   readOnly,
+  headers,
   animated = true,
   visible = true,
-}: TreegeFieldProps) => {
+}: FielFactorydProps) => {
   const { name, attributes } = data;
   const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute } = attributes;
   const animationTimeout = animated ? 200 : 0;
@@ -148,7 +153,18 @@ const TreegeField = ({
           />
         );
       case "autocomplete":
-        return <ApiAutocomplete node={data} onChange={onChange} inputRef={inputRef} defaultValue={defaultValue} readOnly={readOnly} />;
+        return (
+          <ApiAutocomplete
+            node={data}
+            onChange={onChange}
+            inputRef={inputRef}
+            defaultValue={defaultValue}
+            readOnly={readOnly}
+            headers={headers}
+          />
+        );
+      case "dynamicSelect":
+        return <DynamicSelect onChange={onChange} treeValue={defaultValue} node={data} headers={headers} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
@@ -167,4 +183,4 @@ const TreegeField = ({
   );
 };
 
-export default memo(TreegeField);
+export default memo(FieldFactory);

@@ -14,13 +14,14 @@ import {
 } from "@tracktor/design-system";
 import type { CSSProperties } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
+import FieldFactory from "@/components/FieldFactory";
+import FormValidation from "@/components/FormValidation";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
 import OptionsProvider from "@/context/Options/OptionsProvider";
-import FormValidation from "@/features/TreegeConsumer/components/FormValidation/FormValidation";
-import TreegeField from "@/features/TreegeConsumer/components/TreegeField/TreegeField";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
-import type { TreeNode } from "@/types/TreeNode";
+import Headers from "@/types/Headers";
+import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface BaseTreegeConsumerProps {
@@ -72,6 +73,10 @@ interface BaseTreegeConsumerProps {
    * @default false
    */
   readOnly?: boolean;
+  /**
+   * Headers for fetch request
+   */
+  headers?: Headers;
 }
 
 type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {
@@ -109,6 +114,7 @@ const TreegeConsumer = ({
   style,
   initialValues,
   readOnly,
+  headers,
   variant = "stepper",
   dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
@@ -149,7 +155,7 @@ const TreegeConsumer = ({
                       const initialValuesValue = initialValues && initialValues[field.name];
 
                       return (
-                        <TreegeField
+                        <FieldFactory
                           key={field.name}
                           data={field}
                           onChange={handleChange}
@@ -157,6 +163,7 @@ const TreegeConsumer = ({
                           visible={active}
                           defaultValue={initialValuesValue}
                           readOnly={readOnly}
+                          headers={headers}
                         />
                       );
                     })
@@ -207,13 +214,14 @@ const TreegeConsumer = ({
                       const initialValuesValue = initialValues && initialValues[field.name];
 
                       return (
-                        <TreegeField
+                        <FieldFactory
                           key={field.name}
                           data={field}
                           onChange={handleChange}
                           autoFocus={index === 0}
                           defaultValue={initialValuesValue}
                           readOnly={readOnly}
+                          headers={headers}
                         />
                       );
                     })

@@ -2,7 +2,7 @@ import { FormEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useSt
 import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import fieldMessageTypes from "@/features/TreegeConsumer/constants/fieldMessageTypes";
 import type { ChangeEventField } from "@/features/TreegeConsumer/type";
-import type { TreeNode } from "@/types/TreeNode";
+import type TreeNode from "@/types/TreeNode";
 import formDataToJSON, { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";

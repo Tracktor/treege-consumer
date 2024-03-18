@@ -1,4 +1,4 @@
-import { TreeNode } from "@/types/TreeNode";
+import TreeNode from "@/types/TreeNode";
 
 export interface JsonFormValue {
   label: string;
