@@ -1,5 +1,5 @@
 import { Button, Container, Stack, ThemeProvider } from "@tracktor/design-system";
-import Renderer from "@/features/DataViewer/Renderer";
+import Renderer from "./Renderer";
 
 interface DataViewerProps {
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;

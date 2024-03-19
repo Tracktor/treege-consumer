@@ -30,7 +30,7 @@ interface BaseTreegeConsumerProps {
    */
   dataFormatOnSubmit?: "formData" | "json";
   /**
-   * Tree demo from treege
+   * Tree data from treege
    */
   tree?: TreeNode;
   /**

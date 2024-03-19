@@ -1,12 +1,12 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
-import privateExample from "@/demo/privateExample";
-import DataViewer from "@/features/DataViewer";
-import Sandbox from "@/features/Sandbox";
-import { TreegeConsumerProps } from "@/features/TreegeConsumer";
-import type TreeNode from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
-import getApiAccessToken from "@/utils/getApiAccessToken/getApiAccessToken";
-import basicExample from "@/demo/basicExample";
+import basicExample from "./data/basicExample";
+import privateExample from "./data/privateExample";
+import DataViewer from "./features/DataViewer";
+import Sandbox from "./features/Sandbox";
+import { TreegeConsumerProps } from "../src/features/TreegeConsumer";
+import type TreeNode from "../src/types/TreeNode";
+import { JsonFormValue } from "../src/utils/formDataToJSON/formDataToJSON";
+import getApiAccessToken from "../src/utils/getApiAccessToken/getApiAccessToken";
 
 const customHeaders = {
   Authorization: `Bearer ${await getApiAccessToken("arsene.lupin@tracktor.fr", "TestPassword!2023")}`,
@@ -16,7 +16,7 @@ const App = () => {
   const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
-  const [formData, setFormData] = useState<JsonFormValue[] | [string, FormDataEntryValue][]>();
+  const [formData, setFormData] = useState<JsonFormValue[] | [string, unknown][]>();
   const [component, setComponent] = useState<"DataViewer" | "TreegeConsumer">("TreegeConsumer");
 
   const handleChangeComponent = (newComponent: "DataViewer" | "TreegeConsumer") => {
@@ -32,11 +32,12 @@ const App = () => {
   };
 
   const handleChangeTree = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    // @ts-ignore
     const { value } = event.currentTarget;
     setTree(JSON.parse(value));
   };
 
-  const handleSubmit = (submitData: JsonFormValue[] | [string, FormDataEntryValue][]) => {
+  const handleSubmit = (submitData: JsonFormValue[] | [string, unknown][]) => {
     setFormData(submitData);
     setDialogOpen(true);
   };

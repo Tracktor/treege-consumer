@@ -48,7 +48,7 @@ const DynamicSelect = ({ treeValue, node, onChange, errorMessage, disabled, head
       fetch(updatedUrl, requestOptions)
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Error fetching demo");
+            throw new Error("Error fetching data");
           }
           return response.json();
         })

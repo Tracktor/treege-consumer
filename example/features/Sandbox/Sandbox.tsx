@@ -13,21 +13,21 @@ import {
   ToggleButtonGroup,
 } from "@tracktor/design-system";
 import { ChangeEvent, MouseEvent } from "react";
-import TreegeConsumer from "@/features/TreegeConsumer";
-import Headers from "@/types/Headers";
-import type TreeNode from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
+import TreegeConsumer from "../../../src/features/TreegeConsumer";
+import Headers from "../../../src/types/Headers";
+import type TreeNode from "../../../src/types/TreeNode";
+import { JsonFormValue } from "../../../src/utils/formDataToJSON/formDataToJSON";
 
 interface SandboxProps {
   tree: TreeNode;
   handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   variant: "standard" | "stepper" | undefined;
-  handleSubmit: (submitData: JsonFormValue[] | [string, FormDataEntryValue][]) => void;
+  handleSubmit: (submitData: JsonFormValue[] | [string, unknown][]) => void;
   handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
   dialogOpen: boolean;
   customHeaders: Headers;
   handleCloseDialog: () => void;
-  formData: JsonFormValue[] | [string, FormDataEntryValue][] | undefined;
+  formData: JsonFormValue[] | [string, unknown][] | undefined;
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
 }
 

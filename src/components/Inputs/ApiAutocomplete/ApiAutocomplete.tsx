@@ -20,7 +20,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
   const { attributes, name, children } = node;
   const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
   const [searchText, setSearchText] = useState<string>("");
-  const [selectedValue, setSelectedValue] = useState<string | string[] | Option>();
+  const [selectedValue, setSelectedValue] = useState<string | string[] | Option | null>();
 
   const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
 
@@ -65,7 +65,8 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
     <Autocomplete
       filterOptions={(o) => o}
       ref={ref}
-      value={selectedValue}
+      // @ts-ignore
+      value={selectedValue || null}
       onChange={(event, value) => {
         handleChange(event, value as Option);
       }}

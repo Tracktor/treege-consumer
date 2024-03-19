@@ -22,7 +22,6 @@
     }
   },
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
     "lint": "npx @biomejs/biome lint ./src && eslint . --max-warnings=0 && tsc --noEmit",
     "lint:fix": "eslint --fix .",
@@ -30,7 +29,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "example": "vite"
   },
   "dependencies": {
     "@commitlint/cli": "^18.4.3",
@@ -80,5 +80,9 @@
     "react",
     "treege",
     "treege consumer"
+  ],
+  "workspaces": [
+    "packages/*",
+    "example"
   ]
 }
