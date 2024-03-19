@@ -36,48 +36,31 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
     const isAutoStep = isSelectField && !hasMessage;
 
     if (isDecision) {
-      setFields((prevState) => {
-        const decisionSelected = children?.find((child) => child.name === value);
-        const indexDecisionField = prevState?.findIndex((item) => item.name === name);
-        const treeRest = prevState?.[indexDecisionField]?.childrenTreeRest;
-        const childrenTreeRestDecision = getFieldsFromTreeRest(treeRest);
-        const decisionChildrenSelected = getFieldsFromTreePoint({
-          currentTree: decisionSelected?.children[0] || null,
-          treePath: prevState?.[indexDecisionField]?.treePath,
-        });
-        const noChildren = !decisionChildrenSelected?.length && !childrenTreeRestDecision?.length;
-        const initialField = prevState.slice(0, indexDecisionField + 1);
-
-        // if the decision & treeDecision don't have children
-        if (noChildren) {
-          if (isAutoStep) {
-            setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
-          }
-          // return Initial Field when decision & treeDecision don't have Children
-          return initialField;
-        }
-
-        const newFields = [...initialField, ...decisionChildrenSelected, ...childrenTreeRestDecision];
-
-        const lastField = newFields.at(-1);
-        const lastFieldIsLeaf = !!lastField?.attributes?.isLeaf && !lastField.treePath;
-
-        if (isStandard) {
-          setIsLastField(lastFieldIsLeaf);
-        }
-
-        if (isStepper && isAutoStep) {
-          // AUTO NEXT STEP
-          setActiveFieldIndex((prevFieldIndex) => {
-            const restNewFields = newFields.slice(prevFieldIndex + 1);
-            const stepper = getNextStepper(restNewFields) + 1;
-
-            return prevFieldIndex + stepper;
+      if (isDecision) {
+        setFields((prevState) => {
+          const decisionSelected = children?.find((child) => child.name === value);
+          const indexDecisionField = prevState?.findIndex((item) => item.name === name);
+          const treeRest = prevState?.[indexDecisionField]?.childrenTreeRest;
+          const childrenTreeRestDecision = getFieldsFromTreeRest(treeRest);
+          const decisionChildrenSelected = getFieldsFromTreePoint({
+            currentTree: decisionSelected?.children[0] || null,
+            treePath: prevState?.[indexDecisionField]?.treePath,
           });
-        }
+          const noChildren = !decisionChildrenSelected?.length && !childrenTreeRestDecision?.length;
+          const initialField = prevState.slice(0, indexDecisionField + 1); // Remove all field after decision
 
-        return newFields;
-      });
+          // if the decision & treeDecision don't have children
+          if (noChildren) {
+            if (isAutoStep) {
+              setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+            }
+            // return Initial Field when decision & treeDecision don't have Children
+            return initialField;
+          }
+
+          return [...initialField, ...decisionChildrenSelected, ...childrenTreeRestDecision];
+        });
+      }
     }
 
     // AUTO NEXT STEP
@@ -87,7 +70,6 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
       }
     }
 
-    console.log("casse les couilles");
     setFieldValues((prevFieldValues) => ({
       ...prevFieldValues,
       [name]: {
@@ -97,8 +79,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
     }));
   };
 
-  const handleSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
 
@@ -123,9 +104,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
       const data = dataFormatOnSubmit === "formData" ? [...formData] : formDataToJSON([...formData], fields);
 
       onSubmit?.(data);
-    },
-    [dataFormatOnSubmit, fields, isLastField, isStepper, onSubmit],
-  );
+    };
 
   const handlePrev = useCallback(
     (_: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {

@@ -6,13 +6,14 @@ import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getApiAccessToken from "@/utils/getApiAccessToken/getApiAccessToken";
+import basicExample from "@/demo/basicExample";
 
 const customHeaders = {
   Authorization: `Bearer ${await getApiAccessToken("arsene.lupin@tracktor.fr", "TestPassword!2023")}`,
 };
 
 const App = () => {
-  const [tree, setTree] = useState<TreeNode>(privateExample);
+  const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
   const [formData, setFormData] = useState<JsonFormValue[] | [string, FormDataEntryValue][]>();
