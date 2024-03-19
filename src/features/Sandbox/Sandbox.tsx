@@ -12,12 +12,11 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@tracktor/design-system";
+import { ChangeEvent, MouseEvent } from "react";
 import TreegeConsumer from "@/features/TreegeConsumer";
-import {ChangeEvent, MouseEvent} from "react";
-
-import type TreeNode from "@/types/TreeNode";
-import {JsonFormValue} from "@/utils/formDataToJSON/formDataToJSON";
 import Headers from "@/types/Headers";
+import type TreeNode from "@/types/TreeNode";
+import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface SandboxProps {
   tree: TreeNode;

@@ -7,10 +7,8 @@ import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getApiAccessToken from "@/utils/getApiAccessToken/getApiAccessToken";
 
-const accessToken = await getApiAccessToken("arsene.lupin@tracktor.fr", "TestPassword!2023");
-
 const customHeaders = {
-  Authorization: `Bearer ${accessToken}`,
+  Authorization: `Bearer ${await getApiAccessToken("arsene.lupin@tracktor.fr", "TestPassword!2023")}`,
 };
 
 const App = () => {
@@ -42,25 +40,21 @@ const App = () => {
     setDialogOpen(true);
   };
 
-  return (
-    <>
-      {component === "DataViewer" ? (
-        <DataViewer handleChangeComponent={handleChangeComponent} />
-      ) : (
-        <Sandbox
-          variant={variant}
-          handleChangeVariant={handleChangeVariant}
-          tree={tree}
-          customHeaders={customHeaders}
-          dialogOpen={dialogOpen}
-          formData={formData}
-          handleChangeTree={handleChangeTree}
-          handleCloseDialog={handleCloseDialog}
-          handleSubmit={handleSubmit}
-          handleChangeComponent={handleChangeComponent}
-        />
-      )}
-    </>
+  return component === "DataViewer" ? (
+    <DataViewer handleChangeComponent={handleChangeComponent} />
+  ) : (
+    <Sandbox
+      variant={variant}
+      handleChangeVariant={handleChangeVariant}
+      tree={tree}
+      customHeaders={customHeaders}
+      dialogOpen={dialogOpen}
+      formData={formData}
+      handleChangeTree={handleChangeTree}
+      handleCloseDialog={handleCloseDialog}
+      handleSubmit={handleSubmit}
+      handleChangeComponent={handleChangeComponent}
+    />
   );
 };
 export default App;

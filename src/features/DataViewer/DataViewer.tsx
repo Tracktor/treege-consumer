@@ -2,40 +2,40 @@ import { Button, Container, Stack, ThemeProvider } from "@tracktor/design-system
 import Renderer from "@/features/DataViewer/Renderer";
 
 interface DataViewerProps {
-  handleChangeComponent: any;
+  handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
 }
 
 const values = [
-    {
-        label: "Catégorie",
-        name: "category",
-        tag: "category",
-        type: "select",
-        value: {
-            label: "Lorem ipsum",
-            value: "delivery",
-        },
+  {
+    label: "Catégorie",
+    name: "category",
+    tag: "category",
+    type: "select",
+    value: {
+      label: "Lorem ipsum",
+      value: "delivery",
     },
-    {
-        label: "Type d'incident",
-        name: "delivery_reason",
-        tag: "reason",
-        type: "select",
-        value: {
-            label: "Livraison -Retard sup 1h30 max 3h00",
-            value: "delay_in_delivery",
-        },
+  },
+  {
+    label: "Type d'incident",
+    name: "delivery_reason",
+    tag: "reason",
+    type: "select",
+    value: {
+      label: "Livraison -Retard sup 1h30 max 3h00",
+      value: "delay_in_delivery",
     },
-    {
-        label: "Responsabilité",
-        name: "delivery_responsibility",
-        tag: "responsible",
-        type: "select",
-        value: {
-            label: "Fournisseur",
-            value: "supplier",
-        },
+  },
+  {
+    label: "Responsabilité",
+    name: "delivery_responsibility",
+    tag: "responsible",
+    type: "select",
+    value: {
+      label: "Fournisseur",
+      value: "supplier",
     },
+  },
 ];
 
 const DataViewer = ({ handleChangeComponent }: DataViewerProps) => (
@@ -46,9 +46,7 @@ const DataViewer = ({ handleChangeComponent }: DataViewerProps) => (
           See TreegeConsumer
         </Button>
       </Stack>
-      <Renderer
-          values={values}
-      />
+      <Renderer values={values} />
     </Container>
   </ThemeProvider>
 );
