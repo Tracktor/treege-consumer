@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Select, MenuItem, SelectChangeEvent } from "@tracktor/design-system";
 import { useMemo } from "react";
 import ControlledToolTip from "@/components/ControlledToolTip/ControlledToolTip";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
+import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
 import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
@@ -35,12 +35,12 @@ const DynamicSelect = ({ treeValue, node, onChange, errorMessage, disabled, head
   const updatedUrl = route?.url?.replace(`{{${parentRef}}}`, String(getValueFromParent)) || "";
   const enableQuery = updatedUrl.length > 0 && typeof getValueFromParent === "string" && getValueFromParent?.length > 0;
 
+  console.log("treeValue", treeValue);
+
   const requestOptions: RequestInit = {
     headers,
     method: "GET",
   };
-
-  console.log("enableQuery", enableQuery);
 
   const { data, isError, isLoading } = useQuery({
     enabled: enableQuery,
@@ -48,7 +48,7 @@ const DynamicSelect = ({ treeValue, node, onChange, errorMessage, disabled, head
       fetch(updatedUrl, requestOptions)
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Error fetching data");
+            throw new Error("Error fetching demo");
           }
           return response.json();
         })

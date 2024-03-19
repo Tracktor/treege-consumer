@@ -30,7 +30,7 @@ interface BaseTreegeConsumerProps {
    */
   dataFormatOnSubmit?: "formData" | "json";
   /**
-   * Tree data from treege
+   * Tree demo from treege
    */
   tree?: TreeNode;
   /**
@@ -115,17 +115,21 @@ const TreegeConsumer = ({
   initialValues,
   readOnly,
   headers,
-  variant = "stepper",
+  variant = "standard",
   dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
-  const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField } = useTreegeConsumer({
-    dataFormatOnSubmit,
-    onSubmit,
-    tree,
-    variant,
-  });
+  const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField, fieldValues } = useTreegeConsumer(
+    {
+      dataFormatOnSubmit,
+      onSubmit,
+      tree,
+      variant,
+    },
+  );
   const themeProvider = useTheme();
   const queryClient = new QueryClient();
+
+  console.log("fieldValues", fieldValues);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -164,6 +168,7 @@ const TreegeConsumer = ({
                           defaultValue={initialValuesValue}
                           readOnly={readOnly}
                           headers={headers}
+                          treeValue={fieldValues}
                         />
                       );
                     })

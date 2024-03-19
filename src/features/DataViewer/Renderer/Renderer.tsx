@@ -1,6 +1,6 @@
 import { List, ListItem, TextField } from "@tracktor/design-system";
 
-export interface TreegeValuesConsumerProps {
+export interface DataViewerProps {
   values: {
     label: string;
     name: string;
@@ -15,7 +15,7 @@ export interface TreegeValuesConsumerProps {
   }[];
 }
 
-const TreegeValuesConsumer = ({ values }: TreegeValuesConsumerProps) => (
+const Renderer = ({ values }: DataViewerProps) => (
   <List>
     {values.map(({ label, value }, index) => {
       const key = `${index}-${label}-${value}`;
@@ -37,4 +37,4 @@ const TreegeValuesConsumer = ({ values }: TreegeValuesConsumerProps) => (
   </List>
 );
 
-export default TreegeValuesConsumer;
+export default Renderer;

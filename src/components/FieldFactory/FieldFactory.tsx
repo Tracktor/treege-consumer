@@ -9,11 +9,17 @@ import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
 import Select from "@/components/Inputs/Select";
 import TextField from "@/components/Inputs/TextField";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
+import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 
 export interface FielFactorydProps {
+  treeValue?: {
+    [name: string]: {
+      value: unknown;
+      mustBeCompleted: boolean;
+    };
+  };
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;
@@ -34,6 +40,7 @@ export interface FielFactorydProps {
  * @param animated
  * @param visible
  * @param headers
+ * @param treeValue
  * @constructor
  */
 const FieldFactory = ({
@@ -43,6 +50,7 @@ const FieldFactory = ({
   data,
   readOnly,
   headers,
+  treeValue,
   animated = true,
   visible = true,
 }: FielFactorydProps) => {
@@ -164,7 +172,7 @@ const FieldFactory = ({
           />
         );
       case "dynamicSelect":
-        return <DynamicSelect onChange={onChange} treeValue={defaultValue} node={data} headers={headers} />;
+        return <DynamicSelect onChange={onChange} treeValue={treeValue} node={data} headers={headers} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }

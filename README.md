@@ -6,11 +6,11 @@
 
 - [Installation](#Installation)
 - [Usage](#Usage)
-    - [Provide tree data](#Provide-tree-data)
+    - [Provide tree basicExample](#Provide-tree-data)
     - [Provide options](#Provide-options)
 - [Components](#Components)
     - [TreegeConsumer](#TreegeConsumer)
-    - [TreegeValuesConsumer](#TreegeValuesConsumer)
+    - [Renderer](#TreegeValuesConsumer)
 
 ## Installation
 
@@ -33,9 +33,9 @@ pnpm add treege-consumer
 
 ## Usage
 
-### Provide tree data
+### Provide tree basicExample
 
-Give `tree data` to `<TreegeForm>` component.  
+Give `tree basicExample` to `<TreegeForm>` component.  
 Data can be fetched from your API.
 
 ```typescript jsx
@@ -43,8 +43,8 @@ import tree from "./tree.json";
 import { TreegeConsumer } from "treege-consumer ";
 
 const App = () => {
-  const handleSubmit = (data: [string, FormDataEntryValue][]) => {
-    console.log(data);
+  const handleSubmit = (basicExample: [string, FormDataEntryValue][]) => {
+    console.log(basicExample);
   };
 
   return <TreegeConsumer tree={tree} onSubmit={handleSubmit}/>;
@@ -62,8 +62,8 @@ import tree from "./tree.json";
 import { TreegeConsumer } from "treege-consumer ";
 
 const App = () => {
-  const handleSubmit = (data: [string, FormDataEntryValue][]) => {
-    console.log(data);
+  const handleSubmit = (basicExample: [string, FormDataEntryValue][]) => {
+    console.log(basicExample);
   };
 
   return (
@@ -83,12 +83,12 @@ export default App;
 ### TreegeConsumer
 
 Render a form based
-on [Treege](https://github.com/Tracktor/treege) data
+on [Treege](https://github.com/Tracktor/treege) basicExample
 
 | Props              | Type                                            | Default    | Required | Detail                                    |
 |--------------------|-------------------------------------------------|------------|----------|-------------------------------------------|
 | dataFormatOnSubmit | "json"<br/>"formData"                           | "json"     | false    | Data format returned by onSubmit callback |
-| tree               | TreeNode<br/>  undefined                        | undefined  | false    | Treege data                               |
+| tree               | TreeNode<br/>  undefined                        | undefined  | false    | Treege basicExample                               |
 | variant            | "standard"<br/>  "stepper"                      | "stepper"  | false    | The variant to use                        |
 | theme              | "light"<br/>  "dark" <br/> ThemeOptions         | "light"    | false    | Theme color mode                          |
 | onSubmit           | "json"<br/>"formData"                           | "json"     | false    | Callback fired form is validate           |
@@ -104,10 +104,10 @@ on [Treege](https://github.com/Tracktor/treege) data
 | googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
 
 
-### TreegeValuesConsumer
+### Renderer
 
 Render values from form based on [Treege](https://github.com/Tracktor/treege)
 
 | Props  | Type                                                                                                                                        | Default   | Required | Detail         |
 |--------|---------------------------------------------------------------------------------------------------------------------------------------------|-----------|----------|----------------|
-| values | {<br/>label: string;<br/>name: string;<br/>type: string;<br/>tag?: string;<br/>value: string; &#124; { label: string; value: string }<br/>} | undefined | true     | Object of data |
+| values | {<br/>label: string;<br/>name: string;<br/>type: string;<br/>tag?: string;<br/>value: string; &#124; { label: string; value: string }<br/>} | undefined | true     | Object of basicExample |

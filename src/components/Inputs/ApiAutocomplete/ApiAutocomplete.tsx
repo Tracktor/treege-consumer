@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, TextField } from "@tracktor/design-system";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
+import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
-import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
+import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import getSearch from "@/utils/getSearch/getSearch";
 
 interface ApiAutocompleteProps {
@@ -20,7 +20,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
   const { attributes, name, children } = node;
   const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
   const [searchText, setSearchText] = useState<string>("");
-  const [selectedValue, setSelectedValue] = useState<string | string[]>();
+  const [selectedValue, setSelectedValue] = useState<string | string[] | Option>();
 
   const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
 
@@ -32,7 +32,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
 
   const options = adaptRouteResponseToOptions(data, route);
 
-  const handleChange = (event: SyntheticEvent, value: string | string[]) => {
+  const handleChange = (event: SyntheticEvent, value: string | string[] | Option) => {
     setSelectedValue(value);
     onChange?.({
       children,
@@ -66,10 +66,12 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
       filterOptions={(o) => o}
       ref={ref}
       value={selectedValue}
+      onChange={(event, value) => {
+        handleChange(event, value as Option);
+      }}
       options={options || []}
       onInputChange={handleSearchChange}
       noOptionsText="Aucune suggestion"
-      onChange={handleChange}
       renderOption={(props, option) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <ListItem {...props}>

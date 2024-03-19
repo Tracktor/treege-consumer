@@ -5,7 +5,7 @@ type Item = {
   [key: string]: unknown;
 };
 
-type Option = {
+export type Option = {
   imageUri?: string;
   id?: string;
   label?: string;
