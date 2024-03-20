@@ -100,7 +100,6 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
         setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
       }
     }
-
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -125,7 +124,10 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     if (!isLastField) return;
 
     const newTransformedFieldValues = Object.entries(fieldValues).map(([key, value]) => [key, value.value]);
-    const data = dataFormatOnSubmit === "formData" ? newTransformedFieldValues as [string, FormDataEntryValue][] : formDataToJSON(newTransformedFieldValues as [string, FormDataEntryValue][], fields);
+    const data =
+      dataFormatOnSubmit === "formData"
+        ? (newTransformedFieldValues as [string, FormDataEntryValue][])
+        : formDataToJSON(newTransformedFieldValues as [string, FormDataEntryValue][], fields);
     onSubmit?.(data);
   };
 

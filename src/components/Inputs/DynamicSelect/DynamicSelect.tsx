@@ -12,8 +12,8 @@ interface DynamicSelectProps {
   fieldValues?: JsonFormValue[] | unknown;
   onChange?(dataAttribute: ChangeEventField): void;
   errorMessage?: string;
-  disabled?: boolean;
   headers?: Headers;
+  disabledChildrenField?: boolean;
 }
 
 /**
@@ -22,11 +22,11 @@ interface DynamicSelectProps {
  * @param node
  * @param onChange
  * @param errorMessage
- * @param disabled
+ * @param disabledChildrenField
  * @param headers
  * @constructor
  */
-const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, headers }: DynamicSelectProps) => {
+const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChildrenField, headers }: DynamicSelectProps) => {
   const [singleOption, setSingleOption] = useState<string>("");
   const [multipleOptions, setMultipleOptions] = useState<string[]>([""]);
 
@@ -81,9 +81,10 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, he
         value={isMultiple ? multipleOptions : singleOption}
         onChange={handleChange}
         input={<OutlinedInput label={label} />}
-        disabled={disabled}
+        disabled={disabledChildrenField}
         aria-errormessage={errorMessage}
         sx={{ maxWidth: 400 }}
+        style={disabledChildrenField ? { backgroundColor: "rgba(0, 0, 0, 0.01)" } : undefined}
       >
         {options && options.length > 0 ? (
           options.map((option) => (

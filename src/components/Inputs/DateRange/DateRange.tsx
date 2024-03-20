@@ -33,11 +33,11 @@ const DateRange = (
       }
 
       onChange?.({
-          // children,
-          event,
-          name,
-          type,
-          value
+        // children,
+        event,
+        name,
+        type,
+        value,
       });
     },
     [name, onChange, type],

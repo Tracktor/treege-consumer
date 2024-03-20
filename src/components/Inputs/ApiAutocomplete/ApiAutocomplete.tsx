@@ -88,26 +88,24 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
         </ListItem>
       )}
       loading={isFetching}
-      renderInput={(params) => {
+      renderInput={(params) => (
         // const { InputProps, size, InputLabelProps, disabled, id, inputProps, fullWidth } = params;
-        return (
-          <TextField
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...params}
-            label={label}
-            name={name}
-            required={required}
-            helperText={helperText}
-            inputRef={inputRef}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
-              error: isError,
-              readOnly,
-            }}
-          />
-        );
-      }}
+        <TextField
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...params}
+          label={label}
+          name={name}
+          required={required}
+          helperText={helperText}
+          inputRef={inputRef}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
+            error: isError,
+            readOnly,
+          }}
+        />
+      )}
     />
   );
 };

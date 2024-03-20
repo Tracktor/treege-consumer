@@ -28,6 +28,7 @@ export interface FielFactorydProps {
   readOnly?: boolean;
   onChange?(dataAttribute?: ChangeEventField): void;
   headers?: Headers;
+  isLoadingFormValidation?: boolean;
 }
 
 /**
@@ -41,6 +42,7 @@ export interface FielFactorydProps {
  * @param visible
  * @param headers
  * @param fieldValues
+ * @param isLoadingFormValidation
  * @constructor
  */
 const FieldFactory = ({
@@ -51,16 +53,20 @@ const FieldFactory = ({
   readOnly,
   headers,
   fieldValues,
+  isLoadingFormValidation,
   animated = true,
   visible = true,
 }: FielFactorydProps) => {
   const { name, attributes } = data;
-  const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute } = attributes;
+  const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute, parentRef } = attributes;
 
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
   const defaultValue = defaultValueProps || defaultValueAttribute;
+
+  const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]?.value);
+  const disabledChildrenField = isLoadingFormValidation || hasParentRefValue;
 
   const inputRef = (ref: HTMLInputElement) => {
     if (!ref || !autoFocus || ref?.tabIndex > 0) {
@@ -168,7 +174,15 @@ const FieldFactory = ({
           />
         );
       case "dynamicSelect":
-        return <DynamicSelect onChange={onChange} fieldValues={fieldValues} node={data} headers={headers} />;
+        return (
+          <DynamicSelect
+            onChange={onChange}
+            fieldValues={fieldValues}
+            node={data}
+            headers={headers}
+            disabledChildrenField={disabledChildrenField}
+          />
+        );
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }

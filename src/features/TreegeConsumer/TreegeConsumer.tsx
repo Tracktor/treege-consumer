@@ -77,6 +77,10 @@ interface BaseTreegeConsumerProps {
    * Headers for fetch request
    */
   headers?: Headers;
+  /**
+   * Callback fired when the user submit form.
+   */
+  isLoadingFormValidation?: boolean;
 }
 
 type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {
@@ -115,6 +119,7 @@ const TreegeConsumer = ({
   initialValues,
   readOnly,
   headers,
+  isLoadingFormValidation,
   variant = "standard",
   dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
@@ -167,6 +172,7 @@ const TreegeConsumer = ({
                           readOnly={readOnly}
                           headers={headers}
                           fieldValues={fieldValues}
+                          isLoadingFormValidation={isLoadingFormValidation}
                         />
                       );
                     })
@@ -226,6 +232,7 @@ const TreegeConsumer = ({
                           readOnly={readOnly}
                           headers={headers}
                           fieldValues={fieldValues}
+                          isLoadingFormValidation={isLoadingFormValidation}
                         />
                       );
                     })
