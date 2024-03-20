@@ -1,6 +1,7 @@
 import { Select, InputLabel, OutlinedInput, FormControl, SelectChangeEvent, MenuItem } from "@tracktor/design-system";
 // import ControlledToolTip from "@/components/ControlledToolTip/ControlledToolTip";
 import { useState } from "react";
+import ControlledTooltip from "@/components/ControlledToolTip";
 import useDynamicSelect from "@/components/Inputs/DynamicSelect/useDynamicSelect";
 import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
@@ -70,35 +71,37 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChil
   };
 
   return (
-    <FormControl required={required} fullWidth>
-      <InputLabel id={`label-${name}`}>{label}</InputLabel>
-      <Select
-        labelId={`label-${name}`}
-        label={label}
-        name={name}
-        id={name}
-        multiple={isMultiple}
-        value={isMultiple ? multipleOptions : singleOption}
-        onChange={handleChange}
-        input={<OutlinedInput label={label} />}
-        disabled={disabledChildrenField}
-        aria-errormessage={errorMessage}
-        sx={{ maxWidth: 400 }}
-        style={disabledChildrenField ? { backgroundColor: "rgba(0, 0, 0, 0.01)" } : undefined}
-      >
-        {options && options.length > 0 ? (
-          options.map((option) => (
-            <MenuItem key={option.id} value={option.value}>
-              {option.label}
+    <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
+      <FormControl required={required} fullWidth>
+        <InputLabel id={`label-${name}`}>{label}</InputLabel>
+        <Select
+          labelId={`label-${name}`}
+          label={label}
+          name={name}
+          id={name}
+          multiple={isMultiple}
+          value={isMultiple ? multipleOptions : singleOption}
+          onChange={handleChange}
+          input={<OutlinedInput label={label} />}
+          disabled={disabledChildrenField}
+          aria-errormessage={errorMessage}
+          sx={{ maxWidth: 400 }}
+          style={disabledChildrenField ? { backgroundColor: "rgba(0, 0, 0, 0.01)" } : undefined}
+        >
+          {options && options.length > 0 ? (
+            options.map((option) => (
+              <MenuItem key={option.id} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))
+          ) : (
+            <MenuItem key="-" value="-">
+              No options found
             </MenuItem>
-          ))
-        ) : (
-          <MenuItem key="-" value="-">
-            No options found
-          </MenuItem>
-        )}
-      </Select>
-    </FormControl>
+          )}
+        </Select>
+      </FormControl>
+    </ControlledTooltip>
   );
 };
 
