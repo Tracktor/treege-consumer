@@ -10,16 +10,12 @@ import Radio from "@/components/Inputs/Radio";
 import Select from "@/components/Inputs/Select";
 import TextField from "@/components/Inputs/TextField";
 import ChangeEventField from "@/types/ChangeEventField";
+import FieldValues from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 
 export interface FielFactorydProps {
-  fieldValues?: {
-    [name: string]: {
-      value: unknown;
-      mustBeCompleted: boolean;
-    };
-  };
+  fieldValues?: FieldValues;
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;

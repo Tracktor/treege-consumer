@@ -1,24 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  CircularProgress,
-  Grow,
-  Slide,
-  Stack,
-  ThemeOptions,
-  ThemeProvider,
-  Typography,
-  useTheme,
-} from "@tracktor/design-system";
+import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import type { CSSProperties } from "react";
-import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
-import FieldFactory from "@/components/FieldFactory";
-import FormValidation from "@/components/FormValidation";
-import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
-import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
 import OptionsProvider from "@/context/Options/OptionsProvider";
+import Standard from "@/features/TreegeConsumer/Standard";
+import Stepper from "@/features/TreegeConsumer/Stepper";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
@@ -144,104 +129,34 @@ const TreegeConsumer = ({
         ) : (
           <OptionsProvider options={options}>
             {variant === "stepper" ? (
-              <Box
-                onSubmit={handleSubmit}
-                component="form"
-                paddingX={15}
-                height="100%"
-                justifyContent="center"
-                display="flex"
-                flexDirection="column"
-                overflow="hidden"
+              <Stepper
+                activeFieldIndex={activeFieldIndex}
+                firstFieldIndex={firstFieldIndex}
+                isLastField={isLastField}
                 style={style}
-              >
-                <Stack paddingY={2} spacing={fields ? 0 : 3} direction="column">
-                  {fields ? (
-                    fields.map((field, index) => {
-                      const active = index === activeFieldIndex;
-                      const initialValuesValue = initialValues && initialValues[field.name];
-
-                      return (
-                        <FieldFactory
-                          key={field.name}
-                          data={field}
-                          onChange={handleChange}
-                          autoFocus={active}
-                          visible={active}
-                          defaultValue={initialValuesValue}
-                          readOnly={readOnly}
-                          headers={headers}
-                          fieldValues={fieldValues}
-                          isLoadingFormValidation={isLoadingFormValidation}
-                        />
-                      );
-                    })
-                  ) : (
-                    <FormSkeleton />
-                  )}
-                </Stack>
-
-                {isLastField && (
-                  <Grow in mountOnEnter>
-                    <Box textAlign="right">
-                      <Typography variant="h5" my={2}>
-                        <div>Le formulaire est maintenant terminé,</div> <div>voulez-vous le valider ?</div>
-                      </Typography>
-                    </Box>
-                  </Grow>
-                )}
-
-                {fields && (
-                  <Stack alignItems="flex-end" spacing={2}>
-                    <Stack direction="row" alignItems="center" spacing={2}>
-                      <Slide direction="right" in={!isLastField} mountOnEnter>
-                        <Typography variant="caption" textAlign="right">
-                          Pour valider, appuyer sur <strong>ENTRÉE ↵</strong>
-                        </Typography>
-                      </Slide>
-                      <Slide direction="up" in mountOnEnter style={{ transitionDelay: 150 as unknown as string }}>
-                        <ButtonGroup variant="outlined" aria-label="outlined button group">
-                          <Button disabled={activeFieldIndex === firstFieldIndex} onClick={handlePrev}>
-                            <NavigateBeforeRounded />
-                          </Button>
-                          <Button type="submit" disabled={isLastField}>
-                            <NavigateNextRounded />
-                          </Button>
-                        </ButtonGroup>
-                      </Slide>
-                    </Stack>
-
-                    {isLastField && <FormValidation />}
-                  </Stack>
-                )}
-              </Box>
+                fields={fields}
+                initialValues={initialValues}
+                readOnly={readOnly}
+                headers={headers}
+                fieldValues={fieldValues}
+                isLoadingFormValidation={isLoadingFormValidation}
+                handleChange={handleChange}
+                handlePrev={handlePrev}
+                handleSubmit={handleSubmit}
+              />
             ) : (
-              <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
-                <Stack paddingY={5} spacing={3} direction="column">
-                  {fields ? (
-                    fields.map((field, index) => {
-                      const initialValuesValue = initialValues && initialValues[field.name];
-
-                      return (
-                        <FieldFactory
-                          key={field.name}
-                          data={field}
-                          onChange={handleChange}
-                          autoFocus={index === 0}
-                          defaultValue={initialValuesValue}
-                          readOnly={readOnly}
-                          headers={headers}
-                          fieldValues={fieldValues}
-                          isLoadingFormValidation={isLoadingFormValidation}
-                        />
-                      );
-                    })
-                  ) : (
-                    <FormSkeleton />
-                  )}
-                </Stack>
-                {isLastField && !readOnly && <FormValidation />}
-              </Box>
+              <Standard
+                fields={fields}
+                initialValues={initialValues}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                isLastField={isLastField}
+                readOnly={readOnly}
+                headers={headers}
+                fieldValues={fieldValues}
+                isLoadingFormValidation={isLoadingFormValidation}
+                style={style}
+              />
             )}
           </OptionsProvider>
         )}
