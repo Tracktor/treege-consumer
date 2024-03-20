@@ -36,6 +36,10 @@ export default defineConfig({
         find: "@",
         replacement: resolve(__dirname, "src"),
       },
+      {
+        find: "@example",
+        replacement: resolve(__dirname, "example"),
+      },
     ],
   },
   test: {

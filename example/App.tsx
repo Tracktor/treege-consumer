@@ -1,8 +1,8 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
 // import basicExample from "./data/basicExample";
-import privateExample from "./data/privateExample";
-import DataViewer from "./features/DataViewer";
-import Sandbox from "./features/Sandbox";
+import privateExample from "@example/data/privateExample";
+import DataViewer from "@example/features/DataViewer";
+import Sandbox from "@example/features/Sandbox";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";

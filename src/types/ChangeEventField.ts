@@ -5,9 +5,8 @@ import TreeNode from "@/types/TreeNode";
 export default interface ChangeEventField {
   event:
     | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    | SelectChangeEvent
     | ChangeEvent<HTMLInputElement>
-    | SelectChangeEvent<string[]>
+    | SelectChangeEvent<string | string[]>
     | SyntheticEvent;
   value: string | boolean | { label: string; value: string } | string[] | unknown;
   name: string;

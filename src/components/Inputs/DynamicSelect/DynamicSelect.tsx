@@ -1,18 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  Select,
-  MenuItem,
-  SelectChangeEvent,
-  InputLabel,
-  OutlinedInput,
-  FormHelperText,
-  Alert,
-  FormControl,
-  Checkbox,
-  ListItemText,
-} from "@tracktor/design-system";
+import { Select, MenuItem, SelectChangeEvent, InputLabel, OutlinedInput, FormControl } from "@tracktor/design-system";
 import { useMemo, useState } from "react";
-import ControlledToolTip from "@/components/ControlledToolTip/ControlledToolTip";
+// import ControlledToolTip from "@/components/ControlledToolTip/ControlledToolTip";
 import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
@@ -40,13 +29,19 @@ interface DynamicSelectProps {
  * @constructor
  */
 const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, headers }: DynamicSelectProps) => {
-  const [dynamicOptions, setDynamicOptions] = useState<string[]>([]);
+  const [singleOption, setSingleOption] = useState<string>("");
+  const [multipleOptions, setMultipleOptions] = useState<string[]>([]);
   const { name, attributes, children } = node;
-  const { label, type, isLeaf, parentRef, isDecision, route, required, isMultiple } = attributes;
+  const { label, type, isLeaf, parentRef, isDecision, route, required, isMultiple, initialQuery } = attributes;
 
   const getValueFromParent = getValueFromTree(fieldValues, String(parentRef));
-  const updatedUrl = route?.url?.replace(`{{${parentRef}}}`, String(getValueFromParent)) || "";
-  const enableQuery = updatedUrl.length > 0 && typeof getValueFromParent === "string" && getValueFromParent?.length > 0;
+  const dynamicValue =
+    getValueFromParent && typeof getValueFromParent === "object" && "options" in getValueFromParent
+      ? (getValueFromParent.options as string[])
+      : undefined;
+
+  const updatedUrl = route?.url?.replace(`{{${parentRef}}}`, String(dynamicValue)) || "";
+  const enableQuery = (updatedUrl.length > 0 && initialQuery && dynamicValue && dynamicValue.length > 0) || dynamicValue !== undefined;
 
   const requestOptions: RequestInit = {
     headers,
@@ -65,7 +60,6 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, he
         })
         .then((responseData) => responseData)
         .catch((error) => {
-          console.error("Fetch error:", error);
           throw new Error("Fetch error:", error);
         }),
     queryKey: [name, getValueFromParent],
@@ -74,26 +68,27 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, he
   const options = useMemo(() => {
     if ((route?.url && !isError && !isLoading && data && Array.isArray(data)) || getValueFromParent !== undefined) {
       const itemsOptions = adaptRouteResponseToOptions(route?.url ? data : getValueFromParent, route || {});
-      return itemsOptions?.map((option) =>
-        // console.log("option", option);
-        ({
-          id: String(option.id),
-          imageUri: option.imageUri,
-          label: String(option.label),
-          value: String(option.value),
-        }),
-      );
+      return itemsOptions?.map((option) => ({
+        id: String(option.id),
+        imageUri: option.imageUri,
+        label: String(option.label),
+        value: String(option.value),
+      }));
     }
 
     return [];
   }, [route, isError, isLoading, data, getValueFromParent]);
 
-
-  const handleChangeMultiple = (event: SelectChangeEvent<typeof dynamicOptions>) => {
+  const handleChange = (event: SelectChangeEvent<typeof multipleOptions | typeof singleOption>) => {
     const { value } = event.target;
-    setDynamicOptions(typeof value === "string" ? value.split(",") : value);
+    if (isMultiple) {
+      setMultipleOptions(typeof value === "string" ? value.split(",") : value);
+    } else {
+      setSingleOption(String(value));
+    }
 
-    const selectedOptions = options?.filter((option) => value.includes(String(option.id)))
+    const selectedOptions = options
+      ?.filter((option) => value.includes(String(option.id)))
       .map((option) => ({
         id: option.id,
         isSelected: true,
@@ -119,9 +114,9 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, he
       <Select
         labelId={`label-${name}`}
         id={name}
-        multiple
-        value={dynamicOptions}
-        onChange={handleChangeMultiple}
+        multiple={isMultiple}
+        value={isMultiple ? multipleOptions : singleOption}
+        onChange={handleChange}
         input={<OutlinedInput label="Name" />}
         disabled={disabled}
         aria-errormessage={errorMessage}

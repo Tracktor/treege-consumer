@@ -111,7 +111,6 @@ const Autocomplete = (
       autoComplete
       includeInputInList
       filterSelectedOptions
-      freeSolo
       defaultValue={defaultValue as AutocompletePrediction}
       ref={ref}
       getOptionLabel={(option) => (IsString(option) ? option : option.description)}

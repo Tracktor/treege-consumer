@@ -22,7 +22,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
   const { attributes, name, children } = node;
   const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
   const [searchText, setSearchText] = useState<string>("");
-  const [selectedValue, setSelectedValue] = useState<string | string[] | Option | null>();
+  const [selectedValue, setSelectedValue] = useState<string | Option | null>();
 
   const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
 
@@ -34,10 +34,10 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
 
   const options = adaptRouteResponseToOptions(data, route);
 
-  const handleChange = (event: SyntheticEvent, value: string | string[] | Option) => {
+  const handleChange = (event: SyntheticEvent, value: string | Option | null) => {
     setSelectedValue(value);
-
     const newData = reformatReturnAutocomplete(value);
+
     onChange?.({
       children,
       event,
@@ -67,14 +67,11 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
 
   return (
     <Autocomplete
-      freeSolo
+      // freeSolo
       filterOptions={(o) => o}
       ref={ref}
-      // @ts-ignore
-      value={selectedValue || null}
-      onChange={(event, value) => {
-        handleChange(event, value as Option);
-      }}
+      value={selectedValue || undefined}
+      onChange={handleChange}
       options={options || []}
       onInputChange={handleSearchChange}
       noOptionsText="Aucune suggestion"

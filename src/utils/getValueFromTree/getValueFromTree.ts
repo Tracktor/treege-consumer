@@ -1,3 +1,4 @@
+import { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 /**
@@ -8,7 +9,7 @@ import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 const getValueFromTree = (
   tree: JsonFormValue[] | unknown | undefined,
   key: string,
-): string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | undefined | File[] => {
+): string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | undefined | File[] | Option => {
   const treeItem = tree?.[key as keyof typeof tree] as unknown as JsonFormValue;
   return treeItem && typeof treeItem === "object" ? treeItem.value : undefined;
 };
