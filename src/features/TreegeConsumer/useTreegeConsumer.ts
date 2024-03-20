@@ -28,6 +28,11 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     };
   }>({});
 
+  const hadLeafInCurrentForm = fields?.some((field) => field.attributes.isLeaf);
+  const requiredFields = fields?.filter((field) => field.attributes.required);
+  const formCompleted = requiredFields?.every((field) => fieldValues[field.name]?.value);
+  const formCanBeSubmit = hadLeafInCurrentForm && formCompleted;
+
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -164,7 +169,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     }
   }, [isStandard, isStepper, tree, fields]);
 
-  return { activeFieldIndex, fields, fieldValues, firstFieldIndex, handleChange, handlePrev, handleSubmit, isLastField };
+  return { activeFieldIndex, fields, fieldValues, firstFieldIndex, formCanBeSubmit, handleChange, handlePrev, handleSubmit, isLastField };
 };
 
 export default useTreegeConsumer;

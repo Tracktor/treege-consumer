@@ -20,6 +20,7 @@ interface StandardProps {
   fieldValues?: FieldValues;
   isLoadingFormValidation?: boolean;
   style?: CSSProperties;
+  formCanBeSubmit: boolean;
 }
 
 const Standard = ({
@@ -33,6 +34,7 @@ const Standard = ({
   fieldValues,
   isLoadingFormValidation,
   style,
+  formCanBeSubmit,
 }: StandardProps) => (
   <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
     <Stack paddingY={5} spacing={3} direction="column">
@@ -58,7 +60,7 @@ const Standard = ({
         <FormSkeleton />
       )}
     </Stack>
-    {isLastField && !readOnly && <FormValidation />}
+    {isLastField && !readOnly && <FormValidation formCanBeSubmit={formCanBeSubmit} />}
   </Box>
 );
 

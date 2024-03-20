@@ -108,14 +108,13 @@ const TreegeConsumer = ({
   variant = "standard",
   dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
-  const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField, fieldValues } = useTreegeConsumer(
-    {
+  const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField, fieldValues, formCanBeSubmit } =
+    useTreegeConsumer({
       dataFormatOnSubmit,
       onSubmit,
       tree,
       variant,
-    },
-  );
+    });
   const themeProvider = useTheme();
   const queryClient = new QueryClient();
 
@@ -143,6 +142,7 @@ const TreegeConsumer = ({
                 handleChange={handleChange}
                 handlePrev={handlePrev}
                 handleSubmit={handleSubmit}
+                formCanBeSubmit={formCanBeSubmit}
               />
             ) : (
               <Standard
@@ -156,6 +156,7 @@ const TreegeConsumer = ({
                 fieldValues={fieldValues}
                 isLoadingFormValidation={isLoadingFormValidation}
                 style={style}
+                formCanBeSubmit={formCanBeSubmit}
               />
             )}
           </OptionsProvider>

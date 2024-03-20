@@ -25,6 +25,7 @@ interface StepperProps {
   fieldValues?: FieldValues;
   isLoadingFormValidation?: boolean;
   style?: CSSProperties;
+  formCanBeSubmit: boolean;
 }
 
 const Stepper = ({
@@ -41,6 +42,7 @@ const Stepper = ({
   handlePrev,
   handleSubmit,
   style,
+  formCanBeSubmit,
 }: StepperProps) => (
   <Box
     onSubmit={handleSubmit}
@@ -109,7 +111,7 @@ const Stepper = ({
           </Slide>
         </Stack>
 
-        {isLastField && <FormValidation />}
+        {isLastField && <FormValidation formCanBeSubmit={formCanBeSubmit} />}
       </Stack>
     )}
   </Box>
