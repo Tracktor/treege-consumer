@@ -67,10 +67,10 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
 
   return (
     <Autocomplete
-      // freeSolo
+      freeSolo
       filterOptions={(o) => o}
       ref={ref}
-      value={selectedValue || undefined}
+      value={selectedValue}
       onChange={handleChange}
       options={options || []}
       onInputChange={handleSearchChange}

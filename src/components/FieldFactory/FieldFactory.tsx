@@ -56,25 +56,19 @@ const FieldFactory = ({
 }: FielFactorydProps) => {
   const { name, attributes } = data;
   const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute } = attributes;
+
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
   const defaultValue = defaultValueProps || defaultValueAttribute;
 
-  // console.log("fieldValues", fieldValues);
-
-  const inputRef = useCallback(
-    (ref: HTMLInputElement) => {
-      if (!ref || !autoFocus || ref?.tabIndex > 0) {
-        return null;
-      }
-
-      setTimeout(() => ref.focus(), animationTimeout);
-
+  const inputRef = (ref: HTMLInputElement) => {
+    if (!ref || !autoFocus || ref?.tabIndex > 0) {
       return null;
-    },
-    [animationTimeout, autoFocus],
-  );
+    }
+    setTimeout(() => ref.focus(), animationTimeout);
+    return null;
+  };
 
   const field = () => {
     switch (type) {

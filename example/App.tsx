@@ -2,13 +2,13 @@
 import privateExample from "@example/data/privateExample";
 import DataViewer from "@example/features/DataViewer";
 import Sandbox from "@example/features/Sandbox";
+import getApiAccessToken from "@example/utils/getApiAccessToken/getApiAccessToken";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
-import getApiAccessToken from "@/utils/getApiAccessToken/getApiAccessToken";
 
-const customHeaders = {
+const bearerTokenAccess = {
   Authorization: `Bearer ${await getApiAccessToken("arsene.lupin@tracktor.fr", "TestPassword!2023")}`,
 };
 
@@ -48,7 +48,7 @@ const App = () => {
       variant={variant}
       handleChangeVariant={handleChangeVariant}
       tree={tree}
-      customHeaders={customHeaders}
+      customHeaders={bearerTokenAccess}
       dialogOpen={dialogOpen}
       formData={formData}
       handleChangeTree={handleChangeTree}

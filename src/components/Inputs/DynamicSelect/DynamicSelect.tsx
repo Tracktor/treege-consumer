@@ -1,13 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { Select, MenuItem, SelectChangeEvent, InputLabel, OutlinedInput, FormControl } from "@tracktor/design-system";
-import { useMemo, useState } from "react";
+import { Select, InputLabel, OutlinedInput, FormControl, SelectChangeEvent, MenuItem } from "@tracktor/design-system";
 // import ControlledToolTip from "@/components/ControlledToolTip/ControlledToolTip";
+import { useState } from "react";
+import useDynamicSelect from "@/components/Inputs/DynamicSelect/useDynamicSelect";
 import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
-import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
-import getValueFromTree from "@/utils/getValueFromTree/getValueFromTree";
 
 interface DynamicSelectProps {
   node: TreeNode;
@@ -31,53 +29,18 @@ interface DynamicSelectProps {
 const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, headers }: DynamicSelectProps) => {
   const [singleOption, setSingleOption] = useState<string>("");
   const [multipleOptions, setMultipleOptions] = useState<string[]>([]);
+
   const { name, attributes, children } = node;
   const { label, type, isLeaf, parentRef, isDecision, route, required, isMultiple, initialQuery } = attributes;
 
-  const getValueFromParent = getValueFromTree(fieldValues, String(parentRef));
-  const dynamicValue =
-    getValueFromParent && typeof getValueFromParent === "object" && "options" in getValueFromParent
-      ? (getValueFromParent.options as string[])
-      : undefined;
-
-  const updatedUrl = route?.url?.replace(`{{${parentRef}}}`, String(dynamicValue)) || "";
-  const enableQuery = (updatedUrl.length > 0 && initialQuery && dynamicValue && dynamicValue.length > 0) || dynamicValue !== undefined;
-
-  const requestOptions: RequestInit = {
+  const { options } = useDynamicSelect({
+    fieldValues,
     headers,
-    method: "GET",
-  };
-
-  const { data, isError, isLoading } = useQuery({
-    enabled: enableQuery,
-    queryFn: () =>
-      fetch(updatedUrl, requestOptions)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error fetching data");
-          }
-          return response.json();
-        })
-        .then((responseData) => responseData)
-        .catch((error) => {
-          throw new Error("Fetch error:", error);
-        }),
-    queryKey: [name, getValueFromParent],
+    initialQuery,
+    name,
+    parentRef,
+    route,
   });
-
-  const options = useMemo(() => {
-    if ((route?.url && !isError && !isLoading && data && Array.isArray(data)) || getValueFromParent !== undefined) {
-      const itemsOptions = adaptRouteResponseToOptions(route?.url ? data : getValueFromParent, route || {});
-      return itemsOptions?.map((option) => ({
-        id: String(option.id),
-        imageUri: option.imageUri,
-        label: String(option.label),
-        value: String(option.value),
-      }));
-    }
-
-    return [];
-  }, [route, isError, isLoading, data, getValueFromParent]);
 
   const handleChange = (event: SelectChangeEvent<typeof multipleOptions | typeof singleOption>) => {
     const { value } = event.target;
@@ -122,11 +85,17 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, he
         aria-errormessage={errorMessage}
         sx={{ width: 400 }}
       >
-        {options?.map((option) => (
-          <MenuItem key={option.id} value={option.value}>
-            {option.label}
+        {options && options.length > 0 ? (
+          options.map((option) => (
+            <MenuItem key={option.id} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem key="-" value="-">
+            No options found
           </MenuItem>
-        ))}
+        )}
       </Select>
     </FormControl>
   );

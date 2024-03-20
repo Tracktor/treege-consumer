@@ -123,6 +123,8 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
 
     if (!isLastField) return;
 
+    console.log("[...formData]", [...formData]);
+
     const data = dataFormatOnSubmit === "formData" ? [...formData] : formDataToJSON([...formData], fields);
 
     onSubmit?.(data);

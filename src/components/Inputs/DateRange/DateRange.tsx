@@ -1,6 +1,6 @@
 import { TextField as TextFieldDS, Stack, Box } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
+import  ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
   label: string;
