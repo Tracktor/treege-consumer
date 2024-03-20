@@ -14,7 +14,7 @@ import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 
 export interface FielFactorydProps {
-  treeValue?: {
+  fieldValues?: {
     [name: string]: {
       value: unknown;
       mustBeCompleted: boolean;
@@ -40,7 +40,7 @@ export interface FielFactorydProps {
  * @param animated
  * @param visible
  * @param headers
- * @param treeValue
+ * @param fieldValues
  * @constructor
  */
 const FieldFactory = ({
@@ -50,7 +50,7 @@ const FieldFactory = ({
   data,
   readOnly,
   headers,
-  treeValue,
+  fieldValues,
   animated = true,
   visible = true,
 }: FielFactorydProps) => {
@@ -60,6 +60,8 @@ const FieldFactory = ({
   const isRequired = visible && required;
   const isHidden = type === "hidden";
   const defaultValue = defaultValueProps || defaultValueAttribute;
+
+  // console.log("fieldValues", fieldValues);
 
   const inputRef = useCallback(
     (ref: HTMLInputElement) => {
@@ -172,7 +174,7 @@ const FieldFactory = ({
           />
         );
       case "dynamicSelect":
-        return <DynamicSelect onChange={onChange} treeValue={treeValue} node={data} headers={headers} />;
+        return <DynamicSelect onChange={onChange} fieldValues={fieldValues} node={data} headers={headers} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }

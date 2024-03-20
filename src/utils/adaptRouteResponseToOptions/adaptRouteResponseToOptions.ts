@@ -35,6 +35,7 @@ const adaptRouteResponseToOptions = (data: unknown, route?: Route): Option[] | u
       };
     });
   }
+
   if (typeof data === "object" && data !== null && route?.pathKey?.object !== undefined) {
     const objectData = data as { [key: string]: unknown };
     const arrayData = objectData[route.pathKey.object] as Item[];

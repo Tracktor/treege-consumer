@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, TextField } from "@tracktor/design-system";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
+import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
 import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
@@ -17,6 +18,7 @@ interface ApiAutocompleteProps {
 }
 
 const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
+  const { reformatReturnAutocomplete } = useApiAutoComplete();
   const { attributes, name, children } = node;
   const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
   const [searchText, setSearchText] = useState<string>("");
@@ -34,6 +36,8 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
 
   const handleChange = (event: SyntheticEvent, value: string | string[] | Option) => {
     setSelectedValue(value);
+
+    const newData = reformatReturnAutocomplete(value);
     onChange?.({
       children,
       event,
@@ -41,7 +45,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
       isLeaf,
       name,
       type,
-      value: value || [],
+      value: newData || [],
     });
   };
 
@@ -63,6 +67,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
 
   return (
     <Autocomplete
+      freeSolo
       filterOptions={(o) => o}
       ref={ref}
       // @ts-ignore

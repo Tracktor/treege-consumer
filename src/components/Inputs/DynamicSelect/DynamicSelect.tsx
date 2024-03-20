@@ -1,6 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { Select, MenuItem, SelectChangeEvent } from "@tracktor/design-system";
-import { useMemo } from "react";
+import {
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  InputLabel,
+  OutlinedInput,
+  FormHelperText,
+  Alert,
+  FormControl,
+  Checkbox,
+  ListItemText,
+} from "@tracktor/design-system";
+import { useMemo, useState } from "react";
 import ControlledToolTip from "@/components/ControlledToolTip/ControlledToolTip";
 import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
@@ -11,7 +22,7 @@ import getValueFromTree from "@/utils/getValueFromTree/getValueFromTree";
 
 interface DynamicSelectProps {
   node: TreeNode;
-  treeValue?: JsonFormValue[] | unknown;
+  fieldValues?: JsonFormValue[] | unknown;
   onChange?(dataAttribute: ChangeEventField): void;
   errorMessage?: string;
   disabled?: boolean;
@@ -28,14 +39,14 @@ interface DynamicSelectProps {
  * @param headers
  * @constructor
  */
-const DynamicSelect = ({ treeValue, node, onChange, errorMessage, disabled, headers }: DynamicSelectProps) => {
+const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, headers }: DynamicSelectProps) => {
+  const [dynamicOptions, setDynamicOptions] = useState<string[]>([]);
   const { name, attributes, children } = node;
   const { label, type, isLeaf, parentRef, isDecision, route, required, isMultiple } = attributes;
-  const getValueFromParent = getValueFromTree(treeValue, String(parentRef));
+
+  const getValueFromParent = getValueFromTree(fieldValues, String(parentRef));
   const updatedUrl = route?.url?.replace(`{{${parentRef}}}`, String(getValueFromParent)) || "";
   const enableQuery = updatedUrl.length > 0 && typeof getValueFromParent === "string" && getValueFromParent?.length > 0;
-
-  console.log("treeValue", treeValue);
 
   const requestOptions: RequestInit = {
     headers,
@@ -63,19 +74,31 @@ const DynamicSelect = ({ treeValue, node, onChange, errorMessage, disabled, head
   const options = useMemo(() => {
     if ((route?.url && !isError && !isLoading && data && Array.isArray(data)) || getValueFromParent !== undefined) {
       const itemsOptions = adaptRouteResponseToOptions(route?.url ? data : getValueFromParent, route || {});
-      return itemsOptions?.map((option) => ({
-        id: String(option.id),
-        imageUri: option.imageUri,
-        label: String(option.label),
-        value: String(option.value),
-      }));
+      return itemsOptions?.map((option) =>
+        // console.log("option", option);
+        ({
+          id: String(option.id),
+          imageUri: option.imageUri,
+          label: String(option.label),
+          value: String(option.value),
+        }),
+      );
     }
 
     return [];
   }, [route, isError, isLoading, data, getValueFromParent]);
 
-  const handleChange = (event: SelectChangeEvent) => {
+
+  const handleChangeMultiple = (event: SelectChangeEvent<typeof dynamicOptions>) => {
     const { value } = event.target;
+    setDynamicOptions(typeof value === "string" ? value.split(",") : value);
+
+    const selectedOptions = options?.filter((option) => value.includes(String(option.id)))
+      .map((option) => ({
+        id: option.id,
+        isSelected: true,
+        label: option.label,
+      }));
 
     onChange?.({
       children,
@@ -84,20 +107,33 @@ const DynamicSelect = ({ treeValue, node, onChange, errorMessage, disabled, head
       isLeaf,
       name,
       type,
-      value,
+      value: selectedOptions,
     });
   };
 
   return (
-    <ControlledToolTip title={parentRef}>
-      <Select multiple={isMultiple} required={required} error={!!errorMessage} label={label} onChange={handleChange} disabled={disabled}>
+    <FormControl required={required} fullWidth>
+      <InputLabel id={`${name}-label`} shrink>
+        {label}
+      </InputLabel>
+      <Select
+        labelId={`label-${name}`}
+        id={name}
+        multiple
+        value={dynamicOptions}
+        onChange={handleChangeMultiple}
+        input={<OutlinedInput label="Name" />}
+        disabled={disabled}
+        aria-errormessage={errorMessage}
+        sx={{ width: 400 }}
+      >
         {options?.map((option) => (
           <MenuItem key={option.id} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
       </Select>
-    </ControlledToolTip>
+    </FormControl>
   );
 };
 

@@ -129,8 +129,6 @@ const TreegeConsumer = ({
   const themeProvider = useTheme();
   const queryClient = new QueryClient();
 
-  console.log("fieldValues", fieldValues);
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme || themeProvider.palette.mode}>
@@ -168,7 +166,7 @@ const TreegeConsumer = ({
                           defaultValue={initialValuesValue}
                           readOnly={readOnly}
                           headers={headers}
-                          treeValue={fieldValues}
+                          fieldValues={fieldValues}
                         />
                       );
                     })
@@ -227,6 +225,7 @@ const TreegeConsumer = ({
                           defaultValue={initialValuesValue}
                           readOnly={readOnly}
                           headers={headers}
+                          fieldValues={fieldValues}
                         />
                       );
                     })

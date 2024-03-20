@@ -1,19 +1,19 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
-import basicExample from "./data/basicExample";
+// import basicExample from "./data/basicExample";
 import privateExample from "./data/privateExample";
 import DataViewer from "./features/DataViewer";
 import Sandbox from "./features/Sandbox";
-import { TreegeConsumerProps } from "../src/features/TreegeConsumer";
-import type TreeNode from "../src/types/TreeNode";
-import { JsonFormValue } from "../src/utils/formDataToJSON/formDataToJSON";
-import getApiAccessToken from "../src/utils/getApiAccessToken/getApiAccessToken";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer";
+import type TreeNode from "@/types/TreeNode";
+import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
+import getApiAccessToken from "@/utils/getApiAccessToken/getApiAccessToken";
 
 const customHeaders = {
   Authorization: `Bearer ${await getApiAccessToken("arsene.lupin@tracktor.fr", "TestPassword!2023")}`,
 };
 
 const App = () => {
-  const [tree, setTree] = useState<TreeNode>(basicExample);
+  const [tree, setTree] = useState<TreeNode>(privateExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
   const [formData, setFormData] = useState<JsonFormValue[] | [string, unknown][]>();
@@ -32,7 +32,6 @@ const App = () => {
   };
 
   const handleChangeTree = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    // @ts-ignore
     const { value } = event.currentTarget;
     setTree(JSON.parse(value));
   };

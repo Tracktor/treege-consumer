@@ -9,8 +9,8 @@ import {
   SelectChangeEvent,
 } from "@tracktor/design-system";
 import { forwardRef, Ref, useCallback, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
+import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
 
 export interface SelectProps<T = unknown> {

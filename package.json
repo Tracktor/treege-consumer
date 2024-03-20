@@ -80,9 +80,5 @@
     "react",
     "treege",
     "treege consumer"
-  ],
-  "workspaces": [
-    "packages/*",
-    "example"
   ]
 }

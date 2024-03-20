@@ -24,12 +24,14 @@
     "noUnusedParameters": true,
     "paths": {
       "@/*": [
-        "src/*"
+        "src/*",
+        "example/features/*"
       ]
     }
   },
   "include": [
-    "src"
+    "src",
+    "example"
   ],
   "references": [
     {
