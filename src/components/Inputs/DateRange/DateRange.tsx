@@ -1,6 +1,6 @@
 import { TextField as TextFieldDS, Stack, Box } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "react";
-import  ChangeEventField from "@/types/ChangeEventField";
+import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
   label: string;
@@ -32,7 +32,13 @@ const DateRange = (
         setToDate(value);
       }
 
-      onChange?.({ event, name, type, value });
+      onChange?.({
+          // children,
+          event,
+          name,
+          type,
+          value
+      });
     },
     [name, onChange, type],
   );

@@ -4,14 +4,25 @@ const privateExample = {
     initialQuery: true,
     isLeaf: false,
     isRoot: true,
-    label: "Recherchez un \u00e9quipement",
+    label: "Recherchez un équipement",
     required: true,
     route: {
       params: [
-        { id: "1", key: "lang", value: "fra" },
-        { id: "2", key: "limit", value: "10" },
+        {
+          id: "1",
+          key: "lang",
+          value: "fra",
+        },
+        {
+          id: "2",
+          key: "limit",
+          value: "10",
+        },
       ],
-      pathKey: { image: "image", label: "name" },
+      pathKey: {
+        image: "image",
+        label: "name",
+      },
       searchKey: "text",
       url: "https://client.api.dev.tracktor.fr/v2/search/articles",
     },
@@ -26,18 +37,43 @@ const privateExample = {
         isRoot: false,
         label: "Ajoutez des options",
         parentRef: "article",
-        route: { pathKey: { image: "image", label: "articleName", object: "options", value: "id" }, url: "" },
+        route: {
+          pathKey: {
+            image: "image",
+            label: "articleName",
+            object: "options",
+            value: "id",
+          },
+          url: "",
+        },
         type: "dynamicSelect",
       },
       children: [
         {
-          attributes: { depth: 2, isLeaf: false, isRoot: false, label: " ", required: true, type: "dateRange" },
+          attributes: {
+            depth: 2,
+            isLeaf: false,
+            isRoot: false,
+            label: " ",
+            required: true,
+            type: "dateRange",
+          },
           children: [
             {
-              attributes: { depth: 3, isLeaf: false, label: "Utiliser le samedi", type: "checkbox" },
+              attributes: {
+                depth: 3,
+                isLeaf: false,
+                label: "Utiliser le samedi",
+                type: "checkbox",
+              },
               children: [
                 {
-                  attributes: { depth: 4, isLeaf: false, label: "Utiliser le dimanche", type: "checkbox" },
+                  attributes: {
+                    depth: 4,
+                    isLeaf: false,
+                    label: "Utiliser le dimanche",
+                    type: "checkbox",
+                  },
                   children: [
                     {
                       attributes: {
@@ -45,14 +81,25 @@ const privateExample = {
                         initialQuery: true,
                         isLeaf: false,
                         isRoot: false,
-                        label: "S\u00e9lectionnez votre chantier",
+                        label: "Sélectionnez votre chantier",
                         required: true,
                         route: {
                           params: [
-                            { id: "1", key: "lang", value: "fra" },
-                            { id: "2", key: "limit", value: "10" },
+                            {
+                              id: "1",
+                              key: "lang",
+                              value: "fra",
+                            },
+                            {
+                              id: "2",
+                              key: "limit",
+                              value: "10",
+                            },
                           ],
-                          pathKey: { label: "name", value: "id" },
+                          pathKey: {
+                            label: "name",
+                            value: "id",
+                          },
                           searchKey: "text",
                           url: "https://client.api.dev.tracktor.fr/v2/search/worksites",
                         },
@@ -75,7 +122,7 @@ const privateExample = {
                                 depth: 7,
                                 isLeaf: false,
                                 isRoot: false,
-                                label: "Contraintes d'acc\u00e8s",
+                                label: "Contraintes d'accès",
                                 required: true,
                                 type: "text",
                               },
@@ -85,13 +132,19 @@ const privateExample = {
                                     depth: 8,
                                     isLeaf: false,
                                     isRoot: false,
-                                    label: "Point de d\u00e9p\u00f4t",
+                                    label: "Point de dépôt",
                                     required: true,
                                     type: "text",
                                   },
                                   children: [
                                     {
-                                      attributes: { depth: 9, isLeaf: false, isMultiple: true, label: "Ajouter une photo", type: "file" },
+                                      attributes: {
+                                        depth: 9,
+                                        isLeaf: false,
+                                        isMultiple: true,
+                                        label: "Ajouter une photo",
+                                        type: "file",
+                                      },
                                       children: [
                                         {
                                           attributes: {
@@ -102,7 +155,10 @@ const privateExample = {
                                             parentRef: "worksite",
                                             required: true,
                                             route: {
-                                              pathKey: { label: "email", value: "id" },
+                                              pathKey: {
+                                                label: "email",
+                                                value: "id",
+                                              },
                                               url: "https://client.api.dev.tracktor.fr/v2/worksites/{{worksite}}/contacts",
                                             },
                                             type: "dynamicSelect",

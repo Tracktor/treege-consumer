@@ -155,7 +155,6 @@ const TreegeConsumer = ({
                     fields.map((field, index) => {
                       const active = index === activeFieldIndex;
                       const initialValuesValue = initialValues && initialValues[field.name];
-                      console.log("field", field);
 
                       return (
                         <FieldFactory

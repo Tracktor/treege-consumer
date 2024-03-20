@@ -16,7 +16,7 @@ export interface useTreegeConsumerParams {
   variant: TreegeConsumerProps["variant"];
 }
 
-const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmit }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, variant }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -27,6 +27,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
       mustBeCompleted: boolean;
     };
   }>({});
+
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -85,13 +86,6 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
       });
     }
 
-    // AUTO NEXT STEP
-    if (isStepper && !isDecision) {
-      if (isAutoStep) {
-        setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
-      }
-    }
-
     setFieldValues((prevFieldValues) => ({
       ...prevFieldValues,
       [name]: {
@@ -99,11 +93,18 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
         value,
       },
     }));
+
+    // AUTO NEXT STEP
+    if (isStepper && !isDecision) {
+      if (isAutoStep) {
+        setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+      }
+    }
+
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
 
     if (isStepper && !isLastField) {
       setActiveFieldIndex((prevActiveFieldIndex) => {
@@ -123,10 +124,8 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
 
     if (!isLastField) return;
 
-    console.log("[...formData]", [...formData]);
-
-    const data = dataFormatOnSubmit === "formData" ? [...formData] : formDataToJSON([...formData], fields);
-
+    const newTransformedFieldValues = Object.entries(fieldValues).map(([key, value]) => [key, value.value]);
+    const data = dataFormatOnSubmit === "formData" ? newTransformedFieldValues as [string, FormDataEntryValue][] : formDataToJSON(newTransformedFieldValues as [string, FormDataEntryValue][], fields);
     onSubmit?.(data);
   };
 
@@ -143,7 +142,9 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
 
   // Set initial field
   useEffect(() => {
-    if (!tree) return;
+    if (!tree || fields.length) {
+      return;
+    }
 
     const initialFields = getFieldsFromTreePoint({ currentTree: tree });
     setFields(initialFields);
@@ -159,7 +160,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, variant, onSubmi
     if (isStandard && initialFields && initialFields[initialFields.length - 1].children.length === 0) {
       setIsLastField(true);
     }
-  }, [isStandard, isStepper, tree, variant]);
+  }, [isStandard, isStepper, tree, fields]);
 
   return { activeFieldIndex, fields, fieldValues, firstFieldIndex, handleChange, handlePrev, handleSubmit, isLastField };
 };

@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { SelectChangeEvent } from "@tracktor/design-system";
-import { useMemo, useState } from "react";
-import ChangeEventField from "@/types/ChangeEventField";
+import { useMemo } from "react";
 import Headers from "@/types/Headers";
-import TreeNode from "@/types/TreeNode";
 import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getValueFromTree from "@/utils/getValueFromTree/getValueFromTree";

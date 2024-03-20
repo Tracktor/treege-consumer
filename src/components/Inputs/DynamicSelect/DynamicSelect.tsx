@@ -28,7 +28,7 @@ interface DynamicSelectProps {
  */
 const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, headers }: DynamicSelectProps) => {
   const [singleOption, setSingleOption] = useState<string>("");
-  const [multipleOptions, setMultipleOptions] = useState<string[]>([]);
+  const [multipleOptions, setMultipleOptions] = useState<string[]>([""]);
 
   const { name, attributes, children } = node;
   const { label, type, isLeaf, parentRef, isDecision, route, required, isMultiple, initialQuery } = attributes;
@@ -71,19 +71,19 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabled, he
 
   return (
     <FormControl required={required} fullWidth>
-      <InputLabel id={`${name}-label`} shrink>
-        {label}
-      </InputLabel>
+      <InputLabel id={`label-${name}`}>{label}</InputLabel>
       <Select
         labelId={`label-${name}`}
+        label={label}
+        name={name}
         id={name}
         multiple={isMultiple}
         value={isMultiple ? multipleOptions : singleOption}
         onChange={handleChange}
-        input={<OutlinedInput label="Name" />}
+        input={<OutlinedInput label={label} />}
         disabled={disabled}
         aria-errormessage={errorMessage}
-        sx={{ width: 400 }}
+        sx={{ maxWidth: 400 }}
       >
         {options && options.length > 0 ? (
           options.map((option) => (

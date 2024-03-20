@@ -18,11 +18,12 @@ interface ApiAutocompleteProps {
 }
 
 const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
-  const { reformatReturnAutocomplete } = useApiAutoComplete();
+  const [searchText, setSearchText] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string | Option | null>("");
+
   const { attributes, name, children } = node;
   const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
-  const [searchText, setSearchText] = useState<string>("");
-  const [selectedValue, setSelectedValue] = useState<string | Option | null>();
+  const { reformatReturnAutocomplete } = useApiAutoComplete();
 
   const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
 
@@ -45,7 +46,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
       isLeaf,
       name,
       type,
-      value: newData || [],
+      value: newData,
     });
   };
 
@@ -87,23 +88,26 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
         </ListItem>
       )}
       loading={isFetching}
-      renderInput={(params) => (
-        <TextField
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...params}
-          label={label}
-          name={name}
-          required={required}
-          helperText={helperText}
-          inputRef={inputRef}
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
-            error: isError,
-            readOnly,
-          }}
-        />
-      )}
+      renderInput={(params) => {
+        // const { InputProps, size, InputLabelProps, disabled, id, inputProps, fullWidth } = params;
+        return (
+          <TextField
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...params}
+            label={label}
+            name={name}
+            required={required}
+            helperText={helperText}
+            inputRef={inputRef}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
+              error: isError,
+              readOnly,
+            }}
+          />
+        );
+      }}
     />
   );
 };

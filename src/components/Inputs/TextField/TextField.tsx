@@ -1,6 +1,6 @@
 import { TextField as TextFieldDS } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useCallback } from "react";
-import  ChangeEventField from "@/types/ChangeEventField";
+import ChangeEventField from "@/types/ChangeEventField";
 
 export interface TextFieldProps {
   label: string;
