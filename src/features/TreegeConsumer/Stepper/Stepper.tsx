@@ -5,6 +5,7 @@ import FieldFactory from "@/components/FieldFactory";
 import FormValidation from "@/components/FormValidation";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
+import ChangeEventField from "@/types/ChangeEventField";
 import FieldValues from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
@@ -14,7 +15,7 @@ interface StepperProps {
   initialValues?: {
     [key: string]: unknown;
   };
-  handleChange?(value: any): void;
+  handleChange?(dataAttribute: ChangeEventField): void;
   handlePrev?(_: ReactMouseEvent<HTMLButtonElement, MouseEvent>): void;
   handleSubmit?(event: FormEvent<HTMLFormElement>): void;
   activeFieldIndex: number;

@@ -1,12 +1,12 @@
 import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useState } from "react";
 import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
+import FieldValues from "@/types/FieldValues";
 import type TreeNode from "@/types/TreeNode";
 import formDataToJSON, { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
 import getNextStepper from "@/utils/getNextStepper";
-import FieldValues from "@/types/FieldValues";
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
 
@@ -162,7 +162,6 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
       setFirstFieldIndex(nextStepper);
     }
   }, [isStepper, isStandard, initialFields]);
-
 
   return { activeFieldIndex, fields, fieldValues, firstFieldIndex, formCanBeSubmit, handleChange, handlePrev, handleSubmit, isLastField };
 };

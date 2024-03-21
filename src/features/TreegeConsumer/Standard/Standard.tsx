@@ -3,6 +3,7 @@ import { type CSSProperties, FormEvent } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import FieldFactory from "@/components/FieldFactory";
 import FormValidation from "@/components/FormValidation";
+import ChangeEventField from "@/types/ChangeEventField";
 import FieldValues from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
@@ -12,7 +13,7 @@ interface StandardProps {
   initialValues?: {
     [key: string]: unknown;
   };
-  handleChange?(value: any): void;
+  handleChange?(dataAttribute: ChangeEventField): void;
   handleSubmit?(event: FormEvent<HTMLFormElement>): void;
   isLastField: boolean;
   readOnly?: boolean;
@@ -22,10 +23,6 @@ interface StandardProps {
   style?: CSSProperties;
   formCanBeSubmit: boolean;
 }
-
-// if field is initialized, autofocus become false
-// useRef
-// isFocusInitialized ? false : true
 
 const Standard = ({
   fields,
@@ -51,7 +48,6 @@ const Standard = ({
               key={field.name}
               data={field}
               onChange={handleChange}
-              // autoFocus={isAutoFocus}
               defaultValue={initialValuesValue}
               readOnly={readOnly}
               headers={headers}
