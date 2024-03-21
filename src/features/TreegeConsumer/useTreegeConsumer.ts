@@ -28,6 +28,8 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   const requiredFields = fields?.filter((field) => field.attributes.required);
   const formCompleted = requiredFields?.every((field) => fieldValues[field.name]?.value);
   const formCanBeSubmit = hadLeafInCurrentForm && formCompleted;
+  const nextStepper = getNextStepper(initialFields);
+  const lastFieldHasChildren = !!initialFields[initialFields.length - 1].children.length;
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -150,18 +152,15 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   // Define last field to submit form
   // Define first field index in stepper mode
   useEffect(() => {
-    const nextStepper = getNextStepper(initialFields);
-    const lastFieldHasChildren = !!initialFields[initialFields.length - 1].children.length;
-
     // Define if the last field is a leaf
     setIsLastField(!lastFieldHasChildren && isStandard);
 
     // Redefine the first field index if some item field are present in the beginning (presence hidden field)
-    if (nextStepper > 0 || isStepper) {
+    if (nextStepper || isStepper) {
       setActiveFieldIndex(nextStepper);
       setFirstFieldIndex(nextStepper);
     }
-  }, [isStepper, isStandard, initialFields]);
+  }, [isStepper, isStandard, nextStepper, lastFieldHasChildren]);
 
   return { activeFieldIndex, fields, fieldValues, firstFieldIndex, formCanBeSubmit, handleChange, handlePrev, handleSubmit, isLastField };
 };

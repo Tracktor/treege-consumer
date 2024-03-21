@@ -37,6 +37,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAut
 
   const handleChange = (event: SyntheticEvent, value: string | Option | null) => {
     setSelectedValue(value);
+
     const newData = reformatReturnAutocomplete(value);
 
     onChange?.({

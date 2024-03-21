@@ -15,9 +15,10 @@ const getSearch =
     searchParams.append(searchKey, value);
 
     if (additionalParams) {
-      additionalParams.forEach((param) => {
+      for (let i = 0; i < additionalParams.length; i += 1) {
+        const param = additionalParams[i];
         searchParams.append(param.key, param.value);
-      });
+      }
     }
 
     const fullUrl = `${url}?${searchParams.toString()}`;
