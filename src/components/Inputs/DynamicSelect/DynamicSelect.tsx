@@ -86,19 +86,12 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChil
           disabled={disabledChildrenField}
           aria-errormessage={errorMessage}
           sx={{ maxWidth: 400 }}
-          style={disabledChildrenField ? { backgroundColor: "rgba(0, 0, 0, 0.01)" } : undefined}
         >
-          {options && options.length > 0 ? (
-            options.map((option) => (
-              <MenuItem key={option.id} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))
-          ) : (
-            <MenuItem key="-" value="-">
-              No options found
+          {options?.map((option) => (
+            <MenuItem key={option.id} value={option.value}>
+              {option.label}
             </MenuItem>
-          )}
+          ))}
         </Select>
       </FormControl>
     </ControlledTooltip>

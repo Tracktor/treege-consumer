@@ -23,6 +23,10 @@ interface StandardProps {
   formCanBeSubmit: boolean;
 }
 
+// if field is initialized, autofocus become false
+// useRef
+// isFocusInitialized ? false : true
+
 const Standard = ({
   fields,
   initialValues,
@@ -39,7 +43,7 @@ const Standard = ({
   <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
     <Stack paddingY={5} spacing={3} direction="column">
       {fields ? (
-        fields.map((field, index) => {
+        fields.map((field) => {
           const initialValuesValue = initialValues && initialValues[field.name];
 
           return (
@@ -47,7 +51,7 @@ const Standard = ({
               key={field.name}
               data={field}
               onChange={handleChange}
-              autoFocus={index === 0}
+              // autoFocus={isAutoFocus}
               defaultValue={initialValuesValue}
               readOnly={readOnly}
               headers={headers}

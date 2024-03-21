@@ -45,7 +45,16 @@ const Sandbox = ({
 }: SandboxProps) => (
   <ThemeProvider>
     <Grid container height="100%">
-      <Grid item md={6}>
+      <Grid
+        item
+        md={6}
+        sx={{
+          display: "flex",
+          maxHeight: "100%",
+          overflow: "hidden",
+          overflowY: "scroll",
+        }}
+      >
         <TextareaAutosize
           minRows={10}
           value={JSON.stringify(tree, null, 2)}
@@ -53,38 +62,45 @@ const Sandbox = ({
           onChange={handleChangeTree}
         />
       </Grid>
-      <Grid item md={6}>
-        <Stack alignItems="center" p={3}>
+      <Grid
+        item
+        md={6}
+        sx={{
+          height: "100%",
+          overflow: "hidden",
+          overflowY: "scroll",
+        }}
+      >
+        <Stack spacing={2} pt={4}>
           <Button variant="link" onClick={() => handleChangeComponent("DataViewer")}>
-            See TreegeValuesConsumer
+            See values
           </Button>
-        </Stack>
-        <Box display="flex" justifyContent="center" alignItems="center" height="100%" flexDirection="column">
-          <Box display="flex" justifyContent="center" padding={5}>
+          <Box display="flex" justifyContent="center" pt={2}>
             <ToggleButtonGroup value={variant} size="small" onChange={handleChangeVariant} exclusive>
               <ToggleButton value="stepper">Stepper</ToggleButton>
               <ToggleButton value="standard">Standard</ToggleButton>
             </ToggleButtonGroup>
           </Box>
-          <Box flex={1}>
+          <Box flex={1} pt={2}>
             <TreegeConsumer
-              tree={tree}
-              variant={variant}
-              onSubmit={handleSubmit}
-              options={{ googleApiKey: "YOUR_SECRET_KEY" }}
-              headers={customHeaders}
+                tree={tree}
+                variant={variant}
+                onSubmit={handleSubmit}
+                options={{ googleApiKey: "YOUR_SECRET_KEY" }}
+                headers={customHeaders}
             />
           </Box>
-        </Box>
-        <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">
-          <DialogTitle id="alert-dialog-title">Result:</DialogTitle>
-          <DialogContent>
-            <pre>{JSON.stringify(formData, null, 2)}</pre>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>Close</Button>
-          </DialogActions>
-        </Dialog>
+          <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">
+            <DialogTitle id="alert-dialog-title">Result:</DialogTitle>
+            <DialogContent>
+              <pre>{JSON.stringify(formData, null, 2)}</pre>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog}>Close</Button>
+            </DialogActions>
+          </Dialog>
+        </Stack>
+
       </Grid>
     </Grid>
   </ThemeProvider>

@@ -149,6 +149,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
 
   // Set initial field
   useEffect(() => {
+    // Change to check if initialized fields and update ref
     if (!tree || fields.length) {
       return;
     }
