@@ -1,7 +1,7 @@
-import privateExample from "@example/data/privateExample";
-import DataViewer from "@example/features/DataViewer";
-import Sandbox from "@example/features/Sandbox";
-import getApiAccessToken from "@example/utils/getApiAccessToken/getApiAccessToken";
+import privateExample from "example/data/privateExample";
+import DataViewer from "example/features/DataViewer";
+import Sandbox from "example/features/Sandbox";
+import getApiAccessToken from "example/utils/getApiAccessToken/getApiAccessToken";
 import { ChangeEvent, MouseEvent, useState } from "react";
 // import basicExample from "@example/data/basicExample";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";

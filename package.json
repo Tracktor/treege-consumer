@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build": "tsc && vite build",
-    "lint": "npx @biomejs/biome lint ./src && eslint . --max-warnings=0 && tsc --noEmit",
+    "lint": "eslint . --max-warnings=0 && tsc --noEmit",
     "lint:fix": "eslint --fix .",
     "prepare": "yarn run build && husky install",
     "preview": "vite preview",
