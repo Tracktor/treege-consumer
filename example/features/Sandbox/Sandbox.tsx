@@ -83,11 +83,11 @@ const Sandbox = ({
           </Box>
           <Box flex={1} pt={2}>
             <TreegeConsumer
-                tree={tree}
-                variant={variant}
-                onSubmit={handleSubmit}
-                options={{ googleApiKey: "YOUR_SECRET_KEY" }}
-                headers={customHeaders}
+              tree={tree}
+              variant={variant}
+              onSubmit={handleSubmit}
+              options={{ googleApiKey: "YOUR_SECRET_KEY" }}
+              headers={customHeaders}
             />
           </Box>
           <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">
@@ -100,7 +100,6 @@ const Sandbox = ({
             </DialogActions>
           </Dialog>
         </Stack>
-
       </Grid>
     </Grid>
   </ThemeProvider>

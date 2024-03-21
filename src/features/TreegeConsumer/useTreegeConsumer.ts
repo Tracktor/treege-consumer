@@ -6,6 +6,7 @@ import formDataToJSON, { JsonFormValue } from "@/utils/formDataToJSON/formDataTo
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
 import getNextStepper from "@/utils/getNextStepper";
+import FieldValues from "@/types/FieldValues";
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
 
@@ -21,18 +22,12 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
   const [firstFieldIndex, setFirstFieldIndex] = useState<number>(0);
-  const [fieldValues, setFieldValues] = useState<{
-    [name: string]: {
-      value: unknown;
-      mustBeCompleted: boolean;
-    };
-  }>({});
-
+  const [fieldValues, setFieldValues] = useState<FieldValues>({});
+  const initialFields = getFieldsFromTreePoint({ currentTree: tree });
   const hadLeafInCurrentForm = fields?.some((field) => field.attributes.isLeaf);
   const requiredFields = fields?.filter((field) => field.attributes.required);
   const formCompleted = requiredFields?.every((field) => fieldValues[field.name]?.value);
   const formCanBeSubmit = hadLeafInCurrentForm && formCompleted;
-
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -147,28 +142,27 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     });
   };
 
-  // Set initial field
+  // Initialize fields
   useEffect(() => {
-    // Change to check if initialized fields and update ref
-    if (!tree || fields.length) {
-      return;
-    }
-
-    const initialFields = getFieldsFromTreePoint({ currentTree: tree });
     setFields(initialFields);
+  }, [initialFields]);
 
-    // Check if the first fields is Hidden
-    const stepper = getNextStepper(initialFields);
-    if (isStepper && stepper) {
-      setActiveFieldIndex(stepper);
-      setFirstFieldIndex(stepper);
-    }
+  // Define last field to submit form
+  // Define first field index in stepper mode
+  useEffect(() => {
+    const nextStepper = getNextStepper(initialFields);
+    const lastFieldHasChildren = !!initialFields[initialFields.length - 1].children.length;
 
-    // If last initial fields in standard variant has no children
-    if (isStandard && initialFields && initialFields[initialFields.length - 1].children.length === 0) {
-      setIsLastField(true);
+    // Define if the last field is a leaf
+    setIsLastField(!lastFieldHasChildren && isStandard);
+
+    // Redefine the first field index if some item field are present in the beginning (presence hidden field)
+    if (nextStepper > 0 || isStepper) {
+      setActiveFieldIndex(nextStepper);
+      setFirstFieldIndex(nextStepper);
     }
-  }, [isStandard, isStepper, tree, fields]);
+  }, [isStepper, isStandard, initialFields]);
+
 
   return { activeFieldIndex, fields, fieldValues, firstFieldIndex, formCanBeSubmit, handleChange, handlePrev, handleSubmit, isLastField };
 };

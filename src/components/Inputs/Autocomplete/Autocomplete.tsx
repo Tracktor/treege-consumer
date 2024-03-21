@@ -108,6 +108,7 @@ const Autocomplete = (
 
   return (
     <AutocompleteDS
+      freeSolo
       autoComplete
       includeInputInList
       filterSelectedOptions
