@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import Headers from "@/types/Headers";
+import TreeNode, { Route } from "@/types/TreeNode";
 import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getValueFromTree from "@/utils/getValueFromTree/getValueFromTree";
 
 interface useDynamicSelectProps {
-  route: any;
-  parentRef: any;
-  initialQuery: any;
+  route: Route;
+  parentRef: string;
+  initialQuery: TreeNode;
   name: string;
   fieldValues?: JsonFormValue[] | unknown;
   headers?: Headers;

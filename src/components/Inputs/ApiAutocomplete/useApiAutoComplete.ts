@@ -1,10 +1,20 @@
+interface OriginData {
+  value: unknown;
+  id: string;
+  image: string;
+  label: string;
+}
+
 const useApiAutoComplete = () => {
-  const reformatReturnAutocomplete = (originData: any) => ({
-    id: originData.value.id || originData.id,
-    image: originData.value.image || originData.image,
-    name: originData.value.name || originData.label,
-    options: originData.value.options || originData.value,
-  });
+  const reformatReturnAutocomplete = (originData: OriginData) => {
+    const value = originData.value as { id?: string; image?: string; name?: string; options?: unknown };
+    return {
+      id: value?.id || originData.id,
+      image: value?.image || originData.image,
+      name: value?.name || originData.label,
+      options: value?.options || value,
+    };
+  };
   return { reformatReturnAutocomplete };
 };
 

@@ -60,7 +60,7 @@ const Stepper = ({
       {fields ? (
         fields.map((field, index) => {
           const active = index === activeFieldIndex;
-          const initialValuesValue = initialValues && initialValues[field.name];
+          const initialValuesValue = initialValues?.[field.name];
 
           return (
             <FieldFactory

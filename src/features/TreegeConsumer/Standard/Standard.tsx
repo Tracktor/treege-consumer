@@ -41,7 +41,7 @@ const Standard = ({
     <Stack paddingY={5} spacing={3} direction="column">
       {fields ? (
         fields.map((field) => {
-          const initialValuesValue = initialValues && initialValues[field.name];
+          const initialValuesValue = initialValues?.[field.name];
 
           return (
             <FieldFactory
