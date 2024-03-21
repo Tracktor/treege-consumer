@@ -7,9 +7,9 @@ import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getValueFromTree from "@/utils/getValueFromTree/getValueFromTree";
 
 interface useDynamicSelectProps {
-  route: Route;
-  parentRef: string;
-  initialQuery: TreeNode;
+  route?: Route;
+  parentRef?: string;
+  initialQuery?: boolean;
   name: string;
   fieldValues?: JsonFormValue[] | unknown;
   headers?: Headers;
