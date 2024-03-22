@@ -1,47 +1,25 @@
 import { Button, Container, Stack, ThemeProvider } from "@tracktor/design-system";
-import Renderer from "example/features/DataViewer/Renderer";
+import Renderer, { TreeInitialValue } from "example/features/DataViewer/Renderer";
+import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
+import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 
 interface DataViewerProps {
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
   formData?: JsonFormValue[] | [string, unknown][];
+  tree: TreeNode;
 }
 
-// const values = [
-//   {
-//     label: "Catégorie",
-//     name: "category",
-//     tag: "category",
-//     type: "select",
-//     value: {
-//       label: "Lorem ipsum",
-//       value: "delivery",
-//     },
-//   },
-//   {
-//     label: "Type d'incident",
-//     name: "delivery_reason",
-//     tag: "reason",
-//     type: "select",
-//     value: {
-//       label: "Livraison -Retard sup 1h30 max 3h00",
-//       value: "delay_in_delivery",
-//     },
-//   },
-//   {
-//     label: "Responsabilité",
-//     name: "delivery_responsibility",
-//     tag: "responsible",
-//     type: "select",
-//     value: {
-//       label: "Fournisseur",
-//       value: "supplier",
-//     },
-//   },
-// ];
+const DataViewer = ({ handleChangeComponent, formData, tree }: DataViewerProps) => {
+  const treeInitialValue: TreeInitialValue[] = (() => {
+    const initialValue: TreeInitialValue[] = [];
+    const initialFields = getFieldsFromTreePoint({ currentTree: tree });
+    initialFields.forEach((field) => {
+      initialValue.push({ name: field.name, value: undefined });
+    });
+    return initialValue;
+  })();
 
-const DataViewer = ({ handleChangeComponent, formData }: DataViewerProps) => {
-  console.log("formData", formData);
   return (
     <ThemeProvider>
       <Container>
@@ -50,7 +28,7 @@ const DataViewer = ({ handleChangeComponent, formData }: DataViewerProps) => {
             See TreegeConsumer
           </Button>
         </Stack>
-        <Renderer values={formData} />
+        <Renderer values={formData} initialTree={treeInitialValue} />
       </Container>
     </ThemeProvider>
   );
