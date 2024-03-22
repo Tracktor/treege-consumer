@@ -1,5 +1,5 @@
-import basicExample from "example/data/basicExample";
-// import privateExample from "example/data/privateExample";
+// import basicExample from "example/data/basicExample";
+import privateExample from "example/data/privateExample";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
 import getApiAccessToken from "example/utils/getApiAccessToken/getApiAccessToken";
@@ -13,7 +13,7 @@ const bearerTokenAccess = {
 };
 
 const App = () => {
-  const [tree, setTree] = useState<TreeNode>(basicExample);
+  const [tree, setTree] = useState<TreeNode>(privateExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
   const [formData, setFormData] = useState<JsonFormValue[] | [string, unknown][]>();

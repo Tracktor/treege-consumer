@@ -1,16 +1,23 @@
-import { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 /**
  * Get the value from a tree
- * @param tree
+ * @param formValues
  * @param key
  */
 const getValueFromTree = (
-  tree: JsonFormValue[] | unknown | undefined,
+  formValues: JsonFormValue | JsonFormValue[] | unknown | undefined,
   key: string,
-): string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | undefined | File[] | Option => {
-  const treeItem = tree?.[key as keyof typeof tree] as unknown as JsonFormValue;
+): string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | File[] | undefined => {
+  if (Array.isArray(formValues)) {
+    const foundItem = formValues.find((item) => item[key]);
+    if (foundItem) {
+      console.log("foundItem[key]", foundItem[key]);
+      return foundItem[key] || undefined;
+    }
+  }
+
+  const treeItem = formValues?.[key as keyof typeof formValues] as unknown as JsonFormValue;
   return treeItem && typeof treeItem === "object" ? treeItem.value : undefined;
 };
 

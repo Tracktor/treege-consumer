@@ -1,6 +1,8 @@
 import type Headers from "@/types/Headers";
 import { Params } from "@/types/TreeNode";
 
+type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+
 /**
  * Get search value from autocomplete URL and add additional params
  * @param url
@@ -8,9 +10,11 @@ import { Params } from "@/types/TreeNode";
  * @param value
  * @param additionalParams
  * @param headers
+ * @param localFetch
  */
 const getSearch =
-  (url: string, searchKey: string, value: string, headers?: Headers, additionalParams?: Params[]) => async (signal: AbortSignal) => {
+  (url: string, searchKey: string, value: string, headers?: Headers, additionalParams?: Params[], localFetch?: LocalFetch) =>
+  async (signal: AbortSignal) => {
     const searchParams = new URLSearchParams();
     searchParams.append(searchKey, value);
 
@@ -28,7 +32,9 @@ const getSearch =
       method: "GET",
     };
 
-    const response = await fetch(fullUrl, { ...requestHeaders, signal });
+    const fetchCall = localFetch || fetch;
+
+    const response = await fetchCall(fullUrl, { ...requestHeaders, signal });
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
