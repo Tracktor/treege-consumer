@@ -1,9 +1,9 @@
-import privateExample from "example/data/privateExample";
+import basicExample from "example/data/basicExample";
+// import privateExample from "example/data/privateExample";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
 import getApiAccessToken from "example/utils/getApiAccessToken/getApiAccessToken";
 import { ChangeEvent, MouseEvent, useState } from "react";
-// import basicExample from "@example/data/basicExample";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
@@ -13,7 +13,7 @@ const bearerTokenAccess = {
 };
 
 const App = () => {
-  const [tree, setTree] = useState<TreeNode>(privateExample);
+  const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
   const [formData, setFormData] = useState<JsonFormValue[] | [string, unknown][]>();

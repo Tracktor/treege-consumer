@@ -38,7 +38,7 @@ const getCurrentAttributes = (
  * @param formData
  * @param fields
  */
-const formDataToJSON = (formData: [string, FormDataEntryValue][], fields: TreeNode[]): JsonFormValue[] => {
+const formDataToJSON = (formData: [string, FormDataEntryValue | unknown][], fields: TreeNode[]): JsonFormValue[] => {
   const formDataMap: { [p: number]: FormDataEntryValue } = [
     ...formData.reduce((acc, [key, value]) => acc.set(key, [...(acc.get(key) || []), value]), new Map()).entries(),
   ].reduce((acc, [key, values]) => Object.assign(acc, { [key]: values.length > 1 ? values : values[0] }), {});

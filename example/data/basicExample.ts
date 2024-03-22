@@ -5,7 +5,7 @@ const basicExample = {
     isLeaf: false,
     isRoot: true,
     label: "Ville ou adresse du site",
-    required: true,
+    required: false,
     type: "address",
   },
   children: [

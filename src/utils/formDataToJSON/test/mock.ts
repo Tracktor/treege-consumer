@@ -3,7 +3,7 @@ import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface Mock {
   fields: TreeNode[];
-  formValue: [string, FormDataEntryValue][];
+  formValue: [string, FormDataEntryValue | unknown][];
   output: JsonFormValue[];
 }
 const formWithTextFields: Mock = {
@@ -354,7 +354,7 @@ const formWithSwitchFields: Mock = {
   formValue: [
     ["last_name", "Doe"],
     ["first_name", "John"],
-    ["admin", "on"],
+    ["admin", true],
   ],
   output: [
     { label: "Nom", name: "last_name", type: "text", value: "Doe" },
@@ -436,7 +436,7 @@ const formWithCheckboxFields: Mock = {
   formValue: [
     ["last_name", "Doe"],
     ["first_name", "John"],
-    ["admin", "on"],
+    ["admin", true],
   ],
   output: [
     { label: "Nom", name: "last_name", type: "text", value: "Doe" },
@@ -883,7 +883,7 @@ const formWithSelectFieldsUndefined: Mock = {
   output: [
     { label: "Nom", name: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "John" },
-    { label: "Sexe", name: "gender", type: "select", value: { label: "", value: "" } },
+    { label: "Sexe", name: "gender", type: "select", value: { label: undefined, value: undefined } },
   ],
 };
 
