@@ -11,10 +11,7 @@ const getValueFromTree = (
 ): string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | File[] | undefined => {
   if (Array.isArray(formValues)) {
     const foundItem = formValues.find((item) => item[key]);
-    if (foundItem) {
-      console.log("foundItem[key]", foundItem[key]);
-      return foundItem[key] || undefined;
-    }
+    return foundItem?.[key];
   }
 
   const treeItem = formValues?.[key as keyof typeof formValues] as unknown as JsonFormValue;
