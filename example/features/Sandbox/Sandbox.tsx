@@ -20,15 +20,17 @@ import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface SandboxProps {
   tree: TreeNode;
-  handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   variant: "standard" | "stepper" | undefined;
-  handleSubmit: (submitData: JsonFormValue[] | [string, unknown][]) => void;
-  handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
+  renderData: "json" | "formData" | undefined;
   dialogOpen: boolean;
   customHeaders: Headers;
   handleCloseDialog: () => void;
   formData: JsonFormValue[] | [string, unknown][] | undefined;
+  handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  handleSubmit: (submitData: JsonFormValue[] | [string, unknown][]) => void;
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
+  handleChangeFormatData: (_: MouseEvent<HTMLElement>, newRenderData: "json" | "formData") => void;
+  handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
 }
 
 const Sandbox = ({
@@ -36,12 +38,14 @@ const Sandbox = ({
   handleChangeTree,
   handleChangeVariant,
   variant,
+  renderData,
   handleSubmit,
   dialogOpen,
   customHeaders,
   handleCloseDialog,
   formData,
   handleChangeComponent,
+  handleChangeFormatData,
 }: SandboxProps) => (
   <ThemeProvider>
     <Grid container height="100%">
@@ -80,6 +84,11 @@ const Sandbox = ({
               <ToggleButton value="stepper">Stepper</ToggleButton>
               <ToggleButton value="standard">Standard</ToggleButton>
             </ToggleButtonGroup>
+            <Box mx={1} />
+            <ToggleButtonGroup value={renderData} size="small" onChange={handleChangeFormatData} exclusive>
+              <ToggleButton value="formData">Form</ToggleButton>
+              <ToggleButton value="json">Json</ToggleButton>
+            </ToggleButtonGroup>
           </Box>
           <Box flex={1} pt={2}>
             <TreegeConsumer
@@ -88,6 +97,7 @@ const Sandbox = ({
               onSubmit={handleSubmit}
               options={{ googleApiKey: "YOUR_SECRET_KEY" }}
               headers={customHeaders}
+              dataFormatOnSubmit={renderData}
             />
           </Box>
           <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">

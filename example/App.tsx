@@ -17,6 +17,7 @@ const App = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
   const [formData, setFormData] = useState<JsonFormValue[] | [string, unknown][]>();
+  const [renderData, setRenderData] = useState<"json" | "formData">("json");
   const [component, setComponent] = useState<"DataViewer" | "TreegeConsumer">("TreegeConsumer");
 
   const handleChangeComponent = (newComponent: "DataViewer" | "TreegeConsumer") => {
@@ -41,20 +42,26 @@ const App = () => {
     setDialogOpen(true);
   };
 
+  const handleChangeFormatData = (_: MouseEvent<HTMLElement>, newRenderData: "json" | "formData") => {
+    setRenderData(newRenderData);
+  };
+
   return component === "DataViewer" ? (
     <DataViewer handleChangeComponent={handleChangeComponent} />
   ) : (
     <Sandbox
       variant={variant}
-      handleChangeVariant={handleChangeVariant}
       tree={tree}
       customHeaders={bearerTokenAccess}
       dialogOpen={dialogOpen}
       formData={formData}
+      renderData={renderData}
+      handleChangeVariant={handleChangeVariant}
       handleChangeTree={handleChangeTree}
       handleCloseDialog={handleCloseDialog}
       handleSubmit={handleSubmit}
       handleChangeComponent={handleChangeComponent}
+      handleChangeFormatData={handleChangeFormatData}
     />
   );
 };

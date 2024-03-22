@@ -73,7 +73,9 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChil
   return (
     <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
       <FormControl required={required} fullWidth>
-        <InputLabel id={`label-${name}`}>{label}</InputLabel>
+        <InputLabel id={`label-${name}`} shrink>
+          {label}
+        </InputLabel>
         <Select
           labelId={`label-${name}`}
           label={label}
@@ -85,7 +87,13 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChil
           input={<OutlinedInput label={label} />}
           disabled={disabledChildrenField}
           aria-errormessage={errorMessage}
-          sx={{ maxWidth: 400 }}
+          MenuProps={{
+            PaperProps: {
+              style: {
+                maxWidth: 400,
+              },
+            },
+          }}
         >
           {options?.map((option) => (
             <MenuItem key={option.id} value={option.value}>
