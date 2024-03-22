@@ -11,6 +11,11 @@ interface DataViewerProps {
 }
 
 const DataViewer = ({ handleChangeComponent, formData, tree }: DataViewerProps) => {
+  const convertedFormData =
+    Array.isArray(formData) && formData.every((item) => Array.isArray(item) && item.length === 2 && typeof item[0] === "string")
+      ? formData.map((item: any) => ({ name: item[0], value: item[1] }))
+      : formData;
+
   const treeInitialValue: TreeInitialValue[] = (() => {
     const initialValue: TreeInitialValue[] = [];
     const initialFields = getFieldsFromTreePoint({ currentTree: tree });
@@ -28,7 +33,7 @@ const DataViewer = ({ handleChangeComponent, formData, tree }: DataViewerProps) 
             See TreegeConsumer
           </Button>
         </Stack>
-        <Renderer values={formData} initialTree={treeInitialValue} />
+        <Renderer values={convertedFormData} initialTree={treeInitialValue} />
       </Container>
     </ThemeProvider>
   );
