@@ -47,7 +47,7 @@ const App = () => {
   };
 
   return component === "DataViewer" ? (
-    <DataViewer handleChangeComponent={handleChangeComponent} />
+    <DataViewer handleChangeComponent={handleChangeComponent} formData={formData} />
   ) : (
     <Sandbox
       variant={variant}
