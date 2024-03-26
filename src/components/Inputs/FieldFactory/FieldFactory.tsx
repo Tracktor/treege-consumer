@@ -113,17 +113,7 @@ const FieldFactory = ({
           />
         );
       case "address":
-        return (
-          <Autocomplete
-            label={label}
-            name={name}
-            inputRef={inputRef}
-            required={isRequired}
-            helperText={helperText}
-            defaultValue={defaultValue}
-            readOnly={readOnly}
-          />
-        );
+        return <Autocomplete inputRef={inputRef} defaultValue={defaultValue} readOnly={readOnly} node={data} onChange={onChange} />;
       case "radio":
         return (
           <Radio

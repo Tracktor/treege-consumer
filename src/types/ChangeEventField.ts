@@ -7,7 +7,8 @@ export default interface ChangeEventField {
     | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     | ChangeEvent<HTMLInputElement>
     | SelectChangeEvent<string | string[]>
-    | SyntheticEvent;
+    | SyntheticEvent
+    | undefined;
   value: string | boolean | { label: string; value: string } | string[] | unknown;
   name: string;
   type?: string;

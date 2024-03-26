@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useState } from "react";
+import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useMemo, useState } from "react";
 import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
 import FieldValues from "@/types/FieldValues";
@@ -23,7 +23,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   const [isLastField, setIsLastField] = useState<boolean>(false);
   const [firstFieldIndex, setFirstFieldIndex] = useState<number>(0);
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
-  const initialFields = getFieldsFromTreePoint({ currentTree: tree });
+  const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
   const requiredFields = fields?.filter((field) => field.attributes.required);
   const formCompleted = requiredFields?.every((field) => fieldValues[field.name]?.value);
   const nextStepper = getNextStepper(initialFields);
@@ -144,9 +144,8 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
 
   // Initialize fields
   useEffect(() => {
-    if (fields.length > 0) return;
     setFields(initialFields);
-  }, [fields, initialFields]);
+  }, [initialFields]);
 
   // Define last field to submit form & define first field index in stepper mode
   useEffect(() => {
