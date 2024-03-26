@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.23.0](https://github.com/Tracktor/treege-consumer/compare/1.22.0...1.23.0) (2024-03-26)
+
+
+### Features
+
+* **dynamic:** add disable functions ([7cd2e22](https://github.com/Tracktor/treege-consumer/commit/7cd2e222e04b6952aad32a276f845c4e2210359c))
+* **dynamic:** add enable/disable validation form button ([c3ecfb6](https://github.com/Tracktor/treege-consumer/commit/c3ecfb635a798fcecfe689f5b788b7b0544ad02e))
+* **dynamic:** add icon ([b22c711](https://github.com/Tracktor/treege-consumer/commit/b22c71155cbc5ca56a5c9cf3b1d2bf301244eddd))
+* **dynamic:** add missings tests to utils ([06e2ecb](https://github.com/Tracktor/treege-consumer/commit/06e2ecbdaad2102772ca0bed8c2fc073f4785c62))
+* **dynamic:** add render data feature ([b70a74a](https://github.com/Tracktor/treege-consumer/commit/b70a74a0124e74c2d07729ca3fb26d9660cb1a8c))
+* **dynamic:** add tooltip ([bf43366](https://github.com/Tracktor/treege-consumer/commit/bf43366efe0aa0a61add0e86b7074a90aeb0aa61))
+* **dynamic:** create Stepper.tsx and Standard.tsx component ([1dc03cd](https://github.com/Tracktor/treege-consumer/commit/1dc03cd990b671e0a4f29fdb3bbb84254b11f445))
+* **dynamic:** first part DataViewer feature ([92a9f3a](https://github.com/Tracktor/treege-consumer/commit/92a9f3a3478b7841681e7e664ccd47fe39e1003d))
+* **dynamic:** fix and simplify useEffect in useTreegeConsumer.ts ([35ca37d](https://github.com/Tracktor/treege-consumer/commit/35ca37d7ce0341f6d109339a82b07394682a128c))
+* **dynamic:** fix config ([8475322](https://github.com/Tracktor/treege-consumer/commit/8475322374c999226b26ec9dfc874e4e1d305696))
+* **dynamic:** fix config and lint ([566153b](https://github.com/Tracktor/treege-consumer/commit/566153b89573ba72c28d51e33ed64702bc6dfa92))
+* **dynamic:** fix design Sandbox.tsx ([a7c4e20](https://github.com/Tracktor/treege-consumer/commit/a7c4e20f6d66624a84115af0e56e699eede00a2c))
+* **dynamic:** fix DynamicSelect and Autocomplete ([2b16e5f](https://github.com/Tracktor/treege-consumer/commit/2b16e5fd77569eb44d18ab7640f16c5dcf0fb9f9))
+* **dynamic:** fix Result values ([5c12adb](https://github.com/Tracktor/treege-consumer/commit/5c12adb102188050d681066ce281b49d0a954cd7))
+* **dynamic:** fix tests (mock due to acquire value modification onSubmit) ([882dc4b](https://github.com/Tracktor/treege-consumer/commit/882dc4b698878933d047a071a2d6732154c317fc))
+* **dynamic:** fix type 3 ([40e0b76](https://github.com/Tracktor/treege-consumer/commit/40e0b76f8c501b696f82ffb625be24794647391b))
+* **dynamic:** fix type 4 ([d5a0884](https://github.com/Tracktor/treege-consumer/commit/d5a08843f42564dd824a693e8e2b6ad80bbc46ed))
+* **dynamic:** fix type 5 ([d162eee](https://github.com/Tracktor/treege-consumer/commit/d162eee69118800fdc8307978913c122ec8b1bef))
+* **dynamic:** fix type any ([15e3e97](https://github.com/Tracktor/treege-consumer/commit/15e3e97d0437a2a7696397764d56f9e5479c205b))
+* **dynamic:** fix type any 2 ([f12ac90](https://github.com/Tracktor/treege-consumer/commit/f12ac90283ad95c38bfc3deed88d8d448c0d1cb8))
+* **dynamic:** fix types ([f894bdd](https://github.com/Tracktor/treege-consumer/commit/f894bdd4162c40b8ea5bfc87f40a8156331e949f))
+* **dynamic:** move app.tsx and linked component to example folder ([fb99f4e](https://github.com/Tracktor/treege-consumer/commit/fb99f4e694f327982a0a210aafba0886780d7381))
+* **dynamic:** refacto App.tsx ([f73d357](https://github.com/Tracktor/treege-consumer/commit/f73d357c3d9f53fd337e1a8b7b2f446cd325fb5e))
+* **dynamic:** refacto App.tsx ([639697d](https://github.com/Tracktor/treege-consumer/commit/639697d70d35dbfaa789cf0d88950deb2cd5c92c))
+* **dynamic:** refacto useTreegeConsumer.ts ([b4def93](https://github.com/Tracktor/treege-consumer/commit/b4def9322aa185ee1b86186efa2370058cb9c8f9))
+* **dynamic:** remove any ([d60cd42](https://github.com/Tracktor/treege-consumer/commit/d60cd42179426f67f1721d09fdbcd50ef917e61e))
+* **dynamic:** second part DataViewer feature ([c43ebf6](https://github.com/Tracktor/treege-consumer/commit/c43ebf652fd25f2d07039c59f2836c469b688dc9))
+* **dynamic:** simplify getValueFromTree.ts ([bac7ecc](https://github.com/Tracktor/treege-consumer/commit/bac7ecc9e7ad4af54569ec3baf42521cd1cdaa86))
+* **dynamic:** third part DataViewer feature ([83d0fd9](https://github.com/Tracktor/treege-consumer/commit/83d0fd92edcffbbaa4637fdda406d2ebc4c76565))
+* **dynamic:** update consumer web and add dynamic fields ([969881a](https://github.com/Tracktor/treege-consumer/commit/969881a80d54dcdf52b8346f49c80d719e6eda18))
+* **tc:** change review ([716e6fc](https://github.com/Tracktor/treege-consumer/commit/716e6fce69a79ffdd2557a7808200f6c2b0b1c04))
+* **tc:** check lenght is mandatory to avoid inf statement ([15c1e17](https://github.com/Tracktor/treege-consumer/commit/15c1e1734fe040e3dc740767d9c8d2acf70ada22))
+* **tc:** fix Autocomplete.tsx and add useMemo in initial Field ([4849328](https://github.com/Tracktor/treege-consumer/commit/484932873ce1792beb668e985408c33a60f15a76))
+* **tc:** put onBlur in handleChange ([61ecb58](https://github.com/Tracktor/treege-consumer/commit/61ecb58ad58e5e288575d4d275b6cfc7cc4488bb))
+* **tc:** rollback README.md ([b82138e](https://github.com/Tracktor/treege-consumer/commit/b82138ec4908e5291a7b91a928589cbeb896e577))
+
+
+### Bug Fixes
+
+* initial field ([b64b24b](https://github.com/Tracktor/treege-consumer/commit/b64b24bafae25e72131b3915fec38c8c160a1179))
+* shrink ([344c477](https://github.com/Tracktor/treege-consumer/commit/344c477b9f1add096f35f8f538a34b4306da4805))
+* shrink ([4a1dcee](https://github.com/Tracktor/treege-consumer/commit/4a1dceeeb724aec752d240189263ee3ce0ed836e))
+
 ## [1.22.0](https://github.com/Tracktor/treege-consumer/compare/1.21.1...1.22.0) (2024-02-26)
 
 
