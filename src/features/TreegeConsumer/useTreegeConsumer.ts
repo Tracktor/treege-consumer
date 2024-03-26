@@ -144,8 +144,9 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
 
   // Initialize fields
   useEffect(() => {
+    if (fields.length > 0) return;
     setFields(initialFields);
-  }, [initialFields]);
+  }, [fields, initialFields]);
 
   // Define last field to submit form & define first field index in stepper mode
   useEffect(() => {
