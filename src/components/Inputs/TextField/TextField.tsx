@@ -30,6 +30,7 @@ const TextField = (
 
   return (
     <TextFieldDS
+      fullWidth
       ref={ref}
       name={name}
       label={label}

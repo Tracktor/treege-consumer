@@ -1,8 +1,8 @@
 import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useCallback, useState } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
-export interface DateRangeProps {
+export interface TimeRangeProps {
   label: string;
   name: string;
   helperText?: string;
@@ -13,44 +13,33 @@ export interface DateRangeProps {
   readOnly?: boolean;
 }
 
-const DateRange = (
-  { label, name, helperText, inputRef, onChange, required, defaultValue, readOnly }: DateRangeProps,
+const TimeRange = (
+  { label, name, helperText, inputRef, onChange, required, defaultValue, readOnly }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const [fromDate, setFromDate] = useState<string>("");
-  const [toDate, setToDate] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
+  const [fromTime, setFromTime] = useState<string>("");
+  const [toTime, setToTime] = useState<string>("");
 
   const handleChange = useCallback(
     (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = event.target;
 
       if (field === "start") {
-        setFromDate(value);
+        setFromTime(value);
       }
 
       if (field === "end") {
-        setToDate(value);
+        setToTime(value);
       }
 
       onChange?.({
         event,
         name,
-        value: field === "start" ? [value, toDate] : [fromDate, value],
+        value: field === "start" ? [value, toTime] : [fromTime, value],
       });
     },
-    [fromDate, name, onChange, toDate],
+    [fromTime, name, onChange, toTime],
   );
-
-  useEffect(() => {
-    if (fromDate.length > 0 && toDate.length > 0) {
-      if (new Date(fromDate) > new Date(toDate)) {
-        setError(true);
-      } else {
-        setError(false);
-      }
-    }
-  }, [fromDate, toDate]);
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
@@ -59,12 +48,11 @@ const DateRange = (
         ref={ref}
         name={name}
         label={label}
-        type="date"
+        type="time"
         helperText={helperText}
         onChange={handleChange("start")}
         required={required}
         inputRef={inputRef}
-        error={error}
         InputProps={{
           readOnly,
         }}
@@ -77,13 +65,12 @@ const DateRange = (
         fullWidth
         ref={ref}
         name={name}
-        type="date"
+        type="time"
         helperText={helperText}
         onChange={handleChange("end")}
         required={required}
         defaultValue={defaultValue}
         inputRef={inputRef}
-        error={error}
         InputProps={{
           readOnly,
         }}
@@ -92,4 +79,4 @@ const DateRange = (
   );
 };
 
-export default forwardRef(DateRange);
+export default forwardRef(TimeRange);

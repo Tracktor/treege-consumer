@@ -9,12 +9,13 @@ import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
 import Select from "@/components/Inputs/Select";
 import TextField from "@/components/Inputs/TextField";
+import TimeRange from "@/components/Inputs/TimeRange";
 import ChangeEventField from "@/types/ChangeEventField";
 import FieldValues from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 
-export interface FielFactorydProps {
+export interface FielFactoryProps {
   fieldValues?: FieldValues;
   animated?: boolean;
   autoFocus?: boolean;
@@ -52,7 +53,7 @@ const FieldFactory = ({
   isLoadingFormValidation,
   animated = true,
   visible = true,
-}: FielFactorydProps) => {
+}: FielFactoryProps) => {
   const { name, attributes } = data;
   const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute, parentRef } = attributes;
 
@@ -98,12 +99,24 @@ const FieldFactory = ({
             shrink={type === "time" ? true : undefined}
           />
         );
+      case "timeRange":
+        return (
+          <TimeRange
+            name={name}
+            label={label}
+            onChange={onChange}
+            required={isRequired}
+            inputRef={inputRef}
+            helperText={helperText}
+            defaultValue={defaultValue}
+            readOnly={readOnly}
+          />
+        );
       case "dateRange":
         return (
           <DateRange
             name={name}
             label={label}
-            type={type}
             onChange={onChange}
             required={isRequired}
             inputRef={inputRef}
