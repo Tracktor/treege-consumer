@@ -54,7 +54,7 @@ const Select = ({ data, helperText, inputRef, required, onChange, readOnly, defa
         onChange={handleChange}
         inputRef={inputRef}
         readOnly={readOnly}
-        input={<OutlinedInput notched label={label} />}
+        input={<OutlinedInput label={label} />}
       >
         {options?.map((option) => (
           <MenuItem key={option.key} value={option.value}>

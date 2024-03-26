@@ -139,7 +139,6 @@ const Autocomplete = (
           InputProps={InputProps}
           InputLabelProps={{
             ...InputLabelProps,
-            shrink: true,
           }}
         />
       )}

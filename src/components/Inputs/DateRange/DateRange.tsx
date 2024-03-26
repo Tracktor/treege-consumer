@@ -1,4 +1,4 @@
-import { TextField as TextFieldDS, Stack, Box } from "@tracktor/design-system";
+import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -66,9 +66,6 @@ const DateRange = (
         InputProps={{
           readOnly,
         }}
-        InputLabelProps={{
-          shrink: true,
-        }}
         error={error}
       />
       <Box>→</Box>
@@ -83,9 +80,6 @@ const DateRange = (
         inputRef={inputRef}
         InputProps={{
           readOnly,
-        }}
-        InputLabelProps={{
-          shrink: true,
         }}
         error={error}
       />

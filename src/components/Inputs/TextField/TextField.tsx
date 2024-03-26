@@ -41,9 +41,6 @@ const TextField = (
       inputProps={{
         multiple,
       }}
-      InputLabelProps={{
-        shrink: true,
-      }}
       // eslint-disable-next-line react/jsx-no-duplicate-props
       InputProps={{
         readOnly,
