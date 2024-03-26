@@ -1,17 +1,21 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
-import { memo, useCallback } from "react";
-import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete/ApiAutocomplete";
-import Autocomplete from "@/components/Inputs/Autocomplete/Autocomplete";
-import BooleanField from "@/components/Inputs/BooleanField/BooleanField";
-import DateRange from "@/components/Inputs/DateRange/DateRange";
-import HiddenField from "@/components/Inputs/HiddenField/HiddenField";
-import Radio from "@/components/Inputs/Radio/Radio";
-import Select from "@/components/Inputs/Select/Select";
-import TextField from "@/components/Inputs/TextField/TextField";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
-import type { TreeNode } from "@/types/TreeNode";
+import { memo } from "react";
+import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
+import Autocomplete from "@/components/Inputs/Autocomplete";
+import BooleanField from "@/components/Inputs/BooleanField";
+import DateRange from "@/components/Inputs/DateRange";
+import DynamicSelect from "@/components/Inputs/DynamicSelect";
+import HiddenField from "@/components/Inputs/HiddenField";
+import Radio from "@/components/Inputs/Radio";
+import Select from "@/components/Inputs/Select";
+import TextField from "@/components/Inputs/TextField";
+import ChangeEventField from "@/types/ChangeEventField";
+import FieldValues from "@/types/FieldValues";
+import Headers from "@/types/Headers";
+import type TreeNode from "@/types/TreeNode";
 
-export interface TreegeFieldProps {
+export interface FielFactorydProps {
+  fieldValues?: FieldValues;
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;
@@ -19,10 +23,12 @@ export interface TreegeFieldProps {
   defaultValue?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute?: ChangeEventField): void;
+  headers?: Headers;
+  isLoadingFormValidation?: boolean;
 }
 
 /**
- * TreegeField factory
+ * FieldFactory factory
  * @param defaultValueProps
  * @param onChange
  * @param autoFocus
@@ -30,36 +36,41 @@ export interface TreegeFieldProps {
  * @param readOnly
  * @param animated
  * @param visible
+ * @param headers
+ * @param fieldValues
+ * @param isLoadingFormValidation
  * @constructor
  */
-const TreegeField = ({
+const FieldFactory = ({
   defaultValue: defaultValueProps,
   onChange,
   autoFocus,
   data,
   readOnly,
+  headers,
+  fieldValues,
+  isLoadingFormValidation,
   animated = true,
   visible = true,
-}: TreegeFieldProps) => {
+}: FielFactorydProps) => {
   const { name, attributes } = data;
-  const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute } = attributes;
+  const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute, parentRef } = attributes;
+
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
   const defaultValue = defaultValueProps || defaultValueAttribute;
 
-  const inputRef = useCallback(
-    (ref: HTMLInputElement) => {
-      if (!ref || !autoFocus || ref?.tabIndex > 0) {
-        return null;
-      }
+  const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]?.value);
+  const disabledChildrenField = isLoadingFormValidation || hasParentRefValue;
 
-      setTimeout(() => ref.focus(), animationTimeout);
-
+  const inputRef = (ref: HTMLInputElement) => {
+    if (!ref || !autoFocus || ref?.tabIndex > 0) {
       return null;
-    },
-    [animationTimeout, autoFocus],
-  );
+    }
+    setTimeout(() => ref.focus(), animationTimeout);
+    return null;
+  };
 
   const field = () => {
     switch (type) {
@@ -84,6 +95,7 @@ const TreegeField = ({
             defaultValue={defaultValue}
             readOnly={readOnly}
             multiple={isMultiple}
+            shrink={type === "time" ? true : undefined}
           />
         );
       case "dateRange":
@@ -101,17 +113,7 @@ const TreegeField = ({
           />
         );
       case "address":
-        return (
-          <Autocomplete
-            label={label}
-            name={name}
-            inputRef={inputRef}
-            required={isRequired}
-            helperText={helperText}
-            defaultValue={defaultValue}
-            readOnly={readOnly}
-          />
-        );
+        return <Autocomplete inputRef={inputRef} defaultValue={defaultValue} readOnly={readOnly} node={data} onChange={onChange} />;
       case "radio":
         return (
           <Radio
@@ -148,7 +150,26 @@ const TreegeField = ({
           />
         );
       case "autocomplete":
-        return <ApiAutocomplete node={data} onChange={onChange} inputRef={inputRef} defaultValue={defaultValue} readOnly={readOnly} />;
+        return (
+          <ApiAutocomplete
+            node={data}
+            onChange={onChange}
+            inputRef={inputRef}
+            defaultValue={defaultValue}
+            readOnly={readOnly}
+            headers={headers}
+          />
+        );
+      case "dynamicSelect":
+        return (
+          <DynamicSelect
+            onChange={onChange}
+            fieldValues={fieldValues}
+            node={data}
+            headers={headers}
+            disabledChildrenField={disabledChildrenField}
+          />
+        );
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
@@ -167,4 +188,4 @@ const TreegeField = ({
   );
 };
 
-export default memo(TreegeField);
+export default memo(FieldFactory);

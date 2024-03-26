@@ -2,46 +2,71 @@ import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from
 import { useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
 import { throttle } from "lodash-es";
-import { forwardRef, Ref, SyntheticEvent, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, Ref, SyntheticEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
 import OptionsContext from "@/context/Options/OptionsContext";
+import ChangeEventField from "@/types/ChangeEventField";
+import TreeNode from "@/types/TreeNode";
 import { IsString } from "@/types/TypeGuards";
 
 export interface AutocompleteProps {
-  label: string;
-  name: string;
-  helperText?: string;
-  inputRef: Ref<any>;
-  required?: boolean;
+  inputRef: Ref<unknown>;
   country?: string;
   defaultValue?: unknown;
   readOnly?: boolean;
+  onChange?(dataAttribute: ChangeEventField): void;
+  node: TreeNode;
+}
+
+interface Match {
+  offset: number;
+  length: number;
 }
 
 type AutocompleteService = google.maps.places.AutocompleteService;
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
-const Autocomplete = (
-  { defaultValue, label, name, helperText, inputRef, required, country, readOnly }: AutocompleteProps,
-  ref: Ref<unknown> | undefined,
-) => {
+const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+  const { attributes, name, children } = node;
+  const { type, label, required, helperText, isLeaf, isDecision } = attributes;
+
   const { googleApiKey, countryAutocompleteService } = useContext(OptionsContext);
   const places = useScript(
     googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : "",
   );
   const autocompleteService = useRef<AutocompleteService>();
   const [value, setValue] = useState<AutocompletePrediction | null>(null);
-  const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState<readonly AutocompletePrediction[]>([]);
+  const [searchText, setSearchText] = useState<string>("");
 
-  const handleChange = useCallback(
-    (_: SyntheticEvent<Element, Event>, newValue: AutocompletePrediction | string | null) => {
-      if (IsString(newValue)) return;
+  const handleChange = (event: SyntheticEvent<Element, Event>, newValue: AutocompletePrediction | string | null) => {
+    onChange?.({
+      children,
+      event,
+      isDecision,
+      isLeaf,
+      name,
+      type,
+      value: newValue,
+    });
 
-      setOptions(newValue ? [newValue, ...options] : options);
-      setValue(newValue);
-    },
-    [options],
-  );
+    if (IsString(newValue)) return;
+    setOptions(newValue ? [newValue, ...options] : options);
+    setValue(newValue);
+  };
+
+  const handleOnBlurChange = () => {
+    if (!options.length || !value) {
+      onChange?.({
+        children,
+        event: undefined,
+        isDecision,
+        isLeaf,
+        name,
+        type,
+        value: searchText,
+      });
+    }
+  };
 
   const fetch = useMemo(
     () =>
@@ -66,7 +91,7 @@ const Autocomplete = (
       autocompleteService.current = new window.google.maps.places.AutocompleteService();
     }
 
-    if (inputValue === "") {
+    if (searchText === "") {
       setOptions(value ? [value] : []);
       return undefined;
     }
@@ -75,7 +100,7 @@ const Autocomplete = (
       componentRestrictions: {
         country: country ?? countryAutocompleteService,
       },
-      input: inputValue,
+      input: searchText,
     };
 
     fetch(request, (results?: AutocompletePrediction[] | null) => {
@@ -97,7 +122,7 @@ const Autocomplete = (
     return () => {
       active = false;
     };
-  }, [places, value, inputValue, fetch, country, countryAutocompleteService, googleApiKey]);
+  }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey]);
 
   // Initialize default value
   useEffect(() => {
@@ -108,10 +133,10 @@ const Autocomplete = (
 
   return (
     <AutocompleteDS
+      freeSolo
       autoComplete
       includeInputInList
       filterSelectedOptions
-      freeSolo
       defaultValue={defaultValue as AutocompletePrediction}
       ref={ref}
       getOptionLabel={(option) => (IsString(option) ? option : option.description)}
@@ -119,7 +144,8 @@ const Autocomplete = (
       options={options}
       value={value}
       onChange={handleChange}
-      onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
+      onBlur={handleOnBlurChange}
+      onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
       readOnly={readOnly}
       renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
         <TextField
@@ -134,7 +160,6 @@ const Autocomplete = (
           InputProps={InputProps}
           InputLabelProps={{
             ...InputLabelProps,
-            shrink: true,
           }}
         />
       )}
@@ -142,7 +167,7 @@ const Autocomplete = (
         const matches = option.structured_formatting.main_text_matched_substrings;
         const parts = parse(
           option.structured_formatting.main_text,
-          matches.map((match: any) => [match.offset, match.offset + match.length]),
+          matches.map((match: Match) => [match.offset, match.offset + match.length]),
         );
 
         return (

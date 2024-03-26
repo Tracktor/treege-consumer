@@ -1,8 +1,8 @@
-import type { TreeNode } from "@/types/TreeNode";
+import type TreeNode from "@/types/TreeNode";
 import prefixFieldName from "@/utils/prefixFieldName";
 
 interface GetFieldsFormTreePointParams {
-  currentTree: TreeNode | null;
+  currentTree?: TreeNode | null;
   fieldArrayAcc?: TreeNode[];
   restTreeAcc?: TreeNode["childrenTreeRest"];
   treePath?: string;

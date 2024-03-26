@@ -9,14 +9,14 @@ import {
   SelectChangeEvent,
 } from "@tracktor/design-system";
 import { forwardRef, Ref, useCallback, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
-import type { TreeNode } from "@/types/TreeNode";
+import ChangeEventField from "@/types/ChangeEventField";
+import type TreeNode from "@/types/TreeNode";
 
 export interface SelectProps<T = unknown> {
   data: TreeNode;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   required?: boolean;
   defaultValue?: T;
   readOnly?: boolean;
@@ -43,9 +43,7 @@ const Select = ({ data, helperText, inputRef, required, onChange, readOnly, defa
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
-      <InputLabel id={`${name}-label`} shrink>
-        {label}
-      </InputLabel>
+      <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <SelectDS
         fullWidth
         defaultValue={String(defaultValue)}
@@ -56,7 +54,7 @@ const Select = ({ data, helperText, inputRef, required, onChange, readOnly, defa
         onChange={handleChange}
         inputRef={inputRef}
         readOnly={readOnly}
-        input={<OutlinedInput notched label={label} />}
+        input={<OutlinedInput label={label} />}
       >
         {options?.map((option) => (
           <MenuItem key={option.key} value={option.value}>

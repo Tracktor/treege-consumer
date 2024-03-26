@@ -1,4 +1,4 @@
-import type { TreeNode, TreeNodeField } from "@/types/TreeNode";
+import TreeNode, { TreeNodeField } from "@/types/TreeNode";
 
 export interface GetOptionsForDecisionsFieldParams {
   children: TreeNode[];

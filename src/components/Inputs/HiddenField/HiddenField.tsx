@@ -1,4 +1,4 @@
-import type { TreeNode } from "@/types/TreeNode";
+import type TreeNode from "@/types/TreeNode";
 
 export interface HiddenFieldProps {
   data: TreeNode;

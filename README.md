@@ -6,11 +6,11 @@
 
 - [Installation](#Installation)
 - [Usage](#Usage)
-    - [Provide tree data](#Provide-tree-data)
-    - [Provide options](#Provide-options)
+  - [Provide tree data](#Provide-tree-data)
+  - [Provide options](#Provide-options)
 - [Components](#Components)
-    - [TreegeConsumer](#TreegeConsumer)
-    - [TreegeValuesConsumer](#TreegeValuesConsumer)
+  - [TreegeConsumer](#TreegeConsumer)
+  - [TreegeValuesConsumer](#TreegeValuesConsumer)
 
 ## Installation
 

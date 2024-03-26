@@ -1,63 +1,59 @@
 import { useQuery } from "@tanstack/react-query";
 import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, TextField } from "@tracktor/design-system";
-import { useDebounce } from "@tracktor/react-utils";
-import { forwardRef, Ref, SyntheticEvent, useCallback, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
-import { TreeNode } from "@/types/TreeNode";
+import { forwardRef, Ref, SyntheticEvent, useState } from "react";
+import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
+import ChangeEventField from "@/types/ChangeEventField";
+import Headers from "@/types/Headers";
+import TreeNode from "@/types/TreeNode";
+import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
+import getSearch from "@/utils/getSearch/getSearch";
 
 interface ApiAutocompleteProps {
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   node: TreeNode;
   onChange?(dataAttribute: ChangeEventField): void;
   defaultValue?: unknown;
   readOnly?: boolean;
+  headers?: Headers;
 }
 
-const getSearch = (url: string, searchKey: string, value: string) => fetch(`${url}?${searchKey}=${value}`).then((r) => r.json());
+const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
+  const [searchText, setSearchText] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string | Option | null>("");
 
-const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
-  const { attributes, name } = node;
-  const { type, label, required, route, helperText } = attributes;
+  const { attributes, name, children } = node;
+  const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
+  const { reformatReturnAutocomplete } = useApiAutoComplete();
 
-  const handleChange = useCallback(
-    (event: SyntheticEvent, value: unknown) => {
-      if (value !== null && typeof value === "object" && Object.keys(value).includes("label") && Object.keys(value).includes("value")) {
-        onChange?.({ event, name, type, value });
-      }
-    },
-    [name, onChange, type],
-  );
+  const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
 
-  const [inputValue, setInputValue] = useState("");
-  const debounceSearch = useDebounce(inputValue, 300);
-
-  const { data, isError, isLoading } = useQuery<unknown, unknown, unknown[]>({
-    enabled: !!debounceSearch,
-    queryFn: () => getSearch(route?.url || "", route?.searchKey || "", debounceSearch),
-    queryKey: ["search", debounceSearch],
+  const { data, isFetching, isError } = useQuery({
+    enabled: !!searchText || !!initialQuery,
+    queryFn: ({ signal }) => search(signal),
+    queryKey: [name, searchText],
   });
 
-  const handleInputChange = useCallback((_: SyntheticEvent, value: string) => {
-    setInputValue(value);
-  }, []);
+  const options = adaptRouteResponseToOptions(data, route);
 
-  if (data) {
-    if (Array.isArray(data)) {
-      // Check if data is an array of objects with label and value
-      const isValid = data.every(
-        (item) => typeof item === "object" && item !== null && Object.keys(item).includes("label") && Object.keys(item).includes("value"),
-      );
-      if (!isValid) {
-        console.warn(
-          "Warning: The expected response for the consumer is not valid! It must be in the format: {label: string; value:string; img?:string}[]",
-        );
-      }
-    } else {
-      console.warn(
-        "Warning: The expected response for the consumer is not valid! It must be in the format: {label: string; value:string; img?:string}[]",
-      );
-    }
-  }
+  const handleChange = (event: SyntheticEvent, value: string | Option | null) => {
+    setSelectedValue(value);
+
+    const newData = reformatReturnAutocomplete(value);
+
+    onChange?.({
+      children,
+      event,
+      isDecision,
+      isLeaf,
+      name,
+      type,
+      value: newData,
+    });
+  };
+
+  const handleSearchChange = (_: SyntheticEvent, value: string) => {
+    setSearchText(value);
+  };
 
   const checkIfObjectAsKey = (obj: unknown, key: string) => {
     if (typeof obj !== "object" || obj === null) {
@@ -73,15 +69,14 @@ const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: A
 
   return (
     <Autocomplete
+      freeSolo
       filterOptions={(o) => o}
       ref={ref}
-      options={Array.isArray(data) ? data : []}
-      onInputChange={handleInputChange}
-      defaultValue={defaultValue}
+      value={selectedValue}
+      onChange={handleChange}
+      options={options || []}
+      onInputChange={handleSearchChange}
       noOptionsText="Aucune suggestion"
-      onChange={(event, value) => handleChange(event, value)}
-      isOptionEqualToValue={(option, value) => checkIfObjectAsKey(option, "value") === checkIfObjectAsKey(value, "value")}
-      getOptionLabel={(option) => checkIfObjectAsKey(option, "label") || ""}
       renderOption={(props, option) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <ListItem {...props}>
@@ -93,8 +88,9 @@ const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: A
           <ListItemText primary={checkIfObjectAsKey(option, "label")} />
         </ListItem>
       )}
-      loading={isLoading}
+      loading={isFetching}
       renderInput={(params) => (
+        // const { InputProps, size, InputLabelProps, disabled, id, inputProps, fullWidth } = params;
         <TextField
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...params}
@@ -105,7 +101,7 @@ const ApiAutocomplete = ({ node, onChange, defaultValue, readOnly, inputRef }: A
           inputRef={inputRef}
           InputProps={{
             ...params.InputProps,
-            endAdornment: isLoading && <CircularProgress color="inherit" size={20} />,
+            endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
             error: isError,
             readOnly,
           }}

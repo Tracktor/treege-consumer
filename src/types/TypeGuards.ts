@@ -1,4 +1,4 @@
-export const IsString = (x: any): x is string => typeof x === "string";
+export const IsString = (x: unknown): x is string => typeof x === "string";
 
 const TypeGuards = {
   IsString,

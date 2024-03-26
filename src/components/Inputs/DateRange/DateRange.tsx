@@ -1,12 +1,12 @@
-import { TextField as TextFieldDS, Stack, Box } from "@tracktor/design-system";
+import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
+import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
   label: string;
   name: string;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   defaultValue?: unknown;
@@ -32,7 +32,12 @@ const DateRange = (
         setToDate(value);
       }
 
-      onChange?.({ event, name, type, value });
+      onChange?.({
+        event,
+        name,
+        type,
+        value,
+      });
     },
     [name, onChange, type],
   );
@@ -78,9 +83,6 @@ const DateRange = (
         inputRef={inputRef}
         InputProps={{
           readOnly,
-        }}
-        InputLabelProps={{
-          shrink: true,
         }}
         error={error}
       />

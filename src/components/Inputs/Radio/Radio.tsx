@@ -1,13 +1,13 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
 import useInputs from "@/hooks/useInputs";
-import type { TreeNode } from "@/types/TreeNode";
+import ChangeEventField from "@/types/ChangeEventField";
+import type TreeNode from "@/types/TreeNode";
 
 export interface RadioProps {
   data: TreeNode;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<unknown>;
   required?: boolean;
   defaultValue?: unknown;
   readOnly?: boolean;

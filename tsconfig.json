@@ -25,11 +25,16 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "example/*": [
+        "example/*"
       ]
     }
   },
   "include": [
-    "src"
+    "src",
+    "example"
+
   ],
   "references": [
     {

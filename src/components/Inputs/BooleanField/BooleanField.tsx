@@ -1,12 +1,12 @@
 import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useCallback, useState } from "react";
-import type { ChangeEventField } from "@/features/TreegeConsumer/type";
-import type { TreeNode } from "@/types/TreeNode";
+import ChangeEventField from "@/types/ChangeEventField";
+import type TreeNode from "@/types/TreeNode";
 
 export interface BooleanFieldProps {
   data: TreeNode;
   helperText?: string;
-  inputRef: Ref<any>;
+  inputRef: Ref<HTMLInputElement>;
   defaultValue?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;

@@ -36,11 +36,11 @@ All notable changes to this project will be documented in this file. See [commit
 ### Features
 
 * **api-autocomplete:** adding api autocomplete[#17](https://github.com/Tracktor/treege-consumer/issues/17) f ([3dd9652](https://github.com/Tracktor/treege-consumer/commit/3dd96520ae063e3f9b168de4ce2b076d01066b66))
-* **api-autocomplete:** data default ([4632ae1](https://github.com/Tracktor/treege-consumer/commit/4632ae1d7820e4ec65fd701450c41a96486b5e2d))
-* **api-autocomplete:** data default ([76e49bc](https://github.com/Tracktor/treege-consumer/commit/76e49bc1273a1aebe1001077fe3eb317c9d5c1b8))
-* **api-autocomplete:** data default ([29046d5](https://github.com/Tracktor/treege-consumer/commit/29046d5b9446c724b3e2437e7c38b60fe9a6de0e))
-* **api-autocomplete:** data default ([da228c0](https://github.com/Tracktor/treege-consumer/commit/da228c0a447250187b5db85e66433c665e81595f))
-* **api-autocomplete:** data default ([bea27a2](https://github.com/Tracktor/treege-consumer/commit/bea27a24af999cadeae3aeb3cbd7c18a358362a2))
+* **api-autocomplete:** basicExample default ([4632ae1](https://github.com/Tracktor/treege-consumer/commit/4632ae1d7820e4ec65fd701450c41a96486b5e2d))
+* **api-autocomplete:** basicExample default ([76e49bc](https://github.com/Tracktor/treege-consumer/commit/76e49bc1273a1aebe1001077fe3eb317c9d5c1b8))
+* **api-autocomplete:** basicExample default ([29046d5](https://github.com/Tracktor/treege-consumer/commit/29046d5b9446c724b3e2437e7c38b60fe9a6de0e))
+* **api-autocomplete:** basicExample default ([da228c0](https://github.com/Tracktor/treege-consumer/commit/da228c0a447250187b5db85e66433c665e81595f))
+* **api-autocomplete:** basicExample default ([bea27a2](https://github.com/Tracktor/treege-consumer/commit/bea27a24af999cadeae3aeb3cbd7c18a358362a2))
 * **api-autocomplete:** remove token ([79989d5](https://github.com/Tracktor/treege-consumer/commit/79989d5baaa40fb46965c5b6591a6f2552ce51c6))
 
 
@@ -54,14 +54,14 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### Bug Fixes
 
-* disable gutter from TreegeValuesConsumer ([757b845](https://github.com/Tracktor/treege-consumer/commit/757b84522da86b4e851330109bc7e23689f67926))
+* disable gutter from Renderer ([757b845](https://github.com/Tracktor/treege-consumer/commit/757b84522da86b4e851330109bc7e23689f67926))
 
 ## [1.19.0](https://github.com/Tracktor/treege-consumer/compare/1.18.0...1.19.0) (2023-12-14)
 
 
 ### Features
 
-* add TreegeValuesConsumer component ([9079382](https://github.com/Tracktor/treege-consumer/commit/9079382757bac6569d9d277052409cc64193bab9))
+* add Renderer component ([9079382](https://github.com/Tracktor/treege-consumer/commit/9079382757bac6569d9d277052409cc64193bab9))
 
 ## [1.18.0](https://github.com/Tracktor/treege-consumer/compare/1.17.4...1.18.0) (2023-12-14)
 

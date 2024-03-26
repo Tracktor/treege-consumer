@@ -1,4 +1,4 @@
-import type { TreeNode } from "@/types/TreeNode";
+import type TreeNode from "@/types/TreeNode";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 
 const getFieldsFromTreeRest = (childrenTreeRest?: TreeNode["childrenTreeRest"]): TreeNode[] | [] => {
