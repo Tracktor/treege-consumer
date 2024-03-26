@@ -147,8 +147,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     setFields(initialFields);
   }, [initialFields]);
 
-  // Define last field to submit form
-  // Define first field index in stepper mode
+  // Define last field to submit form & define first field index in stepper mode
   useEffect(() => {
     // Define if the last field is a leaf
     setIsLastField(!lastFieldHasChildren && isStandard);
