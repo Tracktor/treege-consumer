@@ -1,8 +1,8 @@
 import { Box, Stack } from "@tracktor/design-system";
 import { type CSSProperties, FormEvent } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
-import FieldFactory from "@/components/FieldFactory";
-import FormValidation from "@/components/FormValidation";
+import FormValidation from "@/components/Form/FormValidation";
+import FieldFactory from "@/components/Inputs/FieldFactory";
 import ChangeEventField from "@/types/ChangeEventField";
 import FieldValues from "@/types/FieldValues";
 import Headers from "@/types/Headers";

@@ -1,7 +1,6 @@
 import { Select, InputLabel, OutlinedInput, FormControl, SelectChangeEvent, MenuItem } from "@tracktor/design-system";
-// import ControlledToolTip from "@/components/ControlledToolTip/ControlledToolTip";
 import { useState } from "react";
-import ControlledTooltip from "@/components/ControlledToolTip";
+import ControlledTooltip from "@/components/DataDisplay/ControlledToolTip";
 import useDynamicSelect from "@/components/Inputs/DynamicSelect/useDynamicSelect";
 import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
@@ -29,7 +28,7 @@ interface DynamicSelectProps {
  */
 const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChildrenField, headers }: DynamicSelectProps) => {
   const [singleOption, setSingleOption] = useState<string>("");
-  const [multipleOptions, setMultipleOptions] = useState<string[]>([""]);
+  const [multipleOptions, setMultipleOptions] = useState<string[]>([]);
 
   const { name, attributes, children } = node;
   const { label, type, isLeaf, parentRef, isDecision, route, required, isMultiple, initialQuery } = attributes;
@@ -73,9 +72,7 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChil
   return (
     <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
       <FormControl required={required} fullWidth>
-        <InputLabel id={`label-${name}`} shrink>
-          {label}
-        </InputLabel>
+        <InputLabel id={`label-${name}`}>{label}</InputLabel>
         <Select
           labelId={`label-${name}`}
           label={label}

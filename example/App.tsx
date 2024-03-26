@@ -1,19 +1,13 @@
-// import basicExample from "example/data/basicExample";
-import privateExample from "example/data/privateExample";
+import basicExample from "example/data/basicExample";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
-import getApiAccessToken from "example/utils/getApiAccessToken/getApiAccessToken";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
-const bearerTokenAccess = {
-  Authorization: `Bearer ${await getApiAccessToken("arsene.lupin@tracktor.fr", "TestPassword!2023")}`,
-};
-
 const App = () => {
-  const [tree, setTree] = useState<TreeNode>(privateExample);
+  const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
   const [formData, setFormData] = useState<JsonFormValue[] | [string, unknown][]>();
@@ -47,12 +41,11 @@ const App = () => {
   };
 
   return component === "DataViewer" ? (
-    <DataViewer handleChangeComponent={handleChangeComponent} formData={formData} tree={tree} />
+    <DataViewer handleChangeComponent={handleChangeComponent} />
   ) : (
     <Sandbox
       variant={variant}
       tree={tree}
-      customHeaders={bearerTokenAccess}
       dialogOpen={dialogOpen}
       formData={formData}
       renderData={renderData}

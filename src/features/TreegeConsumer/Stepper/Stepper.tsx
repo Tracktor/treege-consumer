@@ -1,10 +1,10 @@
 import { Box, Button, ButtonGroup, Grow, Slide, Stack, Typography } from "@tracktor/design-system";
 import { type CSSProperties, FormEvent, MouseEvent as ReactMouseEvent } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
-import FieldFactory from "@/components/FieldFactory";
-import FormValidation from "@/components/FormValidation";
+import FormValidation from "@/components/Form/FormValidation";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
+import FieldFactory from "@/components/Inputs/FieldFactory";
 import ChangeEventField from "@/types/ChangeEventField";
 import FieldValues from "@/types/FieldValues";
 import Headers from "@/types/Headers";

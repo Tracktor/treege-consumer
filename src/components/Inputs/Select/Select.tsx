@@ -43,9 +43,7 @@ const Select = ({ data, helperText, inputRef, required, onChange, readOnly, defa
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
-      <InputLabel id={`${name}-label`} shrink>
-        {label}
-      </InputLabel>
+      <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <SelectDS
         fullWidth
         defaultValue={String(defaultValue)}

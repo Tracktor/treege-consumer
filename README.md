@@ -6,7 +6,7 @@
 
 - [Installation](#Installation)
 - [Usage](#Usage)
-    - [Provide tree basicExample](#Provide-tree-data)
+    - [Provide tree data](#Provide-tree-data)
     - [Provide options](#Provide-options)
 - [Components](#Components)
     - [TreegeConsumer](#TreegeConsumer)

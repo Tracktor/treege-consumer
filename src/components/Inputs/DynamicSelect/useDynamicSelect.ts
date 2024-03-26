@@ -4,7 +4,7 @@ import Headers from "@/types/Headers";
 import { Route } from "@/types/TreeNode";
 import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
-import getValueFromTree from "@/utils/getValueFromTree/getValueFromTree";
+import getFormValueFromName from "@/utils/getFormValueFromName/getFormValueFromName";
 
 interface useDynamicSelectProps {
   route?: Route;
@@ -16,7 +16,7 @@ interface useDynamicSelectProps {
 }
 
 const useDynamicSelect = ({ headers, fieldValues, route, parentRef, initialQuery, name }: useDynamicSelectProps) => {
-  const getValueFromParent = getValueFromTree(fieldValues, String(parentRef));
+  const getValueFromParent = getFormValueFromName(fieldValues, String(parentRef));
   const dynamicValue =
     getValueFromParent && typeof getValueFromParent === "object" && "options" in getValueFromParent
       ? (getValueFromParent.options as string[])
@@ -32,8 +32,8 @@ const useDynamicSelect = ({ headers, fieldValues, route, parentRef, initialQuery
 
   const { data, isError, isLoading } = useQuery({
     enabled: enableQuery,
-    queryFn: () =>
-      fetch(updatedUrl, requestOptions)
+    queryFn: ({ signal }) =>
+      fetch(updatedUrl, { ...requestOptions, signal })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Error fetching data");

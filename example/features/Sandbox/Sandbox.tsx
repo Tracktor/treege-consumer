@@ -23,7 +23,7 @@ interface SandboxProps {
   variant: "standard" | "stepper" | undefined;
   renderData: "json" | "formData" | undefined;
   dialogOpen: boolean;
-  customHeaders: Headers;
+  customHeaders?: Headers;
   handleCloseDialog: () => void;
   formData: JsonFormValue[] | [string, unknown][] | undefined;
   handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;

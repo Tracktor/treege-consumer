@@ -5,7 +5,7 @@ import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
  * @param formValues
  * @param key
  */
-const getValueFromTree = (
+const getFormValueFromName = (
   formValues: JsonFormValue | JsonFormValue[] | unknown | undefined,
   key: string,
 ): string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | File[] | undefined => {
@@ -18,4 +18,4 @@ const getValueFromTree = (
   return treeItem && typeof treeItem === "object" ? treeItem.value : undefined;
 };
 
-export default getValueFromTree;
+export default getFormValueFromName;
