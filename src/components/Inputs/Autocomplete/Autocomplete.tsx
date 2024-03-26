@@ -54,6 +54,20 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
     setValue(newValue);
   };
 
+  const handleOnBlurChange = () => {
+    if (!options.length || !value) {
+      onChange?.({
+        children,
+        event: undefined,
+        isDecision,
+        isLeaf,
+        name,
+        type,
+        value: searchText,
+      });
+    }
+  };
+
   const fetch = useMemo(
     () =>
       throttle((request: { input: string }, callback: (results: AutocompletePrediction[] | null) => void) => {
@@ -130,19 +144,7 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
       options={options}
       value={value}
       onChange={handleChange}
-      onBlur={() => {
-        if (!options.length || !value) {
-          onChange?.({
-            children,
-            event: undefined,
-            isDecision,
-            isLeaf,
-            name,
-            type,
-            value: searchText,
-          });
-        }
-      }}
+      onBlur={handleOnBlurChange}
       onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
       readOnly={readOnly}
       renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
