@@ -66,6 +66,9 @@ const DateRange = (
         InputProps={{
           readOnly,
         }}
+        InputLabelProps={{
+          shrink: true,
+        }}
         error={error}
       />
       <Box>→</Box>

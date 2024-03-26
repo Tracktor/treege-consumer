@@ -95,6 +95,7 @@ const FieldFactory = ({
             defaultValue={defaultValue}
             readOnly={readOnly}
             multiple={isMultiple}
+            shrink={type === "time"}
           />
         );
       case "dateRange":
