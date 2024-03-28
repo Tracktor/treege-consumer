@@ -25,9 +25,9 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
   const requiredFields = fields?.filter((field) => field.attributes.required);
-  const formCompleted = requiredFields?.every((field) => fieldValues[field.name]?.value);
+  const formCanBeSubmit = requiredFields?.every((field) => fieldValues[field.name]?.value);
   const nextStepper = getNextStepper(initialFields);
-  const lastFieldHasChildren = !!initialFields[initialFields.length - 1].children.length;
+  const lastFieldHasNoChildren = !initialFields[initialFields.length - 1]?.children.length && !!tree;
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -121,7 +121,9 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
       });
     }
 
-    if (!isLastField) return;
+    if (!isLastField) {
+      return;
+    }
 
     const newTransformedFieldValues = Object.entries(fieldValues).map(([key, value]) => [key, value.value]);
     const data =
@@ -150,21 +152,21 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   // Define last field to submit form & define first field index in stepper mode
   useEffect(() => {
     // Define if the last field is a leaf
-    setIsLastField(!lastFieldHasChildren && isStandard);
+    setIsLastField(lastFieldHasNoChildren && isStandard);
 
     // Redefine the first field index if some item field are present in the beginning (presence hidden field)
     if (nextStepper || isStepper) {
       setActiveFieldIndex(nextStepper);
       setFirstFieldIndex(nextStepper);
     }
-  }, [isStepper, isStandard, nextStepper, lastFieldHasChildren]);
+  }, [isStepper, isStandard, nextStepper, lastFieldHasNoChildren]);
 
   return {
     activeFieldIndex,
     fields,
     fieldValues,
     firstFieldIndex,
-    formCanBeSubmit: formCompleted,
+    formCanBeSubmit,
     handleChange,
     handlePrev,
     handleSubmit,
