@@ -58,7 +58,7 @@
     "react-dom": "^18.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.2",
-    "vite-plugin-dts": "^3.6.0",
+    "vite-plugin-dts": "^3.8.1",
     "vitest": "^1.4.0"
   },
   "commitlint": {

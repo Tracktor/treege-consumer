@@ -26,7 +26,7 @@ export default defineConfig({
   },
   plugins: [
     dts({
-      exclude: ["**/*.test.ts", "**/*.test.tsx", "vite.config.ts", "src/test.config.ts", "**/test/**/*"],
+      exclude: ["**/*.test.ts", "**/*.test.tsx", "vite.config.ts", "src/test.config.ts", "**/test/**/*", "example"],
     }),
     react(),
   ],
