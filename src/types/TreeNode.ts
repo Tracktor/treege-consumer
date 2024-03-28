@@ -25,7 +25,7 @@ export interface Route {
   params?: Params[];
 }
 
-interface TreeNode {
+export interface TreeNode {
   name: string;
   attributes:
     | {
