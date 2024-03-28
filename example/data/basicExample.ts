@@ -1,30 +1,28 @@
 const basicExample = {
   attributes: {
     depth: 0,
-    helperText: "Utiliser l'auto completion",
     isLeaf: false,
     isRoot: true,
-    label: "Ville ou adresse du site",
-    required: false,
-    type: "address",
+    label: "text",
+    type: "text",
   },
   children: [
     {
       attributes: {
         depth: 1,
         isLeaf: false,
-        label: "À quelle phase de votre projet êtes-vous ?",
+        label: "select",
         type: "select",
         values: [
           {
             id: "0",
-            label: "J'ai un besoin pour un projet en cours ou à venir",
-            value: "in_progress",
+            label: "1",
+            value: "1",
           },
           {
             id: "1",
-            label: "Je veux juste obtenir un prix",
-            value: "price_only",
+            label: "2",
+            value: "2",
           },
         ],
       },
@@ -33,153 +31,128 @@ const basicExample = {
           attributes: {
             depth: 2,
             isLeaf: false,
-            label: "Ma date de début est flexible (+/- 1 jour)",
-            type: "checkbox",
+            label: "date",
+            type: "date",
           },
           children: [
             {
               attributes: {
                 depth: 3,
                 isLeaf: false,
-                label: "Quantité",
-                type: "number",
+                label: "radio",
+                type: "radio",
+                values: [
+                  {
+                    id: "0",
+                    label: "qw",
+                    value: "qw",
+                  },
+                  {
+                    id: "1",
+                    label: "as",
+                    value: "as",
+                  },
+                ],
               },
               children: [
                 {
                   attributes: {
                     depth: 4,
                     isLeaf: false,
-                    label: "Avec Livraison & Reprise",
+                    label: "switch",
                     type: "switch",
                   },
                   children: [
                     {
                       attributes: {
                         depth: 5,
-                        isDecision: true,
                         isLeaf: false,
-                        label: "Location avec opérateur",
-                        type: "radio",
+                        label: "timerange",
+                        type: "timeRange",
                       },
                       children: [
                         {
                           attributes: {
                             depth: 6,
                             isLeaf: false,
-                            label: "Oui",
-                            value: "yes",
+                            label: "daterange",
+                            type: "dateRange",
                           },
                           children: [
                             {
                               attributes: {
                                 depth: 7,
                                 isLeaf: false,
-                                label: " 3 godets",
-                                type: "switch",
+                                label: "adresse",
+                                type: "address",
                               },
                               children: [
                                 {
                                   attributes: {
                                     depth: 8,
                                     isLeaf: false,
-                                    label: "BRH",
-                                    type: "switch",
+                                    label: "time",
+                                    type: "time",
                                   },
                                   children: [
                                     {
                                       attributes: {
                                         depth: 9,
+                                        hiddenValue: "hidden",
                                         isLeaf: false,
-                                        label: "Benne Preneuse",
-                                        type: "switch",
+                                        label: "hiddenField",
+                                        type: "hidden",
                                       },
                                       children: [
                                         {
                                           attributes: {
                                             depth: 10,
-                                            isLeaf: false,
-                                            label: "Godet curage orientable",
-                                            type: "switch",
-                                          },
-                                          children: [
-                                            {
-                                              attributes: {
-                                                depth: 11,
-                                                isLeaf: false,
-                                                isRoot: false,
-                                                label: "Godet orientable",
-                                                messages: {
-                                                  on: "Le prix du transport peut varier",
-                                                },
-                                                type: "switch",
+                                            initialQuery: true,
+                                            isLeaf: true,
+                                            label: "autocomplete",
+                                            route: {
+                                              pathKey: {
+                                                image: "img",
+                                                label: "name",
+                                                value: "id",
                                               },
-                                              children: [
-                                                {
-                                                  attributes: {
-                                                    depth: 12,
-                                                    isLeaf: false,
-                                                    label: "Pince de Tri",
-                                                    type: "switch",
-                                                  },
-                                                  children: [
-                                                    {
-                                                      attributes: {
-                                                        depth: 13,
-                                                        isLeaf: true,
-                                                        label: "Tarière hydraulique",
-                                                        type: "switch",
-                                                      },
-                                                      children: [],
-                                                      name: "tariere_hydraulique",
-                                                    },
-                                                  ],
-                                                  name: "pince_de_tri",
-                                                },
-                                              ],
-                                              name: "godet_orientable",
+                                              searchKey: "text",
+                                              url: " https://client.api.dev.tracktor.fr/v2/search/articles",
                                             },
-                                          ],
-                                          name: "godet_curage",
+                                            type: "autocomplete",
+                                          },
+                                          children: [],
+                                          name: "autocomplete",
                                         },
                                       ],
-                                      name: "benne_preneuse",
+                                      name: "hiddenField",
                                     },
                                   ],
-                                  name: "brh",
+                                  name: "time",
                                 },
                               ],
-                              name: " 3 godets",
+                              name: "adresse",
                             },
                           ],
-                          name: "location:yes",
-                        },
-                        {
-                          attributes: {
-                            depth: 6,
-                            isLeaf: true,
-                            label: "Non",
-                            value: "no",
-                          },
-                          children: [],
-                          name: "location:no",
+                          name: "daterange",
                         },
                       ],
-                      name: "location",
+                      name: "timerange",
                     },
                   ],
-                  name: "with_delivery",
+                  name: "switch",
                 },
               ],
-              name: "quantity",
+              name: "radio",
             },
           ],
-          name: "flexible",
+          name: "date",
         },
       ],
-      name: "phase",
+      name: "select",
     },
   ],
-  name: "address",
+  name: "text",
 };
 
 export default basicExample;

@@ -73,6 +73,8 @@ const FieldFactory = ({
     return null;
   };
 
+  const value = fieldValues?.[name]?.value || "";
+
   const field = () => {
     switch (type) {
       case "date":
@@ -90,10 +92,10 @@ const FieldFactory = ({
             label={label}
             type={type}
             onChange={onChange}
+            value={value}
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
-            defaultValue={defaultValue}
             readOnly={readOnly}
             multiple={isMultiple}
             shrink={type === "time" ? true : undefined}
@@ -108,7 +110,7 @@ const FieldFactory = ({
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
-            defaultValue={defaultValue}
+            value={value}
             readOnly={readOnly}
           />
         );
@@ -121,12 +123,12 @@ const FieldFactory = ({
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
-            defaultValue={defaultValue}
+            value={value}
             readOnly={readOnly}
           />
         );
       case "address":
-        return <Autocomplete inputRef={inputRef} defaultValue={defaultValue} readOnly={readOnly} node={data} onChange={onChange} />;
+        return <Autocomplete inputRef={inputRef} value={value} readOnly={readOnly} node={data} onChange={onChange} />;
       case "radio":
         return (
           <Radio
@@ -135,44 +137,19 @@ const FieldFactory = ({
             required={isRequired}
             onChange={onChange}
             helperText={helperText}
-            defaultValue={defaultValue}
+            value={value}
             readOnly={readOnly}
           />
         );
       case "select":
-        return (
-          <Select
-            data={data}
-            inputRef={inputRef}
-            onChange={onChange}
-            helperText={helperText}
-            defaultValue={defaultValue}
-            readOnly={readOnly}
-          />
-        );
+        return <Select data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} readOnly={readOnly} value={value} />;
       case "switch":
       case "checkbox":
         return (
-          <BooleanField
-            data={data}
-            inputRef={inputRef}
-            onChange={onChange}
-            helperText={helperText}
-            defaultValue={defaultValue}
-            readOnly={readOnly}
-          />
+          <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} value={value} readOnly={readOnly} />
         );
       case "autocomplete":
-        return (
-          <ApiAutocomplete
-            node={data}
-            onChange={onChange}
-            inputRef={inputRef}
-            defaultValue={defaultValue}
-            readOnly={readOnly}
-            headers={headers}
-          />
-        );
+        return <ApiAutocomplete node={data} onChange={onChange} inputRef={inputRef} value={value} readOnly={readOnly} headers={headers} />;
       case "dynamicSelect":
         return (
           <DynamicSelect
@@ -189,7 +166,7 @@ const FieldFactory = ({
   };
 
   if (isHidden) {
-    return <HiddenField data={data} />;
+    return <HiddenField data={data} onChange={onChange} />;
   }
 
   return (

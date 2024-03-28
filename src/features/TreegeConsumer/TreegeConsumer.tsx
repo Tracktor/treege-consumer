@@ -90,6 +90,7 @@ type JsonTreegeConsumerProps = BaseTreegeConsumerProps & {
    * @param data
    */
   onSubmit?(data: JsonFormValue[]): void;
+  jsonInitialValues?: JsonFormValue[];
 };
 
 export type TreegeConsumerProps = FormDataTreegeConsumerProps | JsonTreegeConsumerProps;
@@ -105,12 +106,14 @@ const TreegeConsumer = ({
   readOnly,
   headers,
   isLoadingFormValidation,
+  jsonInitialValues,
   variant = "standard",
   dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
   const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField, fieldValues, formCanBeSubmit } =
     useTreegeConsumer({
       dataFormatOnSubmit,
+      jsonInitialValues,
       onSubmit,
       tree,
       variant,
@@ -157,6 +160,7 @@ const TreegeConsumer = ({
                 isLoadingFormValidation={isLoadingFormValidation}
                 style={style}
                 formCanBeSubmit={formCanBeSubmit}
+                jsonInitialValues={jsonInitialValues}
               />
             )}
           </OptionsProvider>

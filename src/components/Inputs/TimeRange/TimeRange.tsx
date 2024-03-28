@@ -9,33 +9,34 @@ export interface TimeRangeProps {
   inputRef: Ref<unknown>;
   onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
-  defaultValue?: unknown;
   readOnly?: boolean;
+  value?: unknown;
 }
 
 const TimeRange = (
-  { label, name, helperText, inputRef, onChange, required, defaultValue, readOnly }: TimeRangeProps,
+  { label, name, helperText, inputRef, onChange, required, readOnly, value }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const [fromTime, setFromTime] = useState<string>("");
-  const [toTime, setToTime] = useState<string>("");
+  const [fromTime, setFromTime] = useState<string>(value?.[0] || "");
+  const [toTime, setToTime] = useState<string>(value?.[1] || "");
 
+  // TODO can be refacto remove state
   const handleChange = useCallback(
     (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value } = event.target;
+      const { target } = event;
 
       if (field === "start") {
-        setFromTime(value);
+        setFromTime(target.value);
       }
 
       if (field === "end") {
-        setToTime(value);
+        setToTime(target.value);
       }
 
       onChange?.({
         event,
         name,
-        value: field === "start" ? [value, toTime] : [fromTime, value],
+        value: field === "start" ? [target.value, toTime] : [fromTime, target.value],
       });
     },
     [fromTime, name, onChange, toTime],
@@ -49,6 +50,7 @@ const TimeRange = (
         name={name}
         label={label}
         type="time"
+        value={fromTime}
         helperText={helperText}
         onChange={handleChange("start")}
         required={required}
@@ -65,11 +67,11 @@ const TimeRange = (
         fullWidth
         ref={ref}
         name={name}
+        value={toTime}
         type="time"
         helperText={helperText}
         onChange={handleChange("end")}
         required={required}
-        defaultValue={defaultValue}
         inputRef={inputRef}
         InputProps={{
           readOnly,

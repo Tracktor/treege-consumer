@@ -7,20 +7,16 @@ export interface BooleanFieldProps {
   data: TreeNode;
   helperText?: string;
   inputRef: Ref<HTMLInputElement>;
-  defaultValue?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
+  value?: unknown;
 }
 
-const BooleanField = (
-  { defaultValue, data, inputRef, helperText, readOnly, onChange }: BooleanFieldProps,
-  ref: Ref<unknown | undefined>,
-) => {
+const BooleanField = ({ data, inputRef, helperText, readOnly, onChange, value }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
   const { name, attributes, children } = data;
   const { label, type, isLeaf, messages } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
   const Field = type === "checkbox" ? Checkbox : Switch;
-  const defaultChecked = defaultValue === "true" || defaultValue === true || defaultValue === "on" || defaultValue === "yes";
 
   const handleCheck = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,14 +36,7 @@ const BooleanField = (
           label={label}
           aria-readonly={readOnly}
           control={
-            <Field
-              name={name}
-              onChange={handleCheck}
-              inputRef={inputRef}
-              defaultChecked={defaultChecked}
-              readOnly={readOnly}
-              disabled={readOnly}
-            />
+            <Field name={name} onChange={handleCheck} inputRef={inputRef} checked={!!value} readOnly={readOnly} disabled={readOnly} />
           }
           sx={{
             ...(readOnly && {

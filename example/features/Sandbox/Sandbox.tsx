@@ -12,6 +12,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@tracktor/design-system";
+import basicJsonValues from "example/data/basicJsonValues";
 import { ChangeEvent, MouseEvent } from "react";
 import TreegeConsumer from "@/features/TreegeConsumer";
 import Headers from "@/types/Headers";
@@ -98,6 +99,7 @@ const Sandbox = ({
               options={{ googleApiKey: "YOUR_SECRET_KEY" }}
               headers={customHeaders}
               dataFormatOnSubmit={renderData}
+              jsonInitialValues={basicJsonValues}
             />
           </Box>
           <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">

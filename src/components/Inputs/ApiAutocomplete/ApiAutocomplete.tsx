@@ -12,14 +12,16 @@ interface ApiAutocompleteProps {
   inputRef: Ref<unknown>;
   node: TreeNode;
   onChange?(dataAttribute: ChangeEventField): void;
-  defaultValue?: unknown;
+  value?: unknown;
   readOnly?: boolean;
   headers?: Headers;
 }
 
-const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
+const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
   const [searchText, setSearchText] = useState<string>("");
   const [selectedValue, setSelectedValue] = useState<string | Option | null>("");
+
+  console.log(selectedValue);
 
   const { attributes, name, children } = node;
   const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;

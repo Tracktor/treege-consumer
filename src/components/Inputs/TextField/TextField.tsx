@@ -9,21 +9,21 @@ export interface TextFieldProps {
   inputRef: Ref<unknown>;
   onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
-  defaultValue?: unknown;
   type: string;
   readOnly?: boolean;
   multiple?: boolean;
   shrink?: boolean;
+  value?: unknown;
 }
 
 const TextField = (
-  { label, name, helperText, inputRef, onChange, required, type, defaultValue, readOnly, multiple, shrink }: TextFieldProps,
+  { label, name, helperText, inputRef, onChange, required, type, readOnly, multiple, shrink, value }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value } = event.target;
-      onChange?.({ event, name, type, value });
+      const { target } = event;
+      onChange?.({ event, name, type, value: target.value });
     },
     [name, onChange, type],
   );
@@ -38,7 +38,7 @@ const TextField = (
       helperText={helperText}
       onChange={handleChange}
       required={required}
-      defaultValue={defaultValue}
+      value={value}
       inputRef={inputRef}
       inputProps={{
         multiple,

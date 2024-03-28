@@ -11,7 +11,7 @@ import { IsString } from "@/types/TypeGuards";
 export interface AutocompleteProps {
   inputRef: Ref<unknown>;
   country?: string;
-  defaultValue?: unknown;
+  value?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   node: TreeNode;
@@ -25,7 +25,10 @@ interface Match {
 type AutocompleteService = google.maps.places.AutocompleteService;
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
-const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+const Autocomplete = (
+  { value: stateValue, inputRef, country, readOnly, onChange, node }: AutocompleteProps,
+  ref: Ref<unknown> | undefined,
+) => {
   const { attributes, name, children } = node;
   const { type, label, required, helperText, isLeaf, isDecision } = attributes;
 
@@ -34,7 +37,7 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
     googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : "",
   );
   const autocompleteService = useRef<AutocompleteService>();
-  const [value, setValue] = useState<AutocompletePrediction | null>(null);
+  const [value, setValue] = useState<AutocompletePrediction | null>(stateValue || null);
   const [options, setOptions] = useState<readonly AutocompletePrediction[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
@@ -124,20 +127,12 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
     };
   }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey]);
 
-  // Initialize default value
-  useEffect(() => {
-    if (defaultValue) {
-      setValue(defaultValue as AutocompletePrediction);
-    }
-  }, [defaultValue]);
-
   return (
     <AutocompleteDS
       freeSolo
       autoComplete
       includeInputInList
       filterSelectedOptions
-      defaultValue={defaultValue as AutocompletePrediction}
       ref={ref}
       getOptionLabel={(option) => (IsString(option) ? option : option.description)}
       filterOptions={(filterOptions) => filterOptions}

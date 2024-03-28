@@ -9,12 +9,12 @@ export interface RadioProps {
   helperText?: string;
   inputRef: Ref<unknown>;
   required?: boolean;
-  defaultValue?: unknown;
+  value?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const Radio = ({ data, helperText, inputRef, required, onChange, readOnly, defaultValue = "" }: RadioProps, ref: Ref<HTMLDivElement>) => {
+const Radio = ({ data, helperText, inputRef, required, onChange, readOnly, value }: RadioProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
   const { label, values, type, isLeaf, isDecision } = attributes;
@@ -35,7 +35,8 @@ const Radio = ({ data, helperText, inputRef, required, onChange, readOnly, defau
         aria-labelledby={`${name}-label`}
         name={name}
         onChange={handleChange}
-        defaultValue={defaultValue ? `${name}:${defaultValue}` : undefined}
+        value={value}
+        // defaultValue={defaultValue ? `${name}:${defaultValue}` : undefined}
         aria-readonly={readOnly}
       >
         {options?.map((option, index) => (

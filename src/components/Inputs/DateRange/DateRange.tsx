@@ -9,34 +9,35 @@ export interface DateRangeProps {
   inputRef: Ref<unknown>;
   onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
-  defaultValue?: unknown;
+  value?: unknown;
   readOnly?: boolean;
 }
 
 const DateRange = (
-  { label, name, helperText, inputRef, onChange, required, defaultValue, readOnly }: DateRangeProps,
+  { label, name, helperText, inputRef, onChange, required, value, readOnly }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const [fromDate, setFromDate] = useState<string>("");
-  const [toDate, setToDate] = useState<string>("");
+  const [fromDate, setFromDate] = useState<string>(value?.[0] || "");
+  const [toDate, setToDate] = useState<string>(value?.[1] || "");
   const [error, setError] = useState<boolean>(false);
 
+  // TODO can be refacto remove state
   const handleChange = useCallback(
     (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value } = event.target;
+      const { target } = event;
 
       if (field === "start") {
-        setFromDate(value);
+        setFromDate(target.value);
       }
 
       if (field === "end") {
-        setToDate(value);
+        setToDate(target.value);
       }
 
       onChange?.({
         event,
         name,
-        value: field === "start" ? [value, toDate] : [fromDate, value],
+        value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
       });
     },
     [fromDate, name, onChange, toDate],
@@ -64,6 +65,7 @@ const DateRange = (
         onChange={handleChange("start")}
         required={required}
         inputRef={inputRef}
+        value={fromDate}
         error={error}
         InputProps={{
           readOnly,
@@ -81,7 +83,7 @@ const DateRange = (
         helperText={helperText}
         onChange={handleChange("end")}
         required={required}
-        defaultValue={defaultValue}
+        value={toDate}
         inputRef={inputRef}
         error={error}
         InputProps={{

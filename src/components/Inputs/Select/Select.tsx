@@ -13,17 +13,17 @@ import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
 
-export interface SelectProps<T = unknown> {
+export interface SelectProps {
   data: TreeNode;
   helperText?: string;
   inputRef: Ref<unknown>;
   required?: boolean;
-  defaultValue?: T;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
+  value?: unknown;
 }
 
-const Select = ({ data, helperText, inputRef, required, onChange, readOnly, defaultValue = "" }: SelectProps, ref: Ref<HTMLDivElement>) => {
+const Select = ({ data, helperText, inputRef, required, onChange, readOnly, value }: SelectProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { name, children, attributes } = data;
   const { label, values, type, isLeaf, isDecision } = attributes;
@@ -32,13 +32,13 @@ const Select = ({ data, helperText, inputRef, required, onChange, readOnly, defa
 
   const handleChange = useCallback(
     (event: SelectChangeEvent) => {
-      const { value } = event.target;
-      const messageValue = getMessageByValue({ options, value });
+      const { target } = event;
+      const messageValue = getMessageByValue({ options, value: target.value });
 
       onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
       setMessage(messageValue);
     },
-    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type],
+    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type, value],
   );
 
   return (
@@ -46,7 +46,7 @@ const Select = ({ data, helperText, inputRef, required, onChange, readOnly, defa
       <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <SelectDS
         fullWidth
-        defaultValue={String(defaultValue)}
+        value={String(value)}
         labelId={`${name}-label`}
         id={name}
         label={label}
