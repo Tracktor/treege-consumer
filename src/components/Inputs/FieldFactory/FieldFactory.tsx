@@ -43,7 +43,6 @@ export interface FielFactoryProps {
  * @constructor
  */
 const FieldFactory = ({
-  defaultValue: defaultValueProps,
   onChange,
   autoFocus,
   data,
@@ -60,7 +59,6 @@ const FieldFactory = ({
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
-  const defaultValue = defaultValueProps || defaultValueAttribute;
 
   const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]?.value);
   const disabledChildrenField = isLoadingFormValidation || hasParentRefValue;
@@ -149,10 +147,11 @@ const FieldFactory = ({
           <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} value={value} readOnly={readOnly} />
         );
       case "autocomplete":
-        return <ApiAutocomplete node={data} onChange={onChange} inputRef={inputRef} value={value} readOnly={readOnly} headers={headers} />;
+        return <ApiAutocomplete node={data} value={value} onChange={onChange} inputRef={inputRef} readOnly={readOnly} headers={headers} />;
       case "dynamicSelect":
         return (
           <DynamicSelect
+            value={value}
             onChange={onChange}
             fieldValues={fieldValues}
             node={data}
@@ -166,7 +165,7 @@ const FieldFactory = ({
   };
 
   if (isHidden) {
-    return <HiddenField data={data} onChange={onChange} />;
+    return <HiddenField data={data} value={value} />;
   }
 
   return (

@@ -7,10 +7,9 @@ const isObject = (value: unknown) => typeof value === "object" && !Array.isArray
  * Prefixes the name of each field in the array with the tree path.
  * @param jsonFormValues
  */
-const setInitialJsonValues = (jsonFormValues: JsonFormValue[]): FieldValues => {
-  console.log(jsonFormValues);
-  return jsonFormValues.reduce((acc, { value, name, type }) => {
-    if (type === "autocomplete") {
+const setInitialJsonValues = (jsonFormValues: JsonFormValue[]): FieldValues =>
+  jsonFormValues.reduce((acc, { value, name, type }) => {
+    if (type === "autocomplete" || type === "dynamicSelect") {
       return {
         ...acc,
         [name]: {
@@ -30,6 +29,5 @@ const setInitialJsonValues = (jsonFormValues: JsonFormValue[]): FieldValues => {
       },
     };
   }, {});
-};
 
 export default setInitialJsonValues;

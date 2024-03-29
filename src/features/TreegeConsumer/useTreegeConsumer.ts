@@ -152,7 +152,6 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
 
   useEffect(() => {
     const formatted = setInitialJsonValues(jsonInitialValues);
-    console.log(formatted);
     setFieldValues(formatted);
   }, [jsonInitialValues]);
 

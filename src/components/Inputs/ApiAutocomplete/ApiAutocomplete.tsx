@@ -12,16 +12,13 @@ interface ApiAutocompleteProps {
   inputRef: Ref<unknown>;
   node: TreeNode;
   onChange?(dataAttribute: ChangeEventField): void;
-  value?: unknown;
   readOnly?: boolean;
   headers?: Headers;
+  value?: unknown;
 }
 
 const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
   const [searchText, setSearchText] = useState<string>("");
-  const [selectedValue, setSelectedValue] = useState<string | Option | null>("");
-
-  console.log(selectedValue);
 
   const { attributes, name, children } = node;
   const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
@@ -37,11 +34,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
 
   const options = adaptRouteResponseToOptions(data, route);
 
-  const handleChange = (event: SyntheticEvent, value: string | Option | null) => {
-    setSelectedValue(value);
-
-    const newData = reformatReturnAutocomplete(value);
-
+  const handleChange = (event: SyntheticEvent, newValue: string | Option | null) => {
     onChange?.({
       children,
       event,
@@ -49,7 +42,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
       isLeaf,
       name,
       type,
-      value: newData,
+      value: reformatReturnAutocomplete(newValue),
     });
   };
 
@@ -71,10 +64,9 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
 
   return (
     <Autocomplete
-      freeSolo
       filterOptions={(o) => o}
       ref={ref}
-      value={selectedValue}
+      value={value}
       onChange={handleChange}
       options={options || []}
       onInputChange={handleSearchChange}

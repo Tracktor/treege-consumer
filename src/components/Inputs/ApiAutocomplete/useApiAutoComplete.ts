@@ -22,7 +22,7 @@ const useApiAutoComplete = () => {
     return {
       id: value?.id || originData.id,
       image: "image" in originData ? value?.image || originData.image : originData.imageUri,
-      name: value?.name || originData.label,
+      label: value?.name || originData.label,
       options: value?.options || value,
     };
   };
