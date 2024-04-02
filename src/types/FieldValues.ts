@@ -1,6 +1,3 @@
 export default interface FieldValues {
-  [name: string]: {
-    value: unknown;
-    mustBeCompleted: boolean;
-  };
+  [name: string]: string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | File[];
 }

@@ -40,7 +40,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
 
     if (isDecision) {
       setFields((prevState) => {
-        const decisionSelected = children?.find((child) => child.name === value);
+        const decisionSelected = children?.find((child) => child.name === `${name}:${value}`);
         const indexDecisionField = prevState?.findIndex((item) => item.name === name);
         const treeRest = prevState?.[indexDecisionField]?.childrenTreeRest;
         const childrenTreeRestDecision = getFieldsFromTreeRest(treeRest);
@@ -90,11 +90,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
 
     setFieldValues((prevFieldValues) => ({
       ...prevFieldValues,
-      [name]: {
-        // TODO : mustBeCompleted is not used
-        mustBeCompleted: !!isRequiredAndEmpty,
-        value,
-      },
+      [name]: value,
     }));
 
     // AUTO NEXT STEP
@@ -130,7 +126,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     const data =
       dataFormatOnSubmit === "formData"
         ? (newTransformedFieldValues as [string, FormDataEntryValue][])
-        : formDataToJSON(newTransformedFieldValues as [string, FormDataEntryValue][], fields);
+        : formDataToJSON(fieldValues, fields);
     onSubmit?.(data);
   };
 

@@ -12,10 +12,7 @@ const setInitialJsonValues = (jsonFormValues: JsonFormValue[]): FieldValues =>
     if (type === "autocomplete" || type === "dynamicSelect") {
       return {
         ...acc,
-        [name]: {
-          mustBeCompleted: false,
-          value,
-        },
+        [name]: value,
       };
     }
 
@@ -23,10 +20,7 @@ const setInitialJsonValues = (jsonFormValues: JsonFormValue[]): FieldValues =>
 
     return {
       ...acc,
-      [name]: {
-        mustBeCompleted: false,
-        value: fieldValue,
-      },
+      [name]: fieldValue,
     };
   }, {});
 

@@ -1,3 +1,4 @@
+import FieldValues from "@/types/FieldValues";
 import TreeNode from "@/types/TreeNode";
 
 export interface JsonFormValue {
@@ -19,11 +20,11 @@ const getCurrentAttributes = (
   currentField: TreeNode,
   isSelectOrRadio: boolean,
   isDecision: boolean | undefined,
-  value: FormDataEntryValue,
+  value?: string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | File[],
 ) => {
   if (isSelectOrRadio || isDecision) {
     if (isDecision) {
-      const decisionChild = currentField.children.find((child) => child.name === value);
+      const decisionChild = currentField.children.find((child) => child.attributes.value === value);
       return decisionChild?.attributes || null;
     }
     const option = currentField.attributes.values?.find((opt) => opt.value === value);
@@ -35,15 +36,11 @@ const getCurrentAttributes = (
 
 /**
  * Get the value of the form in json format
- * @param formData
+ * @param fieldValues
  * @param fields
  */
-const formDataToJSON = (formData: [string, FormDataEntryValue | unknown][], fields: TreeNode[]): JsonFormValue[] => {
-  const formDataMap: { [p: number]: FormDataEntryValue } = [
-    ...formData.reduce((acc, [key, value]) => acc.set(key, [...(acc.get(key) || []), value]), new Map()).entries(),
-  ].reduce((acc, [key, values]) => Object.assign(acc, { [key]: values.length > 1 ? values : values[0] }), {});
-
-  return Object.entries(formDataMap).reduce((acc: JsonFormValue[], [name, value]) => {
+const formDataToJSON = (fieldValues: FieldValues, fields: TreeNode[]): JsonFormValue[] =>
+  Object.entries(fieldValues).reduce((acc: JsonFormValue[], [name, value]) => {
     const currentField = fields.find((field) => field.name === name);
     if (!currentField) {
       return acc;
@@ -65,6 +62,5 @@ const formDataToJSON = (formData: [string, FormDataEntryValue | unknown][], fiel
 
     return acc;
   }, []);
-};
 
 export default formDataToJSON;

@@ -25,7 +25,7 @@ const useInputs = () => {
       key: option.name,
       label: option.attributes.label,
       message: option.attributes?.message,
-      value: option.name,
+      value: option.attributes?.value,
     }));
   };
 

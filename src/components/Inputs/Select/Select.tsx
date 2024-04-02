@@ -8,7 +8,7 @@ import {
   Select as SelectDS,
   SelectChangeEvent,
 } from "@tracktor/design-system";
-import { forwardRef, Ref, useCallback, useState } from "react";
+import { forwardRef, Ref, useCallback, useEffect, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
@@ -35,18 +35,25 @@ const Select = ({ data, helperText, inputRef, required, onChange, readOnly, valu
       const { target } = event;
       const messageValue = getMessageByValue({ options, value: target.value });
 
-      onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
+      onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: target.value });
       setMessage(messageValue);
     },
-    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type, value],
+    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type],
   );
+
+  // Re-create tree
+  useEffect(() => {
+    if (isDecision) {
+      onChange?.({ children, isDecision, isLeaf, name, type, value });
+    }
+  }, []);
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
       <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <SelectDS
         fullWidth
-        value={String(value)}
+        value={value}
         labelId={`${name}-label`}
         id={name}
         label={label}

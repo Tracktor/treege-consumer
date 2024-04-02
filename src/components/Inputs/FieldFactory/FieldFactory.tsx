@@ -71,7 +71,7 @@ const FieldFactory = ({
     return null;
   };
 
-  const value = fieldValues?.[name]?.value || "";
+  const value = fieldValues?.[name] || "";
 
   const field = () => {
     switch (type) {
