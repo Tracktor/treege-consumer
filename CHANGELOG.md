@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.24.3](https://github.com/Tracktor/treege-consumer/compare/1.24.2...1.24.3) (2024-03-29)
+
+
+### Bug Fixes
+
+* **tc:** add export treeNode type ([a697bbd](https://github.com/Tracktor/treege-consumer/commit/a697bbd5fc8fab5c93982813ec3a71496f4c5258))
+
+## [1.24.2](https://github.com/Tracktor/treege-consumer/compare/1.24.1...1.24.2) (2024-03-28)
+
+
+### Bug Fixes
+
+* error empty tree ([7df1c7f](https://github.com/Tracktor/treege-consumer/commit/7df1c7fbe4510a640a16a83c5fd0bbcb9a4767dd))
+
+## [1.24.1](https://github.com/Tracktor/treege-consumer/compare/1.24.0...1.24.1) (2024-03-28)
+
+
+### Bug Fixes
+
+* main entry type ([f886918](https://github.com/Tracktor/treege-consumer/commit/f886918121fd34261a38d3a5a6c6c4c1f9cc6cf1))
+
 ## [1.24.0](https://github.com/Tracktor/treege-consumer/compare/1.23.0...1.24.0) (2024-03-26)
 
 
