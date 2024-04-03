@@ -1,50 +1,88 @@
 const basicJsonValues = [
   {
-    label: "address",
-    name: "address",
-    type: "address",
+    label: "Recherchez un équipement",
+    name: "article",
+    type: "autocomplete",
     value: {
-      description: "Paris, France",
-      matched_substrings: [
+      id: "4341",
+      image: null,
+      label: "Mini grue araignée URW 295 8,8m 2,9T",
+      options: [
         {
-          length: 5,
-          offset: 0,
+          articleName: "Prise en main",
+          id: "620",
+          image: null,
+          isIncluded: false,
         },
         {
-          length: 6,
-          offset: 7,
-        },
-      ],
-      place_id: "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
-      reference: "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
-      structured_formatting: {
-        main_text: "Paris",
-        main_text_matched_substrings: [
-          {
-            length: 5,
-            offset: 0,
-          },
-        ],
-        secondary_text: "France",
-        secondary_text_matched_substrings: [
-          {
-            length: 6,
-            offset: 0,
-          },
-        ],
-      },
-      terms: [
-        {
-          offset: 0,
-          value: "Paris",
-        },
-        {
-          offset: 7,
-          value: "France",
+          articleName: "Operateur",
+          id: "1035",
+          image: null,
+          isIncluded: false,
         },
       ],
-      types: ["locality", "political", "geocode"],
     },
+  },
+  {
+    label: "Ajoutez des options",
+    name: "options",
+    type: "dynamicSelect",
+    value: [
+      {
+        id: "620",
+        label: "Prise en main",
+        value: "620",
+      },
+      {
+        id: "1035",
+        label: "Operateur",
+        value: "1035",
+      },
+    ],
+  },
+  {
+    label: "Utiliser le samedi",
+    name: "useOnSaturday",
+    type: "checkbox",
+    value: true,
+  },
+  {
+    label: "Utiliser le dimanche",
+    name: "useOnSunday",
+    type: "checkbox",
+    value: true,
+  },
+  {
+    label: "Sélectionnez votre chantier",
+    name: "worksite",
+    type: "autocomplete",
+    value: {
+      id: "5",
+      label: "Aéroport Roissy",
+      options: "5",
+    },
+  },
+  {
+    label: "Ajoutez des contacts sur site",
+    name: "worksiteContacts",
+    type: "dynamicSelect",
+    value: {
+      id: "8",
+      label: "nanard@gmail.com",
+      value: "8",
+    },
+  },
+  {
+    label: "Point de dépôt",
+    name: "dropOffDescription",
+    type: "text",
+    value: "ds",
+  },
+  {
+    label: "Contraintes d'accès",
+    name: "siteConstraints",
+    type: "text",
+    value: "sd",
   },
 ];
 export default basicJsonValues;
