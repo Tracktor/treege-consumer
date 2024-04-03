@@ -1,4 +1,5 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
+import { isString } from "@tracktor/react-utils";
 import { memo } from "react";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import Autocomplete from "@/components/Inputs/Autocomplete";
@@ -11,7 +12,7 @@ import Select from "@/components/Inputs/Select";
 import TextField from "@/components/Inputs/TextField";
 import TimeRange from "@/components/Inputs/TimeRange";
 import ChangeEventField from "@/types/ChangeEventField";
-import FieldValues from "@/types/FieldValues";
+import { FieldValues } from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 
@@ -21,7 +22,6 @@ export interface FielFactoryProps {
   autoFocus?: boolean;
   data: TreeNode;
   visible?: boolean;
-  defaultValue?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute?: ChangeEventField): void;
   headers?: Headers;
@@ -30,7 +30,6 @@ export interface FielFactoryProps {
 
 /**
  * FieldFactory factory
- * @param defaultValueProps
  * @param onChange
  * @param autoFocus
  * @param data
@@ -53,14 +52,14 @@ const FieldFactory = ({
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
-  const { name, attributes } = data;
-  const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute, parentRef } = attributes;
+  const { attributes } = data;
+  const { type, label, required, helperText, isMultiple, parentRef, name } = attributes;
 
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
 
-  const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]?.value);
+  const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]);
   const disabledChildrenField = isLoadingFormValidation || hasParentRefValue;
 
   const inputRef = (ref: HTMLInputElement) => {
@@ -140,7 +139,16 @@ const FieldFactory = ({
           />
         );
       case "select":
-        return <Select data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} readOnly={readOnly} value={value} />;
+        return (
+          <Select
+            data={data}
+            inputRef={inputRef}
+            onChange={onChange}
+            helperText={helperText}
+            readOnly={readOnly}
+            value={isString(value) ? value : ""}
+          />
+        );
       case "switch":
       case "checkbox":
         return (
@@ -157,6 +165,7 @@ const FieldFactory = ({
             node={data}
             headers={headers}
             disabledChildrenField={disabledChildrenField}
+            inputRef={inputRef}
           />
         );
       default:

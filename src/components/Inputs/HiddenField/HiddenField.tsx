@@ -6,7 +6,9 @@ export interface HiddenFieldProps {
 }
 
 const HiddenField = ({ data, value }: HiddenFieldProps) => {
-  const { name } = data;
+  const {
+    attributes: { name },
+  } = data;
 
   return <input type="hidden" name={name} value={String(value)} />;
 };

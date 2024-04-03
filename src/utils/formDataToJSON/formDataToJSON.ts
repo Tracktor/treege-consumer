@@ -1,11 +1,11 @@
-import FieldValues from "@/types/FieldValues";
+import { FieldValues, FieldValue } from "@/types/FieldValues";
 import TreeNode from "@/types/TreeNode";
 
 export interface JsonFormValue {
-  label: string;
+  label?: string;
   name: string;
   type?: string;
-  value?: string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | File[];
+  value?: FieldValue;
   tag?: string;
 }
 
@@ -16,12 +16,7 @@ export interface JsonFormValue {
  * @param isDecision
  * @param value
  */
-const getCurrentAttributes = (
-  currentField: TreeNode,
-  isSelectOrRadio: boolean,
-  isDecision: boolean | undefined,
-  value?: string | boolean | FormDataEntryValue | { label?: string; value?: string } | string[] | File[],
-) => {
+const getCurrentAttributes = (currentField: TreeNode, isSelectOrRadio: boolean, isDecision: boolean | undefined, value?: FieldValue) => {
   if (isSelectOrRadio || isDecision) {
     if (isDecision) {
       const decisionChild = currentField.children.find((child) => child.attributes.value === value);
@@ -41,7 +36,7 @@ const getCurrentAttributes = (
  */
 const formDataToJSON = (fieldValues: FieldValues, fields: TreeNode[]): JsonFormValue[] =>
   Object.entries(fieldValues).reduce((acc: JsonFormValue[], [name, value]) => {
-    const currentField = fields.find((field) => field.name === name);
+    const currentField = fields.find((field) => field.attributes.name === name);
     if (!currentField) {
       return acc;
     }

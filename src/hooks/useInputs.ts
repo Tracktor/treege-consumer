@@ -6,10 +6,10 @@ export interface GetOptionsForDecisionsFieldParams {
 }
 
 export interface GetOptionsForDecisionsFieldReturn {
-  message?: string;
-  label: string;
-  value: string;
   key: string;
+  label?: string;
+  message?: string;
+  value: string;
 }
 
 /**
@@ -22,10 +22,10 @@ const useInputs = () => {
     }
 
     return children.map((option) => ({
-      key: option.name,
+      key: option.attributes.name,
       label: option.attributes.label,
       message: option.attributes?.message,
-      value: option.attributes?.value,
+      value: option.attributes?.value || "",
     }));
   };
 

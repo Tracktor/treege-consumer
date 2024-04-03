@@ -26,9 +26,10 @@ export interface Route {
 }
 
 export interface TreeNode {
-  name: string;
+  uuid: string;
   attributes:
     | {
+        name: string;
         depth: number;
         isDecision?: never;
         isLeaf?: boolean;
@@ -53,11 +54,12 @@ export interface TreeNode {
         initialQuery?: boolean;
       }
     | {
+        name: string;
         depth: number;
         isDecision?: boolean;
         isLeaf?: boolean;
         isRoot?: boolean;
-        label: string;
+        label?: string;
         helperText?: string;
         messages?: { on?: string; off?: string };
         required?: boolean;
@@ -90,7 +92,7 @@ export interface TreeNodeField {
   isDecision?: boolean;
   isLeaf?: boolean;
   isRoot?: boolean;
-  label: string;
+  label?: string;
   helperText?: string;
   messages?: { on?: string; off?: string };
   required?: boolean;

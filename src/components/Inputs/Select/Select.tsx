@@ -20,13 +20,13 @@ export interface SelectProps {
   required?: boolean;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
-  value?: unknown;
+  value?: string;
 }
 
 const Select = ({ data, helperText, inputRef, required, onChange, readOnly, value }: SelectProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
-  const { name, children, attributes } = data;
-  const { label, values, type, isLeaf, isDecision } = attributes;
+  const { children, attributes } = data;
+  const { label, values, type, isLeaf, isDecision, name } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
 
@@ -42,18 +42,22 @@ const Select = ({ data, helperText, inputRef, required, onChange, readOnly, valu
   );
 
   // Re-create tree
-  useEffect(() => {
-    if (isDecision) {
-      onChange?.({ children, isDecision, isLeaf, name, type, value });
-    }
-  }, []);
+  useEffect(
+    () => {
+      if (isDecision) {
+        onChange?.({ children, isDecision, isLeaf, name, type, value });
+      }
+    },
+    // Only on mount
+    // eslint-disable-next-line
+    []);
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
       <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <SelectDS
         fullWidth
-        value={value}
+        value={value || ""}
         labelId={`${name}-label`}
         id={name}
         label={label}

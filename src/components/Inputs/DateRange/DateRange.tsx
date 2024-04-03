@@ -3,7 +3,7 @@ import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
-  label: string;
+  label?: string;
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
@@ -17,34 +17,27 @@ const DateRange = (
   { label, name, helperText, inputRef, onChange, required, value, readOnly }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const [fromDate, setFromDate] = useState<string>(value?.[0] || "");
-  const [toDate, setToDate] = useState<string>(value?.[1] || "");
   const [error, setError] = useState<boolean>(false);
+  const fromDate = Array?.isArray(value) ? value?.[0] : "";
+  const toDate = Array?.isArray(value) ? value?.[1] : "";
 
-  // TODO can be refacto remove state
   const handleChange = useCallback(
     (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { target } = event;
 
-      if (field === "start") {
-        setFromDate(target.value);
+      if (Array?.isArray(value)) {
+        onChange?.({
+          event,
+          name,
+          value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
+        });
       }
-
-      if (field === "end") {
-        setToDate(target.value);
-      }
-
-      onChange?.({
-        event,
-        name,
-        value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
-      });
     },
-    [fromDate, name, onChange, toDate],
+    [fromDate, name, onChange, toDate, value],
   );
 
   useEffect(() => {
-    if (fromDate.length > 0 && toDate.length > 0) {
+    if (fromDate?.length > 0 && toDate.length > 0) {
       if (new Date(fromDate) > new Date(toDate)) {
         setError(true);
       } else {

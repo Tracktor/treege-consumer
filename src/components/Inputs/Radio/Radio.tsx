@@ -16,15 +16,15 @@ export interface RadioProps {
 
 const Radio = ({ data, helperText, inputRef, required, onChange, readOnly, value }: RadioProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
-  const { name, children, attributes } = data;
-  const { label, values, type, isLeaf, isDecision } = attributes;
+  const { children, attributes } = data;
+  const { label, values, type, isLeaf, isDecision, name } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>, value: string) => {
-    const messageValue = getMessageByValue({ options, value });
+  const handleChange = (event: ChangeEvent<HTMLInputElement>, fieldValue: string) => {
+    const messageValue = getMessageByValue({ options, value: fieldValue });
 
-    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
+    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
     setMessage(messageValue);
   };
 

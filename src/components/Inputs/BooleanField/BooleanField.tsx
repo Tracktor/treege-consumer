@@ -13,8 +13,8 @@ export interface BooleanFieldProps {
 }
 
 const BooleanField = ({ data, inputRef, helperText, readOnly, onChange, value }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
-  const { name, attributes, children } = data;
-  const { label, type, isLeaf, messages } = attributes;
+  const { attributes, children } = data;
+  const { label, type, isLeaf, messages, name } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
   const Field = type === "checkbox" ? Checkbox : Switch;
 

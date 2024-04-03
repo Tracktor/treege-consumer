@@ -1,9 +1,9 @@
 import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useCallback, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useCallback } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface TimeRangeProps {
-  label: string;
+  label?: string;
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
@@ -17,29 +17,19 @@ const TimeRange = (
   { label, name, helperText, inputRef, onChange, required, readOnly, value }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const [fromTime, setFromTime] = useState<string>(value?.[0] || "");
-  const [toTime, setToTime] = useState<string>(value?.[1] || "");
-
-  // TODO can be refacto remove state
   const handleChange = useCallback(
     (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { target } = event;
 
-      if (field === "start") {
-        setFromTime(target.value);
+      if (Array?.isArray(value)) {
+        onChange?.({
+          event,
+          name,
+          value: field === "start" ? [target.value, value?.[1]] : [value?.[0], target.value],
+        });
       }
-
-      if (field === "end") {
-        setToTime(target.value);
-      }
-
-      onChange?.({
-        event,
-        name,
-        value: field === "start" ? [target.value, toTime] : [fromTime, target.value],
-      });
     },
-    [fromTime, name, onChange, toTime],
+    [name, onChange, value],
   );
 
   return (
@@ -50,7 +40,7 @@ const TimeRange = (
         name={name}
         label={label}
         type="time"
-        value={fromTime}
+        value={Array?.isArray(value) ? value?.[0] : ""}
         helperText={helperText}
         onChange={handleChange("start")}
         required={required}
@@ -67,7 +57,7 @@ const TimeRange = (
         fullWidth
         ref={ref}
         name={name}
-        value={toTime}
+        value={Array?.isArray(value) ? value?.[1] : ""}
         type="time"
         helperText={helperText}
         onChange={handleChange("end")}

@@ -14,14 +14,14 @@ interface ApiAutocompleteProps {
   onChange?(dataAttribute: ChangeEventField): void;
   readOnly?: boolean;
   headers?: Headers;
-  value?: unknown;
+  value?: Option | null;
 }
 
 const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
   const [searchText, setSearchText] = useState<string>("");
 
-  const { attributes, name, children } = node;
-  const { type, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
+  const { attributes, children } = node;
+  const { type, name, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
   const { reformatReturnAutocomplete } = useApiAutoComplete();
 
   const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
@@ -34,7 +34,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
 
   const options = adaptRouteResponseToOptions(data, route);
 
-  const handleChange = (event: SyntheticEvent, newValue: string | Option | null) => {
+  const handleChange = (event: SyntheticEvent, newValue: Option | null) => {
     onChange?.({
       children,
       event,
@@ -46,8 +46,8 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
     });
   };
 
-  const handleSearchChange = (_: SyntheticEvent, value: string) => {
-    setSearchText(value);
+  const handleSearchChange = (_: SyntheticEvent, fieldValue: string) => {
+    setSearchText(fieldValue);
   };
 
   const checkIfObjectAsKey = (obj: unknown, key: string) => {

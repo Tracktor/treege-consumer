@@ -1,22 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { FieldValues } from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import { Route } from "@/types/TreeNode";
 import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
-import getFormValueFromName from "@/utils/getFormValueFromName/getFormValueFromName";
+// import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
+// import getFormValueFromName from "@/utils/getFormValueFromName/getFormValueFromName";
 
 interface useDynamicSelectProps {
   route?: Route;
   parentRef?: string;
   initialQuery?: boolean;
   name: string;
-  fieldValues?: JsonFormValue[] | unknown;
+  fieldValues?: FieldValues;
   headers?: Headers;
 }
 
 const useDynamicSelect = ({ headers, fieldValues, route, parentRef, initialQuery, name }: useDynamicSelectProps) => {
-  const getValueFromParent = getFormValueFromName(fieldValues, String(parentRef));
+  // TODO TO VERIFY
+  // OVER KILL
+  // const getValueFromParent = getFormValueFromName(fieldValues, String(parentRef));
+  const getValueFromParent = fieldValues?.[String(parentRef)];
   const dynamicValue =
     getValueFromParent && typeof getValueFromParent === "object" && "options" in getValueFromParent
       ? (getValueFromParent.options as string[])
@@ -50,6 +54,7 @@ const useDynamicSelect = ({ headers, fieldValues, route, parentRef, initialQuery
   const options = useMemo(() => {
     if ((route?.url && !isError && !isLoading && data && Array.isArray(data)) || getValueFromParent !== undefined) {
       const itemsOptions = adaptRouteResponseToOptions(route?.url ? data : getValueFromParent, route || {});
+
       return itemsOptions?.map((option) => ({
         id: String(option.id),
         imageUri: option.imageUri,

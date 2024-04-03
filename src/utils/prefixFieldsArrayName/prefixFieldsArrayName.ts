@@ -11,7 +11,10 @@ const prefixFieldsArrayName = (children?: TreeNode[], treePath?: string) => {
     return [];
   }
 
-  return children.map(({ name: childrenName, ...rest }) => ({ name: prefixFieldName(childrenName, treePath), ...rest }));
+  return children.map(({ attributes, ...rest }) => ({
+    ...rest,
+    attributes: { ...attributes, name: prefixFieldName(attributes.name, treePath) },
+  }));
 };
 
 export default prefixFieldsArrayName;

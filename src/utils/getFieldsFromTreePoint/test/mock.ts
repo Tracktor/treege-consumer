@@ -5,22 +5,22 @@ type Mock = { tree: TreeNode; output: TreeNode[] };
 const simpleTreeMock: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "text" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "text" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
-          children: [{ attributes: { depth: 2, isLeaf: true, label: "3", type: "text" }, children: [], name: "3" }],
-          name: "2",
+          attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
+          children: [{ attributes: { depth: 2, isLeaf: true, label: "3", name: "3", type: "text" }, children: [], uuid: "3" }],
+          uuid: "2",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
-      children: [{ attributes: { depth: 2, isLeaf: true, label: "3", type: "text" }, children: [], name: "3" }],
-      name: "2",
+      attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
+      children: [{ attributes: { depth: 2, isLeaf: true, label: "3", name: "3", type: "text" }, children: [], uuid: "3" }],
+      uuid: "2",
     },
-    { attributes: { depth: 2, isLeaf: true, label: "3", type: "text" }, children: [], name: "3" },
+    { attributes: { depth: 2, isLeaf: true, label: "3", name: "3", type: "text" }, children: [], uuid: "3" },
   ],
   tree: {
     attributes: {
@@ -28,6 +28,7 @@ const simpleTreeMock: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "text",
     },
     children: [
@@ -36,6 +37,7 @@ const simpleTreeMock: Mock = {
           depth: 1,
           isLeaf: false,
           label: "2",
+          name: "2",
           type: "text",
         },
         children: [
@@ -44,118 +46,145 @@ const simpleTreeMock: Mock = {
               depth: 2,
               isLeaf: true,
               label: "3",
+              name: "3",
               type: "text",
             },
             children: [],
-            name: "3",
+            uuid: "3",
           },
         ],
-        name: "2",
+        uuid: "2",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const treeWithTreeMock: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "text" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "text" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
+          attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
           children: [
             {
-              attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+              attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
               children: [
                 {
                   attributes: {
                     depth: 3,
                     isLeaf: true,
                     label: "tree",
+                    name: "tree",
                     tree: {
-                      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                       children: [
-                        { attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" },
+                        {
+                          attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
+                          children: [],
+                          uuid: "password",
+                        },
                       ],
-                      name: "username",
                       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                      uuid: "username",
                     },
                     treePath: "/tree",
                     type: "tree",
                   },
                   children: [],
-                  name: "tree",
+                  uuid: "tree",
                 },
               ],
-              name: "3",
+              uuid: "3",
             },
           ],
-          name: "2",
+          uuid: "2",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
       children: [
         {
-          attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+          attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
           children: [
             {
               attributes: {
                 depth: 3,
                 isLeaf: true,
                 label: "tree",
+                name: "tree",
                 tree: {
-                  attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-                  children: [{ attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" }],
-                  name: "username",
+                  attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
+                  children: [
+                    {
+                      attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
+                      children: [],
+                      uuid: "password",
+                    },
+                  ],
                   treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                  uuid: "username",
                 },
                 treePath: "/tree",
                 type: "tree",
               },
               children: [],
-              name: "tree",
+              uuid: "tree",
             },
           ],
-          name: "3",
+          uuid: "3",
         },
       ],
-      name: "2",
+      uuid: "2",
     },
     {
-      attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+      attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
       children: [
         {
           attributes: {
             depth: 3,
             isLeaf: true,
             label: "tree",
+            name: "tree",
             tree: {
-              attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-              children: [{ attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" }],
-              name: "username",
+              attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
+              children: [
+                {
+                  attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
+                  children: [],
+                  uuid: "password",
+                },
+              ],
               treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+              uuid: "username",
             },
             treePath: "/tree",
             type: "tree",
           },
           children: [],
-          name: "tree",
+          uuid: "tree",
         },
       ],
-      name: "3",
+      uuid: "3",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-      children: [{ attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" }],
-      name: "tree.username",
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "tree.username", type: "text" },
+      children: [
+        { attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" }, children: [], uuid: "password" },
+      ],
       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
       treePath: "/tree",
+      uuid: "username",
     },
-    { attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "tree.password", treePath: "/tree" },
+    {
+      attributes: { depth: 1, isLeaf: true, label: "Password", name: "tree.password", type: "text" },
+      children: [],
+      treePath: "/tree",
+      uuid: "password",
+    },
   ],
   tree: {
     attributes: {
@@ -163,6 +192,7 @@ const treeWithTreeMock: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "text",
     },
     children: [
@@ -171,6 +201,7 @@ const treeWithTreeMock: Mock = {
           depth: 1,
           isLeaf: false,
           label: "2",
+          name: "2",
           type: "text",
         },
         children: [
@@ -179,6 +210,7 @@ const treeWithTreeMock: Mock = {
               depth: 2,
               isLeaf: false,
               label: "3",
+              name: "3",
               type: "text",
             },
             children: [
@@ -187,11 +219,13 @@ const treeWithTreeMock: Mock = {
                   depth: 3,
                   isLeaf: true,
                   label: "tree",
+                  name: "tree",
                   tree: {
                     attributes: {
                       depth: 0,
                       isRoot: true,
                       label: "Username",
+                      name: "username",
                       type: "text",
                     },
                     children: [
@@ -200,132 +234,163 @@ const treeWithTreeMock: Mock = {
                           depth: 1,
                           isLeaf: true,
                           label: "Password",
+                          name: "password",
                           type: "text",
                         },
                         children: [],
-                        name: "password",
+                        uuid: "password",
                       },
                     ],
-                    name: "username",
                     treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                    uuid: "username",
                   },
                   treePath: "/tree",
                   type: "tree",
                 },
                 children: [],
-                name: "tree",
+                uuid: "tree",
               },
             ],
-            name: "3",
+            uuid: "3",
           },
         ],
-        name: "2",
+        uuid: "2",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const treeWithTreeAndChildrenInMainTreeMock: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "text" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "text" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
+          attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
           children: [
             {
-              attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+              attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
               children: [
                 {
                   attributes: {
                     depth: 3,
                     isLeaf: false,
                     label: "tree",
+                    name: "tree",
                     tree: {
-                      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                       children: [
-                        { attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" },
+                        {
+                          attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
+                          children: [],
+                          uuid: "password",
+                        },
                       ],
-                      name: "username",
                       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                      uuid: "username",
                     },
                     treePath: "/tree",
                     type: "tree",
                   },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-                  name: "tree",
+                  children: [
+                    { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
+                  ],
+                  uuid: "tree",
                 },
               ],
-              name: "3",
+              uuid: "3",
             },
           ],
-          name: "2",
+          uuid: "2",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
       children: [
         {
-          attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+          attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
           children: [
             {
               attributes: {
                 depth: 3,
                 isLeaf: false,
                 label: "tree",
+                name: "tree",
                 tree: {
-                  attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-                  children: [{ attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" }],
-                  name: "username",
+                  attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
+                  children: [
+                    {
+                      attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
+                      children: [],
+                      uuid: "password",
+                    },
+                  ],
                   treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                  uuid: "username",
                 },
                 treePath: "/tree",
                 type: "tree",
               },
-              children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-              name: "tree",
+              children: [
+                { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
+              ],
+              uuid: "tree",
             },
           ],
-          name: "3",
+          uuid: "3",
         },
       ],
-      name: "2",
+      uuid: "2",
     },
     {
-      attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+      attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
       children: [
         {
           attributes: {
             depth: 3,
             isLeaf: false,
             label: "tree",
+            name: "tree",
             tree: {
-              attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-              children: [{ attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" }],
-              name: "username",
+              attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
+              children: [
+                {
+                  attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
+                  children: [],
+                  uuid: "password",
+                },
+              ],
               treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+              uuid: "username",
             },
             treePath: "/tree",
             type: "tree",
           },
-          children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-          name: "tree",
+          children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" }],
+          uuid: "tree",
         },
       ],
-      name: "3",
+      uuid: "3",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-      children: [{ attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" }],
-      name: "tree.username",
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "tree.username", type: "text" },
+      children: [
+        { attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" }, children: [], uuid: "password" },
+      ],
       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
       treePath: "/tree",
+      uuid: "username",
     },
-    { attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "tree.password", treePath: "/tree" },
-    { attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" },
+    {
+      attributes: { depth: 1, isLeaf: true, label: "Password", name: "tree.password", type: "text" },
+      children: [],
+      treePath: "/tree",
+      uuid: "password",
+    },
+    { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
   ],
   tree: {
     attributes: {
@@ -333,6 +398,7 @@ const treeWithTreeAndChildrenInMainTreeMock: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "text",
     },
     children: [
@@ -341,6 +407,7 @@ const treeWithTreeAndChildrenInMainTreeMock: Mock = {
           depth: 1,
           isLeaf: false,
           label: "2",
+          name: "2",
           type: "text",
         },
         children: [
@@ -349,6 +416,7 @@ const treeWithTreeAndChildrenInMainTreeMock: Mock = {
               depth: 2,
               isLeaf: false,
               label: "3",
+              name: "3",
               type: "text",
             },
             children: [
@@ -357,11 +425,13 @@ const treeWithTreeAndChildrenInMainTreeMock: Mock = {
                   depth: 3,
                   isLeaf: false,
                   label: "tree",
+                  name: "tree",
                   tree: {
                     attributes: {
                       depth: 0,
                       isRoot: true,
                       label: "Username",
+                      name: "username",
                       type: "text",
                     },
                     children: [
@@ -370,14 +440,15 @@ const treeWithTreeAndChildrenInMainTreeMock: Mock = {
                           depth: 1,
                           isLeaf: true,
                           label: "Password",
+                          name: "password",
                           type: "text",
                         },
                         children: [],
-                        name: "password",
+                        uuid: "password",
                       },
                     ],
-                    name: "username",
                     treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                    uuid: "username",
                   },
                   treePath: "/tree",
                   type: "tree",
@@ -388,260 +459,305 @@ const treeWithTreeAndChildrenInMainTreeMock: Mock = {
                       depth: 4,
                       isLeaf: true,
                       label: "Final",
+                      name: "Final",
                       type: "text",
                     },
                     children: [],
-                    name: "Final",
+                    uuid: "Final",
                   },
                 ],
-                name: "tree",
+                uuid: "tree",
               },
             ],
-            name: "3",
+            uuid: "3",
           },
         ],
-        name: "2",
+        uuid: "2",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const treeWithManyTreeChildren: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "text" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "text" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
+          attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
           children: [
             {
-              attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+              attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
               children: [
                 {
                   attributes: {
                     depth: 3,
                     isLeaf: false,
                     label: "tree",
+                    name: "tree",
                     tree: {
-                      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                       children: [
                         {
-                          attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+                          attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
                           children: [
                             {
                               attributes: {
                                 depth: 2,
                                 isLeaf: false,
                                 label: "tree2",
+                                name: "tree2",
                                 tree: {
-                                  attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+                                  attributes: {
+                                    depth: 0,
+                                    isLeaf: true,
+                                    isRoot: true,
+                                    label: "fieldTree2",
+                                    name: "fieldTree2",
+                                    type: "text",
+                                  },
                                   children: [],
-                                  name: "fieldTree2",
                                   treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                                  uuid: "fieldTree2",
                                 },
                                 treePath: "/tree/tree2",
                                 type: "tree",
                               },
                               children: [
                                 {
-                                  attributes: { depth: 3, isLeaf: true, label: "finalTree", type: "text" },
+                                  attributes: { depth: 3, isLeaf: true, label: "finalTree", name: "finalTree", type: "text" },
                                   children: [],
-                                  name: "finalTree",
+                                  uuid: "finalTree",
                                 },
                               ],
-                              name: "tree2",
+                              uuid: "tree2",
                             },
                           ],
-                          name: "password",
+                          uuid: "password",
                         },
                       ],
-                      name: "username",
                       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                      uuid: "username",
                     },
                     treePath: "/tree",
                     type: "tree",
                   },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-                  name: "tree",
+                  children: [
+                    { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
+                  ],
+                  uuid: "tree",
                 },
               ],
-              name: "3",
+              uuid: "3",
             },
           ],
-          name: "2",
+          uuid: "2",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
       children: [
         {
-          attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+          attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
           children: [
             {
               attributes: {
                 depth: 3,
                 isLeaf: false,
                 label: "tree",
+                name: "tree",
                 tree: {
-                  attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                  attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                   children: [
                     {
-                      attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+                      attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
                       children: [
                         {
                           attributes: {
                             depth: 2,
                             isLeaf: false,
                             label: "tree2",
+                            name: "tree2",
                             tree: {
-                              attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+                              attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
                               children: [],
-                              name: "fieldTree2",
                               treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                              uuid: "fieldTree2",
                             },
                             treePath: "/tree/tree2",
                             type: "tree",
                           },
                           children: [
-                            { attributes: { depth: 3, isLeaf: true, label: "finalTree", type: "text" }, children: [], name: "finalTree" },
+                            {
+                              attributes: { depth: 3, isLeaf: true, label: "finalTree", name: "finalTree", type: "text" },
+                              children: [],
+                              uuid: "finalTree",
+                            },
                           ],
-                          name: "tree2",
+                          uuid: "tree2",
                         },
                       ],
-                      name: "password",
+                      uuid: "password",
                     },
                   ],
-                  name: "username",
                   treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                  uuid: "username",
                 },
                 treePath: "/tree",
                 type: "tree",
               },
-              children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-              name: "tree",
+              children: [
+                { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
+              ],
+              uuid: "tree",
             },
           ],
-          name: "3",
+          uuid: "3",
         },
       ],
-      name: "2",
+      uuid: "2",
     },
     {
-      attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+      attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
       children: [
         {
           attributes: {
             depth: 3,
             isLeaf: false,
             label: "tree",
+            name: "tree",
             tree: {
-              attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+              attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
               children: [
                 {
-                  attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+                  attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
                   children: [
                     {
                       attributes: {
                         depth: 2,
                         isLeaf: false,
                         label: "tree2",
+                        name: "tree2",
                         tree: {
-                          attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+                          attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
                           children: [],
-                          name: "fieldTree2",
                           treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                          uuid: "fieldTree2",
                         },
                         treePath: "/tree/tree2",
                         type: "tree",
                       },
                       children: [
-                        { attributes: { depth: 3, isLeaf: true, label: "finalTree", type: "text" }, children: [], name: "finalTree" },
+                        {
+                          attributes: { depth: 3, isLeaf: true, label: "finalTree", name: "finalTree", type: "text" },
+                          children: [],
+                          uuid: "finalTree",
+                        },
                       ],
-                      name: "tree2",
+                      uuid: "tree2",
                     },
                   ],
-                  name: "password",
+                  uuid: "password",
                 },
               ],
-              name: "username",
               treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+              uuid: "username",
             },
             treePath: "/tree",
             type: "tree",
           },
-          children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-          name: "tree",
+          children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" }],
+          uuid: "tree",
         },
       ],
-      name: "3",
+      uuid: "3",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "tree.username", type: "text" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+          attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
           children: [
             {
               attributes: {
                 depth: 2,
                 isLeaf: false,
                 label: "tree2",
+                name: "tree2",
                 tree: {
-                  attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+                  attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
                   children: [],
-                  name: "fieldTree2",
                   treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                  uuid: "fieldTree2",
                 },
                 treePath: "/tree/tree2",
                 type: "tree",
               },
-              children: [{ attributes: { depth: 3, isLeaf: true, label: "finalTree", type: "text" }, children: [], name: "finalTree" }],
-              name: "tree2",
+              children: [
+                {
+                  attributes: { depth: 3, isLeaf: true, label: "finalTree", name: "finalTree", type: "text" },
+                  children: [],
+                  uuid: "finalTree",
+                },
+              ],
+              uuid: "tree2",
             },
           ],
-          name: "password",
+          uuid: "password",
         },
       ],
-      name: "tree.username",
       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
       treePath: "/tree",
+      uuid: "username",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "Password", name: "tree.password", type: "text" },
       children: [
         {
           attributes: {
             depth: 2,
             isLeaf: false,
             label: "tree2",
+            name: "tree2",
             tree: {
-              attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+              attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
               children: [],
-              name: "fieldTree2",
               treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+              uuid: "fieldTree2",
             },
             treePath: "/tree/tree2",
             type: "tree",
           },
-          children: [{ attributes: { depth: 3, isLeaf: true, label: "finalTree", type: "text" }, children: [], name: "finalTree" }],
-          name: "tree2",
+          children: [
+            {
+              attributes: { depth: 3, isLeaf: true, label: "finalTree", name: "finalTree", type: "text" },
+              children: [],
+              uuid: "finalTree",
+            },
+          ],
+          uuid: "tree2",
         },
       ],
-      name: "tree.password",
       treePath: "/tree",
+      uuid: "password",
     },
     {
-      attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+      attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "tree.tree2.fieldTree2", type: "text" },
       children: [],
-      name: "tree.tree2.fieldTree2",
       treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
       treePath: "/tree/tree2",
+      uuid: "fieldTree2",
     },
-    { attributes: { depth: 3, isLeaf: true, label: "finalTree", type: "text" }, children: [], name: "tree.finalTree", treePath: "/tree" },
-    { attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" },
+    {
+      attributes: { depth: 3, isLeaf: true, label: "finalTree", name: "tree.finalTree", type: "text" },
+      children: [],
+      treePath: "/tree",
+      uuid: "finalTree",
+    },
+    { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
   ],
   tree: {
     attributes: {
@@ -649,6 +765,7 @@ const treeWithManyTreeChildren: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "text",
     },
     children: [
@@ -657,6 +774,7 @@ const treeWithManyTreeChildren: Mock = {
           depth: 1,
           isLeaf: false,
           label: "2",
+          name: "2",
           type: "text",
         },
         children: [
@@ -665,6 +783,7 @@ const treeWithManyTreeChildren: Mock = {
               depth: 2,
               isLeaf: false,
               label: "3",
+              name: "3",
               type: "text",
             },
             children: [
@@ -673,11 +792,13 @@ const treeWithManyTreeChildren: Mock = {
                   depth: 3,
                   isLeaf: false,
                   label: "tree",
+                  name: "tree",
                   tree: {
                     attributes: {
                       depth: 0,
                       isRoot: true,
                       label: "Username",
+                      name: "username",
                       type: "text",
                     },
                     children: [
@@ -686,6 +807,7 @@ const treeWithManyTreeChildren: Mock = {
                           depth: 1,
                           isLeaf: false,
                           label: "Password",
+                          name: "password",
                           type: "text",
                         },
                         children: [
@@ -694,17 +816,19 @@ const treeWithManyTreeChildren: Mock = {
                               depth: 2,
                               isLeaf: false,
                               label: "tree2",
+                              name: "tree2",
                               tree: {
                                 attributes: {
                                   depth: 0,
                                   isLeaf: true,
                                   isRoot: true,
                                   label: "fieldTree2",
+                                  name: "fieldTree2",
                                   type: "text",
                                 },
                                 children: [],
-                                name: "fieldTree2",
                                 treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                                uuid: "fieldTree2",
                               },
                               treePath: "/tree/tree2",
                               type: "tree",
@@ -715,20 +839,21 @@ const treeWithManyTreeChildren: Mock = {
                                   depth: 3,
                                   isLeaf: true,
                                   label: "finalTree",
+                                  name: "finalTree",
                                   type: "text",
                                 },
                                 children: [],
-                                name: "finalTree",
+                                uuid: "finalTree",
                               },
                             ],
-                            name: "tree2",
+                            uuid: "tree2",
                           },
                         ],
-                        name: "password",
+                        uuid: "password",
                       },
                     ],
-                    name: "username",
                     treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                    uuid: "username",
                   },
                   treePath: "/tree",
                   type: "tree",
@@ -739,249 +864,269 @@ const treeWithManyTreeChildren: Mock = {
                       depth: 4,
                       isLeaf: true,
                       label: "Final",
+                      name: "Final",
                       type: "text",
                     },
                     children: [],
-                    name: "Final",
+                    uuid: "Final",
                   },
                 ],
-                name: "tree",
+                uuid: "tree",
               },
             ],
-            name: "3",
+            uuid: "3",
           },
         ],
-        name: "2",
+        uuid: "2",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const treeWithManyTreeChildrenWithoutOne: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "text" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "text" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
+          attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
           children: [
             {
-              attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+              attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
               children: [
                 {
                   attributes: {
                     depth: 3,
                     isLeaf: false,
                     label: "tree",
+                    name: "tree",
                     tree: {
-                      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                       children: [
                         {
-                          attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+                          attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
                           children: [
                             {
                               attributes: {
                                 depth: 2,
                                 isLeaf: true,
                                 label: "tree2",
+                                name: "tree2",
                                 tree: {
-                                  attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+                                  attributes: {
+                                    depth: 0,
+                                    isLeaf: true,
+                                    isRoot: true,
+                                    label: "fieldTree2",
+                                    name: "fieldTree2",
+                                    type: "text",
+                                  },
                                   children: [],
-                                  name: "fieldTree2",
                                   treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                                  uuid: "fieldTree2",
                                 },
                                 treePath: "/tree/tree2",
                                 type: "tree",
                               },
                               children: [],
-                              name: "tree2",
+                              uuid: "tree2",
                             },
                           ],
-                          name: "password",
+                          uuid: "password",
                         },
                       ],
-                      name: "username",
                       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                      uuid: "username",
                     },
                     treePath: "/tree",
                     type: "tree",
                   },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-                  name: "tree",
+                  children: [
+                    { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
+                  ],
+                  uuid: "tree",
                 },
               ],
-              name: "3",
+              uuid: "3",
             },
           ],
-          name: "2",
+          uuid: "2",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "2", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "2", name: "2", type: "text" },
       children: [
         {
-          attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+          attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
           children: [
             {
               attributes: {
                 depth: 3,
                 isLeaf: false,
                 label: "tree",
+                name: "tree",
                 tree: {
-                  attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                  attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                   children: [
                     {
-                      attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+                      attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
                       children: [
                         {
                           attributes: {
                             depth: 2,
                             isLeaf: true,
                             label: "tree2",
+                            name: "tree2",
                             tree: {
-                              attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+                              attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
                               children: [],
-                              name: "fieldTree2",
                               treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                              uuid: "fieldTree2",
                             },
                             treePath: "/tree/tree2",
                             type: "tree",
                           },
                           children: [],
-                          name: "tree2",
+                          uuid: "tree2",
                         },
                       ],
-                      name: "password",
+                      uuid: "password",
                     },
                   ],
-                  name: "username",
                   treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                  uuid: "username",
                 },
                 treePath: "/tree",
                 type: "tree",
               },
-              children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-              name: "tree",
+              children: [
+                { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
+              ],
+              uuid: "tree",
             },
           ],
-          name: "3",
+          uuid: "3",
         },
       ],
-      name: "2",
+      uuid: "2",
     },
     {
-      attributes: { depth: 2, isLeaf: false, label: "3", type: "text" },
+      attributes: { depth: 2, isLeaf: false, label: "3", name: "3", type: "text" },
       children: [
         {
           attributes: {
             depth: 3,
             isLeaf: false,
             label: "tree",
+            name: "tree",
             tree: {
-              attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+              attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
               children: [
                 {
-                  attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+                  attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
                   children: [
                     {
                       attributes: {
                         depth: 2,
                         isLeaf: true,
                         label: "tree2",
+                        name: "tree2",
                         tree: {
-                          attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+                          attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
                           children: [],
-                          name: "fieldTree2",
                           treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                          uuid: "fieldTree2",
                         },
                         treePath: "/tree/tree2",
                         type: "tree",
                       },
                       children: [],
-                      name: "tree2",
+                      uuid: "tree2",
                     },
                   ],
-                  name: "password",
+                  uuid: "password",
                 },
               ],
-              name: "username",
               treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+              uuid: "username",
             },
             treePath: "/tree",
             type: "tree",
           },
-          children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-          name: "tree",
+          children: [{ attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" }],
+          uuid: "tree",
         },
       ],
-      name: "3",
+      uuid: "3",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "tree.username", type: "text" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+          attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
           children: [
             {
               attributes: {
                 depth: 2,
                 isLeaf: true,
                 label: "tree2",
+                name: "tree2",
                 tree: {
-                  attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+                  attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
                   children: [],
-                  name: "fieldTree2",
                   treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                  uuid: "fieldTree2",
                 },
                 treePath: "/tree/tree2",
                 type: "tree",
               },
               children: [],
-              name: "tree2",
+              uuid: "tree2",
             },
           ],
-          name: "password",
+          uuid: "password",
         },
       ],
-      name: "tree.username",
       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
       treePath: "/tree",
+      uuid: "username",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "Password", name: "tree.password", type: "text" },
       children: [
         {
           attributes: {
             depth: 2,
             isLeaf: true,
             label: "tree2",
+            name: "tree2",
             tree: {
-              attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+              attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
               children: [],
-              name: "fieldTree2",
               treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+              uuid: "fieldTree2",
             },
             treePath: "/tree/tree2",
             type: "tree",
           },
           children: [],
-          name: "tree2",
+          uuid: "tree2",
         },
       ],
-      name: "tree.password",
       treePath: "/tree",
+      uuid: "password",
     },
     {
-      attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", type: "text" },
+      attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "tree.tree2.fieldTree2", type: "text" },
       children: [],
-      name: "tree.tree2.fieldTree2",
       treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
       treePath: "/tree/tree2",
+      uuid: "fieldTree2",
     },
-    { attributes: { depth: 4, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" },
+    { attributes: { depth: 4, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
   ],
   tree: {
     attributes: {
@@ -989,6 +1134,7 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "text",
     },
     children: [
@@ -997,6 +1143,7 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
           depth: 1,
           isLeaf: false,
           label: "2",
+          name: "2",
           type: "text",
         },
         children: [
@@ -1005,6 +1152,7 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
               depth: 2,
               isLeaf: false,
               label: "3",
+              name: "3",
               type: "text",
             },
             children: [
@@ -1013,11 +1161,13 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
                   depth: 3,
                   isLeaf: false,
                   label: "tree",
+                  name: "tree",
                   tree: {
                     attributes: {
                       depth: 0,
                       isRoot: true,
                       label: "Username",
+                      name: "username",
                       type: "text",
                     },
                     children: [
@@ -1026,6 +1176,7 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
                           depth: 1,
                           isLeaf: false,
                           label: "Password",
+                          name: "password",
                           type: "text",
                         },
                         children: [
@@ -1034,30 +1185,32 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
                               depth: 2,
                               isLeaf: true,
                               label: "tree2",
+                              name: "tree2",
                               tree: {
                                 attributes: {
                                   depth: 0,
                                   isLeaf: true,
                                   isRoot: true,
                                   label: "fieldTree2",
+                                  name: "fieldTree2",
                                   type: "text",
                                 },
                                 children: [],
-                                name: "fieldTree2",
                                 treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
+                                uuid: "fieldTree2",
                               },
                               treePath: "/tree/tree2",
                               type: "tree",
                             },
                             children: [],
-                            name: "tree2",
+                            uuid: "tree2",
                           },
                         ],
-                        name: "password",
+                        uuid: "password",
                       },
                     ],
-                    name: "username",
                     treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                    uuid: "username",
                   },
                   treePath: "/tree",
                   type: "tree",
@@ -1068,68 +1221,69 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
                       depth: 4,
                       isLeaf: true,
                       label: "Final",
+                      name: "Final",
                       type: "text",
                     },
                     children: [],
-                    name: "Final",
+                    uuid: "Final",
                   },
                 ],
-                name: "tree",
+                uuid: "tree",
               },
             ],
-            name: "3",
+            uuid: "3",
           },
         ],
-        name: "2",
+        uuid: "2",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const treeWithDecisionWithoutChildren: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "select" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "select" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, isRoot: false, label: "2", type: "text" },
+          attributes: { depth: 1, isLeaf: false, isRoot: false, label: "2", name: "2", type: "text" },
           children: [
             {
-              attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", type: "select" },
+              attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", name: "decision", type: "select" },
               children: [
-                { attributes: { depth: 3, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "decision:v1" },
-                { attributes: { depth: 3, isLeaf: true, label: "v2", value: "v2" }, children: [], name: "decision:v2" },
+                { attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "decision:v1" },
+                { attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" }, children: [], uuid: "decision:v2" },
               ],
-              name: "decision",
+              uuid: "decision",
             },
           ],
-          name: "2",
+          uuid: "2",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 1, isLeaf: false, isRoot: false, label: "2", type: "text" },
+      attributes: { depth: 1, isLeaf: false, isRoot: false, label: "2", name: "2", type: "text" },
       children: [
         {
-          attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", type: "select" },
+          attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", name: "decision", type: "select" },
           children: [
-            { attributes: { depth: 3, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "decision:v1" },
-            { attributes: { depth: 3, isLeaf: true, label: "v2", value: "v2" }, children: [], name: "decision:v2" },
+            { attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "decision:v1" },
+            { attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" }, children: [], uuid: "decision:v2" },
           ],
-          name: "decision",
+          uuid: "decision",
         },
       ],
-      name: "2",
+      uuid: "2",
     },
     {
-      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", type: "select" },
+      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", name: "decision", type: "select" },
       children: [
-        { attributes: { depth: 3, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "decision:v1" },
-        { attributes: { depth: 3, isLeaf: true, label: "v2", value: "v2" }, children: [], name: "decision:v2" },
+        { attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "decision:v1" },
+        { attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" }, children: [], uuid: "decision:v2" },
       ],
-      name: "decision",
+      uuid: "decision",
     },
   ],
   tree: {
@@ -1138,6 +1292,7 @@ const treeWithDecisionWithoutChildren: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "select",
     },
     children: [
@@ -1147,6 +1302,7 @@ const treeWithDecisionWithoutChildren: Mock = {
           isLeaf: false,
           isRoot: false,
           label: "2",
+          name: "2",
           type: "text",
         },
         children: [
@@ -1157,6 +1313,7 @@ const treeWithDecisionWithoutChildren: Mock = {
               isLeaf: false,
               isRoot: false,
               label: "decision",
+              name: "decision",
               type: "select",
             },
             children: [
@@ -1165,99 +1322,121 @@ const treeWithDecisionWithoutChildren: Mock = {
                   depth: 3,
                   isLeaf: true,
                   label: "v1",
+                  name: "v1",
                   value: "v1",
                 },
                 children: [],
-                name: "decision:v1",
+                uuid: "decision:v1",
               },
               {
                 attributes: {
                   depth: 3,
                   isLeaf: true,
                   label: "v2",
+                  name: "v2",
                   value: "v2",
                 },
                 children: [],
-                name: "decision:v2",
+                uuid: "decision:v2",
               },
             ],
-            name: "decision",
+            uuid: "decision",
           },
         ],
-        name: "2",
+        uuid: "2",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const treeWithDecisionAndChildrens: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "select" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "select" },
       children: [
         {
-          attributes: { depth: 1, isLeaf: false, isRoot: false, label: "2", type: "text" },
+          attributes: { depth: 1, isLeaf: false, isRoot: false, label: "2", name: "2", type: "text" },
           children: [
             {
-              attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", type: "select" },
+              attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", name: "decision", type: "select" },
               children: [
                 {
-                  attributes: { depth: 3, isLeaf: false, label: "v1", value: "v1" },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "v1child", type: "text" }, children: [], name: "v1child" }],
-                  name: "decision:v1",
+                  attributes: { depth: 3, isLeaf: false, label: "v1", name: "v1", value: "v1" },
+                  children: [
+                    {
+                      attributes: { depth: 4, isLeaf: true, label: "v1child", name: "v1child", type: "text" },
+                      children: [],
+                      uuid: "v1child",
+                    },
+                  ],
+                  uuid: "decision:v1",
                 },
                 {
-                  attributes: { depth: 3, isLeaf: false, label: "v2", value: "v2" },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "v2child", type: "text" }, children: [], name: "v2child" }],
-                  name: "decision:v2",
+                  attributes: { depth: 3, isLeaf: false, label: "v2", name: "v2", value: "v2" },
+                  children: [
+                    {
+                      attributes: { depth: 4, isLeaf: true, label: "v2child", name: "v2child", type: "text" },
+                      children: [],
+                      uuid: "v2child",
+                    },
+                  ],
+                  uuid: "decision:v2",
                 },
               ],
-              name: "decision",
+              uuid: "decision",
             },
           ],
-          name: "2",
+          uuid: "2",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 1, isLeaf: false, isRoot: false, label: "2", type: "text" },
+      attributes: { depth: 1, isLeaf: false, isRoot: false, label: "2", name: "2", type: "text" },
       children: [
         {
-          attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", type: "select" },
+          attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", name: "decision", type: "select" },
           children: [
             {
-              attributes: { depth: 3, isLeaf: false, label: "v1", value: "v1" },
-              children: [{ attributes: { depth: 4, isLeaf: true, label: "v1child", type: "text" }, children: [], name: "v1child" }],
-              name: "decision:v1",
+              attributes: { depth: 3, isLeaf: false, label: "v1", name: "v1", value: "v1" },
+              children: [
+                { attributes: { depth: 4, isLeaf: true, label: "v1child", name: "v1child", type: "text" }, children: [], uuid: "v1child" },
+              ],
+              uuid: "decision:v1",
             },
             {
-              attributes: { depth: 3, isLeaf: false, label: "v2", value: "v2" },
-              children: [{ attributes: { depth: 4, isLeaf: true, label: "v2child", type: "text" }, children: [], name: "v2child" }],
-              name: "decision:v2",
+              attributes: { depth: 3, isLeaf: false, label: "v2", name: "v2", value: "v2" },
+              children: [
+                { attributes: { depth: 4, isLeaf: true, label: "v2child", name: "v2child", type: "text" }, children: [], uuid: "v2child" },
+              ],
+              uuid: "decision:v2",
             },
           ],
-          name: "decision",
+          uuid: "decision",
         },
       ],
-      name: "2",
+      uuid: "2",
     },
     {
-      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", type: "select" },
+      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", name: "decision", type: "select" },
       children: [
         {
-          attributes: { depth: 3, isLeaf: false, label: "v1", value: "v1" },
-          children: [{ attributes: { depth: 4, isLeaf: true, label: "v1child", type: "text" }, children: [], name: "v1child" }],
-          name: "decision:v1",
+          attributes: { depth: 3, isLeaf: false, label: "v1", name: "v1", value: "v1" },
+          children: [
+            { attributes: { depth: 4, isLeaf: true, label: "v1child", name: "v1child", type: "text" }, children: [], uuid: "v1child" },
+          ],
+          uuid: "decision:v1",
         },
         {
-          attributes: { depth: 3, isLeaf: false, label: "v2", value: "v2" },
-          children: [{ attributes: { depth: 4, isLeaf: true, label: "v2child", type: "text" }, children: [], name: "v2child" }],
-          name: "decision:v2",
+          attributes: { depth: 3, isLeaf: false, label: "v2", name: "v2", value: "v2" },
+          children: [
+            { attributes: { depth: 4, isLeaf: true, label: "v2child", name: "v2child", type: "text" }, children: [], uuid: "v2child" },
+          ],
+          uuid: "decision:v2",
         },
       ],
-      name: "decision",
+      uuid: "decision",
     },
   ],
   tree: {
@@ -1266,6 +1445,7 @@ const treeWithDecisionAndChildrens: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "select",
     },
     children: [
@@ -1275,6 +1455,7 @@ const treeWithDecisionAndChildrens: Mock = {
           isLeaf: false,
           isRoot: false,
           label: "2",
+          name: "2",
           type: "text",
         },
         children: [
@@ -1285,6 +1466,7 @@ const treeWithDecisionAndChildrens: Mock = {
               isLeaf: false,
               isRoot: false,
               label: "decision",
+              name: "decision",
               type: "select",
             },
             children: [
@@ -1293,6 +1475,7 @@ const treeWithDecisionAndChildrens: Mock = {
                   depth: 3,
                   isLeaf: false,
                   label: "v1",
+                  name: "v1",
                   value: "v1",
                 },
                 children: [
@@ -1301,19 +1484,21 @@ const treeWithDecisionAndChildrens: Mock = {
                       depth: 4,
                       isLeaf: true,
                       label: "v1child",
+                      name: "v1child",
                       type: "text",
                     },
                     children: [],
-                    name: "v1child",
+                    uuid: "v1child",
                   },
                 ],
-                name: "decision:v1",
+                uuid: "decision:v1",
               },
               {
                 attributes: {
                   depth: 3,
                   isLeaf: false,
                   label: "v2",
+                  name: "v2",
                   value: "v2",
                 },
                 children: [
@@ -1322,29 +1507,30 @@ const treeWithDecisionAndChildrens: Mock = {
                       depth: 4,
                       isLeaf: true,
                       label: "v2child",
+                      name: "v2child",
                       type: "text",
                     },
                     children: [],
-                    name: "v2child",
+                    uuid: "v2child",
                   },
                 ],
-                name: "decision:v2",
+                uuid: "decision:v2",
               },
             ],
-            name: "decision",
+            uuid: "decision",
           },
         ],
-        name: "2",
+        uuid: "2",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const treeWithDecisionAndTree: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "select" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "select" },
       children: [
         {
           attributes: {
@@ -1352,61 +1538,91 @@ const treeWithDecisionAndTree: Mock = {
             isLeaf: false,
             isRoot: false,
             label: "Tree",
+            name: "tree",
             tree: {
-              attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-              children: [{ attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" }],
-              name: "username",
+              attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
+              children: [
+                {
+                  attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
+                  children: [],
+                  uuid: "password",
+                },
+              ],
               treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+              uuid: "username",
             },
             treePath: "/Tree",
             type: "tree",
           },
           children: [
             {
-              attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", type: "select" },
+              attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", name: "decision", type: "select" },
               children: [
                 {
-                  attributes: { depth: 3, isLeaf: false, label: "v1", value: "v1" },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "v1child", type: "text" }, children: [], name: "v1child" }],
-                  name: "decision:v1",
+                  attributes: { depth: 3, isLeaf: false, label: "v1", name: "v1", value: "v1" },
+                  children: [
+                    {
+                      attributes: { depth: 4, isLeaf: true, label: "v1child", name: "v1child", type: "text" },
+                      children: [],
+                      uuid: "v1child",
+                    },
+                  ],
+                  uuid: "decision:v1",
                 },
                 {
-                  attributes: { depth: 3, isLeaf: false, label: "v2", value: "v2" },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "v2child", type: "text" }, children: [], name: "v2child" }],
-                  name: "decision:v2",
+                  attributes: { depth: 3, isLeaf: false, label: "v2", name: "v2", value: "v2" },
+                  children: [
+                    {
+                      attributes: { depth: 4, isLeaf: true, label: "v2child", name: "v2child", type: "text" },
+                      children: [],
+                      uuid: "v2child",
+                    },
+                  ],
+                  uuid: "decision:v2",
                 },
               ],
-              name: "decision",
+              uuid: "decision",
             },
           ],
-          name: "Tree",
+          uuid: "Tree",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-      children: [{ attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "password" }],
-      name: "Tree.username",
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "Tree.username", type: "text" },
+      children: [
+        { attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" }, children: [], uuid: "password" },
+      ],
       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
       treePath: "/Tree",
+      uuid: "username",
     },
-    { attributes: { depth: 1, isLeaf: true, label: "Password", type: "text" }, children: [], name: "Tree.password", treePath: "/Tree" },
     {
-      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", type: "select" },
+      attributes: { depth: 1, isLeaf: true, label: "Password", name: "Tree.password", type: "text" },
+      children: [],
+      treePath: "/Tree",
+      uuid: "password",
+    },
+    {
+      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "decision", name: "decision", type: "select" },
       children: [
         {
-          attributes: { depth: 3, isLeaf: false, label: "v1", value: "v1" },
-          children: [{ attributes: { depth: 4, isLeaf: true, label: "v1child", type: "text" }, children: [], name: "v1child" }],
-          name: "decision:v1",
+          attributes: { depth: 3, isLeaf: false, label: "v1", name: "v1", value: "v1" },
+          children: [
+            { attributes: { depth: 4, isLeaf: true, label: "v1child", name: "v1child", type: "text" }, children: [], uuid: "v1child" },
+          ],
+          uuid: "decision:v1",
         },
         {
-          attributes: { depth: 3, isLeaf: false, label: "v2", value: "v2" },
-          children: [{ attributes: { depth: 4, isLeaf: true, label: "v2child", type: "text" }, children: [], name: "v2child" }],
-          name: "decision:v2",
+          attributes: { depth: 3, isLeaf: false, label: "v2", name: "v2", value: "v2" },
+          children: [
+            { attributes: { depth: 4, isLeaf: true, label: "v2child", name: "v2child", type: "text" }, children: [], uuid: "v2child" },
+          ],
+          uuid: "decision:v2",
         },
       ],
-      name: "decision",
+      uuid: "decision",
     },
   ],
   tree: {
@@ -1415,6 +1631,7 @@ const treeWithDecisionAndTree: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "select",
     },
     children: [
@@ -1424,11 +1641,13 @@ const treeWithDecisionAndTree: Mock = {
           isLeaf: false,
           isRoot: false,
           label: "Tree",
+          name: "tree",
           tree: {
             attributes: {
               depth: 0,
               isRoot: true,
               label: "Username",
+              name: "username",
               type: "text",
             },
             children: [
@@ -1437,14 +1656,15 @@ const treeWithDecisionAndTree: Mock = {
                   depth: 1,
                   isLeaf: true,
                   label: "Password",
+                  name: "password",
                   type: "text",
                 },
                 children: [],
-                name: "password",
+                uuid: "password",
               },
             ],
-            name: "username",
             treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+            uuid: "username",
           },
           treePath: "/Tree",
           type: "tree",
@@ -1457,6 +1677,7 @@ const treeWithDecisionAndTree: Mock = {
               isLeaf: false,
               isRoot: false,
               label: "decision",
+              name: "decision",
               type: "select",
             },
             children: [
@@ -1465,6 +1686,7 @@ const treeWithDecisionAndTree: Mock = {
                   depth: 3,
                   isLeaf: false,
                   label: "v1",
+                  name: "v1",
                   value: "v1",
                 },
                 children: [
@@ -1473,19 +1695,21 @@ const treeWithDecisionAndTree: Mock = {
                       depth: 4,
                       isLeaf: true,
                       label: "v1child",
+                      name: "v1child",
                       type: "text",
                     },
                     children: [],
-                    name: "v1child",
+                    uuid: "v1child",
                   },
                 ],
-                name: "decision:v1",
+                uuid: "decision:v1",
               },
               {
                 attributes: {
                   depth: 3,
                   isLeaf: false,
                   label: "v2",
+                  name: "v2",
                   value: "v2",
                 },
                 children: [
@@ -1494,29 +1718,30 @@ const treeWithDecisionAndTree: Mock = {
                       depth: 4,
                       isLeaf: true,
                       label: "v2child",
+                      name: "v2child",
                       type: "text",
                     },
                     children: [],
-                    name: "v2child",
+                    uuid: "v2child",
                   },
                 ],
-                name: "decision:v2",
+                uuid: "decision:v2",
               },
             ],
-            name: "decision",
+            uuid: "decision",
           },
         ],
-        name: "Tree",
+        uuid: "Tree",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const treeWithChildrenAndDecisionInTree: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "select" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "select" },
       children: [
         {
           attributes: {
@@ -1524,78 +1749,85 @@ const treeWithChildrenAndDecisionInTree: Mock = {
             isLeaf: false,
             isRoot: false,
             label: "Tree",
+            name: "tree",
             tree: {
-              attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+              attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
               children: [
                 {
-                  attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+                  attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
                   children: [
                     {
-                      attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", type: "select" },
+                      attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", name: "decision", type: "select" },
                       children: [
-                        { attributes: { depth: 3, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "decision:v1" },
-                        { attributes: { depth: 3, isLeaf: true, label: "v2", value: "v2" }, children: [], name: "decision:v2" },
+                        { attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "decision:v1" },
+                        { attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" }, children: [], uuid: "decision:v2" },
                       ],
-                      name: "decision",
+                      uuid: "decision",
                     },
                   ],
-                  name: "password",
+                  uuid: "password",
                 },
               ],
-              name: "username",
               treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+              uuid: "username",
             },
             treePath: "/Tree",
             type: "tree",
           },
-          children: [{ attributes: { depth: 2, isLeaf: true, isRoot: false, label: "Final", type: "text" }, children: [], name: "Final" }],
-          name: "Tree",
-        },
-      ],
-      name: "1",
-    },
-    {
-      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
-      children: [
-        {
-          attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
           children: [
             {
-              attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", type: "select" },
-              children: [
-                { attributes: { depth: 3, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "decision:v1" },
-                { attributes: { depth: 3, isLeaf: true, label: "v2", value: "v2" }, children: [], name: "decision:v2" },
-              ],
-              name: "decision",
+              attributes: { depth: 2, isLeaf: true, isRoot: false, label: "Final", name: "Final", type: "text" },
+              children: [],
+              uuid: "Final",
             },
           ],
-          name: "password",
+          uuid: "Tree",
         },
       ],
-      name: "Tree.username",
-      treeId: "41042a08-4660-4609-af32-784bbd0503cf",
-      treePath: "/Tree",
+      uuid: "1",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "Tree.username", type: "text" },
       children: [
         {
-          attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", type: "select" },
+          attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
           children: [
-            { attributes: { depth: 3, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "decision:v1" },
-            { attributes: { depth: 3, isLeaf: true, label: "v2", value: "v2" }, children: [], name: "decision:v2" },
+            {
+              attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", name: "decision", type: "select" },
+              children: [
+                { attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "decision:v1" },
+                { attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" }, children: [], uuid: "decision:v2" },
+              ],
+              uuid: "decision",
+            },
           ],
-          name: "decision",
+          uuid: "password",
         },
       ],
-      name: "Tree.password",
+      treeId: "41042a08-4660-4609-af32-784bbd0503cf",
       treePath: "/Tree",
+      uuid: "username",
     },
     {
-      attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", type: "select" },
+      attributes: { depth: 1, isLeaf: false, label: "Password", name: "Tree.password", type: "text" },
       children: [
-        { attributes: { depth: 3, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "decision:v1" },
-        { attributes: { depth: 3, isLeaf: true, label: "v2", value: "v2" }, children: [], name: "decision:v2" },
+        {
+          attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", name: "decision", type: "select" },
+          children: [
+            { attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "decision:v1" },
+            { attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" }, children: [], uuid: "decision:v2" },
+          ],
+          uuid: "decision",
+        },
+      ],
+      treePath: "/Tree",
+      uuid: "password",
+    },
+    {
+      attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", name: "Tree.decision", type: "select" },
+      children: [
+        { attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "decision:v1" },
+        { attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" }, children: [], uuid: "decision:v2" },
       ],
       childrenTreeRest: [
         {
@@ -1605,39 +1837,52 @@ const treeWithChildrenAndDecisionInTree: Mock = {
               isLeaf: false,
               isRoot: false,
               label: "Tree",
+              name: "tree",
               tree: {
-                attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                 children: [
                   {
-                    attributes: { depth: 1, isLeaf: false, label: "Password", type: "text" },
+                    attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
                     children: [
                       {
-                        attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", type: "select" },
+                        attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", name: "decision", type: "select" },
                         children: [
-                          { attributes: { depth: 3, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "decision:v1" },
-                          { attributes: { depth: 3, isLeaf: true, label: "v2", value: "v2" }, children: [], name: "decision:v2" },
+                          {
+                            attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" },
+                            children: [],
+                            uuid: "decision:v1",
+                          },
+                          {
+                            attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" },
+                            children: [],
+                            uuid: "decision:v2",
+                          },
                         ],
-                        name: "decision",
+                        uuid: "decision",
                       },
                     ],
-                    name: "password",
+                    uuid: "password",
                   },
                 ],
-                name: "username",
                 treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                uuid: "username",
               },
               treePath: "/Tree",
               type: "tree",
             },
             children: [
-              { attributes: { depth: 2, isLeaf: true, isRoot: false, label: "Final", type: "text" }, children: [], name: "Final" },
+              {
+                attributes: { depth: 2, isLeaf: true, isRoot: false, label: "Final", name: "Final", type: "text" },
+                children: [],
+                uuid: "Final",
+              },
             ],
-            name: "Tree",
+            uuid: "Tree",
           },
         },
       ],
-      name: "Tree.decision",
       treePath: "/Tree",
+      uuid: "decision",
     },
   ],
   tree: {
@@ -1646,6 +1891,7 @@ const treeWithChildrenAndDecisionInTree: Mock = {
       isLeaf: false,
       isRoot: true,
       label: "1",
+      name: "1",
       type: "select",
     },
     children: [
@@ -1655,11 +1901,13 @@ const treeWithChildrenAndDecisionInTree: Mock = {
           isLeaf: false,
           isRoot: false,
           label: "Tree",
+          name: "tree",
           tree: {
             attributes: {
               depth: 0,
               isRoot: true,
               label: "Username",
+              name: "username",
               type: "text",
             },
             children: [
@@ -1668,6 +1916,7 @@ const treeWithChildrenAndDecisionInTree: Mock = {
                   depth: 1,
                   isLeaf: false,
                   label: "Password",
+                  name: "password",
                   type: "text",
                 },
                 children: [
@@ -1677,6 +1926,7 @@ const treeWithChildrenAndDecisionInTree: Mock = {
                       isDecision: true,
                       isLeaf: false,
                       label: "decision",
+                      name: "decision",
                       type: "select",
                     },
                     children: [
@@ -1685,30 +1935,32 @@ const treeWithChildrenAndDecisionInTree: Mock = {
                           depth: 3,
                           isLeaf: true,
                           label: "v1",
+                          name: "v1",
                           value: "v1",
                         },
                         children: [],
-                        name: "decision:v1",
+                        uuid: "decision:v1",
                       },
                       {
                         attributes: {
                           depth: 3,
                           isLeaf: true,
                           label: "v2",
+                          name: "v2",
                           value: "v2",
                         },
                         children: [],
-                        name: "decision:v2",
+                        uuid: "decision:v2",
                       },
                     ],
-                    name: "decision",
+                    uuid: "decision",
                   },
                 ],
-                name: "password",
+                uuid: "password",
               },
             ],
-            name: "username",
             treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+            uuid: "username",
           },
           treePath: "/Tree",
           type: "tree",
@@ -1720,26 +1972,27 @@ const treeWithChildrenAndDecisionInTree: Mock = {
               isLeaf: true,
               isRoot: false,
               label: "Final",
+              name: "Final",
               type: "text",
             },
             children: [],
-            name: "Final",
+            uuid: "Final",
           },
         ],
-        name: "Tree",
+        uuid: "Tree",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
 const complexeTreeWithDecision: Mock = {
   output: [
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", type: "text" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "1", name: "1", type: "text" },
       children: [
         {
-          attributes: { depth: 4, isLeaf: true, label: "v2Field", type: "text" },
+          attributes: { depth: 4, isLeaf: true, label: "v2Field", name: "v2Field", type: "text" },
           children: [
             {
               attributes: {
@@ -1747,8 +2000,9 @@ const complexeTreeWithDecision: Mock = {
                 isLeaf: false,
                 isRoot: false,
                 label: "Tree",
+                name: "tree",
                 tree: {
-                  attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                  attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                   children: [
                     {
                       attributes: {
@@ -1756,87 +2010,129 @@ const complexeTreeWithDecision: Mock = {
                         isLeaf: false,
                         isRoot: false,
                         label: "otherTree",
+                        name: "otherTree",
                         tree: {
-                          attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", type: "text" },
+                          attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", name: "Test", type: "text" },
                           children: [
                             {
-                              attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", type: "select" },
+                              attributes: {
+                                depth: 1,
+                                isDecision: true,
+                                isLeaf: false,
+                                label: "newdecision",
+                                name: "newdecision",
+                                type: "select",
+                              },
                               children: [
-                                { attributes: { depth: 2, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "newdecision:v1" },
                                 {
-                                  attributes: { depth: 2, isLeaf: false, label: "v2", value: "v2" },
-                                  children: [
-                                    {
-                                      attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", type: "text" },
-                                      children: [],
-                                      name: "v2 de larbre le plus profond",
-                                    },
-                                  ],
-                                  name: "newdecision:v2",
+                                  attributes: { depth: 2, isLeaf: true, label: "v1", name: "v1", value: "v1" },
+                                  children: [],
+                                  uuid: "newdecision:v1",
                                 },
                                 {
-                                  attributes: { depth: 2, isLeaf: false, label: "v3", value: "v3" },
+                                  attributes: { depth: 2, isLeaf: false, label: "v2", name: "v2", value: "v2" },
                                   children: [
                                     {
-                                      attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", type: "text" },
+                                      attributes: {
+                                        depth: 3,
+                                        isLeaf: true,
+                                        label: "v2 de larbre le plus profond",
+                                        name: "newdecision:v2",
+                                        type: "text",
+                                      },
                                       children: [],
-                                      name: "v3 de larbre le plus profond",
+                                      uuid: "v2 de larbre le plus profond",
                                     },
                                   ],
-                                  name: "newdecision:v3",
+                                  uuid: "newdecision:v2",
+                                },
+                                {
+                                  attributes: { depth: 2, isLeaf: false, label: "v3", name: "v3", value: "v3" },
+                                  children: [
+                                    {
+                                      attributes: {
+                                        depth: 3,
+                                        isLeaf: true,
+                                        label: "v3 de larbre le plus profond",
+                                        name: "newdecision:v3",
+                                        type: "text",
+                                      },
+                                      children: [],
+                                      uuid: "v3 de larbre le plus profond",
+                                    },
+                                  ],
+                                  uuid: "newdecision:v3",
                                 },
                               ],
-                              name: "newdecision",
+                              uuid: "newdecision",
                             },
                           ],
-                          name: "Homme",
                           treeId: "9f3977c4-7fc9-446c-a1eb-2720426edf5b",
+                          uuid: "Homme",
                         },
                         treePath: "/Tree/otherTree",
                         type: "tree",
                       },
                       children: [
                         {
-                          attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "Decision", type: "select" },
+                          attributes: {
+                            depth: 2,
+                            isDecision: true,
+                            isLeaf: false,
+                            isRoot: false,
+                            label: "Decision",
+                            name: "Decision",
+                            type: "select",
+                          },
                           children: [
                             {
-                              attributes: { depth: 3, label: "v1", value: "v1" },
+                              attributes: { depth: 3, label: "v1", name: "v1", value: "v1" },
                               children: [
-                                { attributes: { depth: 4, isLeaf: true, label: "v1Field", type: "text" }, children: [], name: "v1Field" },
+                                {
+                                  attributes: { depth: 4, isLeaf: true, label: "v1Field", name: "v1Field", type: "text" },
+                                  children: [],
+                                  uuid: "v1Field",
+                                },
                               ],
-                              name: "Decision:v1",
+                              uuid: "Decision:v1",
                             },
                             {
-                              attributes: { depth: 3, label: "v2", value: "v2" },
+                              attributes: { depth: 3, label: "v2", name: "v2", value: "v2" },
                               children: [
-                                { attributes: { depth: 4, isLeaf: true, label: "v2Field", type: "text" }, children: [], name: "v2Field" },
+                                {
+                                  attributes: { depth: 4, isLeaf: true, label: "v2Field", name: "v2Field", type: "text" },
+                                  children: [],
+                                  uuid: "v2Field",
+                                },
                               ],
-                              name: "Decision:v2",
+                              uuid: "Decision:v2",
                             },
                           ],
-                          name: "Decision",
+                          uuid: "Decision",
                         },
                       ],
-                      name: "otherTree",
+                      uuid: "otherTree",
                     },
                   ],
-                  name: "username",
                   treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                  uuid: "username",
                 },
                 treePath: "/Tree",
                 type: "tree",
               },
-              children: [{ attributes: { depth: 2, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-              name: "Tree",
+              children: [
+                { attributes: { depth: 2, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
+              ],
+              uuid: "Tree",
             },
           ],
-          name: "test celuila",
+          uuid: "test celuila",
         },
       ],
-      name: "1",
+      uuid: "1",
     },
     {
-      attributes: { depth: 4, isLeaf: true, label: "v2Field", type: "text" },
+      attributes: { depth: 4, isLeaf: true, label: "v2Field", name: "v2Field", type: "text" },
       children: [
         {
           attributes: {
@@ -1844,8 +2140,9 @@ const complexeTreeWithDecision: Mock = {
             isLeaf: false,
             isRoot: false,
             label: "Tree",
+            name: "tree",
             tree: {
-              attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+              attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
               children: [
                 {
                   attributes: {
@@ -1853,84 +2150,124 @@ const complexeTreeWithDecision: Mock = {
                     isLeaf: false,
                     isRoot: false,
                     label: "otherTree",
+                    name: "otherTree",
                     tree: {
-                      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", type: "text" },
+                      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", name: "Test", type: "text" },
                       children: [
                         {
-                          attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", type: "select" },
+                          attributes: {
+                            depth: 1,
+                            isDecision: true,
+                            isLeaf: false,
+                            label: "newdecision",
+                            name: "newdecision",
+                            type: "select",
+                          },
                           children: [
-                            { attributes: { depth: 2, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "newdecision:v1" },
                             {
-                              attributes: { depth: 2, isLeaf: false, label: "v2", value: "v2" },
-                              children: [
-                                {
-                                  attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", type: "text" },
-                                  children: [],
-                                  name: "v2 de larbre le plus profond",
-                                },
-                              ],
-                              name: "newdecision:v2",
+                              attributes: { depth: 2, isLeaf: true, label: "v1", name: "v1", value: "v1" },
+                              children: [],
+                              uuid: "newdecision:v1",
                             },
                             {
-                              attributes: { depth: 2, isLeaf: false, label: "v3", value: "v3" },
+                              attributes: { depth: 2, isLeaf: false, label: "v2", name: "v2", value: "v2" },
                               children: [
                                 {
-                                  attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", type: "text" },
+                                  attributes: {
+                                    depth: 3,
+                                    isLeaf: true,
+                                    label: "v2 de larbre le plus profond",
+                                    name: "newdecision:v2",
+                                    type: "text",
+                                  },
                                   children: [],
-                                  name: "v3 de larbre le plus profond",
+                                  uuid: "v2 de larbre le plus profond",
                                 },
                               ],
-                              name: "newdecision:v3",
+                              uuid: "newdecision:v2",
+                            },
+                            {
+                              attributes: { depth: 2, isLeaf: false, label: "v3", name: "v3", value: "v3" },
+                              children: [
+                                {
+                                  attributes: {
+                                    depth: 3,
+                                    isLeaf: true,
+                                    label: "v3 de larbre le plus profond",
+                                    name: "newdecision:v3",
+                                    type: "text",
+                                  },
+                                  children: [],
+                                  uuid: "v3 de larbre le plus profond",
+                                },
+                              ],
+                              uuid: "newdecision:v3",
                             },
                           ],
-                          name: "newdecision",
+                          uuid: "newdecision",
                         },
                       ],
-                      name: "Homme",
                       treeId: "9f3977c4-7fc9-446c-a1eb-2720426edf5b",
+                      uuid: "Homme",
                     },
                     treePath: "/Tree/otherTree",
                     type: "tree",
                   },
                   children: [
                     {
-                      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "Decision", type: "select" },
+                      attributes: {
+                        depth: 2,
+                        isDecision: true,
+                        isLeaf: false,
+                        isRoot: false,
+                        label: "Decision",
+                        name: "Decision",
+                        type: "select",
+                      },
                       children: [
                         {
-                          attributes: { depth: 3, label: "v1", value: "v1" },
+                          attributes: { depth: 3, label: "v1", name: "v1", value: "v1" },
                           children: [
-                            { attributes: { depth: 4, isLeaf: true, label: "v1Field", type: "text" }, children: [], name: "v1Field" },
+                            {
+                              attributes: { depth: 4, isLeaf: true, label: "v1Field", name: "v1Field", type: "text" },
+                              children: [],
+                              uuid: "v1Field",
+                            },
                           ],
-                          name: "Decision:v1",
+                          uuid: "Decision:v1",
                         },
                         {
-                          attributes: { depth: 3, label: "v2", value: "v2" },
+                          attributes: { depth: 3, label: "v2", name: "v2", value: "v2" },
                           children: [
-                            { attributes: { depth: 4, isLeaf: true, label: "v2Field", type: "text" }, children: [], name: "v2Field" },
+                            {
+                              attributes: { depth: 4, isLeaf: true, label: "v2Field", name: "v2Field", type: "text" },
+                              children: [],
+                              uuid: "v2Field",
+                            },
                           ],
-                          name: "Decision:v2",
+                          uuid: "Decision:v2",
                         },
                       ],
-                      name: "Decision",
+                      uuid: "Decision",
                     },
                   ],
-                  name: "otherTree",
+                  uuid: "otherTree",
                 },
               ],
-              name: "username",
               treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+              uuid: "username",
             },
             treePath: "/Tree",
             type: "tree",
           },
-          children: [{ attributes: { depth: 2, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-          name: "Tree",
+          children: [{ attributes: { depth: 2, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" }],
+          uuid: "Tree",
         },
       ],
-      name: "test celuila",
+      uuid: "test celuila",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "Tree.username", type: "text" },
       children: [
         {
           attributes: {
@@ -1938,132 +2275,157 @@ const complexeTreeWithDecision: Mock = {
             isLeaf: false,
             isRoot: false,
             label: "otherTree",
+            name: "otherTree",
             tree: {
-              attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", type: "text" },
+              attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", name: "Test", type: "text" },
               children: [
                 {
-                  attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", type: "select" },
+                  attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", name: "newdecision", type: "select" },
                   children: [
-                    { attributes: { depth: 2, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "newdecision:v1" },
+                    { attributes: { depth: 2, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "newdecision:v1" },
                     {
-                      attributes: { depth: 2, isLeaf: false, label: "v2", value: "v2" },
+                      attributes: { depth: 2, isLeaf: false, label: "v2", name: "v2", value: "v2" },
                       children: [
                         {
-                          attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", type: "text" },
+                          attributes: {
+                            depth: 3,
+                            isLeaf: true,
+                            label: "v2 de larbre le plus profond",
+                            name: "newdecision:v2",
+                            type: "text",
+                          },
                           children: [],
-                          name: "v2 de larbre le plus profond",
+                          uuid: "v2 de larbre le plus profond",
                         },
                       ],
-                      name: "newdecision:v2",
+                      uuid: "newdecision:v2",
                     },
                     {
-                      attributes: { depth: 2, isLeaf: false, label: "v3", value: "v3" },
+                      attributes: { depth: 2, isLeaf: false, label: "v3", name: "v3", value: "v3" },
                       children: [
                         {
-                          attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", type: "text" },
+                          attributes: {
+                            depth: 3,
+                            isLeaf: true,
+                            label: "v3 de larbre le plus profond",
+                            name: "newdecision:v3",
+                            type: "text",
+                          },
                           children: [],
-                          name: "v3 de larbre le plus profond",
+                          uuid: "v3 de larbre le plus profond",
                         },
                       ],
-                      name: "newdecision:v3",
+                      uuid: "newdecision:v3",
                     },
                   ],
-                  name: "newdecision",
+                  uuid: "newdecision",
                 },
               ],
-              name: "Homme",
               treeId: "9f3977c4-7fc9-446c-a1eb-2720426edf5b",
+              uuid: "Homme",
             },
             treePath: "/Tree/otherTree",
             type: "tree",
           },
           children: [
             {
-              attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "Decision", type: "select" },
+              attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "Decision", name: "Decision", type: "select" },
               children: [
                 {
-                  attributes: { depth: 3, label: "v1", value: "v1" },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "v1Field", type: "text" }, children: [], name: "v1Field" }],
-                  name: "Decision:v1",
+                  attributes: { depth: 3, label: "v1", name: "v1", value: "v1" },
+                  children: [
+                    {
+                      attributes: { depth: 4, isLeaf: true, label: "v1Field", name: "v1Field", type: "text" },
+                      children: [],
+                      uuid: "v1Field",
+                    },
+                  ],
+                  uuid: "Decision:v1",
                 },
                 {
-                  attributes: { depth: 3, label: "v2", value: "v2" },
-                  children: [{ attributes: { depth: 4, isLeaf: true, label: "v2Field", type: "text" }, children: [], name: "v2Field" }],
-                  name: "Decision:v2",
+                  attributes: { depth: 3, label: "v2", name: "v2", value: "v2" },
+                  children: [
+                    {
+                      attributes: { depth: 4, isLeaf: true, label: "v2Field", name: "v2Field", type: "text" },
+                      children: [],
+                      uuid: "v2Field",
+                    },
+                  ],
+                  uuid: "Decision:v2",
                 },
               ],
-              name: "Decision",
+              uuid: "Decision",
             },
           ],
-          name: "otherTree",
+          uuid: "otherTree",
         },
       ],
-      name: "Tree.username",
       treeId: "41042a08-4660-4609-af32-784bbd0503cf",
       treePath: "/Tree",
+      uuid: "username",
     },
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", type: "text" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", name: "Tree.otherTree.Test", type: "text" },
       children: [
         {
-          attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", type: "select" },
+          attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", name: "newdecision", type: "select" },
           children: [
-            { attributes: { depth: 2, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "newdecision:v1" },
+            { attributes: { depth: 2, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "newdecision:v1" },
             {
-              attributes: { depth: 2, isLeaf: false, label: "v2", value: "v2" },
+              attributes: { depth: 2, isLeaf: false, label: "v2", name: "v2", value: "v2" },
               children: [
                 {
-                  attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", type: "text" },
+                  attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", name: "newdecision:v2", type: "text" },
                   children: [],
-                  name: "v2 de larbre le plus profond",
+                  uuid: "v2 de larbre le plus profond",
                 },
               ],
-              name: "newdecision:v2",
+              uuid: "newdecision:v2",
             },
             {
-              attributes: { depth: 2, isLeaf: false, label: "v3", value: "v3" },
+              attributes: { depth: 2, isLeaf: false, label: "v3", name: "v3", value: "v3" },
               children: [
                 {
-                  attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", type: "text" },
+                  attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", name: "newdecision:v3", type: "text" },
                   children: [],
-                  name: "v3 de larbre le plus profond",
+                  uuid: "v3 de larbre le plus profond",
                 },
               ],
-              name: "newdecision:v3",
+              uuid: "newdecision:v3",
             },
           ],
-          name: "newdecision",
+          uuid: "newdecision",
         },
       ],
-      name: "Tree.otherTree.Homme",
       treeId: "9f3977c4-7fc9-446c-a1eb-2720426edf5b",
       treePath: "/Tree/otherTree",
+      uuid: "Homme",
     },
     {
-      attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", type: "select" },
+      attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", name: "Tree.otherTree.newdecision", type: "select" },
       children: [
-        { attributes: { depth: 2, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "newdecision:v1" },
+        { attributes: { depth: 2, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "newdecision:v1" },
         {
-          attributes: { depth: 2, isLeaf: false, label: "v2", value: "v2" },
+          attributes: { depth: 2, isLeaf: false, label: "v2", name: "v2", value: "v2" },
           children: [
             {
-              attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", type: "text" },
+              attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", name: "newdecision:v2", type: "text" },
               children: [],
-              name: "v2 de larbre le plus profond",
+              uuid: "v2 de larbre le plus profond",
             },
           ],
-          name: "newdecision:v2",
+          uuid: "newdecision:v2",
         },
         {
-          attributes: { depth: 2, isLeaf: false, label: "v3", value: "v3" },
+          attributes: { depth: 2, isLeaf: false, label: "v3", name: "v3", value: "v3" },
           children: [
             {
-              attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", type: "text" },
+              attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", name: "newdecision:v3", type: "text" },
               children: [],
-              name: "v3 de larbre le plus profond",
+              uuid: "v3 de larbre le plus profond",
             },
           ],
-          name: "newdecision:v3",
+          uuid: "newdecision:v3",
         },
       ],
       childrenTreeRest: [
@@ -2074,64 +2436,101 @@ const complexeTreeWithDecision: Mock = {
               isLeaf: false,
               isRoot: false,
               label: "otherTree",
+              name: "otherTree",
               tree: {
-                attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", type: "text" },
+                attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", name: "Test", type: "text" },
                 children: [
                   {
-                    attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", type: "select" },
+                    attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", name: "newdecision", type: "select" },
                     children: [
-                      { attributes: { depth: 2, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "newdecision:v1" },
                       {
-                        attributes: { depth: 2, isLeaf: false, label: "v2", value: "v2" },
-                        children: [
-                          {
-                            attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", type: "text" },
-                            children: [],
-                            name: "v2 de larbre le plus profond",
-                          },
-                        ],
-                        name: "newdecision:v2",
+                        attributes: { depth: 2, isLeaf: true, label: "v1", name: "v1", value: "v1" },
+                        children: [],
+                        uuid: "newdecision:v1",
                       },
                       {
-                        attributes: { depth: 2, isLeaf: false, label: "v3", value: "v3" },
+                        attributes: { depth: 2, isLeaf: false, label: "v2", name: "v2", value: "v2" },
                         children: [
                           {
-                            attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", type: "text" },
+                            attributes: {
+                              depth: 3,
+                              isLeaf: true,
+                              label: "v2 de larbre le plus profond",
+                              name: "newdecision:v2",
+                              type: "text",
+                            },
                             children: [],
-                            name: "v3 de larbre le plus profond",
+                            uuid: "v2 de larbre le plus profond",
                           },
                         ],
-                        name: "newdecision:v3",
+                        uuid: "newdecision:v2",
+                      },
+                      {
+                        attributes: { depth: 2, isLeaf: false, label: "v3", name: "v3", value: "v3" },
+                        children: [
+                          {
+                            attributes: {
+                              depth: 3,
+                              isLeaf: true,
+                              label: "v3 de larbre le plus profond",
+                              name: "newdecision:v3",
+                              type: "text",
+                            },
+                            children: [],
+                            uuid: "v3 de larbre le plus profond",
+                          },
+                        ],
+                        uuid: "newdecision:v3",
                       },
                     ],
-                    name: "newdecision",
+                    uuid: "newdecision",
                   },
                 ],
-                name: "Homme",
                 treeId: "9f3977c4-7fc9-446c-a1eb-2720426edf5b",
+                uuid: "Homme",
               },
               treePath: "/Tree/otherTree",
               type: "tree",
             },
             children: [
               {
-                attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "Decision", type: "select" },
+                attributes: {
+                  depth: 2,
+                  isDecision: true,
+                  isLeaf: false,
+                  isRoot: false,
+                  label: "Decision",
+                  name: "Decision",
+                  type: "select",
+                },
                 children: [
                   {
-                    attributes: { depth: 3, label: "v1", value: "v1" },
-                    children: [{ attributes: { depth: 4, isLeaf: true, label: "v1Field", type: "text" }, children: [], name: "v1Field" }],
-                    name: "Decision:v1",
+                    attributes: { depth: 3, label: "v1", name: "v1", value: "v1" },
+                    children: [
+                      {
+                        attributes: { depth: 4, isLeaf: true, label: "v1Field", name: "v1Field", type: "text" },
+                        children: [],
+                        uuid: "v1Field",
+                      },
+                    ],
+                    uuid: "Decision:v1",
                   },
                   {
-                    attributes: { depth: 3, label: "v2", value: "v2" },
-                    children: [{ attributes: { depth: 4, isLeaf: true, label: "v2Field", type: "text" }, children: [], name: "v2Field" }],
-                    name: "Decision:v2",
+                    attributes: { depth: 3, label: "v2", name: "v2", value: "v2" },
+                    children: [
+                      {
+                        attributes: { depth: 4, isLeaf: true, label: "v2Field", name: "v2Field", type: "text" },
+                        children: [],
+                        uuid: "v2Field",
+                      },
+                    ],
+                    uuid: "Decision:v2",
                   },
                 ],
-                name: "Decision",
+                uuid: "Decision",
               },
             ],
-            name: "otherTree",
+            uuid: "otherTree",
           },
           treePath: "/Tree",
         },
@@ -2142,8 +2541,9 @@ const complexeTreeWithDecision: Mock = {
               isLeaf: false,
               isRoot: false,
               label: "Tree",
+              name: "tree",
               tree: {
-                attributes: { depth: 0, isRoot: true, label: "Username", type: "text" },
+                attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
                 children: [
                   {
                     attributes: {
@@ -2151,130 +2551,9 @@ const complexeTreeWithDecision: Mock = {
                       isLeaf: false,
                       isRoot: false,
                       label: "otherTree",
+                      name: "otherTree",
                       tree: {
-                        attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", type: "text" },
-                        children: [
-                          {
-                            attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", type: "select" },
-                            children: [
-                              { attributes: { depth: 2, isLeaf: true, label: "v1", value: "v1" }, children: [], name: "newdecision:v1" },
-                              {
-                                attributes: { depth: 2, isLeaf: false, label: "v2", value: "v2" },
-                                children: [
-                                  {
-                                    attributes: { depth: 3, isLeaf: true, label: "v2 de larbre le plus profond", type: "text" },
-                                    children: [],
-                                    name: "v2 de larbre le plus profond",
-                                  },
-                                ],
-                                name: "newdecision:v2",
-                              },
-                              {
-                                attributes: { depth: 2, isLeaf: false, label: "v3", value: "v3" },
-                                children: [
-                                  {
-                                    attributes: { depth: 3, isLeaf: true, label: "v3 de larbre le plus profond", type: "text" },
-                                    children: [],
-                                    name: "v3 de larbre le plus profond",
-                                  },
-                                ],
-                                name: "newdecision:v3",
-                              },
-                            ],
-                            name: "newdecision",
-                          },
-                        ],
-                        name: "Homme",
-                        treeId: "9f3977c4-7fc9-446c-a1eb-2720426edf5b",
-                      },
-                      treePath: "/Tree/otherTree",
-                      type: "tree",
-                    },
-                    children: [
-                      {
-                        attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "Decision", type: "select" },
-                        children: [
-                          {
-                            attributes: { depth: 3, label: "v1", value: "v1" },
-                            children: [
-                              { attributes: { depth: 4, isLeaf: true, label: "v1Field", type: "text" }, children: [], name: "v1Field" },
-                            ],
-                            name: "Decision:v1",
-                          },
-                          {
-                            attributes: { depth: 3, label: "v2", value: "v2" },
-                            children: [
-                              { attributes: { depth: 4, isLeaf: true, label: "v2Field", type: "text" }, children: [], name: "v2Field" },
-                            ],
-                            name: "Decision:v2",
-                          },
-                        ],
-                        name: "Decision",
-                      },
-                    ],
-                    name: "otherTree",
-                  },
-                ],
-                name: "username",
-                treeId: "41042a08-4660-4609-af32-784bbd0503cf",
-              },
-              treePath: "/Tree",
-              type: "tree",
-            },
-            children: [{ attributes: { depth: 2, isLeaf: true, label: "Final", type: "text" }, children: [], name: "Final" }],
-            name: "Tree",
-          },
-        },
-      ],
-      name: "Tree.otherTree.newdecision",
-      treePath: "/Tree/otherTree",
-    },
-  ],
-  tree: {
-    attributes: {
-      depth: 0,
-      isLeaf: false,
-      isRoot: true,
-      label: "1",
-      type: "text",
-    },
-    children: [
-      {
-        attributes: {
-          depth: 4,
-          isLeaf: true,
-          label: "v2Field",
-          type: "text",
-        },
-        children: [
-          {
-            attributes: {
-              depth: 1,
-              isLeaf: false,
-              isRoot: false,
-              label: "Tree",
-              tree: {
-                attributes: {
-                  depth: 0,
-                  isRoot: true,
-                  label: "Username",
-                  type: "text",
-                },
-                children: [
-                  {
-                    attributes: {
-                      depth: 1,
-                      isLeaf: false,
-                      isRoot: false,
-                      label: "otherTree",
-                      tree: {
-                        attributes: {
-                          depth: 0,
-                          isLeaf: false,
-                          isRoot: true,
-                          label: "Test",
-                          type: "text",
-                        },
+                        attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", name: "Test", type: "text" },
                         children: [
                           {
                             attributes: {
@@ -2282,67 +2561,55 @@ const complexeTreeWithDecision: Mock = {
                               isDecision: true,
                               isLeaf: false,
                               label: "newdecision",
+                              name: "newdecision",
                               type: "select",
                             },
                             children: [
                               {
-                                attributes: {
-                                  depth: 2,
-                                  isLeaf: true,
-                                  label: "v1",
-                                  value: "v1",
-                                },
+                                attributes: { depth: 2, isLeaf: true, label: "v1", name: "v1", value: "v1" },
                                 children: [],
-                                name: "newdecision:v1",
+                                uuid: "newdecision:v1",
                               },
                               {
-                                attributes: {
-                                  depth: 2,
-                                  isLeaf: false,
-                                  label: "v2",
-                                  value: "v2",
-                                },
+                                attributes: { depth: 2, isLeaf: false, label: "v2", name: "v2", value: "v2" },
                                 children: [
                                   {
                                     attributes: {
                                       depth: 3,
                                       isLeaf: true,
                                       label: "v2 de larbre le plus profond",
+                                      name: "newdecision:v2",
                                       type: "text",
                                     },
                                     children: [],
-                                    name: "v2 de larbre le plus profond",
+                                    uuid: "v2 de larbre le plus profond",
                                   },
                                 ],
-                                name: "newdecision:v2",
+                                uuid: "newdecision:v2",
                               },
                               {
-                                attributes: {
-                                  depth: 2,
-                                  isLeaf: false,
-                                  label: "v3",
-                                  value: "v3",
-                                },
+                                attributes: { depth: 2, isLeaf: false, label: "v3", name: "v3", value: "v3" },
                                 children: [
                                   {
                                     attributes: {
                                       depth: 3,
                                       isLeaf: true,
                                       label: "v3 de larbre le plus profond",
+                                      name: "newdecision:v3",
                                       type: "text",
                                     },
                                     children: [],
-                                    name: "v3 de larbre le plus profond",
+                                    uuid: "v3 de larbre le plus profond",
                                   },
                                 ],
-                                name: "newdecision:v3",
+                                uuid: "newdecision:v3",
                               },
                             ],
-                            name: "newdecision",
+                            uuid: "newdecision",
                           },
                         ],
-                        name: "Homme",
                         treeId: "9f3977c4-7fc9-446c-a1eb-2720426edf5b",
+                        uuid: "Homme",
                       },
                       treePath: "/Tree/otherTree",
                       type: "tree",
@@ -2355,6 +2622,194 @@ const complexeTreeWithDecision: Mock = {
                           isLeaf: false,
                           isRoot: false,
                           label: "Decision",
+                          name: "Decision",
+                          type: "select",
+                        },
+                        children: [
+                          {
+                            attributes: { depth: 3, label: "v1", name: "v1", value: "v1" },
+                            children: [
+                              {
+                                attributes: { depth: 4, isLeaf: true, label: "v1Field", name: "v1Field", type: "text" },
+                                children: [],
+                                uuid: "v1Field",
+                              },
+                            ],
+                            uuid: "Decision:v1",
+                          },
+                          {
+                            attributes: { depth: 3, label: "v2", name: "v2", value: "v2" },
+                            children: [
+                              {
+                                attributes: { depth: 4, isLeaf: true, label: "v2Field", name: "v2Field", type: "text" },
+                                children: [],
+                                uuid: "v2Field",
+                              },
+                            ],
+                            uuid: "Decision:v2",
+                          },
+                        ],
+                        uuid: "Decision",
+                      },
+                    ],
+                    uuid: "otherTree",
+                  },
+                ],
+                treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                uuid: "username",
+              },
+              treePath: "/Tree",
+              type: "tree",
+            },
+            children: [
+              { attributes: { depth: 2, isLeaf: true, label: "Final", name: "Final", type: "text" }, children: [], uuid: "Final" },
+            ],
+            uuid: "Tree",
+          },
+        },
+      ],
+      treePath: "/Tree/otherTree",
+      uuid: "newdecision",
+    },
+  ],
+  tree: {
+    attributes: {
+      depth: 0,
+      isLeaf: false,
+      isRoot: true,
+      label: "1",
+      name: "1",
+      type: "text",
+    },
+    children: [
+      {
+        attributes: {
+          depth: 4,
+          isLeaf: true,
+          label: "v2Field",
+          name: "v2Field",
+          type: "text",
+        },
+        children: [
+          {
+            attributes: {
+              depth: 1,
+              isLeaf: false,
+              isRoot: false,
+              label: "Tree",
+              name: "tree",
+              tree: {
+                attributes: {
+                  depth: 0,
+                  isRoot: true,
+                  label: "Username",
+                  name: "username",
+                  type: "text",
+                },
+                children: [
+                  {
+                    attributes: {
+                      depth: 1,
+                      isLeaf: false,
+                      isRoot: false,
+                      label: "otherTree",
+                      name: "otherTree",
+                      tree: {
+                        attributes: {
+                          depth: 0,
+                          isLeaf: false,
+                          isRoot: true,
+                          label: "Test",
+                          name: "Test",
+                          type: "text",
+                        },
+                        children: [
+                          {
+                            attributes: {
+                              depth: 1,
+                              isDecision: true,
+                              isLeaf: false,
+                              label: "newdecision",
+                              name: "newdecision",
+                              type: "select",
+                            },
+                            children: [
+                              {
+                                attributes: {
+                                  depth: 2,
+                                  isLeaf: true,
+                                  label: "v1",
+                                  name: "v1",
+                                  value: "v1",
+                                },
+                                children: [],
+                                uuid: "newdecision:v1",
+                              },
+                              {
+                                attributes: {
+                                  depth: 2,
+                                  isLeaf: false,
+                                  label: "v2",
+                                  name: "v2",
+                                  value: "v2",
+                                },
+                                children: [
+                                  {
+                                    attributes: {
+                                      depth: 3,
+                                      isLeaf: true,
+                                      label: "v2 de larbre le plus profond",
+                                      name: "newdecision:v2",
+                                      type: "text",
+                                    },
+                                    children: [],
+                                    uuid: "v2 de larbre le plus profond",
+                                  },
+                                ],
+                                uuid: "newdecision:v2",
+                              },
+                              {
+                                attributes: {
+                                  depth: 2,
+                                  isLeaf: false,
+                                  label: "v3",
+                                  name: "v3",
+                                  value: "v3",
+                                },
+                                children: [
+                                  {
+                                    attributes: {
+                                      depth: 3,
+                                      isLeaf: true,
+                                      label: "v3 de larbre le plus profond",
+                                      name: "newdecision:v3",
+                                      type: "text",
+                                    },
+                                    children: [],
+                                    uuid: "v3 de larbre le plus profond",
+                                  },
+                                ],
+                                uuid: "newdecision:v3",
+                              },
+                            ],
+                            uuid: "newdecision",
+                          },
+                        ],
+                        treeId: "9f3977c4-7fc9-446c-a1eb-2720426edf5b",
+                        uuid: "Homme",
+                      },
+                      treePath: "/Tree/otherTree",
+                      type: "tree",
+                    },
+                    children: [
+                      {
+                        attributes: {
+                          depth: 2,
+                          isDecision: true,
+                          isLeaf: false,
+                          isRoot: false,
+                          label: "Decision",
+                          name: "Decision",
                           type: "select",
                         },
                         children: [
@@ -2362,6 +2817,7 @@ const complexeTreeWithDecision: Mock = {
                             attributes: {
                               depth: 3,
                               label: "v1",
+                              name: "v1",
                               value: "v1",
                             },
                             children: [
@@ -2370,18 +2826,20 @@ const complexeTreeWithDecision: Mock = {
                                   depth: 4,
                                   isLeaf: true,
                                   label: "v1Field",
+                                  name: "v1Field",
                                   type: "text",
                                 },
                                 children: [],
-                                name: "v1Field",
+                                uuid: "v1Field",
                               },
                             ],
-                            name: "Decision:v1",
+                            uuid: "Decision:v1",
                           },
                           {
                             attributes: {
                               depth: 3,
                               label: "v2",
+                              name: "v2",
                               value: "v2",
                             },
                             children: [
@@ -2390,23 +2848,24 @@ const complexeTreeWithDecision: Mock = {
                                   depth: 4,
                                   isLeaf: true,
                                   label: "v2Field",
+                                  name: "v2Field",
                                   type: "text",
                                 },
                                 children: [],
-                                name: "v2Field",
+                                uuid: "v2Field",
                               },
                             ],
-                            name: "Decision:v2",
+                            uuid: "Decision:v2",
                           },
                         ],
-                        name: "Decision",
+                        uuid: "Decision",
                       },
                     ],
-                    name: "otherTree",
+                    uuid: "otherTree",
                   },
                 ],
-                name: "username",
                 treeId: "41042a08-4660-4609-af32-784bbd0503cf",
+                uuid: "username",
               },
               treePath: "/Tree",
               type: "tree",
@@ -2417,19 +2876,20 @@ const complexeTreeWithDecision: Mock = {
                   depth: 2,
                   isLeaf: true,
                   label: "Final",
+                  name: "Final",
                   type: "text",
                 },
                 children: [],
-                name: "Final",
+                uuid: "Final",
               },
             ],
-            name: "Tree",
+            uuid: "Tree",
           },
         ],
-        name: "test celuila",
+        uuid: "test celuila",
       },
     ],
-    name: "1",
+    uuid: "1",
   },
 };
 
