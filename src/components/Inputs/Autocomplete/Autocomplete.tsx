@@ -123,7 +123,6 @@ const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: Au
 
   return (
     <AutocompleteDS
-      freeSolo
       autoComplete
       includeInputInList
       filterSelectedOptions
