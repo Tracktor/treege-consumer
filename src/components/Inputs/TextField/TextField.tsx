@@ -31,6 +31,7 @@ const TextField = (
   return (
     <TextFieldDS
       fullWidth
+      disabled={type === "file" && readOnly}
       ref={ref}
       name={name}
       label={label}

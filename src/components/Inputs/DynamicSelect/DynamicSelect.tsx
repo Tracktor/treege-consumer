@@ -72,6 +72,7 @@ const DynamicSelect = (
   return (
     <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
       <Autocomplete
+        readOnly={readOnly}
         multiple={isMultiple}
         isOptionEqualToValue={(option, val) => isObject(option) && "id" in option && isObject(val) && "id" in val && option?.id === val?.id}
         ref={ref}

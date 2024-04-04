@@ -64,6 +64,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
 
   return (
     <Autocomplete
+      readOnly={readOnly}
       filterOptions={(o) => o}
       ref={ref}
       value={value}
