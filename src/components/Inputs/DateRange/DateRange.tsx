@@ -25,15 +25,13 @@ const DateRange = (
     (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { target } = event;
 
-      if (Array?.isArray(value)) {
-        onChange?.({
-          event,
-          name,
-          value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
-        });
-      }
+      onChange?.({
+        event,
+        name,
+        value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
+      });
     },
-    [fromDate, name, onChange, toDate, value],
+    [fromDate, name, onChange, toDate],
   );
 
   useEffect(() => {

@@ -17,19 +17,20 @@ const TimeRange = (
   { label, name, helperText, inputRef, onChange, required, readOnly, value }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
+  const toTime = Array?.isArray(value) ? value?.[1] : "";
+  const fromTime = Array?.isArray(value) ? value?.[0] : "";
+
   const handleChange = useCallback(
     (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { target } = event;
 
-      if (Array?.isArray(value)) {
-        onChange?.({
-          event,
-          name,
-          value: field === "start" ? [target.value, value?.[1]] : [value?.[0], target.value],
-        });
-      }
+      onChange?.({
+        event,
+        name,
+        value: field === "start" ? [target.value, toTime] : [fromTime, target.value],
+      });
     },
-    [name, onChange, value],
+    [fromTime, name, onChange, toTime],
   );
 
   return (

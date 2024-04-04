@@ -12,7 +12,7 @@ describe("test getFieldsFromTreePoint tree input output fieldArray", () => {
   test("Rest field with decision", () => {
     const { restFieldsArray, output } = restFieldsArrayWithDecision;
     const result = getFieldsFromTreeRest(restFieldsArray);
-    console.log(JSON.stringify(result));
+
     expect(result).toEqual(output);
   });
 });

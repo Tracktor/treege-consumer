@@ -41,14 +41,13 @@ const basicJsonValues = [
     ],
   },
   {
-    label: "Utiliser le samedi",
-    name: "useOnSaturday",
-    type: "checkbox",
-    value: true,
+    name: "dateLocation",
+    type: "dateRange",
+    value: ["2024-04-11", "2024-04-30"],
   },
   {
-    label: "Utiliser le dimanche",
-    name: "useOnSunday",
+    label: "Utiliser le samedi",
+    name: "useOnSaturday",
     type: "checkbox",
     value: true,
   },
@@ -63,6 +62,25 @@ const basicJsonValues = [
     },
   },
   {
+    label: "Heures de livraison",
+    name: "hoursConstraints",
+    type: "timeRange",
+    value: ["11:38", "12:39"],
+  },
+  {
+    label: "Contraintes d'accès",
+    name: "siteConstraints",
+    type: "text",
+    value: "Contrainte",
+  },
+  {
+    label: "Point de dépôt",
+    name: "dropOffDescription",
+    type: "text",
+    value: "Point",
+  },
+
+  {
     label: "Ajoutez des contacts sur site",
     name: "worksiteContacts",
     type: "dynamicSelect",
@@ -71,18 +89,6 @@ const basicJsonValues = [
       label: "nanard@gmail.com",
       value: "8",
     },
-  },
-  {
-    label: "Point de dépôt",
-    name: "dropOffDescription",
-    type: "text",
-    value: "ds",
-  },
-  {
-    label: "Contraintes d'accès",
-    name: "siteConstraints",
-    type: "text",
-    value: "sd",
   },
 ];
 export default basicJsonValues;

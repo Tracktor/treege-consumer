@@ -22,7 +22,7 @@ describe("test getFieldsFromTreePoint tree input output fieldArray", () => {
   test("Tree With Tree", () => {
     const { tree, output } = treeWithTreeMock;
     const result = getFieldsFromTreePoint({ currentTree: tree });
-    console.log(result);
+
     expect(result).toEqual(output);
   });
 

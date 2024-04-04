@@ -135,7 +135,7 @@ const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: Au
         return isObject(option) && "description" in option && IsString(option?.description) ? option?.description : "";
       }}
       filterOptions={(filterOptions) => filterOptions}
-      options={options}
+      options={options || []}
       value={value}
       onChange={handleChange}
       onBlur={handleOnBlurChange}
