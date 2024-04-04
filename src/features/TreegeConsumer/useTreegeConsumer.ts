@@ -7,7 +7,7 @@ import formDataToJSON, { JsonFormValue } from "@/utils/formDataToJSON/formDataTo
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
 import getNextStepper from "@/utils/getNextStepper";
-import setInitialJsonValues from "@/utils/setInitialJsonValues/setInitialJsonValues";
+import initializeFieldValuesFromJson from "@/utils/initializeFieldValuesFromJson/initializeFieldValuesFromJson";
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
 
@@ -16,10 +16,10 @@ export interface useTreegeConsumerParams {
   onSubmit?(data: JsonFormValue[] | [string, FormDataEntryValue][]): void;
   tree?: TreeNode;
   variant: TreegeConsumerProps["variant"];
-  jsonInitialValues?: JsonFormValue[];
+  initialValues?: JsonFormValue[];
 }
 
-const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, variant, jsonInitialValues }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, variant, initialValues }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -144,11 +144,11 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   };
 
   useEffect(() => {
-    const formatted = setInitialJsonValues(jsonInitialValues);
+    const formatted = initializeFieldValuesFromJson(initialValues);
     if (formatted) {
       setFieldValues(formatted);
     }
-  }, [jsonInitialValues]);
+  }, [initialValues]);
 
   // Initialize fields
   useEffect(() => {

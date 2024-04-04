@@ -3,10 +3,10 @@ import type { FieldValues } from "@/types/FieldValues";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 /**
- * Prefixes the name of each field in the array with the tree path.
+ * Initialize field values from JSON
  * @param jsonFormValues
  */
-const setInitialJsonValues = (jsonFormValues?: JsonFormValue[]): FieldValues | undefined =>
+const initializeFieldValuesFromJson = (jsonFormValues?: JsonFormValue[]): FieldValues | undefined =>
   jsonFormValues?.reduce((acc, { value, name, type }) => {
     if (type === "autocomplete" || type === "dynamicSelect") {
       return {
@@ -23,4 +23,4 @@ const setInitialJsonValues = (jsonFormValues?: JsonFormValue[]): FieldValues | u
     };
   }, {});
 
-export default setInitialJsonValues;
+export default initializeFieldValuesFromJson;

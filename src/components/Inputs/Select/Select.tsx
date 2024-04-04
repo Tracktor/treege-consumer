@@ -23,7 +23,7 @@ export interface SelectProps {
   value?: string;
 }
 
-const Select = ({ data, helperText, inputRef, required, handleFormValue, readOnly, value }: SelectProps, ref: Ref<HTMLDivElement>) => {
+const Select = ({ data, helperText, inputRef, required, handleFormValue, readOnly, value = "" }: SelectProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
@@ -54,7 +54,7 @@ const Select = ({ data, helperText, inputRef, required, handleFormValue, readOnl
       <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <SelectDS
         fullWidth
-        value={value || ""}
+        value={value}
         labelId={`${name}-label`}
         id={name}
         label={label}

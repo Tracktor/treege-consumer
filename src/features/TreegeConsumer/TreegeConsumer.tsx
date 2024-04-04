@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
-import type { CSSProperties, ReactElement } from "react";
+import type { CSSProperties } from "react";
 import OptionsProvider from "@/context/Options/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
@@ -48,12 +48,6 @@ interface BaseTreegeConsumerProps {
    */
   style?: CSSProperties;
   /**
-   * Initial values of the form
-   */
-  initialValues?: {
-    [key: string]: unknown;
-  };
-  /**
    * If true, the form input will be disabled.
    * @default false
    */
@@ -69,11 +63,7 @@ interface BaseTreegeConsumerProps {
   /**
    * initial Values
    */
-  jsonInitialValues?: JsonFormValue[];
-  /**
-   * Render custom render input value ()
-   */
-  renderInput?(input: JsonFormValue): ReactElement | undefined;
+  initialValues?: JsonFormValue[];
 }
 
 type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {
@@ -113,10 +103,9 @@ const TreegeConsumer = ({
   readOnly,
   headers,
   isLoadingFormValidation,
-  jsonInitialValues,
+  initialValues,
   variant = "standard",
   dataFormatOnSubmit = "json",
-  renderInput,
 }: TreegeConsumerProps) => {
   const {
     activeFieldIndex,
@@ -130,18 +119,13 @@ const TreegeConsumer = ({
     formCanBeSubmit,
   } = useTreegeConsumer({
     dataFormatOnSubmit,
-    jsonInitialValues,
+    initialValues,
     onSubmit,
     tree,
     variant,
   });
   const themeProvider = useTheme();
   const queryClient = new QueryClient();
-  const isCustomRenderInput = jsonInitialValues && renderInput;
-
-  if (isCustomRenderInput) {
-    return jsonInitialValues?.map((jsonInitialValue) => renderInput(jsonInitialValue));
-  }
 
   return (
     <QueryClientProvider client={queryClient}>

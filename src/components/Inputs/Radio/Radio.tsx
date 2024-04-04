@@ -1,5 +1,5 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useEffect, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
@@ -27,6 +27,17 @@ const Radio = ({ data, helperText, inputRef, required, handleFormValue, readOnly
     handleFormValue?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
     setMessage(messageValue);
   };
+
+  // Re-create tree
+  useEffect(
+    () => {
+      if (isDecision) {
+        handleFormValue?.({ children, isDecision, isLeaf, name, type, value });
+      }
+    },
+    // Only on mount
+    // eslint-disable-next-line
+      []);
 
   return (
     <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>

@@ -1,5 +1,5 @@
+import { TextField } from "@tracktor/design-system";
 import type TreeNode from "@/types/TreeNode";
-import { IsString } from "@/types/TypeGuards";
 
 export interface HiddenFieldProps {
   data: TreeNode;
@@ -11,7 +11,7 @@ const HiddenField = ({ data, value }: HiddenFieldProps) => {
     attributes: { name },
   } = data;
 
-  return <input type="hidden" name={name} value={IsString(value) ? value : ""} />;
+  return <TextField type="hidden" name={name} value={value} />;
 };
 
 export default HiddenField;

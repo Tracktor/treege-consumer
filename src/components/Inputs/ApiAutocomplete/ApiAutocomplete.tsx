@@ -7,6 +7,7 @@ import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import getSearch from "@/utils/getSearch/getSearch";
+import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";
 
 interface ApiAutocompleteProps {
   inputRef: Ref<unknown>;
@@ -53,18 +54,6 @@ const ApiAutocomplete = (
     setSearchText(fieldValue);
   };
 
-  const checkIfObjectAsKey = (obj: unknown, key: string) => {
-    if (typeof obj !== "object" || obj === null) {
-      return "";
-    }
-
-    if (Object.keys(obj).includes(key)) {
-      return obj[key as keyof typeof obj];
-    }
-
-    return "";
-  };
-
   return (
     <Autocomplete
       readOnly={readOnly}
@@ -78,12 +67,12 @@ const ApiAutocomplete = (
       renderOption={(props, option) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <ListItem {...props}>
-          {!!checkIfObjectAsKey(option, "img") && (
+          {!!safeGetObjectValueByKey(option, "img") && (
             <ListItemAvatar>
-              <Avatar variant="square" alt={checkIfObjectAsKey(option, "label")} src={checkIfObjectAsKey(option, "img")} />
+              <Avatar variant="square" alt={safeGetObjectValueByKey(option, "label")} src={safeGetObjectValueByKey(option, "img")} />
             </ListItemAvatar>
           )}
-          <ListItemText primary={checkIfObjectAsKey(option, "label")} />
+          <ListItemText primary={safeGetObjectValueByKey(option, "label")} />
         </ListItem>
       )}
       loading={isFetching}
