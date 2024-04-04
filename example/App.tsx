@@ -6,11 +6,6 @@ import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
-const API_TOKEN = "YOUR_API_TOKEN";
-const customHeader = {
-  Authorization: `Bearer ${API_TOKEN}`,
-};
-
 const App = () => {
   const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -49,7 +44,6 @@ const App = () => {
     <DataViewer handleChangeComponent={handleChangeComponent} />
   ) : (
     <Sandbox
-      customHeaders={customHeader}
       variant={variant}
       tree={tree}
       dialogOpen={dialogOpen}

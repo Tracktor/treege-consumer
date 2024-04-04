@@ -1,190 +1,187 @@
-const basicExample = {
+import TreeNode from "@/types/TreeNode";
+
+const basicExample: TreeNode = {
   attributes: {
-    depth: 0,
-    initialQuery: true,
+    depth: 1,
     isLeaf: false,
-    isRoot: true,
-    label: "Recherchez un équipement",
-    name: "article",
-    required: false,
-    route: {
-      params: [
-        {
-          id: "1",
-          key: "lang",
-          value: "fra",
-        },
-        {
-          id: "2",
-          key: "limit",
-          value: "10",
-        },
-      ],
-      pathKey: {
-        image: "image",
-        label: "name",
+    label: "À quelle phase de votre projet êtes-vous ?",
+    name: "phase",
+    type: "select",
+    values: [
+      {
+        id: "0",
+        label: "J'ai un besoin pour un projet en cours ou à venir",
+        value: "in_progress",
       },
-      searchKey: "text",
-      url: "https://client.api.dev.tracktor.fr/v2/search/articles",
-    },
-    type: "autocomplete",
+      {
+        id: "1",
+        label: "Je veux juste obtenir un prix",
+        value: "price_only",
+      },
+    ],
   },
   children: [
     {
       attributes: {
-        depth: 1,
+        depth: 2,
         isLeaf: false,
-        isMultiple: true,
-        label: "Ajoutez des options",
-        name: "options",
-        parentRef: "article",
-        route: {
-          pathKey: {
-            image: "image",
-            label: "articleName",
-            object: "options",
-            value: "id",
-          },
-          url: "",
-        },
-        type: "dynamicSelect",
+        label: "Ma date de début est flexible (+/- 1 jour)",
+        name: "flexible",
+        type: "checkbox",
       },
       children: [
         {
           attributes: {
-            depth: 2,
+            depth: 3,
             isLeaf: false,
-            name: "dateLocation",
-            required: false,
-            type: "dateRange",
+            label: "Quantité",
+            name: "quantity",
+            type: "number",
           },
           children: [
             {
               attributes: {
-                depth: 3,
+                depth: 4,
                 isLeaf: false,
-                label: "Utiliser le samedi",
-                name: "useOnSaturday",
-                type: "checkbox",
+                label: "Avec Livraison & Reprise",
+                name: "with_delivery",
+                type: "switch",
               },
               children: [
                 {
                   attributes: {
-                    depth: 4,
+                    depth: 5,
+                    isDecision: true,
                     isLeaf: false,
-                    label: "Utiliser le dimanche",
-                    name: "useOnSunday",
-                    type: "checkbox",
+                    label: "Location avec opérateur",
+                    name: "location",
+                    type: "radio",
                   },
                   children: [
                     {
                       attributes: {
-                        depth: 5,
-                        initialQuery: true,
+                        depth: 6,
                         isLeaf: false,
-                        label: "Sélectionnez votre chantier",
-                        name: "worksite",
-                        required: false,
-                        route: {
-                          pathKey: {
-                            label: "name",
-                            value: "id",
-                          },
-                          searchKey: "text",
-                          url: "https://client.api.dev.tracktor.fr/v2/search/worksites",
-                        },
-                        type: "autocomplete",
+                        label: "Oui",
+                        name: "location:yes",
+                        value: "yes",
                       },
                       children: [
                         {
                           attributes: {
-                            depth: 6,
-                            helperText: "09:00-20:00",
+                            depth: 7,
                             isLeaf: false,
-                            label: "Heures de livraison",
-                            name: "hoursConstraints",
-                            type: "timeRange",
+                            label: " 3 godets",
+                            name: "3 godets",
+                            type: "switch",
                           },
                           children: [
                             {
                               attributes: {
-                                depth: 7,
+                                depth: 8,
                                 isLeaf: false,
-                                label: "Contraintes d'accès",
-                                name: "siteConstraints",
-                                required: false,
-                                type: "text",
+                                label: "BRH",
+                                name: "brh",
+                                type: "switch",
                               },
                               children: [
                                 {
                                   attributes: {
-                                    depth: 8,
+                                    depth: 9,
                                     isLeaf: false,
-                                    label: "Point de dépôt",
-                                    name: "dropOffDescription",
-                                    required: false,
-                                    type: "text",
+                                    label: "Benne Preneuse",
+                                    name: "benne_preneuse",
+                                    type: "switch",
                                   },
                                   children: [
                                     {
                                       attributes: {
-                                        depth: 9,
+                                        depth: 10,
                                         isLeaf: false,
-                                        isMultiple: true,
-                                        label: "Ajouter une photo",
-                                        name: "addPicture",
-                                        type: "file",
+                                        label: "Godet curage orientable",
+                                        name: "godet_curage",
+                                        type: "switch",
                                       },
                                       children: [
                                         {
                                           attributes: {
-                                            depth: 10,
-                                            isLeaf: true,
-                                            label: "Ajoutez des contacts sur site",
-                                            name: "worksiteContacts",
-                                            parentRef: "worksite",
-                                            required: false,
-                                            route: {
-                                              pathKey: {
-                                                label: "email",
-                                                value: "id",
-                                              },
-                                              url: "https://client.api.dev.tracktor.fr/v2/worksites/{{worksite}}/contacts",
+                                            depth: 11,
+                                            isLeaf: false,
+                                            isRoot: false,
+                                            label: "Godet orientable",
+                                            messages: {
+                                              on: "Le prix du transport peut varier",
                                             },
-                                            type: "dynamicSelect",
+                                            name: "godet_orientable",
+                                            type: "switch",
                                           },
-                                          children: [],
-                                          uuid: ":rs3:",
+                                          children: [
+                                            {
+                                              attributes: {
+                                                depth: 12,
+                                                isLeaf: false,
+                                                label: "Pince de Tri",
+                                                name: "pince_de_tri",
+                                                type: "switch",
+                                              },
+                                              children: [
+                                                {
+                                                  attributes: {
+                                                    depth: 13,
+                                                    isLeaf: true,
+                                                    label: "Tarière hydraulique",
+                                                    name: "tariere_hydraulique",
+                                                    type: "switch",
+                                                  },
+                                                  children: [],
+                                                  uuid: "tariere_hydraulique",
+                                                },
+                                              ],
+                                              uuid: "pince_de_tri",
+                                            },
+                                          ],
+                                          uuid: "godet_orientable",
                                         },
                                       ],
-                                      uuid: ":rqh:",
+                                      uuid: "godet_curage",
                                     },
                                   ],
-                                  uuid: ":rpp:",
+                                  uuid: "benne_preneuse",
                                 },
                               ],
-                              uuid: ":rp1:",
+                              uuid: "brh",
                             },
                           ],
-                          uuid: ":ro9:",
+                          uuid: " 3 godets",
                         },
                       ],
-                      uuid: ":rn5:",
+                      uuid: "location:yes",
+                    },
+                    {
+                      attributes: {
+                        depth: 6,
+                        isLeaf: true,
+                        label: "Non",
+                        name: "location:no",
+                        value: "no",
+                      },
+                      children: [],
+                      uuid: "location:no",
                     },
                   ],
-                  uuid: ":rm9:",
+                  uuid: "location",
                 },
               ],
-              uuid: ":rld:",
+              uuid: "with_delivery",
             },
           ],
-          uuid: ":rjv:",
+          uuid: "quantity",
         },
       ],
-      uuid: ":ren:",
+      uuid: "flexible",
     },
   ],
-  uuid: ":rp:",
+  uuid: "phase",
 };
 
 export default basicExample;
