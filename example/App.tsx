@@ -6,10 +6,9 @@ import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5IiwiZW50aXR5X2lkIjoyLCJleHAiOjE3MTIyMzk3NzZ9.iXHM7VsuOrqRd6EG-wDAtS5J8yMiaN_nBE_qgSc2d7s";
+const API_TOKEN = "YOUR_API_TOKEN";
 const customHeader = {
-  Authorization: `Bearer ${token}`,
+  Authorization: `Bearer ${API_TOKEN}`,
 };
 
 const App = () => {
