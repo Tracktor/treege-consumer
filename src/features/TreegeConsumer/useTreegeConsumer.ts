@@ -33,7 +33,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
-  const handleFormValue = (dataAttribute: ChangeEventField): void => {
+  const handleChangeFormValue = (dataAttribute: ChangeEventField): void => {
     const { value, name, hasMessage, type, isDecision, children } = dataAttribute;
     const isSelectField = FIELD_MESSAGE_TYPES.includes(type || "");
     const isAutoStep = isSelectField && !hasMessage;
@@ -173,7 +173,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     fieldValues,
     firstFieldIndex,
     formCanBeSubmit,
-    handleFormValue,
+    handleChangeFormValue,
     handlePrev,
     handleSubmit,
     isLastField,

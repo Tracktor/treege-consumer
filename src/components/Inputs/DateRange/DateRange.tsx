@@ -7,14 +7,14 @@ export interface DateRangeProps {
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
-  handleFormValue?(dataAttribute: ChangeEventField): void;
+  onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   value?: unknown;
   readOnly?: boolean;
 }
 
 const DateRange = (
-  { label, name, helperText, inputRef, handleFormValue, required, value, readOnly }: DateRangeProps,
+  { label, name, helperText, inputRef, onChange, required, value, readOnly }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const [error, setError] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const DateRange = (
   const handleChange = (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { target } = event;
 
-    handleFormValue?.({
+    onChange?.({
       event,
       name,
       value: field === "start" ? [target.value, toDate] : [fromDate, target.value],

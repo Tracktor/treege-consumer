@@ -110,7 +110,7 @@ const TreegeConsumer = ({
   const {
     activeFieldIndex,
     fields,
-    handleFormValue,
+    handleChangeFormValue,
     firstFieldIndex,
     handlePrev,
     handleSubmit,
@@ -147,7 +147,7 @@ const TreegeConsumer = ({
                 headers={headers}
                 fieldValues={fieldValues}
                 isLoadingFormValidation={isLoadingFormValidation}
-                handleFormValue={handleFormValue}
+                handleChangeFormValue={handleChangeFormValue}
                 handlePrev={handlePrev}
                 handleSubmit={handleSubmit}
                 formCanBeSubmit={formCanBeSubmit}
@@ -155,7 +155,7 @@ const TreegeConsumer = ({
             ) : (
               <Standard
                 fields={fields}
-                handleFormValue={handleFormValue}
+                handleChangeFormValue={handleChangeFormValue}
                 handleSubmit={handleSubmit}
                 isLastField={isLastField}
                 readOnly={readOnly}

@@ -12,16 +12,13 @@ import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";
 interface ApiAutocompleteProps {
   inputRef: Ref<unknown>;
   node: TreeNode;
-  handleFormValue?(dataAttribute: ChangeEventField): void;
+  onChange?(dataAttribute: ChangeEventField): void;
   readOnly?: boolean;
   headers?: Headers;
   value?: Option | null;
 }
 
-const ApiAutocomplete = (
-  { node, handleFormValue, readOnly, inputRef, headers, value }: ApiAutocompleteProps,
-  ref: Ref<unknown> | undefined,
-) => {
+const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
   const [searchText, setSearchText] = useState<string>("");
 
   const { attributes, children } = node;
@@ -39,7 +36,7 @@ const ApiAutocomplete = (
   const options = adaptRouteResponseToOptions(data, route);
 
   const handleChange = (event: SyntheticEvent, newValue: Option | null) => {
-    handleFormValue?.({
+    onChange?.({
       children,
       event,
       isDecision,

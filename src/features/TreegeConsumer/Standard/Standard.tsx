@@ -10,7 +10,7 @@ import TreeNode from "@/types/TreeNode";
 
 interface StandardProps {
   fields?: TreeNode[];
-  handleFormValue?(dataAttribute: ChangeEventField): void;
+  handleChangeFormValue?(dataAttribute: ChangeEventField): void;
   handleSubmit?(event: FormEvent<HTMLFormElement>): void;
   isLastField: boolean;
   readOnly?: boolean;
@@ -23,7 +23,7 @@ interface StandardProps {
 
 const Standard = ({
   fields,
-  handleFormValue,
+  handleChangeFormValue,
   handleSubmit,
   isLastField,
   readOnly,
@@ -40,7 +40,7 @@ const Standard = ({
           <FieldFactory
             key={field.uuid}
             data={field}
-            handleFormValue={handleFormValue}
+            handleChangeFormValue={handleChangeFormValue}
             readOnly={readOnly}
             headers={headers}
             fieldValues={fieldValues}

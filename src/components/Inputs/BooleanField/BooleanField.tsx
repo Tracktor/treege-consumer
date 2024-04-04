@@ -8,14 +8,11 @@ export interface BooleanFieldProps {
   helperText?: string;
   inputRef: Ref<HTMLInputElement>;
   readOnly?: boolean;
-  handleFormValue?(dataAttribute: ChangeEventField): void;
+  onChange?(dataAttribute: ChangeEventField): void;
   value?: unknown;
 }
 
-const BooleanField = (
-  { data, inputRef, helperText, readOnly, handleFormValue, value }: BooleanFieldProps,
-  ref: Ref<unknown | undefined>,
-) => {
+const BooleanField = ({ data, inputRef, helperText, readOnly, onChange, value }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
   const { attributes, children } = data;
   const { label, type, isLeaf, messages, name } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
@@ -25,7 +22,7 @@ const BooleanField = (
     const { checked } = event.target;
     const hasMessage = checked ? messages?.on : messages?.off;
 
-    handleFormValue?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
+    onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
     setMessage(hasMessage);
   };
 

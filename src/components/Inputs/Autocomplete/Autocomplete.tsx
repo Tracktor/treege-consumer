@@ -15,7 +15,7 @@ export interface AutocompleteProps {
   country?: string;
   value?: unknown;
   readOnly?: boolean;
-  handleFormValue?(dataAttribute: ChangeEventField): void;
+  onChange?(dataAttribute: ChangeEventField): void;
   node: TreeNode;
 }
 
@@ -24,7 +24,7 @@ interface Match {
   length: number;
 }
 
-const Autocomplete = ({ value, inputRef, country, readOnly, handleFormValue, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
   const { attributes, children } = node;
   const { name, type, label, required, helperText, isLeaf, isDecision } = attributes;
 
@@ -37,7 +37,7 @@ const Autocomplete = ({ value, inputRef, country, readOnly, handleFormValue, nod
   const [searchText, setSearchText] = useState<string>("");
 
   const handleChange = (event: SyntheticEvent<Element, Event>, newValue: unknown | null) => {
-    handleFormValue?.({
+    onChange?.({
       children,
       event,
       isDecision,
@@ -53,7 +53,7 @@ const Autocomplete = ({ value, inputRef, country, readOnly, handleFormValue, nod
 
   const handleOnBlurChange = () => {
     if (!options.length || !value) {
-      handleFormValue?.({
+      onChange?.({
         children,
         event: undefined,
         isDecision,

@@ -7,14 +7,14 @@ export interface TimeRangeProps {
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
-  handleFormValue?(dataAttribute: ChangeEventField): void;
+  onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   readOnly?: boolean;
   value?: unknown;
 }
 
 const TimeRange = (
-  { label, name, helperText, inputRef, handleFormValue, required, readOnly, value }: TimeRangeProps,
+  { label, name, helperText, inputRef, onChange, required, readOnly, value }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const toTime = Array?.isArray(value) ? value?.[1] : "";
@@ -23,7 +23,7 @@ const TimeRange = (
   const handleChange = (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { target } = event;
 
-    handleFormValue?.({
+    onChange?.({
       event,
       name,
       value: field === "start" ? [target.value, toTime] : [fromTime, target.value],

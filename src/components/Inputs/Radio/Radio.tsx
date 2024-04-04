@@ -11,10 +11,11 @@ export interface RadioProps {
   required?: boolean;
   value?: unknown;
   readOnly?: boolean;
-  handleFormValue?(dataAttribute: ChangeEventField): void;
+  onChange?(dataAttribute: ChangeEventField): void;
+  onInit?(dataAttribute: ChangeEventField): void;
 }
 
-const Radio = ({ data, helperText, inputRef, required, handleFormValue, readOnly, value }: RadioProps, ref: Ref<HTMLDivElement>) => {
+const Radio = ({ data, helperText, inputRef, required, onChange, onInit, readOnly, value }: RadioProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
@@ -24,7 +25,7 @@ const Radio = ({ data, helperText, inputRef, required, handleFormValue, readOnly
   const handleChange = (event: ChangeEvent<HTMLInputElement>, fieldValue: string) => {
     const messageValue = getMessageByValue({ options, value: fieldValue });
 
-    handleFormValue?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
+    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
     setMessage(messageValue);
   };
 
@@ -32,7 +33,7 @@ const Radio = ({ data, helperText, inputRef, required, handleFormValue, readOnly
   useEffect(
     () => {
       if (isDecision) {
-        handleFormValue?.({ children, isDecision, isLeaf, name, type, value });
+        onInit?.({ children, isDecision, isLeaf, name, type, value });
       }
     },
     // Only on mount

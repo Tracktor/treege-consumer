@@ -8,6 +8,7 @@ import {
   Select as SelectDS,
   SelectChangeEvent,
 } from "@tracktor/design-system";
+import { isString } from "@tracktor/react-utils";
 import { forwardRef, Ref, useEffect, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
@@ -19,11 +20,15 @@ export interface SelectProps {
   inputRef: Ref<unknown>;
   required?: boolean;
   readOnly?: boolean;
-  handleFormValue?(dataAttribute: ChangeEventField): void;
-  value?: string;
+  onChange?(dataAttribute: ChangeEventField): void;
+  onInit?(dataAttribute: ChangeEventField): void;
+  value?: unknown;
 }
 
-const Select = ({ data, helperText, inputRef, required, handleFormValue, readOnly, value = "" }: SelectProps, ref: Ref<HTMLDivElement>) => {
+const Select = (
+  { data, helperText, inputRef, required, onChange, onInit, readOnly, value = "" }: SelectProps,
+  ref: Ref<HTMLDivElement>,
+) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
@@ -34,7 +39,7 @@ const Select = ({ data, helperText, inputRef, required, handleFormValue, readOnl
     const { target } = event;
     const messageValue = getMessageByValue({ options, value: target.value });
 
-    handleFormValue?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: target.value });
+    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: target.value });
     setMessage(messageValue);
   };
 
@@ -42,7 +47,7 @@ const Select = ({ data, helperText, inputRef, required, handleFormValue, readOnl
   useEffect(
     () => {
       if (isDecision) {
-        handleFormValue?.({ children, isDecision, isLeaf, name, type, value });
+        onInit?.({ children, isDecision, isLeaf, name, type, value });
       }
     },
     // Only on mount
@@ -54,7 +59,7 @@ const Select = ({ data, helperText, inputRef, required, handleFormValue, readOnl
       <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <SelectDS
         fullWidth
-        value={value}
+        value={isString(value) ? value : ""}
         labelId={`${name}-label`}
         id={name}
         label={label}

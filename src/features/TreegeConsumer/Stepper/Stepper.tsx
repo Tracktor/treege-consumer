@@ -12,7 +12,7 @@ import TreeNode from "@/types/TreeNode";
 
 interface StepperProps {
   fields?: TreeNode[];
-  handleFormValue?(dataAttribute: ChangeEventField): void;
+  handleChangeFormValue?(dataAttribute: ChangeEventField): void;
   handlePrev?(_: ReactMouseEvent<HTMLButtonElement, MouseEvent>): void;
   handleSubmit?(event: FormEvent<HTMLFormElement>): void;
   activeFieldIndex: number;
@@ -35,7 +35,7 @@ const Stepper = ({
   fieldValues,
   readOnly,
   headers,
-  handleFormValue,
+  handleChangeFormValue,
   handlePrev,
   handleSubmit,
   style,
@@ -61,7 +61,7 @@ const Stepper = ({
             <FieldFactory
               key={field.uuid}
               data={field}
-              handleFormValue={handleFormValue}
+              handleChangeFormValue={handleChangeFormValue}
               autoFocus={active}
               visible={active}
               readOnly={readOnly}
