@@ -1,5 +1,5 @@
 import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useCallback } from "react";
+import { ChangeEvent, forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface TimeRangeProps {
@@ -7,31 +7,28 @@ export interface TimeRangeProps {
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
-  onChange?(dataAttribute: ChangeEventField): void;
+  handleFormValue?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   readOnly?: boolean;
   value?: unknown;
 }
 
 const TimeRange = (
-  { label, name, helperText, inputRef, onChange, required, readOnly, value }: TimeRangeProps,
+  { label, name, helperText, inputRef, handleFormValue, required, readOnly, value }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const toTime = Array?.isArray(value) ? value?.[1] : "";
   const fromTime = Array?.isArray(value) ? value?.[0] : "";
 
-  const handleChange = useCallback(
-    (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { target } = event;
+  const handleChange = (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { target } = event;
 
-      onChange?.({
-        event,
-        name,
-        value: field === "start" ? [target.value, toTime] : [fromTime, target.value],
-      });
-    },
-    [fromTime, name, onChange, toTime],
-  );
+    handleFormValue?.({
+      event,
+      name,
+      value: field === "start" ? [target.value, toTime] : [fromTime, target.value],
+    });
+  };
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
@@ -41,7 +38,7 @@ const TimeRange = (
         name={name}
         label={label}
         type="time"
-        value={Array?.isArray(value) ? value?.[0] : ""}
+        value={fromTime}
         helperText={helperText}
         onChange={handleChange("start")}
         required={required}
@@ -58,7 +55,7 @@ const TimeRange = (
         fullWidth
         ref={ref}
         name={name}
-        value={Array?.isArray(value) ? value?.[1] : ""}
+        value={toTime}
         type="time"
         helperText={helperText}
         onChange={handleChange("end")}

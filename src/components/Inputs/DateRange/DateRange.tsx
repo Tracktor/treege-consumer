@@ -1,5 +1,5 @@
 import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useEffect, useState } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -7,32 +7,29 @@ export interface DateRangeProps {
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
-  onChange?(dataAttribute: ChangeEventField): void;
+  handleFormValue?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   value?: unknown;
   readOnly?: boolean;
 }
 
 const DateRange = (
-  { label, name, helperText, inputRef, onChange, required, value, readOnly }: DateRangeProps,
+  { label, name, helperText, inputRef, handleFormValue, required, value, readOnly }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const [error, setError] = useState<boolean>(false);
   const fromDate = Array?.isArray(value) ? value?.[0] : "";
   const toDate = Array?.isArray(value) ? value?.[1] : "";
 
-  const handleChange = useCallback(
-    (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { target } = event;
+  const handleChange = (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { target } = event;
 
-      onChange?.({
-        event,
-        name,
-        value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
-      });
-    },
-    [fromDate, name, onChange, toDate],
-  );
+    handleFormValue?.({
+      event,
+      name,
+      value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
+    });
+  };
 
   useEffect(() => {
     if (fromDate?.length > 0 && toDate.length > 0) {

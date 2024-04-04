@@ -61,7 +61,7 @@ const Stepper = ({
             <FieldFactory
               key={field.uuid}
               data={field}
-              onChange={handleFormValue}
+              handleFormValue={handleFormValue}
               autoFocus={active}
               visible={active}
               readOnly={readOnly}

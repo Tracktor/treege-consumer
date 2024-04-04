@@ -11,10 +11,10 @@ export interface RadioProps {
   required?: boolean;
   value?: unknown;
   readOnly?: boolean;
-  onChange?(dataAttribute: ChangeEventField): void;
+  handleFormValue?(dataAttribute: ChangeEventField): void;
 }
 
-const Radio = ({ data, helperText, inputRef, required, onChange, readOnly, value }: RadioProps, ref: Ref<HTMLDivElement>) => {
+const Radio = ({ data, helperText, inputRef, required, handleFormValue, readOnly, value }: RadioProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
@@ -24,21 +24,14 @@ const Radio = ({ data, helperText, inputRef, required, onChange, readOnly, value
   const handleChange = (event: ChangeEvent<HTMLInputElement>, fieldValue: string) => {
     const messageValue = getMessageByValue({ options, value: fieldValue });
 
-    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
+    handleFormValue?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
     setMessage(messageValue);
   };
 
   return (
     <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>
       <FormLabel id={`${name}-label`}>{label}</FormLabel>
-      <RadioGroup
-        aria-labelledby={`${name}-label`}
-        name={name}
-        onChange={handleChange}
-        value={value}
-        // defaultValue={defaultValue ? `${name}:${defaultValue}` : undefined}
-        aria-readonly={readOnly}
-      >
+      <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} value={value} aria-readonly={readOnly}>
         {options?.map((option, index) => (
           <FormControlLabel
             key={option.key}

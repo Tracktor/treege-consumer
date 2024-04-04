@@ -23,14 +23,14 @@ export interface FielFactoryProps {
   data: TreeNode;
   visible?: boolean;
   readOnly?: boolean;
-  onChange?(dataAttribute?: ChangeEventField): void;
+  handleFormValue?(dataAttribute?: ChangeEventField): void;
   headers?: Headers;
   isLoadingFormValidation?: boolean;
 }
 
 /**
  * FieldFactory factory
- * @param onChange
+ * @param handleFormValue
  * @param autoFocus
  * @param data
  * @param readOnly
@@ -42,7 +42,7 @@ export interface FielFactoryProps {
  * @constructor
  */
 const FieldFactory = ({
-  onChange,
+  handleFormValue,
   autoFocus,
   data,
   readOnly,
@@ -88,7 +88,7 @@ const FieldFactory = ({
             name={name}
             label={label}
             type={type}
-            onChange={onChange}
+            handleFormValue={handleFormValue}
             value={value}
             required={isRequired}
             inputRef={inputRef}
@@ -103,7 +103,7 @@ const FieldFactory = ({
           <TimeRange
             name={name}
             label={label}
-            onChange={onChange}
+            handleFormValue={handleFormValue}
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
@@ -116,7 +116,7 @@ const FieldFactory = ({
           <DateRange
             name={name}
             label={label}
-            onChange={onChange}
+            handleFormValue={handleFormValue}
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
@@ -125,14 +125,14 @@ const FieldFactory = ({
           />
         );
       case "address":
-        return <Autocomplete inputRef={inputRef} value={value} readOnly={readOnly} node={data} onChange={onChange} />;
+        return <Autocomplete inputRef={inputRef} value={value} readOnly={readOnly} node={data} handleFormValue={handleFormValue} />;
       case "radio":
         return (
           <Radio
             data={data}
             inputRef={inputRef}
             required={isRequired}
-            onChange={onChange}
+            handleFormValue={handleFormValue}
             helperText={helperText}
             value={value}
             readOnly={readOnly}
@@ -143,7 +143,7 @@ const FieldFactory = ({
           <Select
             data={data}
             inputRef={inputRef}
-            onChange={onChange}
+            handleFormValue={handleFormValue}
             helperText={helperText}
             readOnly={readOnly}
             value={isString(value) ? value : ""}
@@ -152,15 +152,31 @@ const FieldFactory = ({
       case "switch":
       case "checkbox":
         return (
-          <BooleanField data={data} inputRef={inputRef} onChange={onChange} helperText={helperText} value={value} readOnly={readOnly} />
+          <BooleanField
+            data={data}
+            inputRef={inputRef}
+            handleFormValue={handleFormValue}
+            helperText={helperText}
+            value={value}
+            readOnly={readOnly}
+          />
         );
       case "autocomplete":
-        return <ApiAutocomplete node={data} value={value} onChange={onChange} inputRef={inputRef} readOnly={readOnly} headers={headers} />;
+        return (
+          <ApiAutocomplete
+            node={data}
+            value={value}
+            handleFormValue={handleFormValue}
+            inputRef={inputRef}
+            readOnly={readOnly}
+            headers={headers}
+          />
+        );
       case "dynamicSelect":
         return (
           <DynamicSelect
             value={value}
-            onChange={onChange}
+            handleFormValue={handleFormValue}
             fieldValues={fieldValues}
             node={data}
             headers={headers}

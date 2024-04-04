@@ -11,13 +11,16 @@ import getSearch from "@/utils/getSearch/getSearch";
 interface ApiAutocompleteProps {
   inputRef: Ref<unknown>;
   node: TreeNode;
-  onChange?(dataAttribute: ChangeEventField): void;
+  handleFormValue?(dataAttribute: ChangeEventField): void;
   readOnly?: boolean;
   headers?: Headers;
   value?: Option | null;
 }
 
-const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
+const ApiAutocomplete = (
+  { node, handleFormValue, readOnly, inputRef, headers, value }: ApiAutocompleteProps,
+  ref: Ref<unknown> | undefined,
+) => {
   const [searchText, setSearchText] = useState<string>("");
 
   const { attributes, children } = node;
@@ -35,7 +38,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
   const options = adaptRouteResponseToOptions(data, route);
 
   const handleChange = (event: SyntheticEvent, newValue: Option | null) => {
-    onChange?.({
+    handleFormValue?.({
       children,
       event,
       isDecision,

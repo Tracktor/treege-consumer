@@ -13,7 +13,7 @@ interface DynamicSelectProps {
   inputRef: Ref<unknown>;
   node: TreeNode;
   fieldValues?: FieldValues;
-  onChange?(dataAttribute: ChangeEventField): void;
+  handleFormValue?(dataAttribute: ChangeEventField): void;
   headers?: Headers;
   value?: unknown;
   readOnly?: boolean;
@@ -24,13 +24,13 @@ interface DynamicSelectProps {
  * DynamicSelect component
  * @param treeValue
  * @param node
- * @param onChange
+ * @param handleFormValue
  * @param headers
  * @param ref
  * @constructor
  */
 const DynamicSelect = (
-  { inputRef, fieldValues, node, onChange, headers, value, readOnly, disabledChildrenField }: DynamicSelectProps,
+  { inputRef, fieldValues, node, handleFormValue, headers, value, readOnly, disabledChildrenField }: DynamicSelectProps,
   ref: Ref<unknown> | undefined,
 ) => {
   const { attributes, children } = node;
@@ -46,7 +46,7 @@ const DynamicSelect = (
   });
 
   const handleChange = (event: SyntheticEvent, newValue: string | Option | Option[] | string[] | null) => {
-    onChange?.({
+    handleFormValue?.({
       children,
       event,
       isDecision,

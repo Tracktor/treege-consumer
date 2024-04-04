@@ -143,11 +143,6 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     });
   };
 
-  // {
-  //   "mustBeCompleted": false,
-  //     "value": "location:yes"
-  // }
-
   useEffect(() => {
     const formatted = setInitialJsonValues(jsonInitialValues);
     if (formatted) {

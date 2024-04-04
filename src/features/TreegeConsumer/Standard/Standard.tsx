@@ -40,7 +40,7 @@ const Standard = ({
           <FieldFactory
             key={field.uuid}
             data={field}
-            onChange={handleFormValue}
+            handleFormValue={handleFormValue}
             readOnly={readOnly}
             headers={headers}
             fieldValues={fieldValues}

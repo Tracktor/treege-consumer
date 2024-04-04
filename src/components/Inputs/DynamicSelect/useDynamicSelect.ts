@@ -4,8 +4,6 @@ import { FieldValues } from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import { Route } from "@/types/TreeNode";
 import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
-// import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
-// import getFormValueFromName from "@/utils/getFormValueFromName/getFormValueFromName";
 
 interface useDynamicSelectProps {
   route?: Route;
@@ -17,9 +15,6 @@ interface useDynamicSelectProps {
 }
 
 const useDynamicSelect = ({ headers, fieldValues, route, parentRef, initialQuery, name }: useDynamicSelectProps) => {
-  // TODO TO VERIFY
-  // OVER KILL
-  // const getValueFromParent = getFormValueFromName(fieldValues, String(parentRef));
   const getValueFromParent = fieldValues?.[String(parentRef)];
   const dynamicValue =
     getValueFromParent && typeof getValueFromParent === "object" && "options" in getValueFromParent

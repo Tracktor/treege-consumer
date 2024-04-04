@@ -8,7 +8,7 @@ import {
   Select as SelectDS,
   SelectChangeEvent,
 } from "@tracktor/design-system";
-import { forwardRef, Ref, useCallback, useEffect, useState } from "react";
+import { forwardRef, Ref, useEffect, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
@@ -19,33 +19,30 @@ export interface SelectProps {
   inputRef: Ref<unknown>;
   required?: boolean;
   readOnly?: boolean;
-  onChange?(dataAttribute: ChangeEventField): void;
+  handleFormValue?(dataAttribute: ChangeEventField): void;
   value?: string;
 }
 
-const Select = ({ data, helperText, inputRef, required, onChange, readOnly, value }: SelectProps, ref: Ref<HTMLDivElement>) => {
+const Select = ({ data, helperText, inputRef, required, handleFormValue, readOnly, value }: SelectProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
 
-  const handleChange = useCallback(
-    (event: SelectChangeEvent) => {
-      const { target } = event;
-      const messageValue = getMessageByValue({ options, value: target.value });
+  const handleChange = (event: SelectChangeEvent) => {
+    const { target } = event;
+    const messageValue = getMessageByValue({ options, value: target.value });
 
-      onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: target.value });
-      setMessage(messageValue);
-    },
-    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type],
-  );
+    handleFormValue?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: target.value });
+    setMessage(messageValue);
+  };
 
   // Re-create tree
   useEffect(
     () => {
       if (isDecision) {
-        onChange?.({ children, isDecision, isLeaf, name, type, value });
+        handleFormValue?.({ children, isDecision, isLeaf, name, type, value });
       }
     },
     // Only on mount

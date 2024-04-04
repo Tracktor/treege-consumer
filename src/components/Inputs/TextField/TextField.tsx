@@ -1,5 +1,5 @@
 import { TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useCallback } from "react";
+import { ChangeEvent, forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface TextFieldProps {
@@ -7,7 +7,7 @@ export interface TextFieldProps {
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
-  onChange?(dataAttribute: ChangeEventField): void;
+  handleFormValue?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   type: string;
   readOnly?: boolean;
@@ -17,16 +17,13 @@ export interface TextFieldProps {
 }
 
 const TextField = (
-  { label, name, helperText, inputRef, onChange, required, type, readOnly, multiple, shrink, value }: TextFieldProps,
+  { label, name, helperText, inputRef, handleFormValue, required, type, readOnly, multiple, shrink, value }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { target } = event;
-      onChange?.({ event, name, type, value: target.value });
-    },
-    [name, onChange, type],
-  );
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { target } = event;
+    handleFormValue?.({ event, name, type, value: target.value });
+  };
 
   return (
     <TextFieldDS

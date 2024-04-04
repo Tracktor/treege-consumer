@@ -1,4 +1,5 @@
 import type TreeNode from "@/types/TreeNode";
+import { IsString } from "@/types/TypeGuards";
 
 export interface HiddenFieldProps {
   data: TreeNode;
@@ -10,7 +11,7 @@ const HiddenField = ({ data, value }: HiddenFieldProps) => {
     attributes: { name },
   } = data;
 
-  return <input type="hidden" name={name} value={String(value)} />;
+  return <input type="hidden" name={name} value={IsString(value) ? value : ""} />;
 };
 
 export default HiddenField;
