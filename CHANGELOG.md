@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.25.0](https://github.com/Tracktor/treege-consumer/compare/1.24.3...1.25.0) (2024-04-05)
+
+
+### Features
+
+* Auto review ([2dcee35](https://github.com/Tracktor/treege-consumer/commit/2dcee356af580ab2871dc1481288f63c7787b92d))
+* Basic exemple ([db434e7](https://github.com/Tracktor/treege-consumer/commit/db434e7b3466162b165eefdf225b01f33e82b0e8))
+* function ref paterne ([f09c1b5](https://github.com/Tracktor/treege-consumer/commit/f09c1b5fcd000002e73946fc0bde9a8a08482718))
+* function rename ([c59ebd0](https://github.com/Tracktor/treege-consumer/commit/c59ebd0c8cb8a41db7ddaac307aa0aa80c5ad81b))
+* remove API_TOKEN ([0e4ebd7](https://github.com/Tracktor/treege-consumer/commit/0e4ebd7d945d0a92df67f78a4b165f7dbf828df2))
+* remove test files ([bca3362](https://github.com/Tracktor/treege-consumer/commit/bca33621a5fe1978f915b75887cbbb87c14ec226))
+* remove test files ([8b186c1](https://github.com/Tracktor/treege-consumer/commit/8b186c121edfe5ecb1af138fd26a17bc06172c97))
+* Render custom input value ([086c8ed](https://github.com/Tracktor/treege-consumer/commit/086c8edaed949dbff54de0177039d82d89f16efd))
+* Return Pr ([89af74f](https://github.com/Tracktor/treege-consumer/commit/89af74f09ca80c90c230ba82134044194e0bbe1a))
+* treege update ([a109a2c](https://github.com/Tracktor/treege-consumer/commit/a109a2c9be166e32c7502b9a534727b05e694530))
+* treege update ([4266519](https://github.com/Tracktor/treege-consumer/commit/42665193c2c081638585c661c513aad2ccdd35ed))
+* v1 for treege update ([ad1433f](https://github.com/Tracktor/treege-consumer/commit/ad1433f931535323f3c1a0a0c034aa072ceb45d3))
+* v1 for treege update ([8f2984b](https://github.com/Tracktor/treege-consumer/commit/8f2984bcb1fab845891bc574170149601fbfb53e))
+* v1 for treege update ([c814019](https://github.com/Tracktor/treege-consumer/commit/c814019075a49383077b3be70a5f20c2430d7665))
+
+
+### Bug Fixes
+
+* readme ([f5a4e76](https://github.com/Tracktor/treege-consumer/commit/f5a4e76bd59f80de0cb417cb01d1414732a607ea))
+
 ## [1.24.3](https://github.com/Tracktor/treege-consumer/compare/1.24.2...1.24.3) (2024-03-29)
 
 
