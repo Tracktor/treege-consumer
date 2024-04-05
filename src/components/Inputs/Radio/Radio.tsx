@@ -1,5 +1,5 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useEffect, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
@@ -21,6 +21,7 @@ const Radio = ({ data, helperText, inputRef, required, onChange, onInit, readOnl
   const { label, values, type, isLeaf, isDecision, name } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
+  const onInitRef = useRef(onInit);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, fieldValue: string) => {
     const messageValue = getMessageByValue({ options, value: fieldValue });
@@ -29,16 +30,17 @@ const Radio = ({ data, helperText, inputRef, required, onChange, onInit, readOnl
     setMessage(messageValue);
   };
 
-  // Re-create tree
-  useEffect(
-    () => {
-      if (isDecision) {
-        onInit?.({ children, isDecision, isLeaf, name, type, value });
-      }
-    },
-    // Only on mount
-    // eslint-disable-next-line
-      []);
+  // Trigger the onInit when the component is mounted
+  useEffect(() => {
+    if (isDecision) {
+      onInitRef.current?.({ children, isDecision, isLeaf, name, type, value });
+    }
+  }, [children, isDecision, isLeaf, name, type, value]);
+
+  // Update the onInitRef when the onInit changes
+  useEffect(() => {
+    onInitRef.current = onInit;
+  }, [onInit]);
 
   return (
     <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>

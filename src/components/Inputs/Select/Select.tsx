@@ -9,7 +9,7 @@ import {
   SelectChangeEvent,
 } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
-import { forwardRef, Ref, useEffect, useState } from "react";
+import { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
@@ -34,6 +34,7 @@ const Select = (
   const { label, values, type, isLeaf, isDecision, name } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
+  const onInitRef = useRef(onInit);
 
   const handleChange = (event: SelectChangeEvent) => {
     const { target } = event;
@@ -43,16 +44,17 @@ const Select = (
     setMessage(messageValue);
   };
 
-  // Re-create tree
-  useEffect(
-    () => {
-      if (isDecision) {
-        onInit?.({ children, isDecision, isLeaf, name, type, value });
-      }
-    },
-    // Only on mount
-    // eslint-disable-next-line
-    []);
+  // Trigger the onInit when the component is mounted
+  useEffect(() => {
+    if (isDecision) {
+      onInitRef.current?.({ children, isDecision, isLeaf, name, type, value });
+    }
+  }, [children, isDecision, isLeaf, name, type, value]);
+
+  // Update the onInitRef when the onInit changes
+  useEffect(() => {
+    onInitRef.current = onInit;
+  }, [onInit]);
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
