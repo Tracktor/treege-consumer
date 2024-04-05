@@ -108,10 +108,7 @@ on [Treege](https://github.com/Tracktor/treege) data
 
 Render values from form based on [Treege](https://github.com/Tracktor/treege)
 
-| Props        | Type                                                                                                                                        | Default   | Required | Detail                 |
-|--------------|---------------------------------------------------------------------------------------------------------------------------------------------|-----------|----------|------------------------|
-| values       | {<br/>label: string;<br/>name: string;<br/>type: string;<br/>tag?: string;<br/>value: string; &#124; { label: string; value: string }<br/>} | undefined | true     | Object of data         |
-| renderInputs | function(input: JsonFormValue): ReactElement \| undefined                                                                                   | undefined | false    | Custom input rendering |
-
-
-renderInputs?(input: JsonFormValue): ReactElement | undefined;
+| Props        | Type                                                                                                                                        | Default   | Required | Detail                  |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------|-----------|----------|-------------------------|
+| values       | {<br/>label: string;<br/>name: string;<br/>type: string;<br/>tag?: string;<br/>value: string; &#124; { label: string; value: string }<br/>} | undefined | true     | Object of data          |
+| renderInputs | function(input: JsonFormValue): ReactElement \| undefined                                                                                   | undefined | false    | Custom inputs rendering |
