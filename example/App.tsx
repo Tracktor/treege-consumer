@@ -3,15 +3,14 @@ import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
+import { OnSubmitParams } from "@/features/TreegeConsumer/useTreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 const App = () => {
   const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
-  const [formData, setFormData] = useState<JsonFormValue[] | [string, unknown][]>();
-  const [renderData, setRenderData] = useState<"json" | "formData">("json");
+  const [submitData, setSubmitData] = useState<OnSubmitParams>();
   const [component, setComponent] = useState<"DataViewer" | "TreegeConsumer">("TreegeConsumer");
 
   const handleChangeComponent = (newComponent: "DataViewer" | "TreegeConsumer") => {
@@ -31,13 +30,9 @@ const App = () => {
     setTree(JSON.parse(value));
   };
 
-  const handleSubmit = (submitData: JsonFormValue[] | [string, unknown][]) => {
-    setFormData(submitData);
+  const handleSubmit = ({ data, formData, fieldValues }: OnSubmitParams) => {
+    setSubmitData({ data, fieldValues, formData });
     setDialogOpen(true);
-  };
-
-  const handleChangeFormatData = (_: MouseEvent<HTMLElement>, newRenderData: "json" | "formData") => {
-    setRenderData(newRenderData);
   };
 
   return component === "DataViewer" ? (
@@ -47,14 +42,12 @@ const App = () => {
       variant={variant}
       tree={tree}
       dialogOpen={dialogOpen}
-      formData={formData}
-      renderData={renderData}
       handleChangeVariant={handleChangeVariant}
       handleChangeTree={handleChangeTree}
       handleCloseDialog={handleCloseDialog}
       handleSubmit={handleSubmit}
+      submitData={submitData}
       handleChangeComponent={handleChangeComponent}
-      handleChangeFormatData={handleChangeFormatData}
     />
   );
 };

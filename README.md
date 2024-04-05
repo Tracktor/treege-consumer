@@ -85,16 +85,15 @@ export default App;
 Render a form based
 on [Treege](https://github.com/Tracktor/treege) data
 
-| Props              | Type                                            | Default    | Required | Detail                                    |
-|--------------------|-------------------------------------------------|------------|----------|-------------------------------------------|
-| dataFormatOnSubmit | "json"<br/>"formData"                           | "json"     | false    | Data format returned by onSubmit callback |
-| tree               | TreeNode<br/>  undefined                        | undefined  | false    | Treege data                               |
-| variant            | "standard"<br/>  "stepper"                      | "stepper"  | false    | The variant to use                        |
-| theme              | "light"<br/>  "dark" <br/> ThemeOptions         | "light"    | false    | Theme color mode                          |
-| onSubmit           | "json"<br/>"formData"                           | "json"     | false    | Callback fired form is validate           |
-| options            | "countryAutocompleteService"<br/>"googleApiKey" | undefined  | false    | Consumer options                          |
-| style              | CSSProperties                                   | undefined  | false    | Custom form style                         |
-| initialValues      | { [key: string]: unknown; }                     | undefined  | false    | Set initial value to form                 |
+| Props         | Type                                                                                                      | Default    | Required | Detail                          |
+|---------------|-----------------------------------------------------------------------------------------------------------|------------|----------|---------------------------------|
+| tree          | TreeNode<br/>  undefined                                                                                  | undefined  | false    | Treege data                     |
+| variant       | "standard"<br/>  "stepper"                                                                                | "stepper"  | false    | The variant to use              |
+| theme         | "light"<br/>  "dark" <br/> ThemeOptions                                                                   | "light"    | false    | Theme color mode                |
+| onSubmit      | `data: JsonFormValue[];`<br/>`formData: [string, FormDataEntryValue][];`<br/>`fieldValues: FieldValues;`  | undefined  | false    | Callback fired form is validate |
+| options       | "countryAutocompleteService"<br/>"googleApiKey"                                                           | undefined  | false    | Consumer options                |
+| style         | CSSProperties                                                                                             | undefined  | false    | Custom form style               |
+| initialValues | { [key: string]: unknown; }                                                                               | undefined  | false    | Set initial value to form       |
 
 #### Options
 
