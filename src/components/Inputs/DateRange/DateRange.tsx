@@ -1,49 +1,38 @@
 import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useEffect, useState } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
-  label: string;
+  label?: string;
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
   onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
-  defaultValue?: unknown;
+  value?: unknown;
   readOnly?: boolean;
 }
 
 const DateRange = (
-  { label, name, helperText, inputRef, onChange, required, defaultValue, readOnly }: DateRangeProps,
+  { label, name, helperText, inputRef, onChange, required, value, readOnly }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const [fromDate, setFromDate] = useState<string>("");
-  const [toDate, setToDate] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+  const fromDate = Array?.isArray(value) ? value?.[0] : "";
+  const toDate = Array?.isArray(value) ? value?.[1] : "";
 
-  const handleChange = useCallback(
-    (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value } = event.target;
+  const handleChange = (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { target } = event;
 
-      if (field === "start") {
-        setFromDate(value);
-      }
-
-      if (field === "end") {
-        setToDate(value);
-      }
-
-      onChange?.({
-        event,
-        name,
-        value: field === "start" ? [value, toDate] : [fromDate, value],
-      });
-    },
-    [fromDate, name, onChange, toDate],
-  );
+    onChange?.({
+      event,
+      name,
+      value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
+    });
+  };
 
   useEffect(() => {
-    if (fromDate.length > 0 && toDate.length > 0) {
+    if (fromDate?.length > 0 && toDate.length > 0) {
       if (new Date(fromDate) > new Date(toDate)) {
         setError(true);
       } else {
@@ -64,6 +53,7 @@ const DateRange = (
         onChange={handleChange("start")}
         required={required}
         inputRef={inputRef}
+        value={fromDate}
         error={error}
         InputProps={{
           readOnly,
@@ -81,7 +71,7 @@ const DateRange = (
         helperText={helperText}
         onChange={handleChange("end")}
         required={required}
-        defaultValue={defaultValue}
+        value={toDate}
         inputRef={inputRef}
         error={error}
         InputProps={{

@@ -95,7 +95,7 @@ const Sandbox = ({
               tree={tree}
               variant={variant}
               onSubmit={handleSubmit}
-              options={{ googleApiKey: "YOUR_SECRET_KEY" }}
+              options={{ googleApiKey: "YOUR_GOOGLE_API_TOKEN" }}
               headers={customHeaders}
               dataFormatOnSubmit={renderData}
             />

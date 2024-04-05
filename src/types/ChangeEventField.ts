@@ -3,7 +3,7 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import TreeNode from "@/types/TreeNode";
 
 export default interface ChangeEventField {
-  event:
+  event?:
     | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     | ChangeEvent<HTMLInputElement>
     | SelectChangeEvent<string | string[]>

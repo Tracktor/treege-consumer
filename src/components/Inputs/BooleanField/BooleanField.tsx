@@ -1,5 +1,5 @@
 import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useCallback, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useState } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
 
@@ -7,31 +7,24 @@ export interface BooleanFieldProps {
   data: TreeNode;
   helperText?: string;
   inputRef: Ref<HTMLInputElement>;
-  defaultValue?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
+  value?: unknown;
 }
 
-const BooleanField = (
-  { defaultValue, data, inputRef, helperText, readOnly, onChange }: BooleanFieldProps,
-  ref: Ref<unknown | undefined>,
-) => {
-  const { name, attributes, children } = data;
-  const { label, type, isLeaf, messages } = attributes;
+const BooleanField = ({ data, inputRef, helperText, readOnly, onChange, value }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
+  const { attributes, children } = data;
+  const { label, type, isLeaf, messages, name } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
   const Field = type === "checkbox" ? Checkbox : Switch;
-  const defaultChecked = defaultValue === "true" || defaultValue === true || defaultValue === "on" || defaultValue === "yes";
 
-  const handleCheck = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const { checked } = event.target;
-      const hasMessage = checked ? messages?.on : messages?.off;
+  const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
+    const hasMessage = checked ? messages?.on : messages?.off;
 
-      onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
-      setMessage(hasMessage);
-    },
-    [children, isLeaf, messages, name, onChange, type],
-  );
+    onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
+    setMessage(hasMessage);
+  };
 
   return (
     <FormControl aria-readonly={readOnly} fullWidth>
@@ -40,14 +33,7 @@ const BooleanField = (
           label={label}
           aria-readonly={readOnly}
           control={
-            <Field
-              name={name}
-              onChange={handleCheck}
-              inputRef={inputRef}
-              defaultChecked={defaultChecked}
-              readOnly={readOnly}
-              disabled={readOnly}
-            />
+            <Field name={name} onChange={handleCheck} inputRef={inputRef} checked={!!value} readOnly={readOnly} disabled={readOnly} />
           }
           sx={{
             ...(readOnly && {

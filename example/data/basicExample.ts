@@ -1,185 +1,187 @@
-const basicExample = {
+import TreeNode from "@/types/TreeNode";
+
+const basicExample: TreeNode = {
   attributes: {
-    depth: 0,
-    helperText: "Utiliser l'auto completion",
+    depth: 1,
     isLeaf: false,
-    isRoot: true,
-    label: "Ville ou adresse du site",
-    required: false,
-    type: "address",
+    label: "À quelle phase de votre projet êtes-vous ?",
+    name: "phase",
+    type: "select",
+    values: [
+      {
+        id: "0",
+        label: "J'ai un besoin pour un projet en cours ou à venir",
+        value: "in_progress",
+      },
+      {
+        id: "1",
+        label: "Je veux juste obtenir un prix",
+        value: "price_only",
+      },
+    ],
   },
   children: [
     {
       attributes: {
-        depth: 1,
+        depth: 2,
         isLeaf: false,
-        label: "À quelle phase de votre projet êtes-vous ?",
-        type: "select",
-        values: [
-          {
-            id: "0",
-            label: "J'ai un besoin pour un projet en cours ou à venir",
-            value: "in_progress",
-          },
-          {
-            id: "1",
-            label: "Je veux juste obtenir un prix",
-            value: "price_only",
-          },
-        ],
+        label: "Ma date de début est flexible (+/- 1 jour)",
+        name: "flexible",
+        type: "checkbox",
       },
       children: [
         {
           attributes: {
-            depth: 2,
+            depth: 3,
             isLeaf: false,
-            label: "Ma date de début est flexible (+/- 1 jour)",
-            type: "checkbox",
+            label: "Quantité",
+            name: "quantity",
+            type: "number",
           },
           children: [
             {
               attributes: {
-                depth: 3,
+                depth: 4,
                 isLeaf: false,
-                label: "Quantité",
-                type: "number",
+                label: "Avec Livraison & Reprise",
+                name: "with_delivery",
+                type: "switch",
               },
               children: [
                 {
                   attributes: {
-                    depth: 4,
+                    depth: 5,
+                    isDecision: true,
                     isLeaf: false,
-                    label: "Avec Livraison & Reprise",
-                    type: "switch",
+                    label: "Location avec opérateur",
+                    name: "location",
+                    type: "radio",
                   },
                   children: [
                     {
                       attributes: {
-                        depth: 5,
-                        isDecision: true,
+                        depth: 6,
                         isLeaf: false,
-                        label: "Location avec opérateur",
-                        type: "radio",
+                        label: "Oui",
+                        name: "location:yes",
+                        value: "yes",
                       },
                       children: [
                         {
                           attributes: {
-                            depth: 6,
+                            depth: 7,
                             isLeaf: false,
-                            label: "Oui",
-                            value: "yes",
+                            label: " 3 godets",
+                            name: "3 godets",
+                            type: "switch",
                           },
                           children: [
                             {
                               attributes: {
-                                depth: 7,
+                                depth: 8,
                                 isLeaf: false,
-                                label: " 3 godets",
+                                label: "BRH",
+                                name: "brh",
                                 type: "switch",
                               },
                               children: [
                                 {
                                   attributes: {
-                                    depth: 8,
+                                    depth: 9,
                                     isLeaf: false,
-                                    label: "BRH",
+                                    label: "Benne Preneuse",
+                                    name: "benne_preneuse",
                                     type: "switch",
                                   },
                                   children: [
                                     {
                                       attributes: {
-                                        depth: 9,
+                                        depth: 10,
                                         isLeaf: false,
-                                        label: "Benne Preneuse",
+                                        label: "Godet curage orientable",
+                                        name: "godet_curage",
                                         type: "switch",
                                       },
                                       children: [
                                         {
                                           attributes: {
-                                            depth: 10,
+                                            depth: 11,
                                             isLeaf: false,
-                                            label: "Godet curage orientable",
+                                            isRoot: false,
+                                            label: "Godet orientable",
+                                            messages: {
+                                              on: "Le prix du transport peut varier",
+                                            },
+                                            name: "godet_orientable",
                                             type: "switch",
                                           },
                                           children: [
                                             {
                                               attributes: {
-                                                depth: 11,
+                                                depth: 12,
                                                 isLeaf: false,
-                                                isRoot: false,
-                                                label: "Godet orientable",
-                                                messages: {
-                                                  on: "Le prix du transport peut varier",
-                                                },
+                                                label: "Pince de Tri",
+                                                name: "pince_de_tri",
                                                 type: "switch",
                                               },
                                               children: [
                                                 {
                                                   attributes: {
-                                                    depth: 12,
-                                                    isLeaf: false,
-                                                    label: "Pince de Tri",
+                                                    depth: 13,
+                                                    isLeaf: true,
+                                                    label: "Tarière hydraulique",
+                                                    name: "tariere_hydraulique",
                                                     type: "switch",
                                                   },
-                                                  children: [
-                                                    {
-                                                      attributes: {
-                                                        depth: 13,
-                                                        isLeaf: true,
-                                                        label: "Tarière hydraulique",
-                                                        type: "switch",
-                                                      },
-                                                      children: [],
-                                                      name: "tariere_hydraulique",
-                                                    },
-                                                  ],
-                                                  name: "pince_de_tri",
+                                                  children: [],
+                                                  uuid: "tariere_hydraulique",
                                                 },
                                               ],
-                                              name: "godet_orientable",
+                                              uuid: "pince_de_tri",
                                             },
                                           ],
-                                          name: "godet_curage",
+                                          uuid: "godet_orientable",
                                         },
                                       ],
-                                      name: "benne_preneuse",
+                                      uuid: "godet_curage",
                                     },
                                   ],
-                                  name: "brh",
+                                  uuid: "benne_preneuse",
                                 },
                               ],
-                              name: " 3 godets",
+                              uuid: "brh",
                             },
                           ],
-                          name: "location:yes",
-                        },
-                        {
-                          attributes: {
-                            depth: 6,
-                            isLeaf: true,
-                            label: "Non",
-                            value: "no",
-                          },
-                          children: [],
-                          name: "location:no",
+                          uuid: " 3 godets",
                         },
                       ],
-                      name: "location",
+                      uuid: "location:yes",
+                    },
+                    {
+                      attributes: {
+                        depth: 6,
+                        isLeaf: true,
+                        label: "Non",
+                        name: "location:no",
+                        value: "no",
+                      },
+                      children: [],
+                      uuid: "location:no",
                     },
                   ],
-                  name: "with_delivery",
+                  uuid: "location",
                 },
               ],
-              name: "quantity",
+              uuid: "with_delivery",
             },
           ],
-          name: "flexible",
+          uuid: "quantity",
         },
       ],
-      name: "phase",
+      uuid: "flexible",
     },
   ],
-  name: "address",
+  uuid: "phase",
 };
 
 export default basicExample;

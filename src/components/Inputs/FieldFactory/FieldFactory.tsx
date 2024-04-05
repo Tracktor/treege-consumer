@@ -11,7 +11,7 @@ import Select from "@/components/Inputs/Select";
 import TextField from "@/components/Inputs/TextField";
 import TimeRange from "@/components/Inputs/TimeRange";
 import ChangeEventField from "@/types/ChangeEventField";
-import FieldValues from "@/types/FieldValues";
+import { FieldValues } from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 
@@ -21,17 +21,15 @@ export interface FielFactoryProps {
   autoFocus?: boolean;
   data: TreeNode;
   visible?: boolean;
-  defaultValue?: unknown;
   readOnly?: boolean;
-  onChange?(dataAttribute?: ChangeEventField): void;
+  handleChangeFormValue?(dataAttribute?: ChangeEventField): void;
   headers?: Headers;
   isLoadingFormValidation?: boolean;
 }
 
 /**
  * FieldFactory factory
- * @param defaultValueProps
- * @param onChange
+ * @param handleChangeFormValue
  * @param autoFocus
  * @param data
  * @param readOnly
@@ -43,8 +41,7 @@ export interface FielFactoryProps {
  * @constructor
  */
 const FieldFactory = ({
-  defaultValue: defaultValueProps,
-  onChange,
+  handleChangeFormValue,
   autoFocus,
   data,
   readOnly,
@@ -54,15 +51,14 @@ const FieldFactory = ({
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
-  const { name, attributes } = data;
-  const { type, label, required, helperText, isMultiple, defaultValue: defaultValueAttribute, parentRef } = attributes;
+  const { attributes } = data;
+  const { type, label, required, helperText, isMultiple, parentRef, name } = attributes;
 
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
-  const defaultValue = defaultValueProps || defaultValueAttribute;
 
-  const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]?.value);
+  const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]);
   const disabledChildrenField = isLoadingFormValidation || hasParentRefValue;
 
   const inputRef = (ref: HTMLInputElement) => {
@@ -72,6 +68,8 @@ const FieldFactory = ({
     setTimeout(() => ref.focus(), animationTimeout);
     return null;
   };
+
+  const value = fieldValues?.[name] || "";
 
   const field = () => {
     switch (type) {
@@ -89,11 +87,11 @@ const FieldFactory = ({
             name={name}
             label={label}
             type={type}
-            onChange={onChange}
+            onChange={handleChangeFormValue}
+            value={value}
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
-            defaultValue={defaultValue}
             readOnly={readOnly}
             multiple={isMultiple}
             shrink={type === "time" ? true : undefined}
@@ -104,11 +102,11 @@ const FieldFactory = ({
           <TimeRange
             name={name}
             label={label}
-            onChange={onChange}
+            onChange={handleChangeFormValue}
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
-            defaultValue={defaultValue}
+            value={value}
             readOnly={readOnly}
           />
         );
@@ -117,25 +115,26 @@ const FieldFactory = ({
           <DateRange
             name={name}
             label={label}
-            onChange={onChange}
+            onChange={handleChangeFormValue}
             required={isRequired}
             inputRef={inputRef}
             helperText={helperText}
-            defaultValue={defaultValue}
+            value={value}
             readOnly={readOnly}
           />
         );
       case "address":
-        return <Autocomplete inputRef={inputRef} defaultValue={defaultValue} readOnly={readOnly} node={data} onChange={onChange} />;
+        return <Autocomplete inputRef={inputRef} value={value} readOnly={readOnly} node={data} onChange={handleChangeFormValue} />;
       case "radio":
         return (
           <Radio
             data={data}
             inputRef={inputRef}
             required={isRequired}
-            onChange={onChange}
+            onChange={handleChangeFormValue}
+            onInit={handleChangeFormValue}
             helperText={helperText}
-            defaultValue={defaultValue}
+            value={value}
             readOnly={readOnly}
           />
         );
@@ -144,10 +143,11 @@ const FieldFactory = ({
           <Select
             data={data}
             inputRef={inputRef}
-            onChange={onChange}
+            onChange={handleChangeFormValue}
+            onInit={handleChangeFormValue}
             helperText={helperText}
-            defaultValue={defaultValue}
             readOnly={readOnly}
+            value={value}
           />
         );
       case "switch":
@@ -156,9 +156,9 @@ const FieldFactory = ({
           <BooleanField
             data={data}
             inputRef={inputRef}
-            onChange={onChange}
+            onChange={handleChangeFormValue}
             helperText={helperText}
-            defaultValue={defaultValue}
+            value={value}
             readOnly={readOnly}
           />
         );
@@ -166,9 +166,9 @@ const FieldFactory = ({
         return (
           <ApiAutocomplete
             node={data}
-            onChange={onChange}
+            value={value}
+            onChange={handleChangeFormValue}
             inputRef={inputRef}
-            defaultValue={defaultValue}
             readOnly={readOnly}
             headers={headers}
           />
@@ -176,11 +176,13 @@ const FieldFactory = ({
       case "dynamicSelect":
         return (
           <DynamicSelect
-            onChange={onChange}
+            value={value}
+            onChange={handleChangeFormValue}
             fieldValues={fieldValues}
             node={data}
             headers={headers}
             disabledChildrenField={disabledChildrenField}
+            inputRef={inputRef}
           />
         );
       default:
@@ -189,7 +191,7 @@ const FieldFactory = ({
   };
 
   if (isHidden) {
-    return <HiddenField data={data} />;
+    return <HiddenField data={data} value={value} />;
   }
 
   return (

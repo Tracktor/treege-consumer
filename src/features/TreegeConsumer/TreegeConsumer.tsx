@@ -48,12 +48,6 @@ interface BaseTreegeConsumerProps {
    */
   style?: CSSProperties;
   /**
-   * Initial values of the form
-   */
-  initialValues?: {
-    [key: string]: unknown;
-  };
-  /**
    * If true, the form input will be disabled.
    * @default false
    */
@@ -66,6 +60,10 @@ interface BaseTreegeConsumerProps {
    * Callback fired when the user submit form.
    */
   isLoadingFormValidation?: boolean;
+  /**
+   * initial Values
+   */
+  initialValues?: JsonFormValue[];
 }
 
 type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {
@@ -91,6 +89,7 @@ type JsonTreegeConsumerProps = BaseTreegeConsumerProps & {
    */
   onSubmit?(data: JsonFormValue[]): void;
 };
+// Remove FormDataEntryValue
 
 export type TreegeConsumerProps = FormDataTreegeConsumerProps | JsonTreegeConsumerProps;
 
@@ -101,20 +100,30 @@ const TreegeConsumer = ({
   theme,
   loading,
   style,
-  initialValues,
   readOnly,
   headers,
   isLoadingFormValidation,
+  initialValues,
   variant = "standard",
   dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
-  const { activeFieldIndex, fields, handleChange, firstFieldIndex, handlePrev, handleSubmit, isLastField, fieldValues, formCanBeSubmit } =
-    useTreegeConsumer({
-      dataFormatOnSubmit,
-      onSubmit,
-      tree,
-      variant,
-    });
+  const {
+    activeFieldIndex,
+    fields,
+    handleChangeFormValue,
+    firstFieldIndex,
+    handlePrev,
+    handleSubmit,
+    isLastField,
+    fieldValues,
+    formCanBeSubmit,
+  } = useTreegeConsumer({
+    dataFormatOnSubmit,
+    initialValues,
+    onSubmit,
+    tree,
+    variant,
+  });
   const themeProvider = useTheme();
   const queryClient = new QueryClient();
 
@@ -134,12 +143,11 @@ const TreegeConsumer = ({
                 isLastField={isLastField}
                 style={style}
                 fields={fields}
-                initialValues={initialValues}
                 readOnly={readOnly}
                 headers={headers}
                 fieldValues={fieldValues}
                 isLoadingFormValidation={isLoadingFormValidation}
-                handleChange={handleChange}
+                handleChangeFormValue={handleChangeFormValue}
                 handlePrev={handlePrev}
                 handleSubmit={handleSubmit}
                 formCanBeSubmit={formCanBeSubmit}
@@ -147,8 +155,7 @@ const TreegeConsumer = ({
             ) : (
               <Standard
                 fields={fields}
-                initialValues={initialValues}
-                handleChange={handleChange}
+                handleChangeFormValue={handleChangeFormValue}
                 handleSubmit={handleSubmit}
                 isLastField={isLastField}
                 readOnly={readOnly}

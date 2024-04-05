@@ -29,7 +29,6 @@ describe("test getFieldsFromTreePoint tree input output fieldArray", () => {
   test("Tree With Tree and children in main tree", () => {
     const { tree, output } = treeWithTreeAndChildrenInMainTreeMock;
     const result = getFieldsFromTreePoint({ currentTree: tree });
-
     expect(result).toEqual(output);
   });
 

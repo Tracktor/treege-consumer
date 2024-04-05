@@ -29,7 +29,7 @@ const getFieldsFromTreePoint = ({
         ...(treePath && { treePath }),
         // set childrenRestTree
         ...(currentTree?.children?.length > 1 && restTreeArray.length && { childrenTreeRest: restTreeArray }),
-        name: prefixFieldName(currentTree.name, treePath),
+        attributes: { ...currentTree.attributes, name: prefixFieldName(currentTree.attributes?.name, treePath) },
       },
     ];
   } else if (currentTree.children.length) {

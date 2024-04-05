@@ -1,5 +1,5 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
@@ -9,35 +9,43 @@ export interface RadioProps {
   helperText?: string;
   inputRef: Ref<unknown>;
   required?: boolean;
-  defaultValue?: unknown;
+  value?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
+  onInit?(dataAttribute: ChangeEventField): void;
 }
 
-const Radio = ({ data, helperText, inputRef, required, onChange, readOnly, defaultValue = "" }: RadioProps, ref: Ref<HTMLDivElement>) => {
+const Radio = ({ data, helperText, inputRef, required, onChange, onInit, readOnly, value }: RadioProps, ref: Ref<HTMLDivElement>) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
-  const { name, children, attributes } = data;
-  const { label, values, type, isLeaf, isDecision } = attributes;
+  const { children, attributes } = data;
+  const { label, values, type, isLeaf, isDecision, name } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
+  const onInitRef = useRef(onInit);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>, value: string) => {
-    const messageValue = getMessageByValue({ options, value });
+  const handleChange = (event: ChangeEvent<HTMLInputElement>, fieldValue: string) => {
+    const messageValue = getMessageByValue({ options, value: fieldValue });
 
-    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value });
+    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
     setMessage(messageValue);
   };
+
+  // Trigger the onInit when the component is mounted
+  useEffect(() => {
+    if (isDecision) {
+      onInitRef.current?.({ children, isDecision, isLeaf, name, type, value });
+    }
+  }, [children, isDecision, isLeaf, name, type, value]);
+
+  // Update the onInitRef when the onInit changes
+  useEffect(() => {
+    onInitRef.current = onInit;
+  }, [onInit]);
 
   return (
     <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>
       <FormLabel id={`${name}-label`}>{label}</FormLabel>
-      <RadioGroup
-        aria-labelledby={`${name}-label`}
-        name={name}
-        onChange={handleChange}
-        defaultValue={defaultValue ? `${name}:${defaultValue}` : undefined}
-        aria-readonly={readOnly}
-      >
+      <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} value={value} aria-readonly={readOnly}>
         {options?.map((option, index) => (
           <FormControlLabel
             key={option.key}

@@ -1,12 +1,13 @@
 import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useMemo, useState } from "react";
 import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
-import FieldValues from "@/types/FieldValues";
+import { FieldValues } from "@/types/FieldValues";
 import type TreeNode from "@/types/TreeNode";
 import formDataToJSON, { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
 import getNextStepper from "@/utils/getNextStepper";
+import initializeFieldValuesFromJson from "@/utils/initializeFieldValuesFromJson/initializeFieldValuesFromJson";
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
 
@@ -15,9 +16,10 @@ export interface useTreegeConsumerParams {
   onSubmit?(data: JsonFormValue[] | [string, FormDataEntryValue][]): void;
   tree?: TreeNode;
   variant: TreegeConsumerProps["variant"];
+  initialValues?: JsonFormValue[];
 }
 
-const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, variant }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, variant, initialValues }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -25,21 +27,21 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
   const requiredFields = fields?.filter((field) => field.attributes.required);
-  const formCanBeSubmit = requiredFields?.every((field) => fieldValues[field.name]?.value);
+  const formCanBeSubmit = requiredFields?.every((field) => fieldValues?.[field.attributes.name]);
   const nextStepper = getNextStepper(initialFields);
   const lastFieldHasNoChildren = !initialFields[initialFields.length - 1]?.children.length && !!tree;
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
-  const handleChange = (dataAttribute: ChangeEventField): void => {
-    const { value, name, hasMessage, type, isDecision, children, isRequiredAndEmpty } = dataAttribute;
+  const handleChangeFormValue = (dataAttribute: ChangeEventField): void => {
+    const { value, name, hasMessage, type, isDecision, children } = dataAttribute;
     const isSelectField = FIELD_MESSAGE_TYPES.includes(type || "");
     const isAutoStep = isSelectField && !hasMessage;
 
     if (isDecision) {
       setFields((prevState) => {
-        const decisionSelected = children?.find((child) => child.name === value);
-        const indexDecisionField = prevState?.findIndex((item) => item.name === name);
+        const decisionSelected = children?.find((child) => child.attributes.name === `${name}:${value}`);
+        const indexDecisionField = prevState?.findIndex((item) => item.attributes.name === name);
         const treeRest = prevState?.[indexDecisionField]?.childrenTreeRest;
         const childrenTreeRestDecision = getFieldsFromTreeRest(treeRest);
         const decisionChildrenSelected = getFieldsFromTreePoint({
@@ -88,10 +90,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
 
     setFieldValues((prevFieldValues) => ({
       ...prevFieldValues,
-      [name]: {
-        mustBeCompleted: !!isRequiredAndEmpty,
-        value,
-      },
+      [name]: value,
     }));
 
     // AUTO NEXT STEP
@@ -125,11 +124,11 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
       return;
     }
 
-    const newTransformedFieldValues = Object.entries(fieldValues).map(([key, value]) => [key, value.value]);
+    const newTransformedFieldValues = Object.entries(fieldValues).map(([key, value]) => [key, value]);
     const data =
       dataFormatOnSubmit === "formData"
         ? (newTransformedFieldValues as [string, FormDataEntryValue][])
-        : formDataToJSON(newTransformedFieldValues as [string, FormDataEntryValue][], fields);
+        : formDataToJSON(fieldValues, fields);
     onSubmit?.(data);
   };
 
@@ -143,6 +142,13 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
       return prevState - stepper;
     });
   };
+
+  useEffect(() => {
+    const formatted = initializeFieldValuesFromJson(initialValues);
+    if (formatted) {
+      setFieldValues(formatted);
+    }
+  }, [initialValues]);
 
   // Initialize fields
   useEffect(() => {
@@ -167,7 +173,7 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
     fieldValues,
     firstFieldIndex,
     formCanBeSubmit,
-    handleChange,
+    handleChangeFormValue,
     handlePrev,
     handleSubmit,
     isLastField,

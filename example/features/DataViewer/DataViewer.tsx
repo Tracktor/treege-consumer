@@ -1,6 +1,6 @@
 import { Button, Container, Stack, ThemeProvider } from "@tracktor/design-system";
 import basicValuesConsumerExample from "example/data/basicValuesConsumerExample";
-import { TreegeValuesConsumer } from "@/main";
+import { TreegeConsumerResponse } from "@/main";
 
 interface DataViewerProps {
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
@@ -14,7 +14,7 @@ const DataViewer = ({ handleChangeComponent }: DataViewerProps) => (
           See TreegeConsumer
         </Button>
       </Stack>
-      <TreegeValuesConsumer values={basicValuesConsumerExample} />
+      <TreegeConsumerResponse values={basicValuesConsumerExample} />
     </Container>
   </ThemeProvider>
 );

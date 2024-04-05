@@ -1,9 +1,10 @@
+import { FieldValues } from "@/types/FieldValues";
 import TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface Mock {
   fields: TreeNode[];
-  formValue: [string, FormDataEntryValue | unknown][];
+  fieldValues: FieldValues;
   output: JsonFormValue[];
 }
 const formWithTextFields: Mock = {
@@ -14,6 +15,7 @@ const formWithTextFields: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         type: "text",
       },
       children: [
@@ -22,32 +24,34 @@ const formWithTextFields: Mock = {
             depth: 1,
             isLeaf: true,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: true,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [],
-      name: "first_name",
+      uuid: "first_name",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", "John"],
-  ],
+  fieldValues: {
+    first_name: "John",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "John" },
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -59,6 +63,7 @@ const formWithSelectFields: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         type: "text",
       },
       children: [
@@ -67,6 +72,7 @@ const formWithSelectFields: Mock = {
             depth: 1,
             isLeaf: false,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [
@@ -75,6 +81,7 @@ const formWithSelectFields: Mock = {
                 depth: 2,
                 isLeaf: true,
                 label: "Sexe",
+                name: "gender",
                 type: "select",
                 values: [
                   {
@@ -90,19 +97,20 @@ const formWithSelectFields: Mock = {
                 ],
               },
               children: [],
-              name: "gender",
+              uuid: "gender",
             },
           ],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: false,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [
@@ -111,6 +119,7 @@ const formWithSelectFields: Mock = {
             depth: 2,
             isLeaf: true,
             label: "Sexe",
+            name: "gender",
             type: "select",
             values: [
               {
@@ -126,16 +135,17 @@ const formWithSelectFields: Mock = {
             ],
           },
           children: [],
-          name: "gender",
+          uuid: "gender",
         },
       ],
-      name: "first_name",
+      uuid: "first_name",
     },
     {
       attributes: {
         depth: 2,
         isLeaf: true,
         label: "Sexe",
+        name: "gender",
         type: "select",
         values: [
           {
@@ -151,18 +161,18 @@ const formWithSelectFields: Mock = {
         ],
       },
       children: [],
-      name: "gender",
+      uuid: "gender",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", "John"],
-    ["gender", "male"],
-  ],
+  fieldValues: {
+    first_name: "John",
+    gender: "male",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "John" },
     { label: "Sexe", name: "gender", type: "select", value: { label: "Homme", value: "male" } },
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -174,6 +184,7 @@ const formWithRadioFields: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         type: "text",
       },
       children: [
@@ -182,6 +193,7 @@ const formWithRadioFields: Mock = {
             depth: 1,
             isLeaf: false,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [
@@ -190,6 +202,7 @@ const formWithRadioFields: Mock = {
                 depth: 2,
                 isLeaf: true,
                 label: "Sexe",
+                name: "gender",
                 type: "radio",
                 values: [
                   {
@@ -205,19 +218,20 @@ const formWithRadioFields: Mock = {
                 ],
               },
               children: [],
-              name: "gender",
+              uuid: "gender",
             },
           ],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: false,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [
@@ -226,6 +240,7 @@ const formWithRadioFields: Mock = {
             depth: 2,
             isLeaf: true,
             label: "Sexe",
+            name: "gender",
             type: "radio",
             values: [
               {
@@ -241,16 +256,17 @@ const formWithRadioFields: Mock = {
             ],
           },
           children: [],
-          name: "gender",
+          uuid: "gender",
         },
       ],
-      name: "first_name",
+      uuid: "first_name",
     },
     {
       attributes: {
         depth: 2,
         isLeaf: true,
         label: "Sexe",
+        name: "gender",
         type: "radio",
         values: [
           {
@@ -266,18 +282,18 @@ const formWithRadioFields: Mock = {
         ],
       },
       children: [],
-      name: "gender",
+      uuid: "gender",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", "John"],
-    ["gender", "male"],
-  ],
+  fieldValues: {
+    first_name: "John",
+    gender: "male",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "John" },
     { label: "Sexe", name: "gender", type: "radio", value: { label: "Homme", value: "male" } },
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -289,6 +305,7 @@ const formWithSwitchFields: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         type: "text",
       },
       children: [
@@ -297,6 +314,7 @@ const formWithSwitchFields: Mock = {
             depth: 1,
             isLeaf: false,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [
@@ -306,22 +324,24 @@ const formWithSwitchFields: Mock = {
                 isLeaf: true,
                 isRoot: false,
                 label: "Administrateur",
+                name: "admin",
                 type: "switch",
               },
               children: [],
-              name: "admin",
+              uuid: "admin",
             },
           ],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: false,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [
@@ -331,13 +351,14 @@ const formWithSwitchFields: Mock = {
             isLeaf: true,
             isRoot: false,
             label: "Administrateur",
+            name: "admin",
             type: "switch",
           },
           children: [],
-          name: "admin",
+          uuid: "admin",
         },
       ],
-      name: "first_name",
+      uuid: "first_name",
     },
     {
       attributes: {
@@ -345,21 +366,22 @@ const formWithSwitchFields: Mock = {
         isLeaf: true,
         isRoot: false,
         label: "Administrateur",
+        name: "admin",
         type: "switch",
       },
       children: [],
-      name: "admin",
+      uuid: "admin",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", "John"],
-    ["admin", true],
-  ],
+  fieldValues: {
+    admin: true,
+    first_name: "John",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
-    { label: "Prénom", name: "first_name", type: "text", value: "John" },
     { label: "Administrateur", name: "admin", type: "switch", value: true },
+    { label: "Prénom", name: "first_name", type: "text", value: "John" },
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -371,6 +393,7 @@ const formWithCheckboxFields: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         type: "text",
       },
       children: [
@@ -379,6 +402,7 @@ const formWithCheckboxFields: Mock = {
             depth: 1,
             isLeaf: false,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [
@@ -388,22 +412,24 @@ const formWithCheckboxFields: Mock = {
                 isLeaf: true,
                 isRoot: false,
                 label: "Administrateur",
+                name: "admin",
                 type: "switch",
               },
               children: [],
-              name: "admin",
+              uuid: "admin",
             },
           ],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: false,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [
@@ -413,13 +439,14 @@ const formWithCheckboxFields: Mock = {
             isLeaf: true,
             isRoot: false,
             label: "Administrateur",
+            name: "admin",
             type: "switch",
           },
           children: [],
-          name: "admin",
+          uuid: "admin",
         },
       ],
-      name: "first_name",
+      uuid: "first_name",
     },
     {
       attributes: {
@@ -427,21 +454,22 @@ const formWithCheckboxFields: Mock = {
         isLeaf: true,
         isRoot: false,
         label: "Administrateur",
+        name: "admin",
         type: "checkbox",
       },
       children: [],
-      name: "admin",
+      uuid: "admin",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", "John"],
-    ["admin", true],
-  ],
+  fieldValues: {
+    admin: true,
+    first_name: "John",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
-    { label: "Prénom", name: "first_name", type: "text", value: "John" },
     { label: "Administrateur", name: "admin", type: "checkbox", value: true },
+    { label: "Prénom", name: "first_name", type: "text", value: "John" },
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -453,6 +481,7 @@ const formWithDecisionFields: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         type: "text",
       },
       children: [
@@ -461,6 +490,7 @@ const formWithDecisionFields: Mock = {
             depth: 1,
             isLeaf: false,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [
@@ -471,6 +501,7 @@ const formWithDecisionFields: Mock = {
                 isLeaf: false,
                 isRoot: false,
                 label: "Type d'evenement",
+                name: "event_type",
                 type: "select",
               },
               children: [
@@ -479,6 +510,7 @@ const formWithDecisionFields: Mock = {
                     depth: 3,
                     isLeaf: false,
                     label: "Incident",
+                    name: "Incident",
                     value: "incident",
                   },
                   children: [
@@ -487,19 +519,21 @@ const formWithDecisionFields: Mock = {
                         depth: 4,
                         isLeaf: true,
                         label: "Type d'incident",
+                        name: "incident_type",
                         type: "text",
                       },
                       children: [],
-                      name: "incident_type",
+                      uuid: "incident_type",
                     },
                   ],
-                  name: "event_type:incident",
+                  uuid: "event_type:incident",
                 },
                 {
                   attributes: {
                     depth: 3,
                     isLeaf: false,
                     label: "other",
+                    name: "other",
                     value: "other",
                   },
                   children: [
@@ -508,28 +542,30 @@ const formWithDecisionFields: Mock = {
                         depth: 4,
                         isLeaf: true,
                         label: "Autre événement",
+                        name: "Autre événement",
                         type: "text",
                       },
                       children: [],
-                      name: "other_event",
+                      uuid: "other_event",
                     },
                   ],
-                  name: "event_type:other",
+                  uuid: "event_type:other",
                 },
               ],
-              name: "event_type",
+              uuid: "event_type",
             },
           ],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: false,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [
@@ -540,6 +576,7 @@ const formWithDecisionFields: Mock = {
             isLeaf: false,
             isRoot: false,
             label: "Type d'evenement",
+            name: "event_type",
             type: "select",
           },
           children: [
@@ -548,6 +585,7 @@ const formWithDecisionFields: Mock = {
                 depth: 3,
                 isLeaf: false,
                 label: "Incident",
+                name: "Incident",
                 value: "incident",
               },
               children: [
@@ -556,19 +594,21 @@ const formWithDecisionFields: Mock = {
                     depth: 4,
                     isLeaf: true,
                     label: "Type d'incident",
+                    name: "incident_type",
                     type: "text",
                   },
                   children: [],
-                  name: "incident_type",
+                  uuid: "incident_type",
                 },
               ],
-              name: "event_type:incident",
+              uuid: "event_type:incident",
             },
             {
               attributes: {
                 depth: 3,
                 isLeaf: false,
                 label: "other",
+                name: "other",
                 value: "other",
               },
               children: [
@@ -577,19 +617,20 @@ const formWithDecisionFields: Mock = {
                     depth: 4,
                     isLeaf: true,
                     label: "Autre événement",
+                    name: "Autre événement",
                     type: "text",
                   },
                   children: [],
-                  name: "other_event",
+                  uuid: "other_event",
                 },
               ],
-              name: "event_type:other",
+              uuid: "event_type:other",
             },
           ],
-          name: "event_type",
+          uuid: "event_type",
         },
       ],
-      name: "first_name",
+      uuid: "first_name",
     },
     {
       attributes: {
@@ -598,6 +639,7 @@ const formWithDecisionFields: Mock = {
         isLeaf: false,
         isRoot: false,
         label: "Type d'evenement",
+        name: "event_type",
         type: "select",
       },
       children: [
@@ -606,6 +648,7 @@ const formWithDecisionFields: Mock = {
             depth: 3,
             isLeaf: false,
             label: "Incident",
+            name: "Incident",
             value: "incident",
           },
           children: [
@@ -614,19 +657,21 @@ const formWithDecisionFields: Mock = {
                 depth: 4,
                 isLeaf: true,
                 label: "Type d'incident",
+                name: "incident_type",
                 type: "text",
               },
               children: [],
-              name: "incident_type",
+              uuid: "incident_type",
             },
           ],
-          name: "event_type:incident",
+          uuid: "event_type:incident",
         },
         {
           attributes: {
             depth: 3,
             isLeaf: false,
             label: "other",
+            name: "other",
             value: "other",
           },
           children: [
@@ -635,49 +680,51 @@ const formWithDecisionFields: Mock = {
                 depth: 4,
                 isLeaf: true,
                 label: "Autre événement",
+                name: "Autre événement",
                 type: "text",
               },
               children: [],
-              name: "other_event",
+              uuid: "other_event",
             },
           ],
-          name: "event_type:other",
+          uuid: "event_type:other",
         },
       ],
-      name: "event_type",
+      uuid: "event_type",
     },
     {
       attributes: {
         depth: 4,
         isLeaf: true,
         label: "Type d'incident",
+        name: "incident_type",
         type: "text",
       },
       children: [],
-      name: "incident_type",
+      uuid: "incident_type",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", "John"],
-    ["event_type", "event_type:incident"],
-    ["incident_type", "Incendie "],
-  ],
+  fieldValues: {
+    event_type: "incident",
+    first_name: "John",
+    incident_type: "Incendie ",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
-    { label: "Prénom", name: "first_name", type: "text", value: "John" },
     {
       label: "Type d'evenement",
       name: "event_type",
       type: "select",
       value: { label: "Incident", value: "incident" },
     },
+    { label: "Prénom", name: "first_name", type: "text", value: "John" },
     {
       label: "Type d'incident",
       name: "incident_type",
       type: "text",
       value: "Incendie ",
     },
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -689,6 +736,7 @@ const formWithTagFields: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         tag: "last_name",
         type: "text",
       },
@@ -698,32 +746,34 @@ const formWithTagFields: Mock = {
             depth: 1,
             isLeaf: true,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: true,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [],
-      name: "first_name",
+      uuid: "first_name",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", "John"],
-  ],
+  fieldValues: {
+    first_name: "John",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", tag: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "John" },
+    { label: "Nom", name: "last_name", tag: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -735,6 +785,7 @@ const formWithTextFieldsUndefined: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         type: "text",
       },
       children: [
@@ -743,32 +794,34 @@ const formWithTextFieldsUndefined: Mock = {
             depth: 1,
             isLeaf: true,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: true,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [],
-      name: "first_name",
+      uuid: "first_name",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", ""],
-  ],
+  fieldValues: {
+    first_name: "",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "" },
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -780,6 +833,7 @@ const formWithSelectFieldsUndefined: Mock = {
         isLeaf: false,
         isRoot: true,
         label: "Nom",
+        name: "last_name",
         type: "text",
       },
       children: [
@@ -788,6 +842,7 @@ const formWithSelectFieldsUndefined: Mock = {
             depth: 1,
             isLeaf: false,
             label: "Prénom",
+            name: "first_name",
             type: "text",
           },
           children: [
@@ -796,6 +851,7 @@ const formWithSelectFieldsUndefined: Mock = {
                 depth: 2,
                 isLeaf: true,
                 label: "Sexe",
+                name: "gender",
                 type: "select",
                 values: [
                   {
@@ -811,19 +867,20 @@ const formWithSelectFieldsUndefined: Mock = {
                 ],
               },
               children: [],
-              name: "gender",
+              uuid: "gender",
             },
           ],
-          name: "first_name",
+          uuid: "first_name",
         },
       ],
-      name: "last_name",
+      uuid: "last_name",
     },
     {
       attributes: {
         depth: 1,
         isLeaf: false,
         label: "Prénom",
+        name: "first_name",
         type: "text",
       },
       children: [
@@ -832,6 +889,7 @@ const formWithSelectFieldsUndefined: Mock = {
             depth: 2,
             isLeaf: true,
             label: "Sexe",
+            name: "gender",
             type: "select",
             values: [
               {
@@ -847,16 +905,17 @@ const formWithSelectFieldsUndefined: Mock = {
             ],
           },
           children: [],
-          name: "gender",
+          uuid: "gender",
         },
       ],
-      name: "first_name",
+      uuid: "first_name",
     },
     {
       attributes: {
         depth: 2,
         isLeaf: true,
         label: "Sexe",
+        name: "gender",
         type: "select",
         values: [
           {
@@ -872,18 +931,18 @@ const formWithSelectFieldsUndefined: Mock = {
         ],
       },
       children: [],
-      name: "gender",
+      uuid: "gender",
     },
   ],
-  formValue: [
-    ["last_name", "Doe"],
-    ["first_name", "John"],
-    ["gender", ""],
-  ],
+  fieldValues: {
+    first_name: "John",
+    gender: "",
+    last_name: "Doe",
+  },
   output: [
-    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
     { label: "Prénom", name: "first_name", type: "text", value: "John" },
     { label: "Sexe", name: "gender", type: "select", value: { label: undefined, value: undefined } },
+    { label: "Nom", name: "last_name", type: "text", value: "Doe" },
   ],
 };
 
@@ -895,16 +954,16 @@ const formWithDateRangeFields: Mock = {
         isLeaf: true,
         isRoot: true,
         label: "Name",
+        name: "a",
         type: "dateRange",
       },
       children: [],
-      name: "a",
+      uuid: "a",
     },
   ],
-  formValue: [
-    ["a", "2024-01-10"],
-    ["a", "2024-01-15"],
-  ],
+  fieldValues: {
+    a: ["2024-01-10", "2024-01-15"],
+  },
   output: [
     {
       label: "Name",
@@ -915,7 +974,194 @@ const formWithDateRangeFields: Mock = {
   ],
 };
 
+const formWithDecision: Mock = {
+  fields: [
+    {
+      attributes: {
+        depth: 0,
+        isDecision: true,
+        isLeaf: false,
+        isRoot: true,
+        label: "decision",
+        name: "decision",
+        type: "select",
+      },
+      children: [
+        {
+          attributes: {
+            depth: 1,
+            isLeaf: false,
+            label: "1",
+            name: "1",
+            value: "1",
+          },
+          children: [
+            {
+              attributes: {
+                depth: 2,
+                isLeaf: false,
+                label: "text1",
+                name: "text1",
+                type: "text",
+              },
+              children: [
+                {
+                  attributes: {
+                    depth: 3,
+                    isLeaf: true,
+                    label: "f",
+                    name: "f",
+                    type: "text",
+                  },
+                  children: [],
+                  uuid: "f",
+                },
+              ],
+              uuid: "text1",
+            },
+          ],
+          uuid: "decision:1",
+        },
+        {
+          attributes: {
+            depth: 1,
+            isLeaf: false,
+            label: "2",
+            name: "2",
+            value: "2",
+          },
+          children: [
+            {
+              attributes: {
+                depth: 2,
+                isLeaf: false,
+                label: "text2",
+                name: "text2",
+                type: "text",
+              },
+              children: [
+                {
+                  attributes: {
+                    depth: 3,
+                    isLeaf: true,
+                    label: "f",
+                    name: "f",
+                    type: "text",
+                  },
+                  children: [],
+                  uuid: "ff",
+                },
+              ],
+              uuid: "text2",
+            },
+          ],
+          uuid: "decision:2",
+        },
+        {
+          attributes: {
+            depth: 1,
+            isLeaf: false,
+            label: "3",
+            name: "3",
+            value: "3",
+          },
+          children: [
+            {
+              attributes: {
+                depth: 2,
+                isLeaf: false,
+                label: "text3",
+                name: "text3",
+                type: "text",
+              },
+              children: [
+                {
+                  attributes: {
+                    depth: 3,
+                    isLeaf: true,
+                    label: "f",
+                    name: "f",
+                    type: "text",
+                  },
+                  children: [],
+                  uuid: "fff",
+                },
+              ],
+              uuid: "text3",
+            },
+          ],
+          uuid: "decision:3",
+        },
+      ],
+      uuid: "decision",
+    },
+    {
+      attributes: {
+        depth: 2,
+        isLeaf: false,
+        label: "text1",
+        name: "text1",
+        type: "text",
+      },
+      children: [
+        {
+          attributes: {
+            depth: 3,
+            isLeaf: true,
+            label: "f",
+            name: "f",
+            type: "text",
+          },
+          children: [],
+          uuid: "f",
+        },
+      ],
+      uuid: "text1",
+    },
+    {
+      attributes: {
+        depth: 3,
+        isLeaf: true,
+        label: "f",
+        name: "f",
+        type: "text",
+      },
+      children: [],
+      uuid: "f",
+    },
+  ],
+  fieldValues: {
+    decision: "1",
+    f: "1",
+    text1: "1",
+  },
+  output: [
+    {
+      label: "decision",
+      name: "decision",
+      type: "select",
+      value: {
+        label: "1",
+        value: "1",
+      },
+    },
+    {
+      label: "f",
+      name: "f",
+      type: "text",
+      value: "1",
+    },
+    {
+      label: "text1",
+      name: "text1",
+      type: "text",
+      value: "1",
+    },
+  ],
+};
+
 export {
+  formWithDecision,
   formWithTextFields,
   formWithSelectFields,
   formWithRadioFields,

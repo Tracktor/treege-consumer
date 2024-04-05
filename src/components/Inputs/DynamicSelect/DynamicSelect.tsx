@@ -1,18 +1,23 @@
-import { Select, InputLabel, OutlinedInput, FormControl, SelectChangeEvent, MenuItem } from "@tracktor/design-system";
-import { useState } from "react";
+import { Autocomplete, ListItem, ListItemAvatar, Avatar, ListItemText, TextField } from "@tracktor/design-system";
+import { isObject } from "@tracktor/react-utils";
+import { forwardRef, Ref, SyntheticEvent } from "react";
 import ControlledTooltip from "@/components/DataDisplay/ControlledToolTip";
 import useDynamicSelect from "@/components/Inputs/DynamicSelect/useDynamicSelect";
 import ChangeEventField from "@/types/ChangeEventField";
+import { FieldValues } from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
+import { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
+import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";
 
 interface DynamicSelectProps {
+  inputRef: Ref<unknown>;
   node: TreeNode;
-  fieldValues?: JsonFormValue[] | unknown;
+  fieldValues?: FieldValues;
   onChange?(dataAttribute: ChangeEventField): void;
-  errorMessage?: string;
   headers?: Headers;
+  value?: unknown;
+  readOnly?: boolean;
   disabledChildrenField?: boolean;
 }
 
@@ -21,17 +26,16 @@ interface DynamicSelectProps {
  * @param treeValue
  * @param node
  * @param onChange
- * @param errorMessage
- * @param disabledChildrenField
  * @param headers
+ * @param ref
  * @constructor
  */
-const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChildrenField, headers }: DynamicSelectProps) => {
-  const [singleOption, setSingleOption] = useState<string>("");
-  const [multipleOptions, setMultipleOptions] = useState<string[]>([]);
-
-  const { name, attributes, children } = node;
-  const { label, type, isLeaf, parentRef, isDecision, route, required, isMultiple, initialQuery } = attributes;
+const DynamicSelect = (
+  { inputRef, fieldValues, node, onChange, headers, value, readOnly, disabledChildrenField }: DynamicSelectProps,
+  ref: Ref<unknown> | undefined,
+) => {
+  const { attributes, children } = node;
+  const { name, label, type, isLeaf, parentRef, isDecision, route, required, isMultiple, initialQuery, helperText } = attributes;
 
   const { options } = useDynamicSelect({
     fieldValues,
@@ -42,22 +46,7 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChil
     route,
   });
 
-  const handleChange = (event: SelectChangeEvent<typeof multipleOptions | typeof singleOption>) => {
-    const { value } = event.target;
-    if (isMultiple) {
-      setMultipleOptions(typeof value === "string" ? value.split(",") : value);
-    } else {
-      setSingleOption(String(value));
-    }
-
-    const selectedOptions = options
-      ?.filter((option) => value.includes(String(option.id)))
-      .map((option) => ({
-        id: option.id,
-        isSelected: true,
-        label: option.label,
-      }));
-
+  const handleChange = (event: SyntheticEvent, newValue: string | Option | Option[] | string[] | null) => {
     onChange?.({
       children,
       event,
@@ -65,42 +54,51 @@ const DynamicSelect = ({ fieldValues, node, onChange, errorMessage, disabledChil
       isLeaf,
       name,
       type,
-      value: selectedOptions,
+      value: newValue,
     });
   };
 
   return (
     <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
-      <FormControl required={required} fullWidth>
-        <InputLabel id={`label-${name}`}>{label}</InputLabel>
-        <Select
-          labelId={`label-${name}`}
-          label={label}
-          name={name}
-          id={name}
-          multiple={isMultiple}
-          value={isMultiple ? multipleOptions : singleOption}
-          onChange={handleChange}
-          input={<OutlinedInput label={label} />}
-          disabled={disabledChildrenField}
-          aria-errormessage={errorMessage}
-          MenuProps={{
-            PaperProps: {
-              style: {
-                maxWidth: 400,
-              },
-            },
-          }}
-        >
-          {options?.map((option) => (
-            <MenuItem key={option.id} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Autocomplete
+        readOnly={readOnly}
+        multiple={isMultiple}
+        isOptionEqualToValue={(option, val) => isObject(option) && "id" in option && isObject(val) && "id" in val && option?.id === val?.id}
+        ref={ref}
+        value={isMultiple ? value || [] : value || ""}
+        onChange={handleChange}
+        options={options || []}
+        noOptionsText="Aucune suggestion"
+        disabled={disabledChildrenField}
+        renderOption={(props, option) => (
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <ListItem {...props}>
+            {!!safeGetObjectValueByKey(option, "img") && (
+              <ListItemAvatar>
+                <Avatar variant="square" alt={safeGetObjectValueByKey(option, "label")} src={safeGetObjectValueByKey(option, "img")} />
+              </ListItemAvatar>
+            )}
+            <ListItemText primary={safeGetObjectValueByKey(option, "label")} />
+          </ListItem>
+        )}
+        renderInput={(params) => (
+          <TextField
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...params}
+            label={label}
+            name={name}
+            required={required}
+            helperText={helperText}
+            inputRef={inputRef}
+            InputProps={{
+              ...params.InputProps,
+              readOnly,
+            }}
+          />
+        )}
+      />
     </ControlledTooltip>
   );
 };
 
-export default DynamicSelect;
+export default forwardRef(DynamicSelect);

@@ -6,16 +6,13 @@ import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/Navig
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
 import FieldFactory from "@/components/Inputs/FieldFactory";
 import ChangeEventField from "@/types/ChangeEventField";
-import FieldValues from "@/types/FieldValues";
+import { FieldValues } from "@/types/FieldValues";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
 
 interface StepperProps {
   fields?: TreeNode[];
-  initialValues?: {
-    [key: string]: unknown;
-  };
-  handleChange?(dataAttribute: ChangeEventField): void;
+  handleChangeFormValue?(dataAttribute: ChangeEventField): void;
   handlePrev?(_: ReactMouseEvent<HTMLButtonElement, MouseEvent>): void;
   handleSubmit?(event: FormEvent<HTMLFormElement>): void;
   activeFieldIndex: number;
@@ -36,10 +33,9 @@ const Stepper = ({
   firstFieldIndex,
   isLastField,
   fieldValues,
-  initialValues,
   readOnly,
   headers,
-  handleChange,
+  handleChangeFormValue,
   handlePrev,
   handleSubmit,
   style,
@@ -60,16 +56,14 @@ const Stepper = ({
       {fields ? (
         fields.map((field, index) => {
           const active = index === activeFieldIndex;
-          const initialValuesValue = initialValues?.[field.name];
 
           return (
             <FieldFactory
-              key={field.name}
+              key={field.uuid}
               data={field}
-              onChange={handleChange}
+              handleChangeFormValue={handleChangeFormValue}
               autoFocus={active}
               visible={active}
-              defaultValue={initialValuesValue}
               readOnly={readOnly}
               headers={headers}
               fieldValues={fieldValues}

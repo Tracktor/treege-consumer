@@ -1,15 +1,17 @@
+import { TextField } from "@tracktor/design-system";
 import type TreeNode from "@/types/TreeNode";
 
 export interface HiddenFieldProps {
   data: TreeNode;
-  defaultValue?: unknown;
+  value?: unknown;
 }
 
-const HiddenField = ({ defaultValue, data }: HiddenFieldProps) => {
-  const { name, attributes } = data;
-  const { hiddenValue } = attributes;
+const HiddenField = ({ data, value }: HiddenFieldProps) => {
+  const {
+    attributes: { name },
+  } = data;
 
-  return <input type="hidden" name={name} value={hiddenValue} defaultValue={defaultValue as string} />;
+  return <TextField type="hidden" name={name} value={value} />;
 };
 
 export default HiddenField;

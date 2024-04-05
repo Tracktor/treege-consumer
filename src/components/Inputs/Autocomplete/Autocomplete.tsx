@@ -1,17 +1,19 @@
 import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from "@tracktor/design-system";
-import { useScript } from "@tracktor/react-utils";
+import { isObject, useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
-import { throttle } from "lodash-es";
+import { isArray, throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
 import OptionsContext from "@/context/Options/OptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import TreeNode from "@/types/TreeNode";
 import { IsString } from "@/types/TypeGuards";
 
+type AutocompleteService = google.maps.places.AutocompleteService;
+
 export interface AutocompleteProps {
   inputRef: Ref<unknown>;
   country?: string;
-  defaultValue?: unknown;
+  value?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   node: TreeNode;
@@ -22,23 +24,19 @@ interface Match {
   length: number;
 }
 
-type AutocompleteService = google.maps.places.AutocompleteService;
-type AutocompletePrediction = google.maps.places.AutocompletePrediction;
-
-const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
-  const { attributes, name, children } = node;
-  const { type, label, required, helperText, isLeaf, isDecision } = attributes;
+const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+  const { attributes, children } = node;
+  const { name, type, label, required, helperText, isLeaf, isDecision } = attributes;
 
   const { googleApiKey, countryAutocompleteService } = useContext(OptionsContext);
   const places = useScript(
     googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : "",
   );
   const autocompleteService = useRef<AutocompleteService>();
-  const [value, setValue] = useState<AutocompletePrediction | null>(null);
-  const [options, setOptions] = useState<readonly AutocompletePrediction[]>([]);
+  const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  const handleChange = (event: SyntheticEvent<Element, Event>, newValue: AutocompletePrediction | string | null) => {
+  const handleChange = (event: SyntheticEvent<Element, Event>, newValue: unknown | null) => {
     onChange?.({
       children,
       event,
@@ -51,7 +49,6 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
 
     if (IsString(newValue)) return;
     setOptions(newValue ? [newValue, ...options] : options);
-    setValue(newValue);
   };
 
   const handleOnBlurChange = () => {
@@ -70,7 +67,7 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
 
   const fetch = useMemo(
     () =>
-      throttle((request: { input: string }, callback: (results: AutocompletePrediction[] | null) => void) => {
+      throttle((request: { input: string }, callback: (results: unknown[] | null) => void) => {
         autocompleteService?.current?.getPlacePredictions(request, callback);
       }, 200),
     [],
@@ -103,9 +100,9 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
       input: searchText,
     };
 
-    fetch(request, (results?: AutocompletePrediction[] | null) => {
+    fetch(request, (results?: unknown[] | null) => {
       if (active) {
-        let newOptions: readonly AutocompletePrediction[] = [];
+        let newOptions: readonly unknown[] = [];
 
         if (value) {
           newOptions = [value];
@@ -124,24 +121,21 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
     };
   }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey]);
 
-  // Initialize default value
-  useEffect(() => {
-    if (defaultValue) {
-      setValue(defaultValue as AutocompletePrediction);
-    }
-  }, [defaultValue]);
-
   return (
     <AutocompleteDS
-      freeSolo
       autoComplete
       includeInputInList
       filterSelectedOptions
-      defaultValue={defaultValue as AutocompletePrediction}
       ref={ref}
-      getOptionLabel={(option) => (IsString(option) ? option : option.description)}
+      getOptionLabel={(option) => {
+        if (IsString(option)) {
+          return option;
+        }
+
+        return isObject(option) && "description" in option && IsString(option?.description) ? option?.description : "";
+      }}
       filterOptions={(filterOptions) => filterOptions}
-      options={options}
+      options={options || []}
       value={value}
       onChange={handleChange}
       onBlur={handleOnBlurChange}
@@ -164,11 +158,32 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
         />
       )}
       renderOption={(props, option) => {
-        const matches = option.structured_formatting.main_text_matched_substrings;
-        const parts = parse(
-          option.structured_formatting.main_text,
-          matches.map((match: Match) => [match.offset, match.offset + match.length]),
-        );
+        const matches =
+          (isObject(option) &&
+            "structured_formatting" in option &&
+            isObject(option?.structured_formatting) &&
+            "main_text_matched_substrings" in option.structured_formatting &&
+            isArray(option?.structured_formatting?.main_text_matched_substrings) &&
+            option?.structured_formatting?.main_text_matched_substrings) ||
+          [];
+
+        const mainText =
+          isObject(option) &&
+          "structured_formatting" in option &&
+          isObject(option.structured_formatting) &&
+          "main_text" in option.structured_formatting &&
+          IsString(option?.structured_formatting?.main_text) &&
+          option?.structured_formatting?.main_text;
+
+        const parts = parse(mainText || "", matches?.map((match: Match) => [match.offset, match.offset + match.length]));
+
+        const optionSecondaryText =
+          isObject(option) &&
+          "structured_formatting" in option &&
+          isObject(option.structured_formatting) &&
+          "secondary_text" in option.structured_formatting &&
+          IsString(option.structured_formatting.secondary_text) &&
+          option.structured_formatting.secondary_text;
 
         return (
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -179,7 +194,8 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
               </Grid>
               <Grid item xs>
                 {parts.map((part, i) => {
-                  const id = `${option.place_id}-${i}`;
+                  const placeId = isObject(option) && "place_id" in option && option.place_id;
+                  const id = `${placeId}-${i}`;
 
                   return (
                     <Typography
@@ -195,7 +211,7 @@ const Autocomplete = ({ defaultValue, inputRef, country, readOnly, onChange, nod
                   );
                 })}
                 <Typography variant="body2" color="text.secondary">
-                  {option.structured_formatting.secondary_text}
+                  {optionSecondaryText}
                 </Typography>
               </Grid>
             </Grid>
