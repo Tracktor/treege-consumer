@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.26.0](https://github.com/Tracktor/treege-consumer/compare/1.25.0...1.26.0) (2024-04-08)
+
+
+### Features
+
+* add form on data submit call back ([3e8e01c](https://github.com/Tracktor/treege-consumer/commit/3e8e01ce256034dfc03a19838c0511614a53d0d9))
+* rename type ([258fe7c](https://github.com/Tracktor/treege-consumer/commit/258fe7cab4d96f444d7d68145634a3fcc039f93d))
+
 ## [1.25.0](https://github.com/Tracktor/treege-consumer/compare/1.24.3...1.25.0) (2024-04-05)
 
 
