@@ -11,15 +11,20 @@ import initializeFieldValuesFromJson from "@/utils/initializeFieldValuesFromJson
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
 
+export interface OnSubmitReturn {
+  data: JsonFormValue[];
+  formData: [string, FormDataEntryValue][];
+  fieldValues: FieldValues;
+}
+
 export interface useTreegeConsumerParams {
-  dataFormatOnSubmit?: "formData" | "json";
-  onSubmit?(data: JsonFormValue[] | [string, FormDataEntryValue][]): void;
+  onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
   tree?: TreeNode;
   variant: TreegeConsumerProps["variant"];
   initialValues?: JsonFormValue[];
 }
 
-const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, variant, initialValues }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -124,12 +129,11 @@ const useTreegeConsumer = ({ dataFormatOnSubmit = "json", tree, onSubmit, varian
       return;
     }
 
-    const newTransformedFieldValues = Object.entries(fieldValues).map(([key, value]) => [key, value]);
-    const data =
-      dataFormatOnSubmit === "formData"
-        ? (newTransformedFieldValues as [string, FormDataEntryValue][])
-        : formDataToJSON(fieldValues, fields);
-    onSubmit?.(data);
+    const currentFormData = new FormData(event.currentTarget);
+    const formData = [...currentFormData];
+    const data = formDataToJSON(fieldValues, fields);
+
+    onSubmit?.({ data, fieldValues, formData });
   };
 
   const handlePrev = (_: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {

@@ -4,16 +4,12 @@ import type { CSSProperties } from "react";
 import OptionsProvider from "@/context/Options/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
-import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
+import useTreegeConsumer, { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
-interface BaseTreegeConsumerProps {
-  /**
-   * Data format returned by onSubmit callback
-   */
-  dataFormatOnSubmit?: "formData" | "json";
+export interface TreegeConsumerProps {
   /**
    * Tree data from treege
    */
@@ -64,34 +60,14 @@ interface BaseTreegeConsumerProps {
    * initial Values
    */
   initialValues?: JsonFormValue[];
+  /**
+   * Callback fired when the user submit form.
+   * @param data
+   * @param formData
+   * @param fieldValues
+   */
+  onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
 }
-
-type FormDataTreegeConsumerProps = BaseTreegeConsumerProps & {
-  /**
-   * Data format returned by onSubmit callback
-   */
-  dataFormatOnSubmit?: "formData";
-  /**
-   * Callback fired when the user submit form.
-   * @param data
-   */
-  onSubmit?(data: [string, FormDataEntryValue][]): void;
-};
-
-type JsonTreegeConsumerProps = BaseTreegeConsumerProps & {
-  /**
-   * Data format returned by onSubmit callback
-   */
-  dataFormatOnSubmit?: "json";
-  /**
-   * Callback fired when the user submit form.
-   * @param data
-   */
-  onSubmit?(data: JsonFormValue[]): void;
-};
-// Remove FormDataEntryValue
-
-export type TreegeConsumerProps = FormDataTreegeConsumerProps | JsonTreegeConsumerProps;
 
 const TreegeConsumer = ({
   tree,
@@ -105,7 +81,6 @@ const TreegeConsumer = ({
   isLoadingFormValidation,
   initialValues,
   variant = "standard",
-  dataFormatOnSubmit = "json",
 }: TreegeConsumerProps) => {
   const {
     activeFieldIndex,
@@ -118,7 +93,6 @@ const TreegeConsumer = ({
     fieldValues,
     formCanBeSubmit,
   } = useTreegeConsumer({
-    dataFormatOnSubmit,
     initialValues,
     onSubmit,
     tree,
