@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import OptionsProvider from "@/context/Options/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
-import useTreegeConsumer, { OnSubmitParams } from "@/features/TreegeConsumer/useTreegeConsumer";
+import useTreegeConsumer, { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
@@ -66,7 +66,7 @@ export interface TreegeConsumerProps {
    * @param formData
    * @param fieldValues
    */
-  onSubmit?({ data, formData, fieldValues }: OnSubmitParams): void;
+  onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
 }
 
 const TreegeConsumer = ({

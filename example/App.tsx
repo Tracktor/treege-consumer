@@ -3,14 +3,14 @@ import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
-import { OnSubmitParams } from "@/features/TreegeConsumer/useTreegeConsumer";
+import { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
 import type TreeNode from "@/types/TreeNode";
 
 const App = () => {
   const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
-  const [submitData, setSubmitData] = useState<OnSubmitParams>();
+  const [submitData, setSubmitData] = useState<OnSubmitReturn>();
   const [component, setComponent] = useState<"DataViewer" | "TreegeConsumer">("TreegeConsumer");
 
   const handleChangeComponent = (newComponent: "DataViewer" | "TreegeConsumer") => {
@@ -30,7 +30,7 @@ const App = () => {
     setTree(JSON.parse(value));
   };
 
-  const handleSubmit = ({ data, formData, fieldValues }: OnSubmitParams) => {
+  const handleSubmit = ({ data, formData, fieldValues }: OnSubmitReturn) => {
     setSubmitData({ data, fieldValues, formData });
     setDialogOpen(true);
   };

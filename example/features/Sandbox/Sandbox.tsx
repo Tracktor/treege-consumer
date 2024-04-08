@@ -17,7 +17,7 @@ import {
 } from "@tracktor/design-system";
 import { ChangeEvent, MouseEvent, ReactNode, SyntheticEvent, useState } from "react";
 import TreegeConsumer from "@/features/TreegeConsumer";
-import { OnSubmitParams } from "@/features/TreegeConsumer/useTreegeConsumer";
+import { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 
@@ -26,10 +26,10 @@ interface SandboxProps {
   variant: "standard" | "stepper" | undefined;
   dialogOpen: boolean;
   customHeaders?: Headers;
-  submitData?: OnSubmitParams;
+  submitData?: OnSubmitReturn;
   handleCloseDialog: () => void;
   handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  handleSubmit: ({ data, formData, fieldValues }: OnSubmitParams) => void;
+  handleSubmit: ({ data, formData, fieldValues }: OnSubmitReturn) => void;
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
   handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
 }

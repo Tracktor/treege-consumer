@@ -11,14 +11,14 @@ import initializeFieldValuesFromJson from "@/utils/initializeFieldValuesFromJson
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
 
-export interface OnSubmitParams {
+export interface OnSubmitReturn {
   data: JsonFormValue[];
   formData: [string, FormDataEntryValue][];
   fieldValues: FieldValues;
 }
 
 export interface useTreegeConsumerParams {
-  onSubmit?({ data, formData, fieldValues }: OnSubmitParams): void;
+  onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
   tree?: TreeNode;
   variant: TreegeConsumerProps["variant"];
   initialValues?: JsonFormValue[];
