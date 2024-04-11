@@ -47,7 +47,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
     <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`}>
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -73,7 +73,7 @@ const Sandbox = ({
   };
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme="dark">
       <Grid container height="100%">
         <Grid
           item
@@ -112,13 +112,7 @@ const Sandbox = ({
               </ToggleButtonGroup>
             </Box>
             <Box flex={1} pt={2}>
-              <TreegeConsumer
-                tree={tree}
-                variant={variant}
-                onSubmit={handleSubmit}
-                options={{ googleApiKey: "YOUR_GOOGLE_API_TOKEN" }}
-                headers={customHeaders}
-              />
+              <TreegeConsumer tree={tree} variant={variant} onSubmit={handleSubmit} headers={customHeaders} />
             </Box>
             <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md" scroll="body">
               <DialogTitle id="alert-dialog-title">Result:</DialogTitle>

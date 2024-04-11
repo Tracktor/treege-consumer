@@ -70,17 +70,22 @@ const DynamicSelect = (
         options={options || []}
         noOptionsText="Aucune suggestion"
         disabled={disabledChildrenField}
-        renderOption={(props, option) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <ListItem {...props}>
-            {!!safeGetObjectValueByKey(option, "img") && (
-              <ListItemAvatar>
-                <Avatar variant="square" alt={safeGetObjectValueByKey(option, "label")} src={safeGetObjectValueByKey(option, "img")} />
-              </ListItemAvatar>
-            )}
-            <ListItemText primary={safeGetObjectValueByKey(option, "label")} />
-          </ListItem>
-        )}
+        renderOption={(props, option) => {
+          const optionImage = safeGetObjectValueByKey(option, "imageUri");
+          const optionLabel = safeGetObjectValueByKey(option, "label");
+
+          return (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <ListItem {...props}>
+              {!!optionImage && (
+                <ListItemAvatar>
+                  <Avatar variant="square" alt={optionLabel} src={optionImage} sx={{ height: 30, width: 30 }} />
+                </ListItemAvatar>
+              )}
+              <ListItemText primary={optionLabel} />
+            </ListItem>
+          );
+        }}
         renderInput={(params) => (
           <TextField
             // eslint-disable-next-line react/jsx-props-no-spreading

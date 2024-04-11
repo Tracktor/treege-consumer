@@ -20,11 +20,9 @@ interface ApiAutocompleteProps {
 
 const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
   const [searchText, setSearchText] = useState<string>("");
-
   const { attributes, children } = node;
   const { type, name, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
-  const { reformatReturnAutocomplete } = useApiAutoComplete();
-
+  const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
   const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
 
   const { data, isFetching, isError } = useQuery({
@@ -34,6 +32,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
   });
 
   const options = adaptRouteResponseToOptions(data, route);
+  const optionsWithValues = addValueToOptions(options, value); // We add the value to the options to avoid warnings because the value is not in the options
 
   const handleChange = (event: SyntheticEvent, newValue: Option | null) => {
     onChange?.({
@@ -53,26 +52,43 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
 
   return (
     <Autocomplete
+      filterSelectedOptions
       readOnly={readOnly}
       filterOptions={(o) => o}
       ref={ref}
-      value={value}
+      value={value || null}
       onChange={handleChange}
-      options={options || []}
+      loading={isFetching}
+      options={optionsWithValues || []}
       onInputChange={handleSearchChange}
       noOptionsText="Aucune suggestion"
-      renderOption={(props, option) => (
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        <ListItem {...props}>
-          {!!safeGetObjectValueByKey(option, "img") && (
-            <ListItemAvatar>
-              <Avatar variant="square" alt={safeGetObjectValueByKey(option, "label")} src={safeGetObjectValueByKey(option, "img")} />
-            </ListItemAvatar>
-          )}
-          <ListItemText primary={safeGetObjectValueByKey(option, "label")} />
-        </ListItem>
-      )}
-      loading={isFetching}
+      isOptionEqualToValue={(option, optionValue) => {
+        if (!optionValue) {
+          return false;
+        }
+
+        if (option?.id === optionValue?.id) {
+          return true;
+        }
+
+        return option?.value === optionValue?.value;
+      }}
+      renderOption={(props, option) => {
+        const optionImage = safeGetObjectValueByKey(option, "imageUri");
+        const optionLabel = safeGetObjectValueByKey(option, "label");
+
+        return (
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <ListItem {...props}>
+            {!!optionImage && (
+              <ListItemAvatar>
+                <Avatar variant="square" alt={optionLabel} src={optionImage} sx={{ height: 30, width: 30 }} />
+              </ListItemAvatar>
+            )}
+            <ListItemText primary={optionLabel} />
+          </ListItem>
+        );
+      }}
       renderInput={(params) => (
         // const { InputProps, size, InputLabelProps, disabled, id, inputProps, fullWidth } = params;
         <TextField

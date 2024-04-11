@@ -26,7 +26,19 @@ const useApiAutoComplete = () => {
       options: value?.options || value,
     };
   };
-  return { reformatReturnAutocomplete };
+
+  const addValueToOptions = (options?: Option[] | null, value?: Option | null) => {
+    if (!value) {
+      return options;
+    }
+
+    return typeof value === "object" ? [value, ...(options || [])] : [{ value }, ...(options || [])];
+  };
+
+  return {
+    addValueToOptions,
+    reformatReturnAutocomplete,
+  };
 };
 
 export default useApiAutoComplete;

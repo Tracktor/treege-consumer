@@ -34,7 +34,10 @@ const getSearch =
 
     const fetchCall = localFetch || fetch;
 
-    const response = await fetchCall(fullUrl, { ...requestHeaders, signal });
+    const response = await fetchCall(fullUrl, {
+      ...requestHeaders,
+      signal,
+    });
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
