@@ -68,6 +68,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreege
             // AUTO NEXT STEP
             setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
           }
+
           // return Initial Field when decision & treeDecision don't have Children
           return initialField;
         }
@@ -81,7 +82,9 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreege
           setIsLastField(lastFieldIsLeaf);
         }
 
-        if (isStepper && isAutoStep) {
+        // Check if dataAttribute.event to know if is trigger from onInit or onChange
+        // To avoid increment the stepper when the field is trigger from onInit
+        if (isStepper && isAutoStep && dataAttribute.event) {
           // AUTO NEXT STEP
           setActiveFieldIndex((prevFieldIndex) => {
             const restNewFields = newFields.slice(prevFieldIndex + 1);

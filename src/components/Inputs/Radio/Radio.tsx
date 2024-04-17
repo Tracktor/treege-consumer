@@ -32,7 +32,7 @@ const Radio = ({ data, helperText, inputRef, required, onChange, onInit, readOnl
 
   // Trigger the onInit when the component is mounted
   useEffect(() => {
-    if (isDecision) {
+    if (isDecision && value) {
       onInitRef.current?.({ children, isDecision, isLeaf, name, type, value });
     }
   }, [children, isDecision, isLeaf, name, type, value]);

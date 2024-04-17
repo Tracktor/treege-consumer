@@ -46,7 +46,7 @@ const Select = (
 
   // Trigger the onInit when the component is mounted
   useEffect(() => {
-    if (isDecision) {
+    if (isDecision && value) {
       onInitRef.current?.({ children, isDecision, isLeaf, name, type, value });
     }
   }, [children, isDecision, isLeaf, name, type, value]);
