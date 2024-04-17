@@ -22,9 +22,9 @@ export interface FielFactoryProps {
   data: TreeNode;
   visible?: boolean;
   readOnly?: boolean;
-  handleChangeFormValue?(dataAttribute?: ChangeEventField): void;
   headers?: Headers;
   isLoadingFormValidation?: boolean;
+  handleChangeFormValue?(dataAttribute?: ChangeEventField): void;
 }
 
 /**
@@ -53,11 +53,9 @@ const FieldFactory = ({
 }: FielFactoryProps) => {
   const { attributes } = data;
   const { type, label, required, helperText, isMultiple, parentRef, name } = attributes;
-
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
-
   const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]);
   const disabledChildrenField = isLoadingFormValidation || hasParentRefValue;
 
