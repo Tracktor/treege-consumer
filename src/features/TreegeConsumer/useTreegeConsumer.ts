@@ -60,8 +60,6 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreege
 
         // if the decision & treeDecision don't have children
         if (noChildren) {
-          setIsLastField(true);
-
           if (isStepper && isAutoStep) {
             // AUTO NEXT STEP
             setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
@@ -73,7 +71,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreege
         const newFields = [...initialField, ...decisionChildrenSelected, ...childrenTreeRestDecision];
 
         const lastField = newFields.at(-1);
-        const lastFieldIsLeaf = !!lastField?.attributes?.isLeaf && !lastField.treePath;
+        const lastFieldIsLeaf = !!lastField?.attributes?.isLeaf;
 
         if (isStandard) {
           setIsLastField(lastFieldIsLeaf);
@@ -162,7 +160,9 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreege
   // Define last field to submit form & define first field index in stepper mode
   useEffect(() => {
     // Define if the last field is a leaf
-    setIsLastField(lastFieldHasNoChildren && isStandard);
+    if (isStandard) {
+      setIsLastField(lastFieldHasNoChildren);
+    }
 
     // Redefine the first field index if some item field are present in the beginning (presence hidden field)
     if (nextStepper || isStepper) {
