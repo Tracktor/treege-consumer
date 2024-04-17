@@ -49,10 +49,12 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreege
         const indexDecisionField = prevState?.findIndex((item) => item.attributes.name === name);
         const treeRest = prevState?.[indexDecisionField]?.childrenTreeRest;
         const childrenTreeRestDecision = getFieldsFromTreeRest(treeRest);
+
         const decisionChildrenSelected = getFieldsFromTreePoint({
           currentTree: decisionSelected?.children[0] || null,
           treePath: prevState?.[indexDecisionField]?.treePath,
         });
+
         const noChildren = !decisionChildrenSelected?.length && !childrenTreeRestDecision?.length;
 
         // Remove all field after decision
@@ -60,6 +62,8 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreege
 
         // if the decision & treeDecision don't have children
         if (noChildren) {
+          setIsLastField(true);
+
           if (isStepper && isAutoStep) {
             // AUTO NEXT STEP
             setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
