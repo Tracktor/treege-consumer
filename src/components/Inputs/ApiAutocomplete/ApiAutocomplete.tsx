@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, TextField } from "@tracktor/design-system";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
+import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
@@ -22,6 +23,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
   const [searchText, setSearchText] = useState<string>("");
   const { attributes, children } = node;
   const { type, name, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
+  const { prefixResponseImageUriAutocomplete } = useOptionsContext();
   const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
   const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
 
@@ -80,11 +82,14 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
         return (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <ListItem {...props}>
-            {!!optionImage && (
-              <ListItemAvatar>
-                <Avatar variant="square" alt={optionLabel} src={optionImage} sx={{ height: 30, width: 30 }} />
-              </ListItemAvatar>
-            )}
+            <ListItemAvatar>
+              <Avatar
+                variant="rounded"
+                alt={optionLabel}
+                src={prefixResponseImageUriAutocomplete + optionImage}
+                sx={{ height: 30, width: 30 }}
+              />
+            </ListItemAvatar>
             <ListItemText primary={optionLabel} />
           </ListItem>
         );

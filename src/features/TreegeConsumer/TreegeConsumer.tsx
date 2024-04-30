@@ -38,6 +38,10 @@ export interface TreegeConsumerProps {
      * Provide google api key for autocomplete service
      */
     googleApiKey?: string;
+    /**
+     * Prefix response image uri for autocomplete image
+     */
+    prefixResponseImageUriAutocomplete?: string;
   };
   /**
    * Custom form style

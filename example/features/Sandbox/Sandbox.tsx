@@ -88,7 +88,13 @@ const Sandbox = ({
           <TextareaAutosize
             minRows={10}
             value={JSON.stringify(tree, null, 2)}
-            style={{ height: "100%", whiteSpace: "nowrap", width: "100%" }}
+            style={{
+              background: "black",
+              color: "green",
+              height: "100%",
+              whiteSpace: "nowrap",
+              width: "100%",
+            }}
             onChange={handleChangeTree}
           />
         </Grid>

@@ -97,10 +97,11 @@ on [Treege](https://github.com/Tracktor/treege) data
 
 #### Options
 
-| Options                    | Type   | Default | Required | Detail                                                                                                                                                                        |
-|----------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| countryAutocompleteService | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
-| googleApiKey               | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
+| Options                            | Type   | Default | Required | Detail                                                                                                                                                                        |
+|------------------------------------|--------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| countryAutocompleteService         | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
+| googleApiKey                       | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
+| prefixResponseImageUriAutocomplete | string |         | false    | Prefix response image uri for autocomplete image                                                                                                                              |
 
 
 ### TreegeConsumerResponse

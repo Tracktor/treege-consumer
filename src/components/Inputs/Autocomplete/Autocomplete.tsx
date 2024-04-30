@@ -2,8 +2,8 @@ import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from
 import { isObject, useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
-import { forwardRef, Ref, SyntheticEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
-import OptionsContext from "@/context/Options/OptionsContext";
+import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
+import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import TreeNode from "@/types/TreeNode";
 import { IsString } from "@/types/TypeGuards";
@@ -27,14 +27,14 @@ interface Match {
 const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
   const { attributes, children } = node;
   const { name, type, label, required, helperText, isLeaf, isDecision } = attributes;
-
-  const { googleApiKey, countryAutocompleteService } = useContext(OptionsContext);
-  const places = useScript(
-    googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : "",
-  );
+  const { googleApiKey, countryAutocompleteService } = useOptionsContext();
   const autocompleteService = useRef<AutocompleteService>();
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
+
+  const places = useScript(
+    googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : "",
+  );
 
   const handleChange = (event: SyntheticEvent<Element, Event>, newValue: unknown | null) => {
     onChange?.({
