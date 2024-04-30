@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.27.0](https://github.com/Tracktor/treege-consumer/compare/1.26.4...1.27.0) (2024-04-30)
+
+
+### Features
+
+* add prefix response image uri for autocomplete ([a91477b](https://github.com/Tracktor/treege-consumer/commit/a91477b5b99b40bcf22fbd58c9bf6eb9bd52a2dc))
+
 ## [1.26.4](https://github.com/Tracktor/treege-consumer/compare/1.26.3...1.26.4) (2024-04-17)
 
 
