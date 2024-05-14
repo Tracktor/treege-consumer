@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.27.1](https://github.com/Tracktor/treege-consumer/compare/1.27.0...1.27.1) (2024-05-14)
+
+
+### Bug Fixes
+
+* autocomplete src image ([5ac2aec](https://github.com/Tracktor/treege-consumer/commit/5ac2aec746051c9c17000d208f2a38e17cd1b9ec))
+* hidden field value ([d80187f](https://github.com/Tracktor/treege-consumer/commit/d80187fd4eccb94cbda8bfbe189724a1fc9b7963))
+* render hidden field ([b335dcb](https://github.com/Tracktor/treege-consumer/commit/b335dcbd4914f89b9f76c8d3dbad48c35e0597ac))
+
 ## [1.27.0](https://github.com/Tracktor/treege-consumer/compare/1.26.4...1.27.0) (2024-04-30)
 
 
