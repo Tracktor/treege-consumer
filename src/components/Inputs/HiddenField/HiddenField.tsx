@@ -11,7 +11,7 @@ const HiddenField = ({ data, value }: HiddenFieldProps) => {
     attributes: { name },
   } = data;
 
-  return <TextField type="hidden" name={name} value={value} />;
+  return <TextField type="hidden" name={name} value={value} sx={{ display: "none" }} />;
 };
 
 export default HiddenField;
