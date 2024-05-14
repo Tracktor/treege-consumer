@@ -189,7 +189,7 @@ const FieldFactory = ({
   };
 
   if (isHidden) {
-    return <HiddenField data={data} value={value} />;
+    return <HiddenField data={data} onInit={handleChangeFormValue} />;
   }
 
   return (
