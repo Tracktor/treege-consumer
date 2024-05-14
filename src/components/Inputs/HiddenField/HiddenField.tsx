@@ -18,6 +18,11 @@ const HiddenField = ({ data, onInit }: HiddenFieldProps) => {
     onInitRef.current?.({ name, value: hiddenValue });
   }, [hiddenValue, name]);
 
+  // Update the onInitRef when the onInit changes
+  useEffect(() => {
+    onInitRef.current = onInit;
+  }, [onInit]);
+
   return <TextField type="hidden" name={name} value={hiddenValue} sx={{ display: "none" }} onInput={() => console.log("aa")} />;
 };
 
