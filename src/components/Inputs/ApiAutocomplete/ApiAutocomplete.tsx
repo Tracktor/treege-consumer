@@ -86,7 +86,7 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
               <Avatar
                 variant="rounded"
                 alt={optionLabel}
-                src={prefixResponseImageUriAutocomplete + optionImage}
+                src={optionImage ? prefixResponseImageUriAutocomplete + optionImage : optionLabel}
                 sx={{ height: 30, width: 30 }}
               />
             </ListItemAvatar>
