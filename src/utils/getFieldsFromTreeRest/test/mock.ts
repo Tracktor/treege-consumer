@@ -207,7 +207,7 @@ const simpleRestFieldsArray: Mock = {
 const restFieldsArrayWithDecision: Mock = {
   output: [
     {
-      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "Decision", name: "Tree.Decision", type: "select" },
+      attributes: { depth: 2, isDecision: true, isLeaf: false, isRoot: false, label: "Decision", name: "Decision", type: "select" },
       children: [
         {
           attributes: { depth: 3, label: "v1", name: "v1", value: "v1" },
