@@ -14,16 +14,21 @@ export interface TextFieldProps {
   multiple?: boolean;
   shrink?: boolean;
   value?: unknown;
+  isIgnored?: boolean;
 }
 
 const TextField = (
-  { label, name, helperText, inputRef, onChange, required, type, readOnly, multiple, shrink, value }: TextFieldProps,
+  { label, name, helperText, inputRef, onChange, required, type, readOnly, multiple, shrink, value, isIgnored }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { target } = event;
     onChange?.({ event, name, type, value: target.value });
   };
+
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <TextFieldDS

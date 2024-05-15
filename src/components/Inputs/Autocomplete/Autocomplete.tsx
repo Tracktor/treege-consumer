@@ -17,6 +17,7 @@ export interface AutocompleteProps {
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   node: TreeNode;
+  isIgnored?: boolean;
 }
 
 interface Match {
@@ -24,7 +25,10 @@ interface Match {
   length: number;
 }
 
-const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+const Autocomplete = (
+  { value, inputRef, country, readOnly, onChange, node, isIgnored }: AutocompleteProps,
+  ref: Ref<unknown> | undefined,
+) => {
   const { attributes, children } = node;
   const { name, type, label, required, helperText, isLeaf, isDecision } = attributes;
   const { googleApiKey, countryAutocompleteService } = useOptionsContext();
@@ -32,9 +36,9 @@ const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: Au
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  const places = useScript(
-    googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : "",
-  );
+  const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype`, {
+    enable: !!googleApiKey || !isIgnored,
+  });
 
   const handleChange = (event: SyntheticEvent<Element, Event>, newValue: unknown | null) => {
     onChange?.({
@@ -74,7 +78,7 @@ const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: Au
   );
 
   useEffect(() => {
-    if (!googleApiKey) {
+    if (!googleApiKey || isIgnored) {
       return undefined;
     }
 
@@ -119,7 +123,11 @@ const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: Au
     return () => {
       active = false;
     };
-  }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey]);
+  }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey, isIgnored]);
+
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <AutocompleteDS

@@ -11,11 +11,15 @@ export interface RadioProps {
   required?: boolean;
   value?: unknown;
   readOnly?: boolean;
+  isIgnored?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   onInit?(dataAttribute: ChangeEventField): void;
 }
 
-const Radio = ({ data, helperText, inputRef, required, onChange, onInit, readOnly, value }: RadioProps, ref: Ref<HTMLDivElement>) => {
+const Radio = (
+  { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored }: RadioProps,
+  ref: Ref<HTMLDivElement>,
+) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
@@ -41,6 +45,10 @@ const Radio = ({ data, helperText, inputRef, required, onChange, onInit, readOnl
   useEffect(() => {
     onInitRef.current = onInit;
   }, [onInit]);
+
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>

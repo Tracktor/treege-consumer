@@ -23,10 +23,11 @@ export interface SelectProps {
   onChange?(dataAttribute: ChangeEventField): void;
   onInit?(dataAttribute: ChangeEventField): void;
   value?: unknown;
+  isIgnored?: boolean;
 }
 
 const Select = (
-  { data, helperText, inputRef, required, onChange, onInit, readOnly, value = "" }: SelectProps,
+  { data, helperText, inputRef, required, onChange, onInit, readOnly, isIgnored, value = "" }: SelectProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
@@ -55,6 +56,10 @@ const Select = (
   useEffect(() => {
     onInitRef.current = onInit;
   }, [onInit]);
+
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
