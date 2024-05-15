@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.28.0](https://github.com/Tracktor/treege-consumer/compare/1.27.2...1.28.0) (2024-05-15)
+
+
+### Features
+
+* **ignore-fields:** is ignored in field component ([da54878](https://github.com/Tracktor/treege-consumer/commit/da5487863ec3437933cf1c0e1b27374c83a789f0))
+* **ignore-fields:** rollback change mock ([e863f7d](https://github.com/Tracktor/treege-consumer/commit/e863f7dfc0a253397ec7b7f0c9551589f637afe3))
+* **ignore-fields:** treege consumer ignoreFields ([ec39a54](https://github.com/Tracktor/treege-consumer/commit/ec39a5427cc7a9531ab9c3a01a4b27c3de5a5689))
+* **ignore-fields:** treege consumer response ignoreFields ([b7b560b](https://github.com/Tracktor/treege-consumer/commit/b7b560bb9c91a03ee12efd8c211694e72f7abb20))
+
+
+### Bug Fixes
+
+* autocomplete query when not enable ([2678ad2](https://github.com/Tracktor/treege-consumer/commit/2678ad28712e8219c4e7656c9b12738a4397e086))
+
 ## [1.27.2](https://github.com/Tracktor/treege-consumer/compare/1.27.1...1.27.2) (2024-05-14)
 
 
