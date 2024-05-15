@@ -61,6 +61,8 @@ const FieldFactory = ({
   const isHidden = type === "hidden";
   const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]);
   const disabledChildrenField = isLoadingFormValidation || hasParentRefValue;
+  const value = fieldValues?.[name] || "";
+  const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
 
   const inputRef = (ref: HTMLInputElement) => {
     if (!ref || !autoFocus || ref?.tabIndex > 0) {
@@ -69,9 +71,6 @@ const FieldFactory = ({
     setTimeout(() => ref.focus(), animationTimeout);
     return null;
   };
-
-  const value = fieldValues?.[name] || "";
-  const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
 
   const field = () => {
     switch (type) {
