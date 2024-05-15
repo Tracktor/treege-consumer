@@ -118,30 +118,7 @@ const Sandbox = ({
               </ToggleButtonGroup>
             </Box>
             <Box flex={1} pt={2}>
-              <TreegeConsumer
-                tree={tree}
-                variant={variant}
-                onSubmit={handleSubmit}
-                headers={customHeaders}
-                initialValues={[
-                  {
-                    label: "decision",
-                    name: "decision",
-                    type: "select",
-                    value: {
-                      label: "a",
-                      value: "a",
-                    },
-                  },
-                  {
-                    label: "a",
-                    name: "a",
-                    type: "text",
-                    value: "b",
-                  },
-                ]}
-                ignoreFields={["decision"]}
-              />
+              <TreegeConsumer tree={tree} variant={variant} onSubmit={handleSubmit} headers={customHeaders} />
             </Box>
             <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md" scroll="body">
               <DialogTitle id="alert-dialog-title">Result:</DialogTitle>
