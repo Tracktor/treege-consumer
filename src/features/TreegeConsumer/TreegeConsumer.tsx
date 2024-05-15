@@ -69,6 +69,11 @@ export interface TreegeConsumerProps {
    */
   ignoreFields?: string[];
   /**
+   * If true, submit data will be logged in the console.
+   * @default false
+   */
+  debug?: boolean;
+  /**
    * Callback fired when the user submit form.
    * @param data
    * @param formData
@@ -89,6 +94,7 @@ const TreegeConsumer = ({
   isLoadingFormValidation,
   initialValues,
   ignoreFields,
+  debug,
   variant = "standard",
 }: TreegeConsumerProps) => {
   const {
@@ -102,6 +108,7 @@ const TreegeConsumer = ({
     fieldValues,
     formCanBeSubmit,
   } = useTreegeConsumer({
+    debug,
     initialValues,
     onSubmit,
     tree,

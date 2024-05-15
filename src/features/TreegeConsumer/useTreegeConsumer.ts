@@ -22,9 +22,10 @@ export interface useTreegeConsumerParams {
   tree?: TreeNode;
   variant: TreegeConsumerProps["variant"];
   initialValues?: JsonFormValue[];
+  debug?: boolean;
 }
 
-const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -139,6 +140,10 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues }: useTreege
     const data = formDataToJSON(fieldValues, fields);
 
     onSubmit?.({ data, fieldValues, formData });
+
+    if (debug) {
+      console.log({ data, fieldValues, formData });
+    }
   };
 
   const handlePrev = (_: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
