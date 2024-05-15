@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.28.1](https://github.com/Tracktor/treege-consumer/compare/1.28.0...1.28.1) (2024-05-15)
+
+
+### Bug Fixes
+
+* **remove-tree-name-prefix:** remove tree name prefix ([f6bf713](https://github.com/Tracktor/treege-consumer/commit/f6bf713bc8d0c4129310e3f096c8a678e70b2b48))
+
 ## [1.28.0](https://github.com/Tracktor/treege-consumer/compare/1.27.2...1.28.0) (2024-05-15)
 
 
