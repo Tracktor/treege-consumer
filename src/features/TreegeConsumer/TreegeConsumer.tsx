@@ -65,6 +65,10 @@ export interface TreegeConsumerProps {
    */
   initialValues?: JsonFormValue[];
   /**
+   * Array of field name that we want to ignore
+   */
+  ignoreFields?: string[];
+  /**
    * Callback fired when the user submit form.
    * @param data
    * @param formData
@@ -84,6 +88,7 @@ const TreegeConsumer = ({
   headers,
   isLoadingFormValidation,
   initialValues,
+  ignoreFields,
   variant = "standard",
 }: TreegeConsumerProps) => {
   const {
@@ -142,6 +147,7 @@ const TreegeConsumer = ({
                 isLoadingFormValidation={isLoadingFormValidation}
                 style={style}
                 formCanBeSubmit={formCanBeSubmit}
+                ignoreFields={ignoreFields}
               />
             )}
           </OptionsProvider>

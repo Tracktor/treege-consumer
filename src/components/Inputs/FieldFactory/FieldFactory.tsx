@@ -24,6 +24,7 @@ export interface FielFactoryProps {
   readOnly?: boolean;
   headers?: Headers;
   isLoadingFormValidation?: boolean;
+  ignoreFields?: string[];
   handleChangeFormValue?(dataAttribute?: ChangeEventField): void;
 }
 
@@ -38,6 +39,7 @@ export interface FielFactoryProps {
  * @param headers
  * @param fieldValues
  * @param isLoadingFormValidation
+ * @param ignoreFields
  * @constructor
  */
 const FieldFactory = ({
@@ -48,6 +50,7 @@ const FieldFactory = ({
   headers,
   fieldValues,
   isLoadingFormValidation,
+  ignoreFields,
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
@@ -190,6 +193,12 @@ const FieldFactory = ({
 
   if (isHidden) {
     return <HiddenField data={data} onInit={handleChangeFormValue} />;
+  }
+  console.log(name);
+  const isFieldIgnored = ignoreFields?.find((fieldName) => fieldName === name);
+
+  if (isFieldIgnored) {
+    return null;
   }
 
   return (

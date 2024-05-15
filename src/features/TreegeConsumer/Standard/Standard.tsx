@@ -19,6 +19,7 @@ interface StandardProps {
   isLoadingFormValidation?: boolean;
   style?: CSSProperties;
   formCanBeSubmit: boolean;
+  ignoreFields?: string[];
 }
 
 const Standard = ({
@@ -32,6 +33,7 @@ const Standard = ({
   isLoadingFormValidation,
   style,
   formCanBeSubmit,
+  ignoreFields,
 }: StandardProps) => (
   <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
     <Stack paddingY={5} spacing={3} direction="column">
@@ -45,6 +47,7 @@ const Standard = ({
             headers={headers}
             fieldValues={fieldValues}
             isLoadingFormValidation={isLoadingFormValidation}
+            ignoreFields={ignoreFields}
           />
         ))
       ) : (
