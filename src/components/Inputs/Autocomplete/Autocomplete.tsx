@@ -36,9 +36,9 @@ const Autocomplete = (
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  const places = useScript(
-    googleApiKey ? `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype` : "",
-  );
+  const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype`, {
+    enable: !!googleApiKey || !isIgnored,
+  });
 
   const handleChange = (event: SyntheticEvent<Element, Event>, newValue: unknown | null) => {
     onChange?.({
@@ -78,7 +78,7 @@ const Autocomplete = (
   );
 
   useEffect(() => {
-    if (!googleApiKey) {
+    if (!googleApiKey || isIgnored) {
       return undefined;
     }
 
@@ -123,9 +123,11 @@ const Autocomplete = (
     return () => {
       active = false;
     };
-  }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey]);
+  }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey, isIgnored]);
 
-  if (isIgnored) return null;
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <AutocompleteDS
