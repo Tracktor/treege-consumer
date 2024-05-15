@@ -1,5 +1,4 @@
 import type TreeNode from "@/types/TreeNode";
-import prefixFieldName from "@/utils/prefixFieldName";
 
 interface GetFieldsFormTreePointParams {
   currentTree?: TreeNode | null;
@@ -29,7 +28,7 @@ const getFieldsFromTreePoint = ({
         ...(treePath && { treePath }),
         // set childrenRestTree
         ...(currentTree?.children?.length > 1 && restTreeArray.length && { childrenTreeRest: restTreeArray }),
-        attributes: { ...currentTree.attributes, name: prefixFieldName(currentTree.attributes?.name, treePath) },
+        attributes: { ...currentTree.attributes, name: currentTree.attributes?.name },
       },
     ];
   } else if (currentTree.children.length) {

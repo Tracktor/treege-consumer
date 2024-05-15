@@ -171,7 +171,7 @@ const treeWithTreeMock: Mock = {
       uuid: "3",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", name: "tree.username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
       children: [
         { attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" }, children: [], uuid: "password" },
       ],
@@ -180,7 +180,7 @@ const treeWithTreeMock: Mock = {
       uuid: "username",
     },
     {
-      attributes: { depth: 1, isLeaf: true, label: "Password", name: "tree.password", type: "text" },
+      attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
       children: [],
       treePath: "/tree",
       uuid: "password",
@@ -376,7 +376,7 @@ const treeWithTreeAndChildrenInMainTreeMock: Mock = {
       uuid: "3",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", name: "tree.username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
       children: [
         { attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" }, children: [], uuid: "password" },
       ],
@@ -385,7 +385,7 @@ const treeWithTreeAndChildrenInMainTreeMock: Mock = {
       uuid: "username",
     },
     {
-      attributes: { depth: 1, isLeaf: true, label: "Password", name: "tree.password", type: "text" },
+      attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
       children: [],
       treePath: "/tree",
       uuid: "password",
@@ -676,7 +676,7 @@ const treeWithManyTreeChildren: Mock = {
       uuid: "3",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", name: "tree.username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
       children: [
         {
           attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
@@ -714,7 +714,7 @@ const treeWithManyTreeChildren: Mock = {
       uuid: "username",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "Password", name: "tree.password", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
       children: [
         {
           attributes: {
@@ -745,14 +745,14 @@ const treeWithManyTreeChildren: Mock = {
       uuid: "password",
     },
     {
-      attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "tree.tree2.fieldTree2", type: "text" },
+      attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
       children: [],
       treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
       treePath: "/tree/tree2",
       uuid: "fieldTree2",
     },
     {
-      attributes: { depth: 3, isLeaf: true, label: "finalTree", name: "tree.finalTree", type: "text" },
+      attributes: { depth: 3, isLeaf: true, label: "finalTree", name: "finalTree", type: "text" },
       children: [],
       treePath: "/tree",
       uuid: "finalTree",
@@ -1063,7 +1063,7 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
       uuid: "3",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", name: "tree.username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
       children: [
         {
           attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
@@ -1095,7 +1095,7 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
       uuid: "username",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "Password", name: "tree.password", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
       children: [
         {
           attributes: {
@@ -1120,7 +1120,7 @@ const treeWithManyTreeChildrenWithoutOne: Mock = {
       uuid: "password",
     },
     {
-      attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "tree.tree2.fieldTree2", type: "text" },
+      attributes: { depth: 0, isLeaf: true, isRoot: true, label: "fieldTree2", name: "fieldTree2", type: "text" },
       children: [],
       treeId: "be66c6aa-f99f-49de-be39-da7d32ebf8ca",
       treePath: "/tree/tree2",
@@ -1590,7 +1590,7 @@ const treeWithDecisionAndTree: Mock = {
       uuid: "1",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", name: "Tree.username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
       children: [
         { attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" }, children: [], uuid: "password" },
       ],
@@ -1599,7 +1599,7 @@ const treeWithDecisionAndTree: Mock = {
       uuid: "username",
     },
     {
-      attributes: { depth: 1, isLeaf: true, label: "Password", name: "Tree.password", type: "text" },
+      attributes: { depth: 1, isLeaf: true, label: "Password", name: "password", type: "text" },
       children: [],
       treePath: "/Tree",
       uuid: "password",
@@ -1787,7 +1787,7 @@ const treeWithChildrenAndDecisionInTree: Mock = {
       uuid: "1",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", name: "Tree.username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
       children: [
         {
           attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
@@ -1809,7 +1809,7 @@ const treeWithChildrenAndDecisionInTree: Mock = {
       uuid: "username",
     },
     {
-      attributes: { depth: 1, isLeaf: false, label: "Password", name: "Tree.password", type: "text" },
+      attributes: { depth: 1, isLeaf: false, label: "Password", name: "password", type: "text" },
       children: [
         {
           attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", name: "decision", type: "select" },
@@ -1824,7 +1824,7 @@ const treeWithChildrenAndDecisionInTree: Mock = {
       uuid: "password",
     },
     {
-      attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", name: "Tree.decision", type: "select" },
+      attributes: { depth: 2, isDecision: true, isLeaf: false, label: "decision", name: "decision", type: "select" },
       children: [
         { attributes: { depth: 3, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "decision:v1" },
         { attributes: { depth: 3, isLeaf: true, label: "v2", name: "v2", value: "v2" }, children: [], uuid: "decision:v2" },
@@ -2267,7 +2267,7 @@ const complexeTreeWithDecision: Mock = {
       uuid: "test celuila",
     },
     {
-      attributes: { depth: 0, isRoot: true, label: "Username", name: "Tree.username", type: "text" },
+      attributes: { depth: 0, isRoot: true, label: "Username", name: "username", type: "text" },
       children: [
         {
           attributes: {
@@ -2365,7 +2365,7 @@ const complexeTreeWithDecision: Mock = {
       uuid: "username",
     },
     {
-      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", name: "Tree.otherTree.Test", type: "text" },
+      attributes: { depth: 0, isLeaf: false, isRoot: true, label: "Test", name: "Test", type: "text" },
       children: [
         {
           attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", name: "newdecision", type: "select" },
@@ -2402,7 +2402,7 @@ const complexeTreeWithDecision: Mock = {
       uuid: "Homme",
     },
     {
-      attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", name: "Tree.otherTree.newdecision", type: "select" },
+      attributes: { depth: 1, isDecision: true, isLeaf: false, label: "newdecision", name: "newdecision", type: "select" },
       children: [
         { attributes: { depth: 2, isLeaf: true, label: "v1", name: "v1", value: "v1" }, children: [], uuid: "newdecision:v1" },
         {
