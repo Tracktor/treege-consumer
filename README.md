@@ -95,6 +95,7 @@ on [Treege](https://github.com/Tracktor/treege) data
 | style         | CSSProperties                                                                                            | undefined | false    | Custom form style               |
 | initialValues | { [key: string]: unknown; }                                                                              | undefined | false    | Set initial value to form       |
 | ignoreFields  | string[]                                                                                                 | undefined | false    | Ignored fiels to render         |
+| debug         | boolean                                                                                                  | undefined | false    | Debug in console on form submit |
 
 #### Options
 
