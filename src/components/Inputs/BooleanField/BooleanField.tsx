@@ -30,7 +30,9 @@ const BooleanField = (
     setMessage(hasMessage);
   };
 
-  if (isIgnored) return null;
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <FormControl aria-readonly={readOnly} fullWidth>

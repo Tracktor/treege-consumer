@@ -57,7 +57,9 @@ const Select = (
     onInitRef.current = onInit;
   }, [onInit]);
 
-  if (isIgnored) return null;
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <FormControl required={required} ref={ref} fullWidth>

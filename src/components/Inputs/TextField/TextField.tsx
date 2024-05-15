@@ -26,7 +26,9 @@ const TextField = (
     onChange?.({ event, name, type, value: target.value });
   };
 
-  if (isIgnored) return null;
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <TextFieldDS

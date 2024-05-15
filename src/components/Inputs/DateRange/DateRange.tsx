@@ -42,7 +42,9 @@ const DateRange = (
     }
   }, [fromDate, toDate]);
 
-  if (isIgnored) return null;
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">

@@ -56,7 +56,9 @@ const ApiAutocomplete = (
     setSearchText(fieldValue);
   };
 
-  if (isIgnored) return null;
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <Autocomplete

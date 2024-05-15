@@ -59,7 +59,9 @@ const DynamicSelect = (
     });
   };
 
-  if (isIgnored) return null;
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
