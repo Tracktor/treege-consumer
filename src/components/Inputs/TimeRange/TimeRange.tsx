@@ -11,10 +11,11 @@ export interface TimeRangeProps {
   required?: boolean;
   readOnly?: boolean;
   value?: unknown;
+  isIgnored?: boolean;
 }
 
 const TimeRange = (
-  { label, name, helperText, inputRef, onChange, required, readOnly, value }: TimeRangeProps,
+  { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const toTime = Array?.isArray(value) ? value?.[1] : "";
@@ -29,6 +30,8 @@ const TimeRange = (
       value: field === "start" ? [target.value, toTime] : [fromTime, target.value],
     });
   };
+
+  if (isIgnored) return null;
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">

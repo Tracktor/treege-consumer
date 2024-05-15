@@ -19,6 +19,7 @@ interface DynamicSelectProps {
   value?: unknown;
   readOnly?: boolean;
   disabledChildrenField?: boolean;
+  isIgnored?: boolean;
 }
 
 /**
@@ -31,7 +32,7 @@ interface DynamicSelectProps {
  * @constructor
  */
 const DynamicSelect = (
-  { inputRef, fieldValues, node, onChange, headers, value, readOnly, disabledChildrenField }: DynamicSelectProps,
+  { inputRef, fieldValues, node, onChange, headers, value, readOnly, disabledChildrenField, isIgnored }: DynamicSelectProps,
   ref: Ref<unknown> | undefined,
 ) => {
   const { attributes, children } = node;
@@ -57,6 +58,8 @@ const DynamicSelect = (
       value: newValue,
     });
   };
+
+  if (isIgnored) return null;
 
   return (
     <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>

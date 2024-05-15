@@ -10,9 +10,13 @@ export interface BooleanFieldProps {
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   value?: unknown;
+  isIgnored?: boolean;
 }
 
-const BooleanField = ({ data, inputRef, helperText, readOnly, onChange, value }: BooleanFieldProps, ref: Ref<unknown | undefined>) => {
+const BooleanField = (
+  { data, inputRef, helperText, readOnly, onChange, value, isIgnored }: BooleanFieldProps,
+  ref: Ref<unknown | undefined>,
+) => {
   const { attributes, children } = data;
   const { label, type, isLeaf, messages, name } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
@@ -25,6 +29,8 @@ const BooleanField = ({ data, inputRef, helperText, readOnly, onChange, value }:
     onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
     setMessage(hasMessage);
   };
+
+  if (isIgnored) return null;
 
   return (
     <FormControl aria-readonly={readOnly} fullWidth>

@@ -71,6 +71,7 @@ const FieldFactory = ({
   };
 
   const value = fieldValues?.[name] || "";
+  const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
 
   const field = () => {
     switch (type) {
@@ -96,6 +97,7 @@ const FieldFactory = ({
             readOnly={readOnly}
             multiple={isMultiple}
             shrink={type === "time" ? true : undefined}
+            isIgnored={isFieldIgnored}
           />
         );
       case "timeRange":
@@ -109,6 +111,7 @@ const FieldFactory = ({
             helperText={helperText}
             value={value}
             readOnly={readOnly}
+            isIgnored={isFieldIgnored}
           />
         );
       case "dateRange":
@@ -122,10 +125,20 @@ const FieldFactory = ({
             helperText={helperText}
             value={value}
             readOnly={readOnly}
+            isIgnored={isFieldIgnored}
           />
         );
       case "address":
-        return <Autocomplete inputRef={inputRef} value={value} readOnly={readOnly} node={data} onChange={handleChangeFormValue} />;
+        return (
+          <Autocomplete
+            inputRef={inputRef}
+            value={value}
+            readOnly={readOnly}
+            node={data}
+            onChange={handleChangeFormValue}
+            isIgnored={isFieldIgnored}
+          />
+        );
       case "radio":
         return (
           <Radio
@@ -137,6 +150,7 @@ const FieldFactory = ({
             helperText={helperText}
             value={value}
             readOnly={readOnly}
+            isIgnored={isFieldIgnored}
           />
         );
       case "select":
@@ -149,6 +163,7 @@ const FieldFactory = ({
             helperText={helperText}
             readOnly={readOnly}
             value={value}
+            isIgnored={isFieldIgnored}
           />
         );
       case "switch":
@@ -161,6 +176,7 @@ const FieldFactory = ({
             helperText={helperText}
             value={value}
             readOnly={readOnly}
+            isIgnored={isFieldIgnored}
           />
         );
       case "autocomplete":
@@ -172,6 +188,7 @@ const FieldFactory = ({
             inputRef={inputRef}
             readOnly={readOnly}
             headers={headers}
+            isIgnored={isFieldIgnored}
           />
         );
       case "dynamicSelect":
@@ -184,6 +201,7 @@ const FieldFactory = ({
             headers={headers}
             disabledChildrenField={disabledChildrenField}
             inputRef={inputRef}
+            isIgnored={isFieldIgnored}
           />
         );
       default:
@@ -193,12 +211,6 @@ const FieldFactory = ({
 
   if (isHidden) {
     return <HiddenField data={data} onInit={handleChangeFormValue} />;
-  }
-  console.log(name);
-  const isFieldIgnored = ignoreFields?.find((fieldName) => fieldName === name);
-
-  if (isFieldIgnored) {
-    return null;
   }
 
   return (

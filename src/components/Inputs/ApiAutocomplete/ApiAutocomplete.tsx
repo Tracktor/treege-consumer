@@ -17,9 +17,13 @@ interface ApiAutocompleteProps {
   readOnly?: boolean;
   headers?: Headers;
   value?: Option | null;
+  isIgnored?: boolean;
 }
 
-const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }: ApiAutocompleteProps, ref: Ref<unknown> | undefined) => {
+const ApiAutocomplete = (
+  { node, onChange, readOnly, inputRef, headers, value, isIgnored }: ApiAutocompleteProps,
+  ref: Ref<unknown> | undefined,
+) => {
   const [searchText, setSearchText] = useState<string>("");
   const { attributes, children } = node;
   const { type, name, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
@@ -51,6 +55,8 @@ const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value }:
   const handleSearchChange = (_: SyntheticEvent, fieldValue: string) => {
     setSearchText(fieldValue);
   };
+
+  if (isIgnored) return null;
 
   return (
     <Autocomplete

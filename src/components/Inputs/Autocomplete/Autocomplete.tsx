@@ -17,6 +17,7 @@ export interface AutocompleteProps {
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   node: TreeNode;
+  isIgnored?: boolean;
 }
 
 interface Match {
@@ -24,7 +25,10 @@ interface Match {
   length: number;
 }
 
-const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+const Autocomplete = (
+  { value, inputRef, country, readOnly, onChange, node, isIgnored }: AutocompleteProps,
+  ref: Ref<unknown> | undefined,
+) => {
   const { attributes, children } = node;
   const { name, type, label, required, helperText, isLeaf, isDecision } = attributes;
   const { googleApiKey, countryAutocompleteService } = useOptionsContext();
@@ -120,6 +124,8 @@ const Autocomplete = ({ value, inputRef, country, readOnly, onChange, node }: Au
       active = false;
     };
   }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey]);
+
+  if (isIgnored) return null;
 
   return (
     <AutocompleteDS

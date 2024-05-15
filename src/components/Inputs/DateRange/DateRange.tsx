@@ -11,10 +11,11 @@ export interface DateRangeProps {
   required?: boolean;
   value?: unknown;
   readOnly?: boolean;
+  isIgnored?: boolean;
 }
 
 const DateRange = (
-  { label, name, helperText, inputRef, onChange, required, value, readOnly }: DateRangeProps,
+  { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const [error, setError] = useState<boolean>(false);
@@ -40,6 +41,8 @@ const DateRange = (
       }
     }
   }, [fromDate, toDate]);
+
+  if (isIgnored) return null;
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
