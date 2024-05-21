@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.28.5](https://github.com/Tracktor/treege-consumer/compare/1.28.4...1.28.5) (2024-05-21)
+
+
+### Bug Fixes
+
+* ignore field render ([5c2819b](https://github.com/Tracktor/treege-consumer/commit/5c2819bd1fc72570cc9d6ccbbfe954fd7f3f1be3))
+
 ## [1.28.4](https://github.com/Tracktor/treege-consumer/compare/1.28.3...1.28.4) (2024-05-21)
 
 
