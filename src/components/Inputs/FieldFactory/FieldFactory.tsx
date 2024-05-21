@@ -213,7 +213,13 @@ const FieldFactory = ({
   }
 
   return (
-    <Slide timeout={animationTimeout} in={visible} mountOnEnter>
+    <Slide
+      mountOnEnter
+      timeout={animationTimeout}
+      in={visible}
+      appear={!isFieldIgnored}
+      style={isFieldIgnored ? { display: "none" } : undefined}
+    >
       <Box flexDirection="column" sx={{ display: visible ? "flex" : "none" }}>
         {field()}
       </Box>
