@@ -1,7 +1,7 @@
 {
   "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
-  "version": "1.28.3",
+  "version": "1.28.4",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.umd.cjs",
