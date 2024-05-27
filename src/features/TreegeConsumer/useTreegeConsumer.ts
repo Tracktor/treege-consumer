@@ -74,7 +74,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
 
           if (isStepper && isAutoStep) {
             // AUTO NEXT STEP
-            setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+            setActiveFieldIndex(activeFieldIndex + 1);
           }
 
           // return Initial Field when decision & treeDecision don't have Children
