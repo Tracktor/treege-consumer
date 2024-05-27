@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.29.1](https://github.com/Tracktor/treege-consumer/compare/1.29.0...1.29.1) (2024-05-27)
+
+
+### Bug Fixes
+
+* **stepper-mode:** add comment ([c106fa2](https://github.com/Tracktor/treege-consumer/commit/c106fa21b3f5fe183cea31f5faf8f62be5534c18))
+* **stepper-mode:** can submit when last field is ignored ([e238e6a](https://github.com/Tracktor/treege-consumer/commit/e238e6a2903c7e56c964ba08edc2d94a46649a8e))
+
 ## [1.29.0](https://github.com/Tracktor/treege-consumer/compare/1.28.5...1.29.0) (2024-05-27)
 
 
