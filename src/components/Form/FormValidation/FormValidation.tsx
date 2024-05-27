@@ -6,7 +6,7 @@ interface FormValidationProps {
 
 const FormValidation = ({ formCanBeSubmit }: FormValidationProps) => (
   <Slide direction="up" in mountOnEnter>
-    <Box display="flex" alignItems="center" justifyContent="center" paddingBottom={5}>
+    <Box display="flex" alignItems="center" justifyContent="center" paddingY={5}>
       <Button variant="contained" type="submit" disabled={!formCanBeSubmit}>
         Valider
       </Button>

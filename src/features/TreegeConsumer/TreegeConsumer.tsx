@@ -2,6 +2,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
+import dayjs from "dayjs";
 import type { CSSProperties } from "react";
 import OptionsProvider from "@/context/Options/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
@@ -10,6 +11,9 @@ import useTreegeConsumer, { OnSubmitReturn } from "@/features/TreegeConsumer/use
 import Headers from "@/types/Headers";
 import type TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
+import "dayjs/locale/fr";
+
+dayjs.locale("fr");
 
 export interface TreegeConsumerProps {
   /**
@@ -120,7 +124,7 @@ const TreegeConsumer = ({
   const queryClient = new QueryClient();
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme || themeProvider.palette.mode}>
           {loading ? (

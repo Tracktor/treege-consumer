@@ -3,6 +3,7 @@ import { memo } from "react";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import Autocomplete from "@/components/Inputs/Autocomplete";
 import BooleanField from "@/components/Inputs/BooleanField";
+import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
 import DynamicSelect from "@/components/Inputs/DynamicSelect";
 import HiddenField from "@/components/Inputs/HiddenField";
@@ -75,7 +76,6 @@ const FieldFactory = ({
 
   const field = () => {
     switch (type) {
-      case "date":
       case "email":
       case "file":
       case "number":
@@ -95,6 +95,20 @@ const FieldFactory = ({
             helperText={helperText}
             readOnly={readOnly}
             multiple={isMultiple}
+            isIgnored={isFieldIgnored}
+          />
+        );
+      case "date":
+        return (
+          <DatePicker
+            name={name}
+            label={label}
+            onChange={handleChangeFormValue}
+            required={isRequired}
+            inputRef={inputRef}
+            helperText={helperText}
+            value={value}
+            readOnly={readOnly}
             isIgnored={isFieldIgnored}
           />
         );

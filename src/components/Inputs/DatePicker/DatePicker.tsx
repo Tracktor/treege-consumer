@@ -1,30 +1,30 @@
-import { TimePicker as TimePickerMui } from "@mui/x-date-pickers";
+import { DatePicker as DatePickerMui } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
-export interface TimeRangeProps {
+export interface DateRangeProps {
   label?: string;
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
   required?: boolean;
-  readOnly?: boolean;
   value?: unknown;
+  readOnly?: boolean;
   isIgnored?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const FORMAT = "HH:mm";
+const FORMAT = "YYYY-MM-DD";
 
-const TimePicker = (
-  { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored }: TimeRangeProps,
+const DatePicker = (
+  { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const handleChange = (time: Dayjs | null) => {
+  const handleChange = (date: Dayjs | null) => {
     onChange?.({
       name,
-      value: time?.format(FORMAT),
+      value: date?.format(FORMAT),
     });
   };
 
@@ -33,16 +33,17 @@ const TimePicker = (
   }
 
   return (
-    <TimePickerMui
+    <DatePickerMui
+      disablePast
       label={label}
       readOnly={readOnly}
-      ampm={false}
       ref={ref}
       value={value ? dayjs(String(value), FORMAT) : null}
       onChange={handleChange}
-      format={FORMAT}
+      format="ll"
       slotProps={{
         textField: () => ({
+          fullWidth: true,
           helperText,
           inputRef,
           required,
@@ -52,4 +53,4 @@ const TimePicker = (
   );
 };
 
-export default forwardRef(TimePicker);
+export default forwardRef(DatePicker);

@@ -1,4 +1,4 @@
-import { TimePicker as TimePickerMui } from "@mui/x-date-pickers/TimePicker/TimePicker";
+import { TimePicker as TimePickerMui } from "@mui/x-date-pickers";
 import { Box, Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
@@ -9,11 +9,11 @@ export interface TimeRangeProps {
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
-  onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   readOnly?: boolean;
   value?: unknown;
   isIgnored?: boolean;
+  onChange?(dataAttribute: ChangeEventField): void;
 }
 
 const FORMAT = "HH:mm";
@@ -47,7 +47,7 @@ const TimeRange = (
         ref={ref}
         value={startValue}
         onChange={handleChange("start")}
-        format="HH:mm"
+        format={FORMAT}
         slotProps={{
           textField: () => ({
             fullWidth: true,
@@ -65,7 +65,7 @@ const TimeRange = (
         ref={ref}
         value={endValue}
         onChange={handleChange("end")}
-        format="HH:mm"
+        format={FORMAT}
         slotProps={{
           textField: () => ({
             fullWidth: true,
