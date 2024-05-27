@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.29.0](https://github.com/Tracktor/treege-consumer/compare/1.28.5...1.29.0) (2024-05-27)
+
+
+### Features
+
+* new date and time picker ([2d2d1f5](https://github.com/Tracktor/treege-consumer/commit/2d2d1f597cd1c3d9a628c5dc115d0a0704199b58))
+* new date and time picker ([c773ad3](https://github.com/Tracktor/treege-consumer/commit/c773ad35826bd7d4c68105b342e39b098129cb04))
+* new date and time picker ([51320bc](https://github.com/Tracktor/treege-consumer/commit/51320bc0b6234f5644088fddd0e8d1b7ce4d3ef1))
+* new date and time picker (draft) ([6c6466d](https://github.com/Tracktor/treege-consumer/commit/6c6466dfaf1501b775c368ea2a107beede4921e1))
+
 ## [1.28.5](https://github.com/Tracktor/treege-consumer/compare/1.28.4...1.28.5) (2024-05-21)
 
 
