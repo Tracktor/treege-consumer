@@ -100,6 +100,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
             const restNewFields = newFields.slice(prevFieldIndex + 1);
             const stepper = getNextStepper(restNewFields) + 1;
 
+            // Skip ignored fields in stepper mode when init
             if (isNextFieldIgnored) {
               return prevFieldIndex + stepper + 1;
             }
@@ -119,6 +120,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
 
     // AUTO NEXT STEP
     if (isStepper && !isDecision) {
+      // Skip ignored fields in stepper mode when auto step
       if (isAutoStep) {
         setActiveFieldIndex((prevFieldIndex) => {
           const nextField = fields[activeFieldIndex + 1];
@@ -159,6 +161,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
             setIsLastField(true);
           }
 
+          // Skip ignored fields in stepper mode when increment
           return nextIndex + 1;
         }
 
@@ -197,6 +200,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
       const prevField = fields[activeFieldIndex - 1];
       const isPrevFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === prevField?.attributes?.name);
 
+      // Skip ignored fields in stepper mode when decrement
       if (isPrevFieldIgnored) {
         return prevState - stepper - 1;
       }
@@ -230,13 +234,6 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
       setFirstFieldIndex(nextStepper);
     }
   }, [isStepper, isStandard, nextStepper, lastFieldHasNoChildren]);
-
-  // Skip ignored fields in stepper mode
-  // useEffect(() => {
-  //   if (isStepper && isCurrentFieldIgnored) {
-  //     setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
-  //   }
-  // }, [activeFieldIndex, currentField?.children.length, fields, ignoreFields, isCurrentFieldIgnored, isStepper]);
 
   return {
     activeFieldIndex,
