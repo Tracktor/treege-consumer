@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.29.2](https://github.com/Tracktor/treege-consumer/compare/1.29.1...1.29.2) (2024-05-27)
+
+
+### Bug Fixes
+
+* **prev-field:** fix prev field stepper ([cd4bd8f](https://github.com/Tracktor/treege-consumer/commit/cd4bd8f650d63884aac9e530a6ef08317f2c8fd9))
+
 ## [1.29.1](https://github.com/Tracktor/treege-consumer/compare/1.29.0...1.29.1) (2024-05-27)
 
 
