@@ -1,5 +1,7 @@
-import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref } from "react";
+import { TimePicker as TimePickerMui } from "@mui/x-date-pickers";
+import { Box, Stack } from "@tracktor/design-system";
+import dayjs, { Dayjs } from "dayjs";
+import { forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface TimeRangeProps {
@@ -7,27 +9,28 @@ export interface TimeRangeProps {
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
-  onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   readOnly?: boolean;
   value?: unknown;
   isIgnored?: boolean;
+  onChange?(dataAttribute: ChangeEventField): void;
 }
+
+const FORMAT = "HH:mm";
 
 const TimeRange = (
   { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const toTime = Array?.isArray(value) ? value?.[1] : "";
-  const fromTime = Array?.isArray(value) ? value?.[0] : "";
+  const startValue = Array?.isArray(value) ? dayjs(String(value?.[0]), FORMAT) : null;
+  const endValue = Array?.isArray(value) ? dayjs(String(value?.[1]), FORMAT) : null;
 
-  const handleChange = (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { target } = event;
+  const handleChange = (field: "start" | "end") => (time: Dayjs | null) => {
+    const currentTime = time?.format(FORMAT);
 
     onChange?.({
-      event,
       name,
-      value: field === "start" ? [target.value, toTime] : [fromTime, target.value],
+      value: field === "start" ? [currentTime, endValue?.format(FORMAT)] : [startValue?.format(FORMAT), currentTime],
     });
   };
 
@@ -37,37 +40,41 @@ const TimeRange = (
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <TextFieldDS
-        fullWidth
-        ref={ref}
-        name={name}
+      <TimePickerMui
+        ampm={false}
         label={label}
-        type="time"
-        value={fromTime}
-        helperText={helperText}
+        readOnly={readOnly}
+        ref={ref}
+        value={startValue}
+        name={`${name}[]`}
         onChange={handleChange("start")}
-        required={required}
-        inputRef={inputRef}
-        InputProps={{
-          readOnly,
-        }}
-        InputLabelProps={{
-          shrink: true,
+        format={FORMAT}
+        slotProps={{
+          textField: () => ({
+            fullWidth: true,
+            helperText,
+            inputRef,
+            required,
+          }),
         }}
       />
       <Box>→</Box>
-      <TextFieldDS
-        fullWidth
+      <TimePickerMui
+        ampm={false}
+        label={label}
+        readOnly={readOnly}
         ref={ref}
-        name={name}
-        value={toTime}
-        type="time"
-        helperText={helperText}
+        value={endValue}
+        name={`${name}[]`}
         onChange={handleChange("end")}
-        required={required}
-        inputRef={inputRef}
-        InputProps={{
-          readOnly,
+        format={FORMAT}
+        slotProps={{
+          textField: () => ({
+            fullWidth: true,
+            helperText,
+            inputRef,
+            required,
+          }),
         }}
       />
     </Stack>

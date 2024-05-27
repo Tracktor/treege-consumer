@@ -3,12 +3,14 @@ import { memo } from "react";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import Autocomplete from "@/components/Inputs/Autocomplete";
 import BooleanField from "@/components/Inputs/BooleanField";
+import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
 import DynamicSelect from "@/components/Inputs/DynamicSelect";
 import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
 import Select from "@/components/Inputs/Select";
 import TextField from "@/components/Inputs/TextField";
+import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
@@ -74,13 +76,11 @@ const FieldFactory = ({
 
   const field = () => {
     switch (type) {
-      case "date":
       case "email":
       case "file":
       case "number":
       case "password":
       case "tel":
-      case "time":
       case "text":
       case "url":
         return (
@@ -95,7 +95,34 @@ const FieldFactory = ({
             helperText={helperText}
             readOnly={readOnly}
             multiple={isMultiple}
-            shrink={type === "time" ? true : undefined}
+            isIgnored={isFieldIgnored}
+          />
+        );
+      case "date":
+        return (
+          <DatePicker
+            name={name}
+            label={label}
+            onChange={handleChangeFormValue}
+            required={isRequired}
+            inputRef={inputRef}
+            helperText={helperText}
+            value={value}
+            readOnly={readOnly}
+            isIgnored={isFieldIgnored}
+          />
+        );
+      case "time":
+        return (
+          <TimePicker
+            name={name}
+            label={label}
+            onChange={handleChangeFormValue}
+            required={isRequired}
+            inputRef={inputRef}
+            helperText={helperText}
+            value={value}
+            readOnly={readOnly}
             isIgnored={isFieldIgnored}
           />
         );
@@ -213,7 +240,13 @@ const FieldFactory = ({
   }
 
   return (
-    <Slide timeout={animationTimeout} in={visible} mountOnEnter>
+    <Slide
+      mountOnEnter
+      timeout={animationTimeout}
+      in={visible}
+      appear={!isFieldIgnored}
+      style={isFieldIgnored ? { display: "none" } : undefined}
+    >
       <Box flexDirection="column" sx={{ display: visible ? "flex" : "none" }}>
         {field()}
       </Box>

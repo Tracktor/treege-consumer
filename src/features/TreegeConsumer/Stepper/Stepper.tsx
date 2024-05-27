@@ -105,7 +105,6 @@ const Stepper = ({
             </ButtonGroup>
           </Slide>
         </Stack>
-
         {isLastField && <FormValidation formCanBeSubmit={formCanBeSubmit} />}
       </Stack>
     )}

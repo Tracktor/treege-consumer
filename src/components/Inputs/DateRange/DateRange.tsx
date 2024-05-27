@@ -1,5 +1,7 @@
-import { Box, Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref, useEffect, useState } from "react";
+import { DatePicker as DatePickerMui } from "@mui/x-date-pickers";
+import { Box, Stack } from "@tracktor/design-system";
+import dayjs from "dayjs";
+import { forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -7,40 +9,32 @@ export interface DateRangeProps {
   name: string;
   helperText?: string;
   inputRef: Ref<unknown>;
-  onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   value?: unknown;
   readOnly?: boolean;
   isIgnored?: boolean;
+  onChange?(dataAttribute: ChangeEventField): void;
 }
+
+const FORMAT = "YYYY-MM-DD";
 
 const DateRange = (
   { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const [error, setError] = useState<boolean>(false);
-  const fromDate = Array?.isArray(value) ? value?.[0] : "";
-  const toDate = Array?.isArray(value) ? value?.[1] : "";
+  const fromDate = Array?.isArray(value) ? dayjs(String(value?.[0]), FORMAT) : null;
+  const toDate = Array?.isArray(value) ? dayjs(String(value?.[1]), FORMAT) : null;
 
-  const handleChange = (field: "start" | "end") => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { target } = event;
+  const handleChange = (field: "start" | "end") => (date: any) => {
+    const currentDate = date?.format(FORMAT);
 
     onChange?.({
-      event,
       name,
-      value: field === "start" ? [target.value, toDate] : [fromDate, target.value],
+      value: field === "start" ? [currentDate, toDate?.format(FORMAT)] : [fromDate?.format(FORMAT), currentDate],
     });
   };
 
-  useEffect(() => {
-    if (fromDate?.length > 0 && toDate.length > 0) {
-      if (new Date(fromDate) > new Date(toDate)) {
-        setError(true);
-      } else {
-        setError(false);
-      }
-    }
-  }, [fromDate, toDate]);
+  const disableDateBeforeStart = (date: any) => (fromDate ? date < fromDate : false);
 
   if (isIgnored) {
     return null;
@@ -48,39 +42,42 @@ const DateRange = (
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <TextFieldDS
-        fullWidth
-        ref={ref}
-        name={name}
+      <DatePickerMui
+        disablePast
         label={label}
-        type="date"
-        helperText={helperText}
-        onChange={handleChange("start")}
-        required={required}
-        inputRef={inputRef}
+        readOnly={readOnly}
+        ref={ref}
+        name={`${name}[]`}
         value={fromDate}
-        error={error}
-        InputProps={{
-          readOnly,
-        }}
-        InputLabelProps={{
-          shrink: true,
+        onChange={handleChange("start")}
+        format="ll"
+        slotProps={{
+          textField: () => ({
+            fullWidth: true,
+            helperText,
+            inputRef,
+            required,
+          }),
         }}
       />
       <Box>→</Box>
-      <TextFieldDS
-        fullWidth
+      <DatePickerMui
+        disablePast
+        label={label}
+        readOnly={readOnly}
         ref={ref}
-        name={name}
-        type="date"
-        helperText={helperText}
-        onChange={handleChange("end")}
-        required={required}
+        name={`${name}[]`}
         value={toDate}
-        inputRef={inputRef}
-        error={error}
-        InputProps={{
-          readOnly,
+        onChange={handleChange("end")}
+        shouldDisableDate={disableDateBeforeStart}
+        format="ll"
+        slotProps={{
+          textField: () => ({
+            fullWidth: true,
+            helperText,
+            inputRef,
+            required,
+          }),
         }}
       />
     </Stack>

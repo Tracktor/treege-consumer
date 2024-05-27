@@ -10,8 +10,6 @@ import TreeNode from "@/types/TreeNode";
 
 interface StandardProps {
   fields?: TreeNode[];
-  handleChangeFormValue?(dataAttribute: ChangeEventField): void;
-  handleSubmit?(event: FormEvent<HTMLFormElement>): void;
   isLastField: boolean;
   readOnly?: boolean;
   headers?: Headers;
@@ -20,6 +18,8 @@ interface StandardProps {
   style?: CSSProperties;
   formCanBeSubmit: boolean;
   ignoreFields?: string[];
+  handleChangeFormValue?(dataAttribute: ChangeEventField): void;
+  handleSubmit?(event: FormEvent<HTMLFormElement>): void;
 }
 
 const Standard = ({
@@ -35,8 +35,8 @@ const Standard = ({
   formCanBeSubmit,
   ignoreFields,
 }: StandardProps) => (
-  <Box onSubmit={handleSubmit} component="form" paddingX={15} style={style}>
-    <Stack paddingY={5} spacing={3} direction="column">
+  <Box onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style}>
+    <Stack spacing={3} direction="column">
       {fields ? (
         fields.map((field) => (
           <FieldFactory

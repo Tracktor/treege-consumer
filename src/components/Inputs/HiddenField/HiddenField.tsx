@@ -23,7 +23,7 @@ const HiddenField = ({ data, onInit }: HiddenFieldProps) => {
     onInitRef.current = onInit;
   }, [onInit]);
 
-  return <TextField type="hidden" name={name} value={hiddenValue} sx={{ display: "none" }} onInput={() => console.log("aa")} />;
+  return <TextField type="hidden" name={name} value={hiddenValue} sx={{ display: "none" }} />;
 };
 
 export default HiddenField;
