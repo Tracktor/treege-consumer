@@ -9,6 +9,7 @@ import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
 import Select from "@/components/Inputs/Select";
 import TextField from "@/components/Inputs/TextField";
+import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
@@ -80,7 +81,6 @@ const FieldFactory = ({
       case "number":
       case "password":
       case "tel":
-      case "time":
       case "text":
       case "url":
         return (
@@ -95,7 +95,20 @@ const FieldFactory = ({
             helperText={helperText}
             readOnly={readOnly}
             multiple={isMultiple}
-            shrink={type === "time" ? true : undefined}
+            isIgnored={isFieldIgnored}
+          />
+        );
+      case "time":
+        return (
+          <TimePicker
+            name={name}
+            label={label}
+            onChange={handleChangeFormValue}
+            required={isRequired}
+            inputRef={inputRef}
+            helperText={helperText}
+            value={value}
+            readOnly={readOnly}
             isIgnored={isFieldIgnored}
           />
         );

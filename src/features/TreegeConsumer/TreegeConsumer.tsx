@@ -1,3 +1,5 @@
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import type { CSSProperties } from "react";
@@ -118,49 +120,51 @@ const TreegeConsumer = ({
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme || themeProvider.palette.mode}>
-        {loading ? (
-          <Box display="flex" alignItems="center" justifyContent="center" height="100%">
-            <CircularProgress color="primary" />
-          </Box>
-        ) : (
-          <OptionsProvider options={options}>
-            {variant === "stepper" ? (
-              <Stepper
-                activeFieldIndex={activeFieldIndex}
-                firstFieldIndex={firstFieldIndex}
-                isLastField={isLastField}
-                style={style}
-                fields={fields}
-                readOnly={readOnly}
-                headers={headers}
-                fieldValues={fieldValues}
-                isLoadingFormValidation={isLoadingFormValidation}
-                handleChangeFormValue={handleChangeFormValue}
-                handlePrev={handlePrev}
-                handleSubmit={handleSubmit}
-                formCanBeSubmit={formCanBeSubmit}
-              />
-            ) : (
-              <Standard
-                fields={fields}
-                handleChangeFormValue={handleChangeFormValue}
-                handleSubmit={handleSubmit}
-                isLastField={isLastField}
-                readOnly={readOnly}
-                headers={headers}
-                fieldValues={fieldValues}
-                isLoadingFormValidation={isLoadingFormValidation}
-                style={style}
-                formCanBeSubmit={formCanBeSubmit}
-                ignoreFields={ignoreFields}
-              />
-            )}
-          </OptionsProvider>
-        )}
-      </ThemeProvider>
-    </QueryClientProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme || themeProvider.palette.mode}>
+          {loading ? (
+            <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+              <CircularProgress color="primary" />
+            </Box>
+          ) : (
+            <OptionsProvider options={options}>
+              {variant === "stepper" ? (
+                <Stepper
+                  activeFieldIndex={activeFieldIndex}
+                  firstFieldIndex={firstFieldIndex}
+                  isLastField={isLastField}
+                  style={style}
+                  fields={fields}
+                  readOnly={readOnly}
+                  headers={headers}
+                  fieldValues={fieldValues}
+                  isLoadingFormValidation={isLoadingFormValidation}
+                  handleChangeFormValue={handleChangeFormValue}
+                  handlePrev={handlePrev}
+                  handleSubmit={handleSubmit}
+                  formCanBeSubmit={formCanBeSubmit}
+                />
+              ) : (
+                <Standard
+                  fields={fields}
+                  handleChangeFormValue={handleChangeFormValue}
+                  handleSubmit={handleSubmit}
+                  isLastField={isLastField}
+                  readOnly={readOnly}
+                  headers={headers}
+                  fieldValues={fieldValues}
+                  isLoadingFormValidation={isLoadingFormValidation}
+                  style={style}
+                  formCanBeSubmit={formCanBeSubmit}
+                  ignoreFields={ignoreFields}
+                />
+              )}
+            </OptionsProvider>
+          )}
+        </ThemeProvider>
+      </QueryClientProvider>
+    </LocalizationProvider>
   );
 };
 
