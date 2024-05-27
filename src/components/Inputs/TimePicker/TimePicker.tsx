@@ -34,9 +34,10 @@ const TimePicker = (
 
   return (
     <TimePickerMui
-      label={label}
-      readOnly={readOnly}
       ampm={false}
+      label={label}
+      name={name}
+      readOnly={readOnly}
       ref={ref}
       value={value ? dayjs(String(value), FORMAT) : null}
       onChange={handleChange}

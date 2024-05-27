@@ -41,11 +41,12 @@ const TimeRange = (
   return (
     <Stack direction="row" spacing={1} alignItems="center">
       <TimePickerMui
+        ampm={false}
         label={label}
         readOnly={readOnly}
-        ampm={false}
         ref={ref}
         value={startValue}
+        name={`${name}[]`}
         onChange={handleChange("start")}
         format={FORMAT}
         slotProps={{
@@ -59,11 +60,12 @@ const TimeRange = (
       />
       <Box>→</Box>
       <TimePickerMui
+        ampm={false}
         label={label}
         readOnly={readOnly}
-        ampm={false}
         ref={ref}
         value={endValue}
+        name={`${name}[]`}
         onChange={handleChange("end")}
         format={FORMAT}
         slotProps={{

@@ -38,6 +38,7 @@ const DatePicker = (
       label={label}
       readOnly={readOnly}
       ref={ref}
+      name={name}
       value={value ? dayjs(String(value), FORMAT) : null}
       onChange={handleChange}
       format="ll"
