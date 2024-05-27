@@ -19,23 +19,30 @@ export interface OnSubmitReturn {
 
 export interface useTreegeConsumerParams {
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
+  ignoreFields?: string[];
   tree?: TreeNode;
   variant: TreegeConsumerProps["variant"];
   initialValues?: JsonFormValue[];
   debug?: boolean;
 }
 
-const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, ignoreFields }: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
   const [firstFieldIndex, setFirstFieldIndex] = useState<number>(0);
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
-  const requiredFields = fields?.filter((field) => field.attributes.required);
+  const requiredFields = fields?.filter((field) => {
+    // Check if the field is ignored
+    const isIgnored = ignoreFields?.find((fieldName) => fieldName === field.attributes.name);
+    return field.attributes.required && !isIgnored;
+  });
+
   const formCanBeSubmit = requiredFields?.every((field) => fieldValues?.[field.attributes.name]);
   const nextStepper = getNextStepper(initialFields);
   const lastFieldHasNoChildren = !initialFields[initialFields.length - 1]?.children.length && !!tree;
+
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -78,6 +85,8 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug }: us
 
         const lastField = newFields.at(-1);
         const lastFieldIsLeaf = !!lastField?.attributes?.isLeaf;
+        const nextField = newFields[activeFieldIndex + 1];
+        const isNextFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === nextField?.attributes?.name);
 
         if (isStandard) {
           setIsLastField(lastFieldIsLeaf);
@@ -90,6 +99,11 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug }: us
           setActiveFieldIndex((prevFieldIndex) => {
             const restNewFields = newFields.slice(prevFieldIndex + 1);
             const stepper = getNextStepper(restNewFields) + 1;
+
+            // Skip ignored fields in stepper mode when init
+            if (isNextFieldIgnored) {
+              return prevFieldIndex + stepper + 1;
+            }
 
             return prevFieldIndex + stepper;
           });
@@ -106,8 +120,24 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug }: us
 
     // AUTO NEXT STEP
     if (isStepper && !isDecision) {
+      // Skip ignored fields in stepper mode when auto step
       if (isAutoStep) {
-        setActiveFieldIndex((prevFieldIndex) => prevFieldIndex + 1);
+        setActiveFieldIndex((prevFieldIndex) => {
+          const nextField = fields[activeFieldIndex + 1];
+          const isNextFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === nextField?.attributes?.name);
+          if (!nextField) {
+            setIsLastField(true);
+          }
+
+          if (isNextFieldIgnored) {
+            if (!nextField?.children.length) {
+              setIsLastField(true);
+            }
+            return prevFieldIndex + 2;
+          }
+
+          return prevFieldIndex + 1;
+        });
       }
     }
   };
@@ -115,12 +145,25 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug }: us
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // handle next step in stepper mode
     if (isStepper && !isLastField) {
       setActiveFieldIndex((prevActiveFieldIndex) => {
         const restNewFields = fields.slice(prevActiveFieldIndex + 1);
         const stepper = getNextStepper(restNewFields) + 1;
         const nextIndex = prevActiveFieldIndex + stepper;
         const hasNextField = fields?.[nextIndex] !== undefined;
+        const nextField = fields[activeFieldIndex + 1];
+        const isNextFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === nextField?.attributes?.name);
+        const isNextFieldLeaf = !nextField?.children.length;
+
+        if (isNextFieldIgnored) {
+          if (isNextFieldLeaf) {
+            setIsLastField(true);
+          }
+
+          // Skip ignored fields in stepper mode when increment
+          return nextIndex + 1;
+        }
 
         if (hasNextField) {
           return nextIndex;
@@ -153,6 +196,15 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug }: us
       // Revert fields array to DECREMENT stepper !!
       const restNewFields = fields.slice(0, prevState).reverse();
       const stepper = getNextStepper(restNewFields) + 1;
+
+      const prevField = fields[activeFieldIndex - 1];
+      const isPrevFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === prevField?.attributes?.name);
+
+      // Skip ignored fields in stepper mode when decrement
+      if (isPrevFieldIgnored) {
+        return prevState - stepper - 1;
+      }
+
       return prevState - stepper;
     });
   };
