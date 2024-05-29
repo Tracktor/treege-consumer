@@ -2,8 +2,8 @@ import { DatePicker as DatePickerMui } from "@mui/x-date-pickers";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { Box, Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
-import { forwardRef, Ref, useContext } from "react";
-import { OptionsContext } from "@/context/OptionsContext";
+import { forwardRef, Ref } from "react";
+import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -24,7 +24,7 @@ const DateRange = (
   { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const { licenseMuiX } = useContext(OptionsContext);
+  const { licenseMuiX } = useOptionsContext();
   const fromDate = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
   const toDate = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
 

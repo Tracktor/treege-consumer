@@ -2,7 +2,7 @@ import { LicenseInfo } from "@mui/x-license";
 import { createContext, ReactNode, useContext, useLayoutEffect, useMemo } from "react";
 import { TreegeConsumerContext } from "@/context/TreegeConsumerProvider";
 
-interface TreegeProviderOptionsContext {
+export interface TreegeProviderOptionsContext {
   countryAutocompleteService?: string;
   googleApiKey?: string;
   prefixResponseImageUriAutocomplete?: string;
