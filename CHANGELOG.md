@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.30.0](https://github.com/Tracktor/treege-consumer/compare/1.29.2...1.30.0) (2024-05-29)
+
+
+### Features
+
+* add date range mui x pro ([267c7fa](https://github.com/Tracktor/treege-consumer/commit/267c7faf63341cf4016e453a53d2e29e81639917))
+
 ## [1.29.2](https://github.com/Tracktor/treege-consumer/compare/1.29.1...1.29.2) (2024-05-27)
 
 
