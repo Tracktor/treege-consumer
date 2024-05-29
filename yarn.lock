@@ -1823,7 +1823,22 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/x-date-pickers@^7.5.1":
+"@mui/x-date-pickers-pro@^7.5.1":
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers-pro/-/x-date-pickers-pro-7.5.1.tgz#f9a73b63b8e5a8df71e8d372f458efc829911c62"
+  integrity sha512-aTBPoPE2CnTNMnE80wKJcypM39n7g6hYrvhOF+u8uVy0/W61w07AZVMNfVklBxi7QehZn+tfgF9NAfJLcwSL7g==
+  dependencies:
+    "@babel/runtime" "^7.24.5"
+    "@mui/base" "^5.0.0-beta.40"
+    "@mui/system" "^5.15.14"
+    "@mui/utils" "^5.15.14"
+    "@mui/x-date-pickers" "7.5.1"
+    "@mui/x-license" "7.2.1"
+    clsx "^2.1.1"
+    prop-types "^15.8.1"
+    react-transition-group "^4.4.5"
+
+"@mui/x-date-pickers@7.5.1", "@mui/x-date-pickers@^7.5.1":
   version "7.5.1"
   resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.5.1.tgz#cc92567ef70cdbf76fffbd750c7fcc6577ce5f35"
   integrity sha512-O3K2pewxk5u9mK8PG0+xgIOAn+GSBRWHtU0ZbzaqCjS8ZbxNT2OhkI0aXqp/W2ECVwxYaGjwtjl3ypQIdqRvjw==
@@ -1836,6 +1851,14 @@
     clsx "^2.1.1"
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
+
+"@mui/x-license@7.2.1", "@mui/x-license@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@mui/x-license/-/x-license-7.2.1.tgz#d0fb91332ee1077176f64f130bbf24f0a710af15"
+  integrity sha512-v0ObZw6wWu5GGre/AhASXay3Rw+aKWO0ID8yhjzmQliUfE1AYrNUw5KsiK/gNVE2YPRTYZKhIqCivtkNU+rIGA==
+  dependencies:
+    "@babel/runtime" "^7.24.5"
+    "@mui/utils" "^5.15.14"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"

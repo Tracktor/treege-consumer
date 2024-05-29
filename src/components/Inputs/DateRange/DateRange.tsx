@@ -1,7 +1,9 @@
 import { DatePicker as DatePickerMui } from "@mui/x-date-pickers";
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { Box, Stack } from "@tracktor/design-system";
-import dayjs from "dayjs";
-import { forwardRef, Ref } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { forwardRef, Ref, useContext } from "react";
+import { OptionsContext } from "@/context/OptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -22,10 +24,11 @@ const DateRange = (
   { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const fromDate = Array?.isArray(value) ? dayjs(String(value?.[0]), FORMAT) : null;
-  const toDate = Array?.isArray(value) ? dayjs(String(value?.[1]), FORMAT) : null;
+  const { licenseMuiX } = useContext(OptionsContext);
+  const fromDate = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
+  const toDate = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
 
-  const handleChange = (field: "start" | "end") => (date: any) => {
+  const handleChangeDatePicker = (field: "start" | "end") => (date: Dayjs | null) => {
     const currentDate = date?.format(FORMAT);
 
     onChange?.({
@@ -34,10 +37,36 @@ const DateRange = (
     });
   };
 
+  const handleChangeDateRangePicker = (date: [Dayjs, Dayjs] | [Dayjs, null] | [null, Dayjs] | [null, null]) => {
+    onChange?.({
+      name,
+      value: [date[0]?.format(FORMAT), date[1]?.format(FORMAT)],
+    });
+  };
+
   const disableDateBeforeStart = (date: any) => (fromDate ? date < fromDate : false);
 
   if (isIgnored) {
     return null;
+  }
+
+  if (licenseMuiX) {
+    return (
+      <DateRangePicker
+        disablePast
+        label={label}
+        readOnly={readOnly}
+        ref={ref}
+        name={`${name}[]`}
+        value={[fromDate, toDate]}
+        onChange={handleChangeDateRangePicker}
+        format="ll"
+        localeText={{
+          end: label,
+          start: label,
+        }}
+      />
+    );
   }
 
   return (
@@ -49,7 +78,7 @@ const DateRange = (
         ref={ref}
         name={`${name}[]`}
         value={fromDate}
-        onChange={handleChange("start")}
+        onChange={handleChangeDatePicker("start")}
         format="ll"
         slotProps={{
           textField: () => ({
@@ -68,7 +97,7 @@ const DateRange = (
         ref={ref}
         name={`${name}[]`}
         value={toDate}
-        onChange={handleChange("end")}
+        onChange={handleChangeDatePicker("end")}
         shouldDisableDate={disableDateBeforeStart}
         format="ll"
         slotProps={{

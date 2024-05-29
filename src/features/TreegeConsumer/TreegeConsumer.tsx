@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import dayjs from "dayjs";
 import type { CSSProperties } from "react";
-import OptionsProvider from "@/context/Options/OptionsProvider";
+import OptionsProvider from "@/context/OptionsContext";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
 import useTreegeConsumer, { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
@@ -48,6 +48,10 @@ export interface TreegeConsumerProps {
      * Prefix response image uri for autocomplete image
      */
     prefixResponseImageUriAutocomplete?: string;
+    /**
+     * License mui x pro or premium
+     */
+    licenseMuiX?: string;
   };
   /**
    * Custom form style

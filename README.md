@@ -71,7 +71,7 @@ const App = () => {
       tree={tree}
       variant={variant}
       onSubmit={handleSubmit}
-      options={{googleApiKey: "YOUR_API_KEY"}}/>
+      options={{ googleApiKey: "YOUR_API_KEY" }}/>
   );
 };
 
@@ -104,6 +104,7 @@ on [Treege](https://github.com/Tracktor/treege) data
 | countryAutocompleteService         | string | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
 | googleApiKey                       | string |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
 | prefixResponseImageUriAutocomplete | string |         | false    | Prefix response image uri for autocomplete image                                                                                                                              |
+| licenseMuiX                        | string |         | false    | License MUI X to enable pro and premium feature                                                                                                                               |
 
 
 ### TreegeConsumerResponse
@@ -115,3 +116,33 @@ Render values from form based on [Treege](https://github.com/Tracktor/treege)
 | values       | {<br/>label: string;<br/>name: string;<br/>type: string;<br/>tag?: string;<br/>value: string; &#124; { label: string; value: string }<br/>} | undefined | true     | Object of data          |
 | renderInputs | function(input: JsonFormValue): ReactElement \| undefined                                                                                   | undefined | false    | Custom inputs rendering |
 | ignoreFields | string[]                                                                                                                                    | undefined | false    | Ignored fiels to render |
+
+
+## Provider
+
+### Provide options
+
+You can provide options to the consumer by using the `TreegeConsumerProvider` provider.
+
+```typescript jsx
+import tree from "./tree.json";
+import { TreegeConsumer, TreegeConsumerProvider } from "treege-consumer ";
+
+const App = () => {
+  const handleSubmit = (data: [string, FormDataEntryValue][]) => {
+    console.log(data);
+  };
+
+  return (
+    <TreegeConsumerProvider licenseMuiX={"YOUR_LICENCE"}>
+      <TreegeConsumer
+        tree={tree}
+        variant={variant}
+        onSubmit={handleSubmit}
+        options={{googleApiKey: "YOUR_API_KEY"}}/>
+    </TreegeConsumerProvider>
+  );
+};
+
+export default App;
+```

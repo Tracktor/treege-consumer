@@ -22,8 +22,8 @@ const TimeRange = (
   { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const startValue = Array?.isArray(value) ? dayjs(String(value?.[0]), FORMAT) : null;
-  const endValue = Array?.isArray(value) ? dayjs(String(value?.[1]), FORMAT) : null;
+  const startValue = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
+  const endValue = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
 
   const handleChange = (field: "start" | "end") => (time: Dayjs | null) => {
     const currentTime = time?.format(FORMAT);

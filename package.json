@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@mui/x-date-pickers": "^7.5.1",
+    "@mui/x-license": "^7.2.1",
     "@tanstack/react-query": "^5.17.15",
     "@tracktor/design-system": "^1.53.2",
     "@tracktor/react-utils": "^1.11.0",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.2.2",
     "@commitlint/config-conventional": "^19.2.2",
+    "@mui/x-date-pickers-pro": "^7.5.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@types/autosuggest-highlight": "^3.2.0",
@@ -74,6 +76,8 @@
   },
   "peerDependencies": {
     "@mui/x-date-pickers": ">=7",
+    "@mui/x-date-pickers-pro": ">=7",
+    "@mui/x-license": "*",
     "@tanstack/react-query": ">=5",
     "@tracktor/design-system": ">=1",
     "@tracktor/react-utils": ">=1",
