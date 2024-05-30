@@ -165,7 +165,7 @@ const Autocomplete = (
           }}
         />
       )}
-      renderOption={(props, option) => {
+      renderOption={({ id, ...props }, option, { index }) => {
         const matches =
           (isObject(option) &&
             "structured_formatting" in option &&
@@ -183,8 +183,6 @@ const Autocomplete = (
           IsString(option?.structured_formatting?.main_text) &&
           option?.structured_formatting?.main_text;
 
-        const parts = parse(mainText || "", matches?.map((match: Match) => [match.offset, match.offset + match.length]));
-
         const optionSecondaryText =
           isObject(option) &&
           "structured_formatting" in option &&
@@ -193,9 +191,12 @@ const Autocomplete = (
           IsString(option.structured_formatting.secondary_text) &&
           option.structured_formatting.secondary_text;
 
+        const key = `${index}-${String(id)}`;
+        const parts = parse(mainText || "", matches?.map((match: Match) => [match.offset, match.offset + match.length]));
+
         return (
           // eslint-disable-next-line react/jsx-props-no-spreading
-          <li {...props}>
+          <li {...props} key={key} id={id}>
             <Grid container alignItems="center">
               <Grid item>
                 <Box sx={{ color: "text.secondary", height: 10, mr: 2, width: 10 }} />
@@ -203,13 +204,13 @@ const Autocomplete = (
               <Grid item xs>
                 {parts.map((part, i) => {
                   const placeId = isObject(option) && "place_id" in option && option.place_id;
-                  const id = `${placeId}-${i}`;
+                  const keyId = `${placeId}-${i}`;
 
                   return (
                     <Typography
                       variant="body1"
                       component="span"
-                      key={id}
+                      key={keyId}
                       sx={{
                         fontWeight: part.highlight ? 700 : 400,
                       }}

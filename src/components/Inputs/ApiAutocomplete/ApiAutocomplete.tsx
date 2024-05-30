@@ -83,13 +83,14 @@ const ApiAutocomplete = (
 
         return option?.value === optionValue?.value;
       }}
-      renderOption={(props, option) => {
+      renderOption={({ id, ...props }, option, { index }) => {
         const optionImage = safeGetObjectValueByKey(option, "imageUri");
         const optionLabel = safeGetObjectValueByKey(option, "label");
+        const key = `${option?.id}-${option.label}-${index}-${String(id)}`;
 
         return (
           // eslint-disable-next-line react/jsx-props-no-spreading
-          <ListItem {...props}>
+          <ListItem {...props} key={key} id={id}>
             <ListItemAvatar>
               <Avatar
                 variant="rounded"
