@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.30.2](https://github.com/Tracktor/treege-consumer/compare/1.30.1...1.30.2) (2024-05-30)
+
+
+### Bug Fixes
+
+* TreegeConsumerProvider default props ([72ddcb2](https://github.com/Tracktor/treege-consumer/commit/72ddcb26c682ef9c38e7b5c9625f2bf8c168adb2))
+
 ## [1.30.1](https://github.com/Tracktor/treege-consumer/compare/1.30.0...1.30.1) (2024-05-29)
 
 
