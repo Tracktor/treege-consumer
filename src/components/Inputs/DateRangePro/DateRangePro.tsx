@@ -1,4 +1,4 @@
-import { DatePicker as DatePickerMui } from "@mui/x-date-pickers-pro";
+import { DateRangePicker } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
@@ -17,14 +17,17 @@ export interface DateRangeProps {
 
 const FORMAT = "YYYY-MM-DD";
 
-const DatePicker = (
+const DateRangePro = (
   { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const handleChange = (date: Dayjs | null) => {
+  const fromDate = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
+  const toDate = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
+
+  const handleChangeDateRangePicker = (date: [Dayjs, Dayjs] | [Dayjs, null] | [null, Dayjs] | [null, null]) => {
     onChange?.({
       name,
-      value: date?.format(FORMAT),
+      value: [date[0]?.format(FORMAT), date[1]?.format(FORMAT)],
     });
   };
 
@@ -33,15 +36,19 @@ const DatePicker = (
   }
 
   return (
-    <DatePickerMui
+    <DateRangePicker
       disablePast
       label={label}
       readOnly={readOnly}
       ref={ref}
-      name={name}
-      value={value ? dayjs(String(value), FORMAT) : null}
-      onChange={handleChange}
+      name={`${name}[]`}
+      value={[fromDate, toDate]}
+      onChange={handleChangeDateRangePicker}
       format="ll"
+      localeText={{
+        end: label,
+        start: label,
+      }}
       slotProps={{
         textField: () => ({
           fullWidth: true,
@@ -54,4 +61,4 @@ const DatePicker = (
   );
 };
 
-export default forwardRef(DatePicker);
+export default forwardRef(DateRangePro);

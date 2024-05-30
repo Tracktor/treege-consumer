@@ -1,4 +1,4 @@
-import { TimePicker as TimePickerMui } from "@mui/x-date-pickers";
+import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";

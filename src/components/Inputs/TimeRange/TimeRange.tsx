@@ -1,4 +1,4 @@
-import { TimePicker as TimePickerMui } from "@mui/x-date-pickers";
+import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
 import { Box, Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";

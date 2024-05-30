@@ -26,6 +26,7 @@ export const TreegeConsumerProvider = ({
   prefixResponseImageUriAutocomplete,
   googleApiKey,
 }: TreegeConsumerProviderProps) => {
+  // Set license key for mui x if provided
   useLayoutEffect(() => {
     if (licenseMuiX) {
       LicenseInfo.setLicenseKey(licenseMuiX);
@@ -34,7 +35,7 @@ export const TreegeConsumerProvider = ({
 
   const value = useMemo(
     () => ({
-      countryAutocompleteService,
+      countryAutocompleteService: countryAutocompleteService || "fr",
       googleApiKey,
       licenseMuiX,
       prefixResponseImageUriAutocomplete,

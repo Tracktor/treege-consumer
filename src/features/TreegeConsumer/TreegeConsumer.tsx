@@ -1,15 +1,13 @@
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider as LocalizationProviderPro } from "@mui/x-date-pickers-pro";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import dayjs from "dayjs";
-import { CSSProperties, PropsWithChildren } from "react";
+import { CSSProperties } from "react";
 import OptionsProvider from "@/context/OptionsContext";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
 import useTreegeConsumer, { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
-import useOptionsContext from "@/hooks/useOptionsContext";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
 import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
@@ -94,24 +92,6 @@ export interface TreegeConsumerProps {
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
 }
 
-const LoadingLocalizationProvider = ({ children }: PropsWithChildren) => {
-  const { licenseMuiX } = useOptionsContext();
-
-  if (licenseMuiX) {
-    return (
-      <LocalizationProviderPro dateAdapter={AdapterDayjs} adapterLocale="fr">
-        {children}
-      </LocalizationProviderPro>
-    );
-  }
-
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
-      {children}
-    </LocalizationProvider>
-  );
-};
-
 const TreegeConsumer = ({
   tree,
   onSubmit,
@@ -148,15 +128,15 @@ const TreegeConsumer = ({
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme || themeProvider.palette.mode}>
-        {loading ? (
-          <Box display="flex" alignItems="center" justifyContent="center" height="100%">
-            <CircularProgress color="primary" />
-          </Box>
-        ) : (
-          <OptionsProvider options={options}>
-            <LoadingLocalizationProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme || themeProvider.palette.mode}>
+          {loading ? (
+            <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+              <CircularProgress color="primary" />
+            </Box>
+          ) : (
+            <OptionsProvider options={options}>
               {variant === "stepper" ? (
                 <Stepper
                   activeFieldIndex={activeFieldIndex}
@@ -188,11 +168,11 @@ const TreegeConsumer = ({
                   ignoreFields={ignoreFields}
                 />
               )}
-            </LoadingLocalizationProvider>
-          </OptionsProvider>
-        )}
-      </ThemeProvider>
-    </QueryClientProvider>
+            </OptionsProvider>
+          )}
+        </ThemeProvider>
+      </QueryClientProvider>
+    </LocalizationProvider>
   );
 };
 
