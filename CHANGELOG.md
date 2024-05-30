@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.30.3](https://github.com/Tracktor/treege-consumer/compare/1.30.2...1.30.3) (2024-05-30)
+
+
+### Bug Fixes
+
+* localization provider pro ([89aed1f](https://github.com/Tracktor/treege-consumer/commit/89aed1f87489d279c0a995026a315f8007497009))
+
 ## [1.30.2](https://github.com/Tracktor/treege-consumer/compare/1.30.1...1.30.2) (2024-05-30)
 
 
