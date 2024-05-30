@@ -2,35 +2,31 @@ import { LicenseInfo } from "@mui/x-license";
 import { createContext, ReactNode, useContext, useLayoutEffect, useMemo } from "react";
 import { TreegeConsumerContext } from "@/context/TreegeConsumerProvider";
 
-export interface TreegeProviderOptionsContext {
+export interface OptionsProviderContext {
   countryAutocompleteService?: string;
   googleApiKey?: string;
   prefixResponseImageUriAutocomplete?: string;
   licenseMuiX?: string;
 }
 
-export const defaultValueOptionsContext: TreegeProviderOptionsContext = {
-  countryAutocompleteService: "fr",
+export const OptionsContext = createContext<OptionsProviderContext>({
+  countryAutocompleteService: "",
   googleApiKey: "",
   licenseMuiX: "",
   prefixResponseImageUriAutocomplete: "",
-};
-
-export const OptionsContext = createContext(defaultValueOptionsContext);
+});
 
 export interface OptionsProviderProps {
   children: ReactNode;
-  options?: TreegeProviderOptionsContext;
+  options?: OptionsProviderContext;
 }
 
 const OptionsProvider = ({ children, options }: OptionsProviderProps) => {
   const treegeConsumerContext = useContext(TreegeConsumerContext);
 
-  const mergedOptions = useMemo(
+  const value = useMemo(
     () => ({
-      ...defaultValueOptionsContext,
-      ...options,
-      countryAutocompleteService: options?.countryAutocompleteService || treegeConsumerContext.countryAutocompleteService,
+      countryAutocompleteService: options?.countryAutocompleteService || treegeConsumerContext.countryAutocompleteService || "fr",
       googleApiKey: options?.googleApiKey || treegeConsumerContext.googleApiKey,
       licenseMuiX: options?.licenseMuiX || treegeConsumerContext.licenseMuiX,
       prefixResponseImageUriAutocomplete:
@@ -47,12 +43,12 @@ const OptionsProvider = ({ children, options }: OptionsProviderProps) => {
 
   // Set license key for mui x if provided
   useLayoutEffect(() => {
-    if (mergedOptions.licenseMuiX) {
-      LicenseInfo.setLicenseKey(mergedOptions.licenseMuiX);
+    if (value.licenseMuiX) {
+      LicenseInfo.setLicenseKey(value.licenseMuiX);
     }
-  }, [mergedOptions.licenseMuiX]);
+  }, [value.licenseMuiX]);
 
-  return <OptionsContext.Provider value={mergedOptions}>{children}</OptionsContext.Provider>;
+  return <OptionsContext.Provider value={value}>{children}</OptionsContext.Provider>;
 };
 
 export default OptionsProvider;
