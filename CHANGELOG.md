@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.30.5](https://github.com/Tracktor/treege-consumer/compare/1.30.4...1.30.5) (2024-05-30)
+
+
+### Bug Fixes
+
+* error unique id autocomplete, dynamic select & api autocomplete ([7a54f20](https://github.com/Tracktor/treege-consumer/commit/7a54f201070dae42cfb80f55879146f1043b830f))
+
 ## [1.30.4](https://github.com/Tracktor/treege-consumer/compare/1.30.3...1.30.4) (2024-05-30)
 
 
