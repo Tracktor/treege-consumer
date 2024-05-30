@@ -16,7 +16,13 @@ export default defineConfig({
       external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
       output: {
         globals: {
+          "@mui/x-date-pickers": "xDatePickers",
+          "@mui/x-date-pickers-pro": "xDatePickersPro",
+          "@mui/x-license": "muiXLicense",
+          "@tanstack/react-query": "reactQuery",
           "@tracktor/design-system": "ReactDOM",
+          "@tracktor/react-utils": "reactUtils",
+          dayjs: "dayjs",
           "lodash-es": "lodashEs",
           react: "React",
           "react-dom": "designSystem",
