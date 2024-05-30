@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.30.4](https://github.com/Tracktor/treege-consumer/compare/1.30.3...1.30.4) (2024-05-30)
+
+
+### Bug Fixes
+
+* Date range picker pro ([2c54b29](https://github.com/Tracktor/treege-consumer/commit/2c54b29829285639ba1e8abbaac1b438dd55c5f0))
+* improvement ([08c6382](https://github.com/Tracktor/treege-consumer/commit/08c6382890c9d8c5bf8c7e38f69a63695beaca63))
+
 ## [1.30.3](https://github.com/Tracktor/treege-consumer/compare/1.30.2...1.30.3) (2024-05-30)
 
 
