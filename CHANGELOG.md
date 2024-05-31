@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.31.0](https://github.com/Tracktor/treege-consumer/compare/1.30.5...1.31.0) (2024-05-31)
+
+
+### Features
+
+* add disable past options for date picker & date range picker ([e2c7d5d](https://github.com/Tracktor/treege-consumer/commit/e2c7d5d85acea55362032e51b8077385d0c31925))
+
 ## [1.30.5](https://github.com/Tracktor/treege-consumer/compare/1.30.4...1.30.5) (2024-05-30)
 
 
