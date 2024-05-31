@@ -1,6 +1,7 @@
 import { DatePicker as DatePickerMui } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
+import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -21,6 +22,8 @@ const DatePicker = (
   { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
+  const { disablePastDatePicker } = useOptionsContext();
+
   const handleChange = (date: Dayjs | null) => {
     onChange?.({
       name,
@@ -34,7 +37,7 @@ const DatePicker = (
 
   return (
     <DatePickerMui
-      disablePast
+      disablePast={disablePastDatePicker}
       label={label}
       readOnly={readOnly}
       ref={ref}

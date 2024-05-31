@@ -5,7 +5,6 @@ import Autocomplete from "@/components/Inputs/Autocomplete";
 import BooleanField from "@/components/Inputs/BooleanField";
 import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
-import DateRangePro from "@/components/Inputs/DateRangePro";
 import DynamicSelect from "@/components/Inputs/DynamicSelect";
 import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
@@ -13,7 +12,6 @@ import Select from "@/components/Inputs/Select";
 import TextField from "@/components/Inputs/TextField";
 import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
-import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import Headers from "@/types/Headers";
@@ -58,7 +56,6 @@ const FieldFactory = ({
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
-  const { licenseMuiX } = useOptionsContext();
   const { attributes } = data;
   const { type, label, required, helperText, isMultiple, parentRef, name } = attributes;
   const animationTimeout = animated ? 200 : 0;
@@ -144,22 +141,6 @@ const FieldFactory = ({
           />
         );
       case "dateRange":
-        if (licenseMuiX) {
-          return (
-            <DateRangePro
-              name={name}
-              label={label}
-              onChange={handleChangeFormValue}
-              required={isRequired}
-              inputRef={inputRef}
-              helperText={helperText}
-              value={value}
-              readOnly={readOnly}
-              isIgnored={isFieldIgnored}
-            />
-          );
-        }
-
         return (
           <DateRange
             name={name}

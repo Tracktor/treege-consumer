@@ -1,20 +1,11 @@
 import { LicenseInfo } from "@mui/x-license";
 import { createContext, ReactNode, useContext, useLayoutEffect, useMemo } from "react";
 import { TreegeConsumerContext } from "@/context/TreegeConsumerProvider";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 
-export interface OptionsProviderContext {
-  countryAutocompleteService?: string;
-  googleApiKey?: string;
-  prefixResponseImageUriAutocomplete?: string;
-  licenseMuiX?: string;
-}
+export type OptionsProviderContext = TreegeConsumerProps["options"];
 
-export const OptionsContext = createContext<OptionsProviderContext>({
-  countryAutocompleteService: "",
-  googleApiKey: "",
-  licenseMuiX: "",
-  prefixResponseImageUriAutocomplete: "",
-});
+export const OptionsContext = createContext<OptionsProviderContext>({});
 
 export interface OptionsProviderProps {
   children: ReactNode;
@@ -27,6 +18,8 @@ const OptionsProvider = ({ children, options }: OptionsProviderProps) => {
   const value = useMemo(
     () => ({
       countryAutocompleteService: options?.countryAutocompleteService || treegeConsumerContext.countryAutocompleteService || "fr",
+      disablePastDatePicker: options?.disablePastDatePicker,
+      disablePastDateRangePicker: options?.disablePastDateRangePicker,
       googleApiKey: options?.googleApiKey || treegeConsumerContext.googleApiKey,
       licenseMuiX: options?.licenseMuiX || treegeConsumerContext.licenseMuiX,
       prefixResponseImageUriAutocomplete:

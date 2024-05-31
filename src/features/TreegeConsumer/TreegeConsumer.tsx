@@ -52,6 +52,14 @@ export interface TreegeConsumerProps {
      * License mui x pro or premium
      */
     licenseMuiX?: string;
+    /**
+     * Disable past date picker
+     */
+    disablePastDatePicker?: boolean;
+    /**
+     * Disable past date range picker
+     */
+    disablePastDateRangePicker?: boolean;
   };
   /**
    * Custom form style

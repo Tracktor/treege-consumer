@@ -118,7 +118,18 @@ const Sandbox = ({
               </ToggleButtonGroup>
             </Box>
             <Box flex={1} pt={2}>
-              <TreegeConsumer debug tree={tree} variant={variant} onSubmit={handleSubmit} headers={customHeaders} />
+              <TreegeConsumer
+                debug
+                tree={tree}
+                variant={variant}
+                onSubmit={handleSubmit}
+                headers={customHeaders}
+                options={{
+                  disablePastDatePicker: true,
+                  disablePastDateRangePicker: true,
+                  // licenseMuiX: "your-license-key",
+                }}
+              />
             </Box>
             <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md" scroll="body">
               <DialogTitle id="alert-dialog-title">Result:</DialogTitle>

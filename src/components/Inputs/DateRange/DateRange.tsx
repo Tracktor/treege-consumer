@@ -1,7 +1,8 @@
-import { DatePicker as DatePickerMui } from "@mui/x-date-pickers-pro";
+import { DatePicker as DatePickerMui, DateRangePicker } from "@mui/x-date-pickers-pro";
 import { Box, Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
+import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -24,6 +25,7 @@ const DateRange = (
 ) => {
   const fromDate = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
   const toDate = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
+  const { disablePastDateRangePicker, licenseMuiX } = useOptionsContext();
 
   const handleChangeDatePicker = (field: "start" | "end") => (date: Dayjs | null) => {
     const currentDate = date?.format(FORMAT);
@@ -34,16 +36,54 @@ const DateRange = (
     });
   };
 
+  const handleChangeDateRangePickerPro = (date: [Dayjs, Dayjs] | [Dayjs, null] | [null, Dayjs] | [null, null]) => {
+    onChange?.({
+      name,
+      value: [date[0]?.format(FORMAT), date[1]?.format(FORMAT)],
+    });
+  };
+
+  if (isIgnored) {
+    return null;
+  }
+
   const disableDateBeforeStart = (date: any) => (fromDate ? date < fromDate : false);
 
   if (isIgnored) {
     return null;
   }
 
+  if (licenseMuiX) {
+    return (
+      <DateRangePicker
+        disablePast={disablePastDateRangePicker}
+        label={label}
+        readOnly={readOnly}
+        ref={ref}
+        name={`${name}[]`}
+        value={[fromDate, toDate]}
+        onChange={handleChangeDateRangePickerPro}
+        format="ll"
+        localeText={{
+          end: label,
+          start: label,
+        }}
+        slotProps={{
+          textField: () => ({
+            fullWidth: true,
+            helperText,
+            inputRef,
+            required,
+          }),
+        }}
+      />
+    );
+  }
+
   return (
     <Stack direction="row" spacing={1} alignItems="center">
       <DatePickerMui
-        disablePast
+        disablePast={disablePastDateRangePicker}
         label={label}
         readOnly={readOnly}
         ref={ref}
@@ -62,7 +102,7 @@ const DateRange = (
       />
       <Box>→</Box>
       <DatePickerMui
-        disablePast
+        disablePast={disablePastDateRangePicker}
         label={label}
         readOnly={readOnly}
         ref={ref}
