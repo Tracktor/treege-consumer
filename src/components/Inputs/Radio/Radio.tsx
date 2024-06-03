@@ -1,4 +1,13 @@
-import { Alert, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio as RadioDS, RadioGroup } from "@tracktor/design-system";
+import {
+  Alert,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Radio as RadioDS,
+  RadioGroup,
+  Stack,
+  Typography,
+} from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
@@ -52,25 +61,30 @@ const Radio = (
 
   return (
     <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>
-      <FormLabel id={`${name}-label`}>{label}</FormLabel>
+      <Typography variant="h5" mb={1.5}>
+        {label}
+      </Typography>
       <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} value={value} aria-readonly={readOnly}>
-        {options?.map((option, index) => (
-          <FormControlLabel
-            key={option.key}
-            value={option.value}
-            label={option.label}
-            control={
-              <RadioDS inputRef={inputRef} data-index={index} inputProps={{ tabIndex: index }} readOnly={readOnly} disabled={readOnly} />
-            }
-            sx={{
-              ...(readOnly && {
-                "& .MuiFormControlLabel-label.Mui-disabled": {
-                  color: "text.primary",
-                },
-              }),
-            }}
-          />
-        ))}
+        <Stack spacing={1}>
+          {options?.map((option, index) => (
+            <FormControlLabel
+              key={option.key}
+              value={option.value}
+              label={option.label}
+              variant="card"
+              control={
+                <RadioDS inputRef={inputRef} data-index={index} inputProps={{ tabIndex: index }} readOnly={readOnly} disabled={readOnly} />
+              }
+              sx={{
+                ...(readOnly && {
+                  "& .MuiFormControlLabel-label.Mui-disabled": {
+                    color: "text.primary",
+                  },
+                }),
+              }}
+            />
+          ))}
+        </Stack>
       </RadioGroup>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       {message && (

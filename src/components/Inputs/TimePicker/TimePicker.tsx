@@ -1,4 +1,5 @@
 import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
+import { Stack, Typography } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
@@ -33,23 +34,25 @@ const TimePicker = (
   }
 
   return (
-    <TimePickerMui
-      ampm={false}
-      label={label}
-      name={name}
-      readOnly={readOnly}
-      ref={ref}
-      value={value ? dayjs(String(value), FORMAT) : null}
-      onChange={handleChange}
-      format={FORMAT}
-      slotProps={{
-        textField: () => ({
-          helperText,
-          inputRef,
-          required,
-        }),
-      }}
-    />
+    <Stack spacing={1.5}>
+      <Typography variant="h5">{label}</Typography>
+      <TimePickerMui
+        ampm={false}
+        name={name}
+        readOnly={readOnly}
+        ref={ref}
+        value={value ? dayjs(String(value), FORMAT) : null}
+        onChange={handleChange}
+        format={FORMAT}
+        slotProps={{
+          textField: () => ({
+            helperText,
+            inputRef,
+            required,
+          }),
+        }}
+      />
+    </Stack>
   );
 };
 

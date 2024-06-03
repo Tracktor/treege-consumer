@@ -1,4 +1,4 @@
-import { TextField as TextFieldDS } from "@tracktor/design-system";
+import { Stack, TextField as TextFieldDS, Typography } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -31,29 +31,31 @@ const TextField = (
   }
 
   return (
-    <TextFieldDS
-      fullWidth
-      disabled={type === "file" && readOnly}
-      ref={ref}
-      name={name}
-      label={label}
-      type={type}
-      helperText={helperText}
-      onChange={handleChange}
-      required={required}
-      value={value}
-      inputRef={inputRef}
-      inputProps={{
-        multiple,
-      }}
-      // eslint-disable-next-line react/jsx-no-duplicate-props
-      InputProps={{
-        readOnly,
-      }}
-      InputLabelProps={{
-        shrink,
-      }}
-    />
+    <Stack spacing={1.5}>
+      <Typography variant="h5">{label}</Typography>
+      <TextFieldDS
+        fullWidth
+        disabled={type === "file" && readOnly}
+        ref={ref}
+        name={name}
+        type={type}
+        helperText={helperText}
+        onChange={handleChange}
+        required={required}
+        value={value}
+        inputRef={inputRef}
+        inputProps={{
+          multiple,
+        }}
+        // eslint-disable-next-line react/jsx-no-duplicate-props
+        InputProps={{
+          readOnly,
+        }}
+        InputLabelProps={{
+          shrink,
+        }}
+      />
+    </Stack>
   );
 };
 

@@ -1,13 +1,4 @@
-import {
-  Alert,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select as SelectDS,
-  SelectChangeEvent,
-} from "@tracktor/design-system";
+import { Alert, FormControl, FormHelperText, MenuItem, Select as SelectDS, SelectChangeEvent, Typography } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
 import { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import useInputs from "@/hooks/useInputs";
@@ -63,18 +54,18 @@ const Select = (
 
   return (
     <FormControl required={required} ref={ref} fullWidth>
-      <InputLabel id={`${name}-label`}>{label}</InputLabel>
+      <Typography variant="h5" mb={1.5}>
+        {label}
+      </Typography>
       <SelectDS
         fullWidth
         value={isString(value) ? value : ""}
         labelId={`${name}-label`}
         id={name}
-        label={label}
         name={name}
         onChange={handleChange}
         inputRef={inputRef}
         readOnly={readOnly}
-        input={<OutlinedInput label={label} />}
       >
         {options?.map((option) => (
           <MenuItem key={option.key} value={option.value}>

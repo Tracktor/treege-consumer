@@ -1,5 +1,5 @@
 import { DatePicker as DatePickerMui, DateRangePicker } from "@mui/x-date-pickers-pro";
-import { Box, Stack } from "@tracktor/design-system";
+import { Box, Stack, Typography } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
 import useOptionsContext from "@/hooks/useOptionsContext";
@@ -81,45 +81,48 @@ const DateRange = (
   }
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <DatePickerMui
-        disablePast={disablePastDateRangePicker}
-        label={label}
-        readOnly={readOnly}
-        ref={ref}
-        name={`${name}[]`}
-        value={fromDate}
-        onChange={handleChangeDatePicker("start")}
-        format="ll"
-        slotProps={{
-          textField: () => ({
-            fullWidth: true,
-            helperText,
-            inputRef,
-            required,
-          }),
-        }}
-      />
-      <Box>→</Box>
-      <DatePickerMui
-        disablePast={disablePastDateRangePicker}
-        label={label}
-        readOnly={readOnly}
-        ref={ref}
-        name={`${name}[]`}
-        value={toDate}
-        onChange={handleChangeDatePicker("end")}
-        shouldDisableDate={disableDateBeforeStart}
-        format="ll"
-        slotProps={{
-          textField: () => ({
-            fullWidth: true,
-            helperText,
-            inputRef,
-            required,
-          }),
-        }}
-      />
+    <Stack spacing={1.5}>
+      <Typography variant="h5">{label}</Typography>
+      <Stack direction="row" spacing={1} alignItems="center">
+        <DatePickerMui
+          disablePast={disablePastDateRangePicker}
+          label="Début"
+          readOnly={readOnly}
+          ref={ref}
+          name={`${name}[]`}
+          value={fromDate}
+          onChange={handleChangeDatePicker("start")}
+          format="ll"
+          slotProps={{
+            textField: () => ({
+              fullWidth: true,
+              helperText,
+              inputRef,
+              required,
+            }),
+          }}
+        />
+        <Box>→</Box>
+        <DatePickerMui
+          disablePast={disablePastDateRangePicker}
+          label="Fin"
+          readOnly={readOnly}
+          ref={ref}
+          name={`${name}[]`}
+          value={toDate}
+          onChange={handleChangeDatePicker("end")}
+          shouldDisableDate={disableDateBeforeStart}
+          format="ll"
+          slotProps={{
+            textField: () => ({
+              fullWidth: true,
+              helperText,
+              inputRef,
+              required,
+            }),
+          }}
+        />
+      </Stack>
     </Stack>
   );
 };

@@ -1,4 +1,4 @@
-import { Autocomplete, ListItem, ListItemAvatar, Avatar, ListItemText, TextField } from "@tracktor/design-system";
+import { Autocomplete, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, Typography, Stack } from "@tracktor/design-system";
 import { isObject } from "@tracktor/react-utils";
 import { forwardRef, Ref, SyntheticEvent } from "react";
 import ControlledTooltip from "@/components/DataDisplay/ControlledToolTip";
@@ -64,51 +64,55 @@ const DynamicSelect = (
   }
 
   return (
-    <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
-      <Autocomplete
-        readOnly={readOnly}
-        multiple={isMultiple}
-        isOptionEqualToValue={(option, val) => isObject(option) && "id" in option && isObject(val) && "id" in val && option?.id === val?.id}
-        ref={ref}
-        value={isMultiple ? value || [] : value || ""}
-        onChange={handleChange}
-        options={options || []}
-        noOptionsText="Aucune suggestion"
-        disabled={disabledChildrenField}
-        renderOption={({ id, ...props }, option, { index }) => {
-          const optionImage = safeGetObjectValueByKey(option, "imageUri");
-          const optionLabel = safeGetObjectValueByKey(option, "label");
-          const key = `${index}-${String(id)}`;
+    <Stack spacing={1.5}>
+      <Typography variant="h5">{label}</Typography>
+      <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
+        <Autocomplete
+          readOnly={readOnly}
+          multiple={isMultiple}
+          isOptionEqualToValue={(option, val) =>
+            isObject(option) && "id" in option && isObject(val) && "id" in val && option?.id === val?.id
+          }
+          ref={ref}
+          value={isMultiple ? value || [] : value || ""}
+          onChange={handleChange}
+          options={options || []}
+          noOptionsText="Aucune suggestion"
+          disabled={disabledChildrenField}
+          renderOption={({ id, ...props }, option, { index }) => {
+            const optionImage = safeGetObjectValueByKey(option, "imageUri");
+            const optionLabel = safeGetObjectValueByKey(option, "label");
+            const key = `${index}-${String(id)}`;
 
-          return (
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <ListItem {...props} key={key} id={id}>
-              {!!optionImage && (
-                <ListItemAvatar>
-                  <Avatar variant="square" alt={optionLabel} src={optionImage} sx={{ height: 30, width: 30 }} />
-                </ListItemAvatar>
-              )}
-              <ListItemText primary={optionLabel} />
-            </ListItem>
-          );
-        }}
-        renderInput={(params) => (
-          <TextField
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...params}
-            label={label}
-            name={name}
-            required={required}
-            helperText={helperText}
-            inputRef={inputRef}
-            InputProps={{
-              ...params.InputProps,
-              readOnly,
-            }}
-          />
-        )}
-      />
-    </ControlledTooltip>
+            return (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              <ListItem {...props} key={key} id={id}>
+                {!!optionImage && (
+                  <ListItemAvatar>
+                    <Avatar variant="square" alt={optionLabel} src={optionImage} sx={{ height: 30, width: 30 }} />
+                  </ListItemAvatar>
+                )}
+                <ListItemText primary={optionLabel} />
+              </ListItem>
+            );
+          }}
+          renderInput={(params) => (
+            <TextField
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...params}
+              name={name}
+              required={required}
+              helperText={helperText}
+              inputRef={inputRef}
+              InputProps={{
+                ...params.InputProps,
+                readOnly,
+              }}
+            />
+          )}
+        />
+      </ControlledTooltip>
+    </Stack>
   );
 };
 
