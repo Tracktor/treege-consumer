@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.32.1](https://github.com/Tracktor/treege-consumer/compare/1.32.0...1.32.1) (2024-06-03)
+
+
+### Bug Fixes
+
+* language detector date picker ([a1d8694](https://github.com/Tracktor/treege-consumer/commit/a1d869468f5c3f9eff3384dd25abf34e4d2fbcb0))
+
 ## [1.32.0](https://github.com/Tracktor/treege-consumer/compare/1.31.0...1.32.0) (2024-06-03)
 
 
