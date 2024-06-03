@@ -1,5 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, TextField } from "@tracktor/design-system";
+import {
+  Autocomplete,
+  Avatar,
+  CircularProgress,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Stack,
+  TextField,
+  Typography,
+} from "@tracktor/design-system";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
 import useOptionsContext from "@/hooks/useOptionsContext";
@@ -61,67 +71,69 @@ const ApiAutocomplete = (
   }
 
   return (
-    <Autocomplete
-      filterSelectedOptions
-      readOnly={readOnly}
-      filterOptions={(o) => o}
-      ref={ref}
-      value={value || null}
-      onChange={handleChange}
-      loading={isFetching}
-      options={optionsWithValues || []}
-      onInputChange={handleSearchChange}
-      noOptionsText="Aucune suggestion"
-      isOptionEqualToValue={(option, optionValue) => {
-        if (!optionValue) {
-          return false;
-        }
+    <Stack spacing={1.5}>
+      <Typography variant="h5">{label}</Typography>
+      <Autocomplete
+        filterSelectedOptions
+        readOnly={readOnly}
+        filterOptions={(o) => o}
+        ref={ref}
+        value={value || null}
+        onChange={handleChange}
+        loading={isFetching}
+        options={optionsWithValues || []}
+        onInputChange={handleSearchChange}
+        noOptionsText="Aucune suggestion"
+        isOptionEqualToValue={(option, optionValue) => {
+          if (!optionValue) {
+            return false;
+          }
 
-        if (option?.id === optionValue?.id) {
-          return true;
-        }
+          if (option?.id === optionValue?.id) {
+            return true;
+          }
 
-        return option?.value === optionValue?.value;
-      }}
-      renderOption={({ id, ...props }, option, { index }) => {
-        const optionImage = safeGetObjectValueByKey(option, "imageUri");
-        const optionLabel = safeGetObjectValueByKey(option, "label");
-        const key = `${option?.id}-${option.label}-${index}-${String(id)}`;
+          return option?.value === optionValue?.value;
+        }}
+        renderOption={({ id, ...props }, option, { index }) => {
+          const optionImage = safeGetObjectValueByKey(option, "imageUri");
+          const optionLabel = safeGetObjectValueByKey(option, "label");
+          const key = `${option?.id}-${option.label}-${index}-${String(id)}`;
 
-        return (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <ListItem {...props} key={key} id={id}>
-            <ListItemAvatar>
-              <Avatar
-                variant="rounded"
-                alt={optionLabel}
-                src={optionImage ? prefixResponseImageUriAutocomplete + optionImage : optionLabel}
-                sx={{ height: 30, width: 30 }}
-              />
-            </ListItemAvatar>
-            <ListItemText primary={optionLabel} />
-          </ListItem>
-        );
-      }}
-      renderInput={(params) => (
-        // const { InputProps, size, InputLabelProps, disabled, id, inputProps, fullWidth } = params;
-        <TextField
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...params}
-          label={label}
-          name={name}
-          required={required}
-          helperText={helperText}
-          inputRef={inputRef}
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
-            error: isError,
-            readOnly,
-          }}
-        />
-      )}
-    />
+          return (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <ListItem {...props} key={key} id={id}>
+              <ListItemAvatar>
+                <Avatar
+                  variant="rounded"
+                  alt={optionLabel}
+                  src={optionImage ? prefixResponseImageUriAutocomplete + optionImage : optionLabel}
+                  sx={{ height: 30, width: 30 }}
+                />
+              </ListItemAvatar>
+              <ListItemText primary={optionLabel} />
+            </ListItem>
+          );
+        }}
+        renderInput={(params) => (
+          // const { InputProps, size, InputLabelProps, disabled, id, inputProps, fullWidth } = params;
+          <TextField
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...params}
+            name={name}
+            required={required}
+            helperText={helperText}
+            inputRef={inputRef}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
+              error: isError,
+              readOnly,
+            }}
+          />
+        )}
+      />
+    </Stack>
   );
 };
 

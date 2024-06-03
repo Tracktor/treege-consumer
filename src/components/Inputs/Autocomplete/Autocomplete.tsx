@@ -1,4 +1,4 @@
-import { Autocomplete as AutocompleteDS, Box, Grid, TextField, Typography } from "@tracktor/design-system";
+import { Autocomplete as AutocompleteDS, Box, Grid, Stack, TextField, Typography } from "@tracktor/design-system";
 import { isObject, useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
@@ -130,104 +130,106 @@ const Autocomplete = (
   }
 
   return (
-    <AutocompleteDS
-      autoComplete
-      includeInputInList
-      filterSelectedOptions
-      ref={ref}
-      getOptionLabel={(option) => {
-        if (IsString(option)) {
-          return option;
-        }
+    <Stack spacing={1.5}>
+      <Typography variant="h5">{label}</Typography>
+      <AutocompleteDS
+        autoComplete
+        includeInputInList
+        filterSelectedOptions
+        ref={ref}
+        getOptionLabel={(option) => {
+          if (IsString(option)) {
+            return option;
+          }
 
-        return isObject(option) && "description" in option && IsString(option?.description) ? option?.description : "";
-      }}
-      filterOptions={(filterOptions) => filterOptions}
-      options={options || []}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleOnBlurChange}
-      onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
-      readOnly={readOnly}
-      renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
-        <TextField
-          fullWidth
-          required={required}
-          name={name}
-          helperText={helperText}
-          disabled={disabled}
-          label={label}
-          inputRef={inputRef}
-          inputProps={inputProps} // eslint-disable-next-line react/jsx-no-duplicate-props
-          InputProps={InputProps}
-          InputLabelProps={{
-            ...InputLabelProps,
-          }}
-        />
-      )}
-      renderOption={({ id, ...props }, option, { index }) => {
-        const matches =
-          (isObject(option) &&
+          return isObject(option) && "description" in option && IsString(option?.description) ? option?.description : "";
+        }}
+        filterOptions={(filterOptions) => filterOptions}
+        options={options || []}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleOnBlurChange}
+        onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
+        readOnly={readOnly}
+        renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
+          <TextField
+            fullWidth
+            required={required}
+            name={name}
+            helperText={helperText}
+            disabled={disabled}
+            inputRef={inputRef}
+            inputProps={inputProps} // eslint-disable-next-line react/jsx-no-duplicate-props
+            InputProps={InputProps}
+            InputLabelProps={{
+              ...InputLabelProps,
+            }}
+          />
+        )}
+        renderOption={({ id, ...props }, option, { index }) => {
+          const matches =
+            (isObject(option) &&
+              "structured_formatting" in option &&
+              isObject(option?.structured_formatting) &&
+              "main_text_matched_substrings" in option.structured_formatting &&
+              isArray(option?.structured_formatting?.main_text_matched_substrings) &&
+              option?.structured_formatting?.main_text_matched_substrings) ||
+            [];
+
+          const mainText =
+            isObject(option) &&
             "structured_formatting" in option &&
-            isObject(option?.structured_formatting) &&
-            "main_text_matched_substrings" in option.structured_formatting &&
-            isArray(option?.structured_formatting?.main_text_matched_substrings) &&
-            option?.structured_formatting?.main_text_matched_substrings) ||
-          [];
+            isObject(option.structured_formatting) &&
+            "main_text" in option.structured_formatting &&
+            IsString(option?.structured_formatting?.main_text) &&
+            option?.structured_formatting?.main_text;
 
-        const mainText =
-          isObject(option) &&
-          "structured_formatting" in option &&
-          isObject(option.structured_formatting) &&
-          "main_text" in option.structured_formatting &&
-          IsString(option?.structured_formatting?.main_text) &&
-          option?.structured_formatting?.main_text;
+          const optionSecondaryText =
+            isObject(option) &&
+            "structured_formatting" in option &&
+            isObject(option.structured_formatting) &&
+            "secondary_text" in option.structured_formatting &&
+            IsString(option.structured_formatting.secondary_text) &&
+            option.structured_formatting.secondary_text;
 
-        const optionSecondaryText =
-          isObject(option) &&
-          "structured_formatting" in option &&
-          isObject(option.structured_formatting) &&
-          "secondary_text" in option.structured_formatting &&
-          IsString(option.structured_formatting.secondary_text) &&
-          option.structured_formatting.secondary_text;
+          const key = `${index}-${String(id)}`;
+          const parts = parse(mainText || "", matches?.map((match: Match) => [match.offset, match.offset + match.length]));
 
-        const key = `${index}-${String(id)}`;
-        const parts = parse(mainText || "", matches?.map((match: Match) => [match.offset, match.offset + match.length]));
+          return (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <li {...props} key={key} id={id}>
+              <Grid container alignItems="center">
+                <Grid item>
+                  <Box sx={{ color: "text.secondary", height: 10, mr: 2, width: 10 }} />
+                </Grid>
+                <Grid item xs>
+                  {parts.map((part, i) => {
+                    const placeId = isObject(option) && "place_id" in option && option.place_id;
+                    const keyId = `${placeId}-${i}`;
 
-        return (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <li {...props} key={key} id={id}>
-            <Grid container alignItems="center">
-              <Grid item>
-                <Box sx={{ color: "text.secondary", height: 10, mr: 2, width: 10 }} />
+                    return (
+                      <Typography
+                        variant="body1"
+                        component="span"
+                        key={keyId}
+                        sx={{
+                          fontWeight: part.highlight ? 700 : 400,
+                        }}
+                      >
+                        {part.text}
+                      </Typography>
+                    );
+                  })}
+                  <Typography variant="body2" color="text.secondary">
+                    {optionSecondaryText}
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs>
-                {parts.map((part, i) => {
-                  const placeId = isObject(option) && "place_id" in option && option.place_id;
-                  const keyId = `${placeId}-${i}`;
-
-                  return (
-                    <Typography
-                      variant="body1"
-                      component="span"
-                      key={keyId}
-                      sx={{
-                        fontWeight: part.highlight ? 700 : 400,
-                      }}
-                    >
-                      {part.text}
-                    </Typography>
-                  );
-                })}
-                <Typography variant="body2" color="text.secondary">
-                  {optionSecondaryText}
-                </Typography>
-              </Grid>
-            </Grid>
-          </li>
-        );
-      }}
-    />
+            </li>
+          );
+        }}
+      />
+    </Stack>
   );
 };
 
