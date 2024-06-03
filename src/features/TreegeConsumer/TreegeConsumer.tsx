@@ -136,7 +136,7 @@ const TreegeConsumer = ({
   const queryClient = new QueryClient();
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={navigator.language}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={navigator.language.slice(0, 2)}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme || themeProvider.palette.mode}>
           {loading ? (
