@@ -3,7 +3,7 @@ import { ChangeEvent, forwardRef, Ref, useState } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 import type TreeNode from "@/types/TreeNode";
 
-export interface BooleanFieldProps {
+export interface SwitchFieldProps {
   data: TreeNode;
   helperText?: string;
   inputRef: Ref<HTMLInputElement>;
@@ -13,8 +13,8 @@ export interface BooleanFieldProps {
   isIgnored?: boolean;
 }
 
-const BooleanField = (
-  { data, inputRef, helperText, readOnly, onChange, value, isIgnored }: BooleanFieldProps,
+const SwitchField = (
+  { data, inputRef, helperText, readOnly, onChange, value, isIgnored }: SwitchFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
   const { attributes, children } = data;
@@ -62,4 +62,4 @@ const BooleanField = (
   );
 };
 
-export default forwardRef(BooleanField);
+export default forwardRef(SwitchField);
