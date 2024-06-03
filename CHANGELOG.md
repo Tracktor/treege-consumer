@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.32.0](https://github.com/Tracktor/treege-consumer/compare/1.31.0...1.32.0) (2024-06-03)
+
+
+### Features
+
+* **revamp:** revamp v0 treege ([6976d69](https://github.com/Tracktor/treege-consumer/commit/6976d696ae80ade3976b0b7b9a880dce1d7fdd1a))
+* **revamp:** up ds ([ba07c47](https://github.com/Tracktor/treege-consumer/commit/ba07c47228ad4464958a681b8fe734323f341117))
+
 ## [1.31.0](https://github.com/Tracktor/treege-consumer/compare/1.30.5...1.31.0) (2024-05-31)
 
 
