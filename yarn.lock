@@ -2064,10 +2064,10 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@tracktor/design-system@^1.56.7":
-  version "1.56.7"
-  resolved "https://registry.yarnpkg.com/@tracktor/design-system/-/design-system-1.56.7.tgz#66f751d73043911bd6c201f4a3cf12e9f9837bf4"
-  integrity sha512-OEfQNeOeR+xpLlnJg+Sa2Bc9jbAFcCbCZyl7odRto2UUwYF55+g6yW0Li1QIPGU2puZ6sNr1yUYU5nixPiuiFA==
+"@tracktor/design-system@^1.56.9":
+  version "1.56.9"
+  resolved "https://registry.yarnpkg.com/@tracktor/design-system/-/design-system-1.56.9.tgz#8afb11badae7a10d4d19fcdb1582978768b484ae"
+  integrity sha512-DUpBch56yPMC8GXDzH7j6KHrEk0vsn7rSaY45LsCd0XLmfv4AvK2jlGJzt7U1fx8wf0FDG+O0qunuYKlQfehmQ==
   dependencies:
     "@emotion/react" "^11.11.4"
     "@emotion/styled" "^11.11.0"
