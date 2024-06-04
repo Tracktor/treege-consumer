@@ -2,13 +2,14 @@ import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import { memo } from "react";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import Autocomplete from "@/components/Inputs/Autocomplete";
-import BooleanField from "@/components/Inputs/BooleanField";
+import CheckBoxField from "@/components/Inputs/CheckBoxField";
 import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
 import DynamicSelect from "@/components/Inputs/DynamicSelect";
 import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
 import Select from "@/components/Inputs/Select";
+import SwitchField from "@/components/Inputs/SwitchField";
 import TextField from "@/components/Inputs/TextField";
 import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
@@ -192,10 +193,20 @@ const FieldFactory = ({
             isIgnored={isFieldIgnored}
           />
         );
-      case "switch":
       case "checkbox":
         return (
-          <BooleanField
+          <CheckBoxField
+            data={data}
+            onChange={handleChangeFormValue}
+            helperText={helperText}
+            value={value}
+            readOnly={readOnly}
+            isIgnored={isFieldIgnored}
+          />
+        );
+      case "switch":
+        return (
+          <SwitchField
             data={data}
             inputRef={inputRef}
             onChange={handleChangeFormValue}
