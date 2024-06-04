@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.33.0](https://github.com/Tracktor/treege-consumer/compare/1.32.2...1.33.0) (2024-06-04)
+
+
+### Features
+
+* **check-box-revamp:** check box revamp ([357cb76](https://github.com/Tracktor/treege-consumer/commit/357cb76a7f85131e56f0112ffc4528f2d9533ec5))
+* new checkbox and file ([6be3fad](https://github.com/Tracktor/treege-consumer/commit/6be3fadb4b42841902328b2d6d2d74eafac4fa16))
+
 ## [1.32.2](https://github.com/Tracktor/treege-consumer/compare/1.32.1...1.32.2) (2024-06-03)
 
 
