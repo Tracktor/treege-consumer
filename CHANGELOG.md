@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.34.0](https://github.com/Tracktor/treege-consumer/compare/1.33.0...1.34.0) (2024-06-05)
+
+
+### Features
+
+* **label-range-picker:** add label to mui pro range picker ([e5c12d5](https://github.com/Tracktor/treege-consumer/commit/e5c12d5817dbf3f818f76bfe37895d60be3a0602))
+
 ## [1.33.0](https://github.com/Tracktor/treege-consumer/compare/1.32.2...1.33.0) (2024-06-04)
 
 
