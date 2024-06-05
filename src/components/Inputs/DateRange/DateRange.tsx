@@ -55,28 +55,30 @@ const DateRange = (
 
   if (licenseMuiX) {
     return (
-      <DateRangePicker
-        disablePast={disablePastDateRangePicker}
-        label={label}
-        readOnly={readOnly}
-        ref={ref}
-        name={`${name}[]`}
-        value={[fromDate, toDate]}
-        onChange={handleChangeDateRangePickerPro}
-        format="ll"
-        localeText={{
-          end: label,
-          start: label,
-        }}
-        slotProps={{
-          textField: () => ({
-            fullWidth: true,
-            helperText,
-            inputRef,
-            required,
-          }),
-        }}
-      />
+      <Stack spacing={1.5}>
+        <Typography variant="h5">{label}</Typography>
+        <DateRangePicker
+          disablePast={disablePastDateRangePicker}
+          readOnly={readOnly}
+          ref={ref}
+          name={`${name}[]`}
+          value={[fromDate, toDate]}
+          onChange={handleChangeDateRangePickerPro}
+          format="ll"
+          localeText={{
+            end: "Fin",
+            start: "Début",
+          }}
+          slotProps={{
+            textField: () => ({
+              fullWidth: true,
+              helperText,
+              inputRef,
+              required,
+            }),
+          }}
+        />
+      </Stack>
     );
   }
 
