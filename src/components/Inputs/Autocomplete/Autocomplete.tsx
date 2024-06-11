@@ -36,9 +36,12 @@ const Autocomplete = (
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=Function.prototype`, {
-    enable: !!googleApiKey || !isIgnored,
-  });
+  const places = useScript(
+    `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&loading=async&libraries=places&callback=Function.prototype`,
+    {
+      enable: !!googleApiKey || !isIgnored,
+    },
+  );
 
   const handleChange = (event: SyntheticEvent<Element, Event>, newValue: unknown | null) => {
     onChange?.({
@@ -146,7 +149,7 @@ const Autocomplete = (
         }}
         filterOptions={(filterOptions) => filterOptions}
         options={options || []}
-        value={value}
+        value={value || null}
         onChange={handleChange}
         onBlur={handleOnBlurChange}
         onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
