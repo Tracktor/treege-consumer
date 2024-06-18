@@ -86,8 +86,12 @@ const Autocomplete = (
     }
 
     let active = true;
-
+    console.log(places);
     if (places === "loading") {
+      return undefined;
+    }
+
+    if (places !== "ready") {
       return undefined;
     }
 
@@ -136,8 +140,6 @@ const Autocomplete = (
     <Stack spacing={1.5}>
       <Typography variant="h5">{label}</Typography>
       <AutocompleteDS
-        autoComplete
-        includeInputInList
         filterSelectedOptions
         ref={ref}
         getOptionLabel={(option) => {
