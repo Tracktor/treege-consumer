@@ -86,12 +86,8 @@ const Autocomplete = (
     }
 
     let active = true;
-    console.log(places);
-    if (places === "loading") {
-      return undefined;
-    }
 
-    if (places !== "ready") {
+    if (places === "loading" || places === "error" || places !== "ready") {
       return undefined;
     }
 
