@@ -1,4 +1,14 @@
-import { Autocomplete, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, Typography, Stack } from "@tracktor/design-system";
+import {
+  Autocomplete,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  TextField,
+  Typography,
+  Stack,
+  InputLabel,
+} from "@tracktor/design-system";
 import { isObject } from "@tracktor/react-utils";
 import { forwardRef, Ref, SyntheticEvent } from "react";
 import ControlledTooltip from "@/components/DataDisplay/ControlledToolTip";
@@ -65,7 +75,9 @@ const DynamicSelect = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5">{label}</Typography>
+      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
+        {label}
+      </Typography>
       <ControlledTooltip parentRef={label} title={name} disabled={disabledChildrenField}>
         <Autocomplete
           readOnly={readOnly}

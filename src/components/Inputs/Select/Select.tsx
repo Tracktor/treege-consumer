@@ -1,4 +1,14 @@
-import { Alert, FormControl, FormHelperText, MenuItem, Select as SelectDS, SelectChangeEvent, Typography } from "@tracktor/design-system";
+import {
+  Alert,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select as SelectDS,
+  SelectChangeEvent,
+  Stack,
+  Typography,
+} from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
 import { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import useInputs from "@/hooks/useInputs";
@@ -53,33 +63,35 @@ const Select = (
   }
 
   return (
-    <FormControl required={required} ref={ref} fullWidth>
-      <Typography variant="h5" mb={1.5}>
+    <Stack spacing={1.5}>
+      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
         {label}
       </Typography>
-      <SelectDS
-        fullWidth
-        value={isString(value) ? value : ""}
-        labelId={`${name}-label`}
-        id={name}
-        name={name}
-        onChange={handleChange}
-        inputRef={inputRef}
-        readOnly={readOnly}
-      >
-        {options?.map((option) => (
-          <MenuItem key={option.key} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </SelectDS>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      {message && (
-        <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
-          {message}
-        </Alert>
-      )}
-    </FormControl>
+      <FormControl required={required} ref={ref} fullWidth>
+        <SelectDS
+          fullWidth
+          value={isString(value) ? value : ""}
+          labelId={`${name}-label`}
+          id={name}
+          name={name}
+          onChange={handleChange}
+          inputRef={inputRef}
+          readOnly={readOnly}
+        >
+          {options?.map((option) => (
+            <MenuItem key={option.key} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </SelectDS>
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {message && (
+          <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
+            {message}
+          </Alert>
+        )}
+      </FormControl>
+    </Stack>
   );
 };
 export default forwardRef(Select);

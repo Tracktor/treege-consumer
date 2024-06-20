@@ -1,4 +1,4 @@
-import { Box, Stack, TextField as TextFieldDS, Typography } from "@tracktor/design-system";
+import { Box, InputLabel, Stack, TextField as TextFieldDS, Typography } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -32,7 +32,9 @@ const TextField = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5">{label}</Typography>
+      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
+        {label}
+      </Typography>
       <TextFieldDS
         fullWidth
         disabled={type === "file" && readOnly}

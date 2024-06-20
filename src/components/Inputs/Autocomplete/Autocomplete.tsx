@@ -1,4 +1,4 @@
-import { Autocomplete as AutocompleteDS, Box, Grid, Stack, TextField, Typography } from "@tracktor/design-system";
+import { Autocomplete as AutocompleteDS, Box, Grid, InputLabel, Stack, TextField, Typography } from "@tracktor/design-system";
 import { isObject, useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
@@ -131,7 +131,9 @@ const Autocomplete = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5">{label}</Typography>
+      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
+        {label}
+      </Typography>
       <AutocompleteDS
         autoComplete
         includeInputInList

@@ -189,6 +189,7 @@ const FieldFactory = ({
             onInit={handleChangeFormValue}
             helperText={helperText}
             readOnly={readOnly}
+            required={isRequired}
             value={value}
             isIgnored={isFieldIgnored}
           />
@@ -202,6 +203,7 @@ const FieldFactory = ({
             value={value}
             readOnly={readOnly}
             isIgnored={isFieldIgnored}
+            required={isRequired}
           />
         );
       case "switch":

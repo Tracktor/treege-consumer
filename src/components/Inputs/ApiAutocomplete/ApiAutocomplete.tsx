@@ -3,6 +3,7 @@ import {
   Autocomplete,
   Avatar,
   CircularProgress,
+  InputLabel,
   ListItem,
   ListItemAvatar,
   ListItemText,
@@ -72,7 +73,9 @@ const ApiAutocomplete = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5">{label}</Typography>
+      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
+        {label}
+      </Typography>
       <Autocomplete
         filterSelectedOptions
         readOnly={readOnly}

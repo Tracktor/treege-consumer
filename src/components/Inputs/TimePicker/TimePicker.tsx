@@ -1,5 +1,5 @@
 import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
-import { Stack, Typography } from "@tracktor/design-system";
+import { InputLabel, Stack, Typography } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
@@ -35,7 +35,9 @@ const TimePicker = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5">{label}</Typography>
+      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
+        {label}
+      </Typography>
       <TimePickerMui
         ampm={false}
         name={name}

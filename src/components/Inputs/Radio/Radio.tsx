@@ -3,6 +3,7 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText,
+  InputLabel,
   Radio as RadioDS,
   RadioGroup,
   Stack,
@@ -60,39 +61,47 @@ const Radio = (
   }
 
   return (
-    <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>
-      <Typography variant="h5" mb={1.5}>
+    <Stack spacing={1.5}>
+      <Typography component={InputLabel} variant="h5" required={required} color="text.primary">
         {label}
       </Typography>
-      <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} value={value} aria-readonly={readOnly}>
-        <Stack spacing={1}>
-          {options?.map((option, index) => (
-            <FormControlLabel
-              key={option.key}
-              value={option.value}
-              label={option.label}
-              variant="card"
-              control={
-                <RadioDS inputRef={inputRef} data-index={index} inputProps={{ tabIndex: index }} readOnly={readOnly} disabled={readOnly} />
-              }
-              sx={{
-                ...(readOnly && {
-                  "& .MuiFormControlLabel-label.Mui-disabled": {
-                    color: "text.primary",
-                  },
-                }),
-              }}
-            />
-          ))}
-        </Stack>
-      </RadioGroup>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      {message && (
-        <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
-          {message}
-        </Alert>
-      )}
-    </FormControl>
+      <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>
+        <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} value={value} aria-readonly={readOnly}>
+          <Stack spacing={1}>
+            {options?.map((option, index) => (
+              <FormControlLabel
+                key={option.key}
+                value={option.value}
+                label={option.label}
+                variant="card"
+                control={
+                  <RadioDS
+                    inputRef={inputRef}
+                    data-index={index}
+                    inputProps={{ tabIndex: index }}
+                    readOnly={readOnly}
+                    disabled={readOnly}
+                  />
+                }
+                sx={{
+                  ...(readOnly && {
+                    "& .MuiFormControlLabel-label.Mui-disabled": {
+                      color: "text.primary",
+                    },
+                  }),
+                }}
+              />
+            ))}
+          </Stack>
+        </RadioGroup>
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {message && (
+          <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
+            {message}
+          </Alert>
+        )}
+      </FormControl>
+    </Stack>
   );
 };
 
