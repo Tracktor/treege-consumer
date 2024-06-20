@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.34.2](https://github.com/Tracktor/treege-consumer/compare/1.34.1...1.34.2) (2024-06-18)
+
+
+### Bug Fixes
+
+* **address-autocomplete:** fix error place autocomplete ([641dd9b](https://github.com/Tracktor/treege-consumer/commit/641dd9b0c998eefda0d91337acc0256520b90959))
+* **address-autocomplete:** fix error place autocomplete ([ef40b57](https://github.com/Tracktor/treege-consumer/commit/ef40b579005ebdb8b5596bfa16f3dcf200a1b028))
+
+## [1.34.1](https://github.com/Tracktor/treege-consumer/compare/1.34.0...1.34.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* **address-autocomplete:** fix warning autocomplete ([4578217](https://github.com/Tracktor/treege-consumer/commit/457821745f1a8fe4293f4b5430d6f82547c69947))
+
+## [1.34.0](https://github.com/Tracktor/treege-consumer/compare/1.33.0...1.34.0) (2024-06-05)
+
+
+### Features
+
+* **label-range-picker:** add label to mui pro range picker ([e5c12d5](https://github.com/Tracktor/treege-consumer/commit/e5c12d5817dbf3f818f76bfe37895d60be3a0602))
+
+## [1.33.0](https://github.com/Tracktor/treege-consumer/compare/1.32.2...1.33.0) (2024-06-04)
+
+
+### Features
+
+* **check-box-revamp:** check box revamp ([357cb76](https://github.com/Tracktor/treege-consumer/commit/357cb76a7f85131e56f0112ffc4528f2d9533ec5))
+* new checkbox and file ([6be3fad](https://github.com/Tracktor/treege-consumer/commit/6be3fadb4b42841902328b2d6d2d74eafac4fa16))
+
 ## [1.32.2](https://github.com/Tracktor/treege-consumer/compare/1.32.1...1.32.2) (2024-06-03)
 
 
