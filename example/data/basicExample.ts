@@ -6,6 +6,7 @@ const basicExample: TreeNode = {
     isLeaf: false,
     label: "À quelle phase de votre projet êtes-vous ?",
     name: "phase",
+    required: true,
     type: "select",
     values: [
       {
