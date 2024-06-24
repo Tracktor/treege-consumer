@@ -91,7 +91,7 @@ const Autocomplete = (
       return undefined;
     }
 
-    if (!autocompleteService.current) {
+    if (!autocompleteService.current && "AutocompleteService" in window.google.maps.places) {
       autocompleteService.current = new window.google.maps.places.AutocompleteService();
     }
 
