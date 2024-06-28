@@ -25,10 +25,7 @@ interface Match {
   length: number;
 }
 
-const Autocomplete = (
-  { value, inputRef, country, readOnly, onChange, node, isIgnored }: AutocompleteProps,
-  ref: Ref<unknown> | undefined,
-) => {
+const Address = ({ value, inputRef, country, readOnly, onChange, node, isIgnored }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
   const { attributes, children } = node;
   const { name, type, label, required, helperText, isLeaf, isDecision } = attributes;
   const { googleApiKey, countryAutocompleteService } = useOptionsContext();
@@ -36,12 +33,10 @@ const Autocomplete = (
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  const places = useScript(
-    `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&loading=async&libraries=places&callback=Function.prototype`,
-    {
-      enable: !!googleApiKey || !isIgnored,
-    },
-  );
+  const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&loading=async&libraries=places`, {
+    enable: !!googleApiKey && !isIgnored,
+    position: "head-end",
+  });
 
   const handleChange = (event: SyntheticEvent<Element, Event>, newValue: unknown | null) => {
     onChange?.({
@@ -87,11 +82,11 @@ const Autocomplete = (
 
     let active = true;
 
-    if (places === "loading" || places === "error" || places !== "ready") {
+    if (places === "loading" || !window?.google || !window.google?.maps || !window.google.maps?.places) {
       return undefined;
     }
 
-    if (!autocompleteService.current && "AutocompleteService" in window.google.maps.places) {
+    if (!autocompleteService.current) {
       autocompleteService.current = new window.google.maps.places.AutocompleteService();
     }
 
@@ -138,15 +133,9 @@ const Autocomplete = (
         {label}
       </Typography>
       <AutocompleteDS
+        freeSolo
         filterSelectedOptions
         ref={ref}
-        getOptionLabel={(option) => {
-          if (IsString(option)) {
-            return option;
-          }
-
-          return isObject(option) && "description" in option && IsString(option?.description) ? option?.description : "";
-        }}
         filterOptions={(filterOptions) => filterOptions}
         options={options || []}
         value={value || null}
@@ -154,6 +143,13 @@ const Autocomplete = (
         onBlur={handleOnBlurChange}
         onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
         readOnly={readOnly}
+        getOptionLabel={(option) => {
+          if (IsString(option)) {
+            return option;
+          }
+
+          return isObject(option) && "description" in option && IsString(option?.description) ? option?.description : "";
+        }}
         renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
           <TextField
             fullWidth
@@ -236,4 +232,4 @@ const Autocomplete = (
   );
 };
 
-export default forwardRef(Autocomplete);
+export default forwardRef(Address);

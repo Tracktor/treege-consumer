@@ -127,7 +127,6 @@ const Sandbox = ({
                 options={{
                   disablePastDatePicker: true,
                   disablePastDateRangePicker: true,
-                  // licenseMuiX: "your-license-key",
                 }}
               />
             </Box>

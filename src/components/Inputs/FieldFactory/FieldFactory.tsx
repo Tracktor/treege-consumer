@@ -1,7 +1,7 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import { memo } from "react";
+import Address from "@/components/Inputs/Address";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
-import Autocomplete from "@/components/Inputs/Autocomplete";
 import CheckBoxField from "@/components/Inputs/CheckBoxField";
 import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
@@ -157,7 +157,7 @@ const FieldFactory = ({
         );
       case "address":
         return (
-          <Autocomplete
+          <Address
             inputRef={inputRef}
             value={value}
             readOnly={readOnly}
