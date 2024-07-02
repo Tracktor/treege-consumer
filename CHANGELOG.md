@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.34.6](https://github.com/Tracktor/treege-consumer/compare/1.34.5...1.34.6) (2024-07-02)
+
+
+### Bug Fixes
+
+* additional param ([25de08f](https://github.com/Tracktor/treege-consumer/commit/25de08fab6db1035b440fce5aa59aa02d45a6bf4))
+
 ## [1.34.5](https://github.com/Tracktor/treege-consumer/compare/1.34.4...1.34.5) (2024-06-28)
 
 
