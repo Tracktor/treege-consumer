@@ -3,7 +3,7 @@ import { Params } from "@/types/TreeNode";
 
 type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
-interface GetSearchParams {
+interface searchResultsFetcherParams {
   url: string;
   searchKey: string;
   searchValue: string;
@@ -22,7 +22,7 @@ interface GetSearchParams {
  * @param localFetch
  */
 const searchResultsFetcher =
-  ({ url, searchKey, searchValue, headers, additionalParams, localFetch }: GetSearchParams) =>
+  ({ url, searchKey, searchValue, headers, additionalParams, localFetch }: searchResultsFetcherParams) =>
   async (signal: AbortSignal) => {
     const searchParams = new URLSearchParams();
 
