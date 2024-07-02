@@ -3,6 +3,15 @@ import { Params } from "@/types/TreeNode";
 
 type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
+interface GetSearchParams {
+  url: string;
+  searchKey: string;
+  searchValue: string;
+  headers?: Headers;
+  additionalParams?: Params[];
+  localFetch?: LocalFetch;
+}
+
 /**
  * Get search value from autocomplete URL and add additional params
  * @param url
@@ -12,12 +21,15 @@ type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
  * @param headers
  * @param localFetch
  */
-const getSearch =
-  (url: string, searchKey: string, value: string, headers?: Headers, additionalParams?: Params[], localFetch?: LocalFetch) =>
+const searchResultsFetcher =
+  ({ url, searchKey, searchValue, headers, additionalParams, localFetch }: GetSearchParams) =>
   async (signal: AbortSignal) => {
     const searchParams = new URLSearchParams();
-    searchParams.append(searchKey, value);
 
+    // Add search value to URL
+    searchParams.append(searchKey, searchValue);
+
+    // Add additional params to URL
     if (additionalParams) {
       for (let i = 0; i < additionalParams.length; i += 1) {
         const param = additionalParams[i];
@@ -25,16 +37,19 @@ const getSearch =
       }
     }
 
-    const fullUrl = `${url}?${searchParams.toString()}`;
+    // Construct final URL
+    const finalUrl = `${url}?${searchParams.toString()}`;
 
+    // Add headers to request
     const requestHeaders: RequestInit = {
       headers: new Headers(headers),
       method: "GET",
     };
 
+    // Fetch data
     const fetchCall = localFetch || fetch;
 
-    const response = await fetchCall(fullUrl, {
+    const response = await fetchCall(finalUrl, {
       ...requestHeaders,
       signal,
     });
@@ -46,4 +61,4 @@ const getSearch =
     return response.json();
   };
 
-export default getSearch;
+export default searchResultsFetcher;

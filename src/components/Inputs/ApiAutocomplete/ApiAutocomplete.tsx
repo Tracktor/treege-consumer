@@ -18,8 +18,8 @@ import ChangeEventField from "@/types/ChangeEventField";
 import Headers from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
-import getSearch from "@/utils/getSearch/getSearch";
 import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";
+import searchResultsFetcher from "@/utils/searchResultsFetcher/searchResultsFetcher";
 
 interface ApiAutocompleteProps {
   inputRef: Ref<unknown>;
@@ -31,21 +31,25 @@ interface ApiAutocompleteProps {
   isIgnored?: boolean;
 }
 
-const ApiAutocomplete = (
-  { node, onChange, readOnly, inputRef, headers, value, isIgnored }: ApiAutocompleteProps,
-  ref: Ref<unknown> | undefined,
-) => {
-  const [searchText, setSearchText] = useState<string>("");
+const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value, isIgnored }: ApiAutocompleteProps, ref?: Ref<unknown>) => {
+  const [searchValue, setSearchValue] = useState("");
   const { attributes, children } = node;
   const { type, name, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
   const { prefixResponseImageUriAutocomplete } = useOptionsContext();
   const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
-  const search = getSearch(route?.url || "", route?.searchKey || "", searchText, headers);
+
+  const search = searchResultsFetcher({
+    additionalParams: route?.params,
+    headers,
+    searchKey: route?.searchKey || "",
+    searchValue,
+    url: route?.url || "",
+  });
 
   const { data, isFetching, isError } = useQuery({
-    enabled: !!searchText || !!initialQuery,
+    enabled: !!searchValue || !!initialQuery,
     queryFn: ({ signal }) => search(signal),
-    queryKey: [name, searchText],
+    queryKey: [name, searchValue],
   });
 
   const options = adaptRouteResponseToOptions(data, route);
@@ -64,7 +68,7 @@ const ApiAutocomplete = (
   };
 
   const handleSearchChange = (_: SyntheticEvent, fieldValue: string) => {
-    setSearchText(fieldValue);
+    setSearchValue(fieldValue);
   };
 
   if (isIgnored) {
