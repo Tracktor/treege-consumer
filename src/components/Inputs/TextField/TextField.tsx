@@ -1,4 +1,4 @@
-import { Box, InputLabel, Stack, TextField as TextFieldDS, Typography } from "@tracktor/design-system";
+import { InputLabel, Stack, TextField as TextFieldDS, Typography } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -37,7 +37,6 @@ const TextField = (
       </Typography>
       <TextFieldDS
         fullWidth
-        disabled={type === "file" && readOnly}
         ref={ref}
         name={name}
         type={type}
@@ -46,22 +45,6 @@ const TextField = (
         required={required}
         value={value}
         inputRef={inputRef}
-        dir={type === "file" ? "column" : undefined}
-        label={
-          type === "file" ? (
-            <Stack textAlign="center">
-              <Box>
-                <Typography color="primary" component="span">
-                  Cliquez pour télécharger
-                </Typography>{" "}
-                <Typography color="text.primary" component="span">
-                  ou glisser-déposer
-                </Typography>
-              </Box>
-              <Typography color="text.secondary">PDF, PNG, JPG, ...</Typography>
-            </Stack>
-          ) : undefined
-        }
         inputProps={{
           multiple,
         }}

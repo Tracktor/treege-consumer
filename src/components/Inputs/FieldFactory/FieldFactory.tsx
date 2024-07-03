@@ -6,6 +6,7 @@ import CheckBoxField from "@/components/Inputs/CheckBoxField";
 import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
 import DynamicSelect from "@/components/Inputs/DynamicSelect";
+import File from "@/components/Inputs/File";
 import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
 import Select from "@/components/Inputs/Select";
@@ -78,7 +79,6 @@ const FieldFactory = ({
   const field = () => {
     switch (type) {
       case "email":
-      case "file":
       case "number":
       case "password":
       case "tel":
@@ -93,6 +93,20 @@ const FieldFactory = ({
             value={value}
             required={isRequired}
             inputRef={inputRef}
+            helperText={helperText}
+            readOnly={readOnly}
+            multiple={isMultiple}
+            isIgnored={isFieldIgnored}
+          />
+        );
+      case "file":
+        return (
+          <File
+            name={name}
+            label={label}
+            onChange={handleChangeFormValue}
+            value={value}
+            required={isRequired}
             helperText={helperText}
             readOnly={readOnly}
             multiple={isMultiple}
