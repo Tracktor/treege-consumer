@@ -33,6 +33,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
   const [firstFieldIndex, setFirstFieldIndex] = useState<number>(0);
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
+
   const requiredFields = fields?.filter((field) => {
     // Check if the field is ignored
     const isIgnored = ignoreFields?.find((fieldName) => fieldName === field.attributes.name);
@@ -41,8 +42,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
 
   const formCanBeSubmit = requiredFields?.every((field) => fieldValues?.[field.attributes.name]);
   const nextStepper = getNextStepper(initialFields);
-  const lastFieldHasNoChildren = !initialFields[initialFields.length - 1]?.children.length && !!tree;
-
+  const lastFieldHasNoChildren = !initialFields[(initialFields?.length || 0) - 1]?.children?.length && !!tree;
   const isStepper = variant === "stepper";
   const isStandard = variant === "standard";
 
@@ -130,7 +130,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
           }
 
           if (isNextFieldIgnored) {
-            if (!nextField?.children.length) {
+            if (!nextField?.children?.length) {
               setIsLastField(true);
             }
             return prevFieldIndex + 2;
@@ -154,7 +154,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
         const hasNextField = fields?.[nextIndex] !== undefined;
         const nextField = fields[activeFieldIndex + 1];
         const isNextFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === nextField?.attributes?.name);
-        const isNextFieldLeaf = !nextField?.children.length;
+        const isNextFieldLeaf = !nextField?.children?.length;
 
         if (isNextFieldIgnored) {
           if (isNextFieldLeaf) {
