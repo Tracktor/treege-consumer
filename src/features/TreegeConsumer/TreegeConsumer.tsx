@@ -9,8 +9,8 @@ import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
 import useTreegeConsumer, { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
 import Headers from "@/types/Headers";
+import { JsonFormValue } from "@/types/JsonFormValue";
 import TreeNode from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 import "dayjs/locale/fr";
 
 dayjs.locale("fr");

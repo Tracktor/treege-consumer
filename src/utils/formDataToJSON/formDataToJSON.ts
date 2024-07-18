@@ -1,13 +1,6 @@
 import { FieldValues, FieldValue } from "@/types/FieldValues";
+import { JsonFormValue } from "@/types/JsonFormValue";
 import TreeNode from "@/types/TreeNode";
-
-export interface JsonFormValue {
-  label?: string;
-  name: string;
-  type?: string;
-  value?: FieldValue;
-  tag?: string;
-}
 
 /**
  * Get the current attributes of the field

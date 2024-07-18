@@ -1,6 +1,6 @@
 import { FieldValues } from "@/types/FieldValues";
+import { JsonFormValue } from "@/types/JsonFormValue";
 import TreeNode from "@/types/TreeNode";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 interface Mock {
   fields: TreeNode[];

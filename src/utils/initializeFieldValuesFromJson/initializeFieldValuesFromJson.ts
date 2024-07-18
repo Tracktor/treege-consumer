@@ -1,6 +1,6 @@
 import { isObject } from "@tracktor/react-utils";
-import type { FieldValues } from "@/types/FieldValues";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
+import { FieldValues } from "@/types/FieldValues";
+import { JsonFormValue } from "@/types/JsonFormValue";
 
 /**
  * Initialize field values from JSON

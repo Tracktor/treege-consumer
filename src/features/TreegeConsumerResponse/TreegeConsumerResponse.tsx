@@ -1,8 +1,8 @@
 import { Checkbox, FormControlLabel, List, ListItem, TextField } from "@tracktor/design-system";
 import { isObject } from "@tracktor/react-utils";
-import type { ReactElement } from "react";
+import { ReactElement } from "react";
+import { JsonFormValue } from "@/types/JsonFormValue";
 import { IsString } from "@/types/TypeGuards";
-import { JsonFormValue } from "@/utils/formDataToJSON/formDataToJSON";
 
 export interface TreegeConsumerResponseProps {
   /**
