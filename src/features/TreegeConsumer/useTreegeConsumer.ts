@@ -20,7 +20,7 @@ export interface OnSubmitReturn {
 export interface useTreegeConsumerParams {
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
   ignoreFields?: string[];
-  tree?: TreeNode;
+  tree?: TreeNode | null;
   variant: TreegeConsumerProps["variant"];
   initialValues?: JsonFormValue[];
   debug?: boolean;

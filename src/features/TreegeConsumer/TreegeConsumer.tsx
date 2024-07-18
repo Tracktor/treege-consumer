@@ -19,7 +19,7 @@ export interface TreegeConsumerProps {
   /**
    * Tree data from treege
    */
-  tree?: TreeNode;
+  tree?: TreeNode | null;
   /**
    * Loading state
    */

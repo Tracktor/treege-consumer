@@ -13,7 +13,7 @@ export interface TreegeConsumerResponseProps {
   /**
    * Json form value
    */
-  values: JsonFormValue[];
+  values?: JsonFormValue[] | null;
   /**
    * Array of field name that we want to ignore
    */
@@ -34,7 +34,7 @@ const checkValue = (value: unknown) => {
 
 const TreegeConsumerResponse = ({ values, renderInputs, ignoreFields }: TreegeConsumerResponseProps) => {
   const isCustomRenderInput = values && renderInputs;
-  const enableValues = values.filter((value) => !ignoreFields?.find((name) => name === value.name));
+  const enableValues = values?.filter((value) => !ignoreFields?.find((name) => name === value.name));
 
   if (isCustomRenderInput) {
     return enableValues?.map((value) => renderInputs(value));
@@ -42,7 +42,7 @@ const TreegeConsumerResponse = ({ values, renderInputs, ignoreFields }: TreegeCo
 
   return (
     <List>
-      {enableValues.map(({ label, value, type }, index) => {
+      {enableValues?.map(({ label, value, type }, index) => {
         const key = `${index}-${label}-${value}`;
         const responseValue = checkValue(value);
         const isBooleanField = ["switch", "checkbox"]?.includes(type || "");
