@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.34.10](https://github.com/Tracktor/treege-consumer/compare/1.34.9...1.34.10) (2024-07-18)
+
+
+### Bug Fixes
+
+* export JsonFormValue ([d3497ec](https://github.com/Tracktor/treege-consumer/commit/d3497ec8a295f215b316b2dedb8cf6802872f680))
+* type export ([eff339a](https://github.com/Tracktor/treege-consumer/commit/eff339abb2d1fe90b00b04c8ca5937db5a79a7c0))
+
 ## [1.34.9](https://github.com/Tracktor/treege-consumer/compare/1.34.8...1.34.9) (2024-07-18)
 
 
