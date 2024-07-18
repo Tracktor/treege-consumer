@@ -1,4 +1,4 @@
-import type TreeNode from "@/types/TreeNode";
+import TreeNode from "@/types/TreeNode";
 
 const getNextStepper = (restArray?: TreeNode[]) => {
   let stepper = 0;

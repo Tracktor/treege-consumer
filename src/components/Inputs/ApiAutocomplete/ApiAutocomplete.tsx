@@ -15,7 +15,7 @@ import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
-import Headers from "@/types/Headers";
+import { Headers } from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";

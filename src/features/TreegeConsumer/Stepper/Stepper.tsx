@@ -7,7 +7,7 @@ import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateN
 import FieldFactory from "@/components/Inputs/FieldFactory";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
-import Headers from "@/types/Headers";
+import { Headers } from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
 
 interface StepperProps {

@@ -1,9 +1,10 @@
 import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useMemo, useState } from "react";
-import type { TreegeConsumerProps } from "@/features/TreegeConsumer";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { JsonFormValue } from "@/types/JsonFormValue";
-import type TreeNode from "@/types/TreeNode";
+import { OnSubmitReturn } from "@/types/OnSubmitReturn";
+import TreeNode from "@/types/TreeNode";
 import formDataToJSON from "@/utils/formDataToJSON/formDataToJSON";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
@@ -11,12 +12,6 @@ import getNextStepper from "@/utils/getNextStepper";
 import initializeFieldValuesFromJson from "@/utils/initializeFieldValuesFromJson/initializeFieldValuesFromJson";
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
-
-export interface OnSubmitReturn {
-  data: JsonFormValue[];
-  formData: [string, FormDataEntryValue][];
-  fieldValues: FieldValues;
-}
 
 export interface useTreegeConsumerParams {
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;

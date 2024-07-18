@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { FieldValues } from "@/types/FieldValues";
-import Headers from "@/types/Headers";
+import { Headers } from "@/types/Headers";
 import { Route } from "@/types/TreeNode";
 import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 

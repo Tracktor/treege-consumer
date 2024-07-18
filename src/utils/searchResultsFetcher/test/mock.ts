@@ -1,4 +1,4 @@
-import type Headers from "@/types/Headers";
+import { Headers } from "@/types/Headers";
 import { Params } from "@/types/TreeNode";
 
 interface Mock {

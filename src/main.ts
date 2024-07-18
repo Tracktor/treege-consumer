@@ -11,3 +11,4 @@ export * from "@/context/TreegeConsumerProvider";
 // Types
 export * from "@/types/TreeNode";
 export * from "@/types/JsonFormValue";
+export * from "@/types/OnSubmitReturn";

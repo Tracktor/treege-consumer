@@ -1,7 +1,7 @@
 import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useState } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
-import type TreeNode from "@/types/TreeNode";
+import TreeNode from "@/types/TreeNode";
 
 export interface SwitchFieldProps {
   data: TreeNode;

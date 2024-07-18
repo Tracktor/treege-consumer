@@ -11,7 +11,7 @@ import {
 } from "@tracktor/design-system";
 import { forwardRef, Ref, useState } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
-import type TreeNode from "@/types/TreeNode";
+import TreeNode from "@/types/TreeNode";
 
 export interface CheckBoxFieldProps {
   data: TreeNode;

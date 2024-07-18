@@ -17,9 +17,9 @@ import {
 } from "@tracktor/design-system";
 import { ChangeEvent, MouseEvent, ReactNode, SyntheticEvent, useState } from "react";
 import TreegeConsumer from "@/features/TreegeConsumer";
-import { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
-import Headers from "@/types/Headers";
-import type TreeNode from "@/types/TreeNode";
+import { Headers } from "@/types/Headers";
+import { OnSubmitReturn } from "@/types/OnSubmitReturn";
+import TreeNode from "@/types/TreeNode";
 
 interface SandboxProps {
   tree: TreeNode;

@@ -1,3 +1,3 @@
-export default interface Headers {
+export interface Headers {
   [key: string]: string;
 }

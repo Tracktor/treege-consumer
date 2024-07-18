@@ -16,8 +16,8 @@ import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
-import Headers from "@/types/Headers";
-import type TreeNode from "@/types/TreeNode";
+import { Headers } from "@/types/Headers";
+import TreeNode from "@/types/TreeNode";
 
 export interface FielFactoryProps {
   fieldValues?: FieldValues;

@@ -15,7 +15,7 @@ import ControlledTooltip from "@/components/DataDisplay/ControlledToolTip";
 import useDynamicSelect from "@/components/Inputs/DynamicSelect/useDynamicSelect";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
-import Headers from "@/types/Headers";
+import { Headers } from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
 import { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";

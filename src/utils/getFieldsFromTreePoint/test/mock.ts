@@ -1,4 +1,4 @@
-import type TreeNode from "@/types/TreeNode";
+import TreeNode from "@/types/TreeNode";
 
 type Mock = { tree: TreeNode; output: TreeNode[] };
 

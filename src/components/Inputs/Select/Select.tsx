@@ -13,7 +13,7 @@ import { isString } from "@tracktor/react-utils";
 import { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
-import type TreeNode from "@/types/TreeNode";
+import TreeNode from "@/types/TreeNode";
 
 export interface SelectProps {
   data: TreeNode;

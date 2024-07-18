@@ -1,4 +1,4 @@
-import type Headers from "@/types/Headers";
+import { Headers as HeaderType } from "@/types/Headers";
 import { Params } from "@/types/TreeNode";
 
 type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
@@ -7,7 +7,7 @@ interface searchResultsFetcherParams {
   url: string;
   searchKey: string;
   searchValue: string;
-  headers?: Headers;
+  headers?: HeaderType;
   additionalParams?: Params[];
   localFetch?: LocalFetch;
 }

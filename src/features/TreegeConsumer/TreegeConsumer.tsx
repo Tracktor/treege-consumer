@@ -7,9 +7,10 @@ import { CSSProperties } from "react";
 import OptionsProvider from "@/context/OptionsContext";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
-import useTreegeConsumer, { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
-import Headers from "@/types/Headers";
+import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
+import { Headers } from "@/types/Headers";
 import { JsonFormValue } from "@/types/JsonFormValue";
+import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import TreeNode from "@/types/TreeNode";
 import "dayjs/locale/fr";
 

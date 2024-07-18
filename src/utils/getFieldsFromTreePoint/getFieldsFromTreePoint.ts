@@ -1,4 +1,4 @@
-import type TreeNode from "@/types/TreeNode";
+import TreeNode from "@/types/TreeNode";
 
 interface GetFieldsFormTreePointParams {
   currentTree?: TreeNode | null;

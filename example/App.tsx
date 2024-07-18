@@ -3,8 +3,8 @@ import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
-import { OnSubmitReturn } from "@/features/TreegeConsumer/useTreegeConsumer";
-import type TreeNode from "@/types/TreeNode";
+import { OnSubmitReturn } from "@/types/OnSubmitReturn";
+import TreeNode from "@/types/TreeNode";
 
 const App = () => {
   const [tree, setTree] = useState<TreeNode>(basicExample);
