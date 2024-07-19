@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
@@ -10,6 +10,7 @@ import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
 import getNextStepper from "@/utils/getNextStepper";
 import initializeFieldValuesFromJson from "@/utils/initializeFieldValuesFromJson/initializeFieldValuesFromJson";
+import isDeepEqual from "@/utils/isDeepEqual";
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
 
@@ -29,6 +30,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
   const [firstFieldIndex, setFirstFieldIndex] = useState<number>(0);
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
+  const initialValuesRef = useRef<JsonFormValue[]>();
 
   const requiredFields = fields?.filter((field) => {
     // Check if the field is ignored
@@ -205,10 +207,16 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
     });
   };
 
+  // Initialize initial Values
+  // Deep compare to avoid reinitialize form value when the initialValues change
   useEffect(() => {
-    const formatted = initializeFieldValuesFromJson(initialValues);
-    if (formatted) {
-      setFieldValues(formatted);
+    if (!isDeepEqual(initialValuesRef.current, initialValues)) {
+      initialValuesRef.current = initialValues;
+
+      const formatted = initializeFieldValuesFromJson(initialValuesRef.current);
+      if (formatted) {
+        setFieldValues(formatted);
+      }
     }
   }, [initialValues]);
 
