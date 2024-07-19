@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.34.11](https://github.com/Tracktor/treege-consumer/compare/1.34.10...1.34.11) (2024-07-19)
+
+
+### Bug Fixes
+
+* initialValues value reset ([6572939](https://github.com/Tracktor/treege-consumer/commit/6572939857ad527ec8cbaad9e0a99670f87f359f))
+
 ## [1.34.10](https://github.com/Tracktor/treege-consumer/compare/1.34.9...1.34.10) (2024-07-18)
 
 
