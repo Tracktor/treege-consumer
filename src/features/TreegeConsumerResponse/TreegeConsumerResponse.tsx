@@ -1,8 +1,7 @@
 import { Checkbox, FormControlLabel, List, ListItem, TextField } from "@tracktor/design-system";
-import { isObject } from "@tracktor/react-utils";
+import { isObject, isString } from "@tracktor/react-utils";
 import { ReactElement } from "react";
 import { JsonFormValue } from "@/types/JsonFormValue";
-import { IsString } from "@/types/TypeGuards";
 
 export interface TreegeConsumerResponseProps {
   /**
@@ -21,11 +20,11 @@ export interface TreegeConsumerResponseProps {
 }
 
 const checkValue = (value: unknown) => {
-  if (IsString(value)) {
+  if (isString(value)) {
     return value;
   }
 
-  if (isObject(value) && "label" in value && IsString(value?.label)) {
+  if (isObject(value) && "label" in value && isString(value?.label)) {
     return value.label;
   }
 

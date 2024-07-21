@@ -10,17 +10,17 @@ import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
 import getNextStepper from "@/utils/getNextStepper";
 import initializeFieldValuesFromJson from "@/utils/initializeFieldValuesFromJson/initializeFieldValuesFromJson";
-import isDeepEqual from "@/utils/isDeepEqual";
+import isDeepEqualObject from "@/utils/isDeepEqualObject";
 
 const FIELD_MESSAGE_TYPES = ["select", "radio", "switch", "checkbox"];
 
 export interface useTreegeConsumerParams {
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
   ignoreFields?: string[];
-  tree?: TreeNode | null;
-  variant: TreegeConsumerProps["variant"];
-  initialValues?: JsonFormValue[];
-  debug?: boolean;
+  tree?: TreegeConsumerProps["tree"];
+  variant?: TreegeConsumerProps["variant"];
+  initialValues?: TreegeConsumerProps["initialValues"];
+  debug?: TreegeConsumerProps["debug"];
 }
 
 const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, ignoreFields }: useTreegeConsumerParams) => {
@@ -208,15 +208,18 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
   };
 
   // Initialize initial Values
-  // Deep compare to avoid reinitialize form value when the initialValues change
   useEffect(() => {
-    if (!isDeepEqual(initialValuesRef.current, initialValues)) {
-      initialValuesRef.current = initialValues;
+    // Deep compare to avoid reinitialize, because react use shallow compare to compare object
+    if (isDeepEqualObject(initialValuesRef.current, initialValues)) {
+      return;
+    }
 
-      const formatted = initializeFieldValuesFromJson(initialValuesRef.current);
-      if (formatted) {
-        setFieldValues(formatted);
-      }
+    initialValuesRef.current = initialValues;
+
+    const formatted = initializeFieldValuesFromJson(initialValuesRef.current);
+
+    if (formatted) {
+      setFieldValues(formatted);
     }
   }, [initialValues]);
 

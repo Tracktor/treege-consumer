@@ -11,16 +11,16 @@ import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import { Headers } from "@/types/Headers";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
-import TreeNode from "@/types/TreeNode";
 import "dayjs/locale/fr";
+import TreeNode from "@/types/TreeNode";
 
 dayjs.locale("fr");
 
-export interface TreegeConsumerProps {
+export interface TreegeConsumerProps<T = unknown> {
   /**
    * Tree data from treege
    */
-  tree?: TreeNode | null;
+  tree?: T | TreeNode | null;
   /**
    * Loading state
    */
@@ -101,7 +101,7 @@ export interface TreegeConsumerProps {
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
 }
 
-const TreegeConsumer = ({
+const TreegeConsumer = <T,>({
   tree,
   onSubmit,
   options,
@@ -115,7 +115,7 @@ const TreegeConsumer = ({
   ignoreFields,
   debug,
   variant = "standard",
-}: TreegeConsumerProps) => {
+}: TreegeConsumerProps<T>) => {
   const {
     activeFieldIndex,
     fields,

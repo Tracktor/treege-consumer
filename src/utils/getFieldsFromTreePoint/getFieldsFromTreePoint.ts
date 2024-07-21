@@ -1,7 +1,8 @@
 import TreeNode from "@/types/TreeNode";
+import { isTreeNode } from "@/types/TypeGuards";
 
-interface GetFieldsFormTreePointParams {
-  currentTree?: TreeNode | null;
+interface GetFieldsFormTreePointParams<T = unknown> {
+  currentTree?: T | TreeNode | null;
   fieldArrayAcc?: TreeNode[];
   restTreeAcc?: TreeNode["childrenTreeRest"];
   treePath?: string;
@@ -13,12 +14,12 @@ const getFieldsFromTreePoint = ({
   restTreeAcc = [],
   treePath,
 }: GetFieldsFormTreePointParams): TreeNode[] => {
-  let fieldArray = [...fieldArrayAcc];
-  let restTreeArray = [...restTreeAcc];
-
-  if (!currentTree) {
+  if (!currentTree || !isTreeNode(currentTree)) {
     return [];
   }
+
+  let fieldArray: TreeNode[] = [...fieldArrayAcc];
+  let restTreeArray: TreeNode["childrenTreeRest"] = [...restTreeAcc];
 
   if (!currentTree.attributes?.tree) {
     fieldArray = [
@@ -69,7 +70,7 @@ const getFieldsFromTreePoint = ({
     });
   }
 
-  // on Decision => fonction stopped and return current array field with childrenRestTree if exist
+  // on Decision => function stopped and return current array field with childrenRestTree if exist
   return fieldArray;
 };
 

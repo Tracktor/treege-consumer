@@ -1,12 +1,11 @@
 import { Autocomplete as AutocompleteDS, Box, Grid, InputLabel, Stack, TextField, Typography } from "@tracktor/design-system";
-import { isObject, useScript } from "@tracktor/react-utils";
+import { isObject, isString, useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import TreeNode from "@/types/TreeNode";
-import { IsString } from "@/types/TypeGuards";
 
 type AutocompleteService = google.maps.places.AutocompleteService;
 
@@ -49,7 +48,7 @@ const Address = ({ value, inputRef, country, readOnly, onChange, node, isIgnored
       value: newValue,
     });
 
-    if (IsString(newValue)) return;
+    if (isString(newValue)) return;
     setOptions(newValue ? [newValue, ...options] : options);
   };
 
@@ -144,11 +143,11 @@ const Address = ({ value, inputRef, country, readOnly, onChange, node, isIgnored
         onInputChange={(_, newInputValue) => setSearchText(newInputValue)}
         readOnly={readOnly}
         getOptionLabel={(option) => {
-          if (IsString(option)) {
+          if (isString(option)) {
             return option;
           }
 
-          return isObject(option) && "description" in option && IsString(option?.description) ? option?.description : "";
+          return isObject(option) && "description" in option && isString(option?.description) ? option?.description : "";
         }}
         renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
           <TextField
@@ -180,7 +179,7 @@ const Address = ({ value, inputRef, country, readOnly, onChange, node, isIgnored
             "structured_formatting" in option &&
             isObject(option.structured_formatting) &&
             "main_text" in option.structured_formatting &&
-            IsString(option?.structured_formatting?.main_text) &&
+            isString(option?.structured_formatting?.main_text) &&
             option?.structured_formatting?.main_text;
 
           const optionSecondaryText =
@@ -188,7 +187,7 @@ const Address = ({ value, inputRef, country, readOnly, onChange, node, isIgnored
             "structured_formatting" in option &&
             isObject(option.structured_formatting) &&
             "secondary_text" in option.structured_formatting &&
-            IsString(option.structured_formatting.secondary_text) &&
+            isString(option.structured_formatting.secondary_text) &&
             option.structured_formatting.secondary_text;
 
           const key = `${index}-${String(id)}`;
