@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.34.14](https://github.com/Tracktor/treege-consumer/compare/1.34.13...1.34.14) (2024-07-23)
+
+
+### Bug Fixes
+
+* name DateRangePicker ([c04e4d6](https://github.com/Tracktor/treege-consumer/commit/c04e4d6790086798d702117e5e975f45cefe5a65))
+
 ## [1.34.13](https://github.com/Tracktor/treege-consumer/compare/1.34.12...1.34.13) (2024-07-23)
 
 ## [1.34.12](https://github.com/Tracktor/treege-consumer/compare/1.34.11...1.34.12) (2024-07-21)
