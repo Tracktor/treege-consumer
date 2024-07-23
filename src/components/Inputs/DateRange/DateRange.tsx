@@ -74,6 +74,7 @@ const DateRange = (
               fullWidth: true,
               helperText,
               inputRef,
+              name: `${name}[]`,
               required,
             }),
           }}
