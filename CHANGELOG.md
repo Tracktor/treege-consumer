@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.35.0](https://github.com/Tracktor/treege-consumer/compare/1.34.14...1.35.0) (2024-08-06)
+
+
+### Features
+
+* add collapse props for TreegeConsumerResponse ([33afbbe](https://github.com/Tracktor/treege-consumer/commit/33afbbe0ccb61ecf82884fa2772a807b45b1ff7a))
+
 ## [1.34.14](https://github.com/Tracktor/treege-consumer/compare/1.34.13...1.34.14) (2024-07-23)
 
 
