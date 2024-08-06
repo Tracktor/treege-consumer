@@ -4,10 +4,26 @@ import { ReactElement } from "react";
 import { JsonFormValue } from "@/types/JsonFormValue";
 
 export interface TreegeConsumerResponseProps {
+  /**
+   * Render custom render input value ()
+   * <TreegeConsumer renderInput={(input) => <CustomInput input={input} />} />
+   */
   renderInputs?(input: JsonFormValue): ReactElement | undefined;
+  /**
+   * Json form value
+   */
   values?: JsonFormValue[] | null;
+  /**
+   * Array of field name that we want to ignore
+   */
   ignoreFields?: string[];
+  /**
+   * Enable collapse or not
+   */
   collapse?: boolean;
+  /**
+   * Number of visible item before collapse
+   */
   collapseVisibleItemNumber?: number;
 }
 
