@@ -35,6 +35,7 @@ export interface TreeNode {
         isLeaf?: boolean;
         isRoot?: never;
         label: string;
+        isDisabledPast?: boolean;
         helperText?: string;
         messages?: never;
         required?: never;
@@ -59,6 +60,7 @@ export interface TreeNode {
         isDecision?: boolean;
         isLeaf?: boolean;
         isRoot?: boolean;
+        isDisabledPast?: boolean;
         label?: string;
         helperText?: string;
         messages?: { on?: string; off?: string };
@@ -102,6 +104,7 @@ export interface TreeNodeField {
   values?: TreeValues[];
   message?: never;
   tree?: TreeNode;
+  isDisabledPast?: boolean;
   treePath?: string;
   hiddenValue?: string;
   defaultValue?: unknown;
