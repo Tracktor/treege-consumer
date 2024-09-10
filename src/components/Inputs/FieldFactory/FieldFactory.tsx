@@ -59,7 +59,7 @@ const FieldFactory = ({
   visible = true,
 }: FielFactoryProps) => {
   const { attributes } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, name } = attributes;
+  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
@@ -160,6 +160,7 @@ const FieldFactory = ({
           <DateRange
             name={name}
             label={label}
+            isDisabledPast={!!isDisabledPast}
             onChange={handleChangeFormValue}
             required={isRequired}
             inputRef={inputRef}
