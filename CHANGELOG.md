@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.36.0](https://github.com/Tracktor/treege-consumer/compare/1.35.1...1.36.0) (2024-09-10)
+
+
+### Features
+
+* **range-option:** changelog ([f5809bf](https://github.com/Tracktor/treege-consumer/commit/f5809bf38e6fc4ee1b7154c649ab06da27b9ef04))
+* **range-option:** changelog revert ([98db461](https://github.com/Tracktor/treege-consumer/commit/98db461dee6d281ea481093ef2e21f295cf64bdc))
+* **range-option:** customized disabled past date range ([8c1d207](https://github.com/Tracktor/treege-consumer/commit/8c1d207542955e9b0cea6b5cf0fef93e47616c2e))
+
 ## [1.35.1](https://github.com/Tracktor/treege-consumer/compare/1.35.0...1.35.1) (2024-08-06)
 
 ## [1.35.0](https://github.com/Tracktor/treege-consumer/compare/1.34.14...1.35.0) (2024-08-06)
