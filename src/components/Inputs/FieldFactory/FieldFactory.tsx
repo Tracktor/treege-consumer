@@ -1,4 +1,4 @@
-import { Box, Skeleton, Slide } from "@tracktor/design-system";
+import { Box, Divider, Skeleton, Slide, Typography } from "@tracktor/design-system";
 import { memo } from "react";
 import Address from "@/components/Inputs/Address";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
@@ -257,6 +257,13 @@ const FieldFactory = ({
             inputRef={inputRef}
             isIgnored={isFieldIgnored}
           />
+        );
+      case "title":
+        return (
+          <>
+            <Divider sx={{ mb: 8 }} />
+            <Typography variant="h3">{data.attributes.label}</Typography>
+          </>
         );
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
