@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.37.0](https://github.com/Tracktor/treege-consumer/compare/1.36.0...1.37.0) (2024-09-13)
+
+
+### Features
+
+* add title field ([d2ee692](https://github.com/Tracktor/treege-consumer/commit/d2ee692a5c9aa602a9d265784c80b82404368c92))
+
 ## [1.36.0](https://github.com/Tracktor/treege-consumer/compare/1.35.1...1.36.0) (2024-09-10)
 
 
