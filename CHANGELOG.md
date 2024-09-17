@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.37.2](https://github.com/Tracktor/treege-consumer/compare/1.37.1...1.37.2) (2024-09-17)
+
+
+### Bug Fixes
+
+* spacing form field ([3576e67](https://github.com/Tracktor/treege-consumer/commit/3576e679231ed6c0b0266cded4776094530727ba))
+
 ## [1.37.1](https://github.com/Tracktor/treege-consumer/compare/1.37.0...1.37.1) (2024-09-17)
 
 
