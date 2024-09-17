@@ -1,4 +1,4 @@
-import { Box, Divider, Skeleton, Slide, Typography } from "@tracktor/design-system";
+import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import { memo } from "react";
 import Address from "@/components/Inputs/Address";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
@@ -14,6 +14,7 @@ import SwitchField from "@/components/Inputs/SwitchField";
 import TextField from "@/components/Inputs/TextField";
 import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
+import Title from "@/components/Inputs/Title";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { Headers } from "@/types/Headers";
@@ -59,7 +60,7 @@ const FieldFactory = ({
   visible = true,
 }: FielFactoryProps) => {
   const { attributes } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name } = attributes;
+  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, isRoot } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
@@ -105,7 +106,6 @@ const FieldFactory = ({
             name={name}
             label={label}
             onChange={handleChangeFormValue}
-            value={value}
             required={isRequired}
             helperText={helperText}
             readOnly={readOnly}
@@ -259,12 +259,7 @@ const FieldFactory = ({
           />
         );
       case "title":
-        return (
-          <>
-            <Divider sx={{ mb: 8 }} />
-            <Typography variant="h3">{data.attributes.label}</Typography>
-          </>
-        );
+        return <Title label={label} isRoot={isRoot} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
