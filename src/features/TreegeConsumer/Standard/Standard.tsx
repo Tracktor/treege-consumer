@@ -36,7 +36,7 @@ const Standard = ({
   ignoreFields,
 }: StandardProps) => (
   <Box onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style}>
-    <Stack spacing={5} direction="column">
+    <Stack spacing={4} direction="column">
       {fields ? (
         fields.map((field) => (
           <FieldFactory

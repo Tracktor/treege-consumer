@@ -7,7 +7,7 @@ interface TitleProps {
 
 const Title = ({ label, isRoot }: TitleProps) => (
   <>
-    {!isRoot && <Divider sx={{ mb: 8 }} />}
+    {!isRoot && <Divider sx={{ mb: 10 }} />}
     <Typography variant="h3">{label}</Typography>
   </>
 );
