@@ -2,14 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## [1.38.0](https://github.com/Tracktor/treege-consumer/compare/1.37.2...1.38.0) (2024-09-18)
-
-### Features
-
-* Add Boolean props to disable submit button ([d6e9ff5](https://github.com/Tracktor/treege-consumer/commit/d6e9ff593bd27a899a8d4059366ec5d1e0a4cacf))
-
-
 ## [1.37.2](https://github.com/Tracktor/treege-consumer/compare/1.37.1...1.37.2) (2024-09-17)
+
 
 ### Bug Fixes
 

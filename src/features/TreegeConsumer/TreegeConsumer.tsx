@@ -101,7 +101,6 @@ export interface TreegeConsumerProps<T = unknown> {
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
   /**
    * Boolean to disable submit button
-   * @default false
    */
   disabledSubmitButton?: boolean;
 }
@@ -119,7 +118,7 @@ const TreegeConsumer = <T,>({
   initialValues,
   ignoreFields,
   debug,
-  disabledSubmitButton = false,
+  disabledSubmitButton,
   variant = "standard",
 }: TreegeConsumerProps<T>) => {
   const {
@@ -166,7 +165,7 @@ const TreegeConsumer = <T,>({
                   handleChangeFormValue={handleChangeFormValue}
                   handlePrev={handlePrev}
                   handleSubmit={handleSubmit}
-                  formCanBeSubmit={formCanBeSubmit || disabledSubmitButton}
+                  formCanBeSubmit={formCanBeSubmit || !!disabledSubmitButton}
                 />
               ) : (
                 <Standard
@@ -179,7 +178,7 @@ const TreegeConsumer = <T,>({
                   fieldValues={fieldValues}
                   isLoadingFormValidation={isLoadingFormValidation}
                   style={style}
-                  formCanBeSubmit={formCanBeSubmit || disabledSubmitButton}
+                  formCanBeSubmit={formCanBeSubmit || !!disabledSubmitButton}
                   ignoreFields={ignoreFields}
                 />
               )}
