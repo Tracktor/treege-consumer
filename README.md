@@ -120,6 +120,8 @@ Render values from form based on [Treege](https://github.com/Tracktor/treege)
 | ignoreFields              | string[]                                                                                                                                    | undefined | false    | Ignored fiels to render                                                |
 | collapse                  | boolean                                                                                                                                     | undefined | false    | Enable collapse or note                                                |
 | collapseVisibleItemNumber | number                                                                                                                                      | 4         | false    | Number of visible item before collapse. Works only if collapse is true |
+| disabledSubmitButton      | boolean                                                                                                                                     | false     | false    | Boolean to disable submit button                                       |
+
 
 
 ## Provider
