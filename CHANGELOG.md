@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### Features
 
-* Add Boolean props to disable submit button ([d2ee692](https://github.com/Tracktor/treege-consumer/commit/d2ee692a5c9aa602a9d265784c80b82404368c92))
+* Add Boolean props to disable submit button ([d6e9ff5](https://github.com/Tracktor/treege-consumer/commit/d6e9ff593bd27a899a8d4059366ec5d1e0a4cacf))
 
 
 ## [1.37.2](https://github.com/Tracktor/treege-consumer/compare/1.37.1...1.37.2) (2024-09-17)
