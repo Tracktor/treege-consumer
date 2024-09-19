@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.38.0](https://github.com/Tracktor/treege-consumer/compare/1.37.2...1.38.0) (2024-09-18)
+
+
+### Features
+
+* **disable-submit-button:** commit id ([8b46d75](https://github.com/Tracktor/treege-consumer/commit/8b46d75277209cf06b0b353332556364b2267c31))
+* **disable-submit-button:** disable submit button ([d6e9ff5](https://github.com/Tracktor/treege-consumer/commit/d6e9ff593bd27a899a8d4059366ec5d1e0a4cacf))
+* **disable-submit-button:** README Update ([81757ec](https://github.com/Tracktor/treege-consumer/commit/81757ec2f8172537fe6f44f0fba6c724940b4446))
+* **disable-submit-button:** README Update ([999c139](https://github.com/Tracktor/treege-consumer/commit/999c139ee4253a03c115a5a80d923d5f47e42a5d))
+
+## [1.37.2](https://github.com/Tracktor/treege-consumer/compare/1.37.1...1.37.2) (2024-09-17)
+
+
+### Bug Fixes
+
+* spacing form field ([3576e67](https://github.com/Tracktor/treege-consumer/commit/3576e679231ed6c0b0266cded4776094530727ba))
+
 ## [1.37.1](https://github.com/Tracktor/treege-consumer/compare/1.37.0...1.37.1) (2024-09-17)
 
 
