@@ -59,6 +59,7 @@ const Stepper = ({
 
           return (
             <FieldFactory
+              disableDivider
               key={field.uuid}
               data={field}
               handleChangeFormValue={handleChangeFormValue}

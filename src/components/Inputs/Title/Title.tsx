@@ -2,12 +2,12 @@ import { Divider, Typography } from "@tracktor/design-system";
 
 interface TitleProps {
   label?: string;
-  isRoot?: boolean;
+  disableDivider?: boolean;
 }
 
-const Title = ({ label, isRoot }: TitleProps) => (
+const Title = ({ label, disableDivider }: TitleProps) => (
   <>
-    {!isRoot && <Divider sx={{ mb: 10 }} />}
+    {!disableDivider && <Divider sx={{ mb: 10 }} />}
     <Typography variant="h3">{label}</Typography>
   </>
 );

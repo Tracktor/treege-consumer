@@ -29,6 +29,7 @@ export interface FielFactoryProps {
   readOnly?: boolean;
   headers?: Headers;
   isLoadingFormValidation?: boolean;
+  disableDivider?: boolean;
   ignoreFields?: string[];
   handleChangeFormValue?(dataAttribute?: ChangeEventField): void;
 }
@@ -56,11 +57,12 @@ const FieldFactory = ({
   fieldValues,
   isLoadingFormValidation,
   ignoreFields,
+  disableDivider,
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
   const { attributes } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, isRoot } = attributes;
+  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
@@ -259,7 +261,7 @@ const FieldFactory = ({
           />
         );
       case "title":
-        return <Title label={label} isRoot={isRoot} />;
+        return <Title label={label} disableDivider={disableDivider} />;
       default:
         return <Skeleton variant="rounded" width="100%" height={56} animation={false} />;
     }
