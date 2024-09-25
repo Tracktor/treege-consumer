@@ -7,7 +7,7 @@ interface TitleProps {
 
 const Title = ({ label, disableDivider }: TitleProps) => (
   <>
-    {!disableDivider && <Divider sx={{ mb: 10 }} />}
+    {!disableDivider && <Divider sx={{ mb: 10, mt: 6 }} />}
     <Typography variant="h3">{label}</Typography>
   </>
 );

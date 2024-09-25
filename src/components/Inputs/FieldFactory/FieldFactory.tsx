@@ -279,7 +279,13 @@ const FieldFactory = ({
       appear={!isFieldIgnored}
       style={isFieldIgnored ? { display: "none" } : undefined}
     >
-      <Box flexDirection="column" sx={{ display: visible ? "flex" : "none" }}>
+      <Box
+        flexDirection="column"
+        sx={{
+          display: visible ? "flex" : "none",
+          ...(type === "title" && { margin: "0 !important" }),
+        }}
+      >
         {field()}
       </Box>
     </Slide>
