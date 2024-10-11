@@ -21,9 +21,18 @@ export interface useTreegeConsumerParams {
   variant?: TreegeConsumerProps["variant"];
   initialValues?: TreegeConsumerProps["initialValues"];
   debug?: TreegeConsumerProps["debug"];
+  disabledSubmitButton?: TreegeConsumerProps["disabledSubmitButton"];
 }
 
-const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, ignoreFields }: useTreegeConsumerParams) => {
+const useTreegeConsumer = ({
+  tree,
+  onSubmit,
+  variant,
+  initialValues,
+  debug,
+  ignoreFields,
+  disabledSubmitButton,
+}: useTreegeConsumerParams) => {
   const [activeFieldIndex, setActiveFieldIndex] = useState<number>(0);
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -38,7 +47,7 @@ const useTreegeConsumer = ({ tree, onSubmit, variant, initialValues, debug, igno
     return field.attributes.required && !isIgnored;
   });
 
-  const formCanBeSubmit = requiredFields?.every((field) => fieldValues?.[field.attributes.name]);
+  const formCanBeSubmit = disabledSubmitButton ? false : requiredFields?.every((field) => fieldValues?.[field.attributes.name]);
   const nextStepper = getNextStepper(initialFields);
   const lastFieldHasNoChildren = !initialFields[(initialFields?.length || 0) - 1]?.children?.length && !!tree;
   const isStepper = variant === "stepper";

@@ -29,9 +29,10 @@ interface SandboxProps {
   submitData?: OnSubmitReturn;
   handleCloseDialog: () => void;
   handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  handleSubmit: ({ data, formData, fieldValues }: OnSubmitReturn) => void;
+  onSubmit: ({ data, formData, fieldValues }: OnSubmitReturn) => void;
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
   handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
+  isSubmitting?: boolean;
 }
 
 interface TabPanelProps {
@@ -59,10 +60,11 @@ const Sandbox = ({
   handleChangeTree,
   handleChangeVariant,
   variant,
-  handleSubmit,
+  onSubmit,
   submitData,
   dialogOpen,
   customHeaders,
+  isSubmitting,
   handleCloseDialog,
   handleChangeComponent,
 }: SandboxProps) => {
@@ -122,7 +124,8 @@ const Sandbox = ({
                 debug
                 tree={tree}
                 variant={variant}
-                onSubmit={handleSubmit}
+                onSubmit={onSubmit}
+                isSubmitting={isSubmitting}
                 headers={customHeaders}
                 options={{
                   disablePastDatePicker: true,

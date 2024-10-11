@@ -28,7 +28,7 @@ export interface FielFactoryProps {
   visible?: boolean;
   readOnly?: boolean;
   headers?: Headers;
-  isLoadingFormValidation?: boolean;
+  isSubmitting?: boolean;
   disableDivider?: boolean;
   ignoreFields?: string[];
   handleChangeFormValue?(dataAttribute?: ChangeEventField): void;
@@ -46,6 +46,7 @@ export interface FielFactoryProps {
  * @param fieldValues
  * @param isLoadingFormValidation
  * @param ignoreFields
+ * @param disableDivider
  * @constructor
  */
 const FieldFactory = ({
@@ -55,7 +56,7 @@ const FieldFactory = ({
   readOnly,
   headers,
   fieldValues,
-  isLoadingFormValidation,
+  isSubmitting,
   ignoreFields,
   disableDivider,
   animated = true,
@@ -67,7 +68,7 @@ const FieldFactory = ({
   const isRequired = visible && required;
   const isHidden = type === "hidden";
   const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]);
-  const disabledChildrenField = isLoadingFormValidation || hasParentRefValue;
+  const disabledChildrenField = isSubmitting || hasParentRefValue;
   const value = fieldValues?.[name] || "";
   const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
 

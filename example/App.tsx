@@ -9,6 +9,7 @@ import TreeNode from "@/types/TreeNode";
 const App = () => {
   const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
   const [submitData, setSubmitData] = useState<OnSubmitReturn>();
   const [component, setComponent] = useState<"DataViewer" | "TreegeConsumer">("TreegeConsumer");
@@ -30,7 +31,15 @@ const App = () => {
     setTree(JSON.parse(value));
   };
 
-  const handleSubmit = ({ data, formData, fieldValues }: OnSubmitReturn) => {
+  const handleSubmit = async ({ data, formData, fieldValues }: OnSubmitReturn) => {
+    setIsSubmitting(true);
+
+    // Simulate async call
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(true), 1000);
+    });
+
+    setIsSubmitting(false);
     setSubmitData({ data, fieldValues, formData });
     setDialogOpen(true);
   };
@@ -39,13 +48,14 @@ const App = () => {
     <DataViewer handleChangeComponent={handleChangeComponent} />
   ) : (
     <Sandbox
+      isSubmitting={isSubmitting}
       variant={variant}
       tree={tree}
       dialogOpen={dialogOpen}
       handleChangeVariant={handleChangeVariant}
       handleChangeTree={handleChangeTree}
       handleCloseDialog={handleCloseDialog}
-      handleSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       submitData={submitData}
       handleChangeComponent={handleChangeComponent}
     />

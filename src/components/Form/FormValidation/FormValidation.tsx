@@ -1,17 +1,26 @@
 import { Box, Button, Slide } from "@tracktor/design-system";
 
 interface FormValidationProps {
-  formCanBeSubmit: boolean;
+  disabled?: boolean;
+  isLoading?: boolean;
+  isLastField?: boolean;
+  readOnly?: boolean;
 }
 
-const FormValidation = ({ formCanBeSubmit }: FormValidationProps) => (
-  <Slide direction="up" in mountOnEnter>
-    <Box display="flex" alignItems="center" justifyContent="center" paddingY={5}>
-      <Button variant="contained" type="submit" disabled={!formCanBeSubmit}>
-        Valider
-      </Button>
-    </Box>
-  </Slide>
-);
+const FormValidation = ({ disabled, isLoading, readOnly, isLastField }: FormValidationProps) => {
+  if (readOnly || !isLastField) {
+    return null;
+  }
+
+  return (
+    <Slide direction="up" in mountOnEnter>
+      <Box display="flex" alignItems="center" justifyContent="center" paddingY={5}>
+        <Button variant="contained" type="submit" disabled={disabled} isLoading={isLoading}>
+          Valider
+        </Button>
+      </Box>
+    </Slide>
+  );
+};
 
 export default FormValidation;

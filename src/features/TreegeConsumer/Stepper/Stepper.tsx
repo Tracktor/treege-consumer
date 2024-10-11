@@ -21,13 +21,13 @@ interface StepperProps {
   readOnly?: boolean;
   headers?: Headers;
   fieldValues?: FieldValues;
-  isLoadingFormValidation?: boolean;
+  isSubmitting?: boolean;
   style?: CSSProperties;
   formCanBeSubmit: boolean;
 }
 
 const Stepper = ({
-  isLoadingFormValidation,
+  isSubmitting,
   fields,
   activeFieldIndex,
   firstFieldIndex,
@@ -68,7 +68,7 @@ const Stepper = ({
               readOnly={readOnly}
               headers={headers}
               fieldValues={fieldValues}
-              isLoadingFormValidation={isLoadingFormValidation}
+              isSubmitting={isSubmitting}
             />
           );
         })
@@ -106,7 +106,7 @@ const Stepper = ({
             </ButtonGroup>
           </Slide>
         </Stack>
-        {isLastField && <FormValidation formCanBeSubmit={formCanBeSubmit} />}
+        <FormValidation disabled={!formCanBeSubmit} isLoading={isSubmitting} readOnly={readOnly} isLastField={isLastField} />
       </Stack>
     )}
   </Box>

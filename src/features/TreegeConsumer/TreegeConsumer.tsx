@@ -76,10 +76,6 @@ export interface TreegeConsumerProps<T = unknown> {
    */
   headers?: Headers;
   /**
-   * Callback fired when the user submit form.
-   */
-  isLoadingFormValidation?: boolean;
-  /**
    * initial Values
    */
   initialValues?: JsonFormValue[];
@@ -93,16 +89,20 @@ export interface TreegeConsumerProps<T = unknown> {
    */
   debug?: boolean;
   /**
+   * Boolean to disable submit button
+   */
+  disabledSubmitButton?: boolean;
+  /**
+   * Boolean to disable submit button while submitting
+   */
+  isSubmitting?: boolean;
+  /**
    * Callback fired when the user submit form.
    * @param data
    * @param formData
    * @param fieldValues
    */
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
-  /**
-   * Boolean to disable submit button
-   */
-  disabledSubmitButton?: boolean;
 }
 
 const TreegeConsumer = <T,>({
@@ -114,11 +114,11 @@ const TreegeConsumer = <T,>({
   style,
   readOnly,
   headers,
-  isLoadingFormValidation,
   initialValues,
   ignoreFields,
   debug,
   disabledSubmitButton,
+  isSubmitting,
   variant = "standard",
 }: TreegeConsumerProps<T>) => {
   const {
@@ -133,6 +133,7 @@ const TreegeConsumer = <T,>({
     formCanBeSubmit,
   } = useTreegeConsumer({
     debug,
+    disabledSubmitButton,
     initialValues,
     onSubmit,
     tree,
@@ -161,11 +162,11 @@ const TreegeConsumer = <T,>({
                   readOnly={readOnly}
                   headers={headers}
                   fieldValues={fieldValues}
-                  isLoadingFormValidation={isLoadingFormValidation}
+                  isSubmitting={isSubmitting}
                   handleChangeFormValue={handleChangeFormValue}
                   handlePrev={handlePrev}
                   handleSubmit={handleSubmit}
-                  formCanBeSubmit={formCanBeSubmit || !!disabledSubmitButton}
+                  formCanBeSubmit={formCanBeSubmit}
                 />
               ) : (
                 <Standard
@@ -176,9 +177,9 @@ const TreegeConsumer = <T,>({
                   readOnly={readOnly}
                   headers={headers}
                   fieldValues={fieldValues}
-                  isLoadingFormValidation={isLoadingFormValidation}
+                  isSubmitting={isSubmitting}
                   style={style}
-                  formCanBeSubmit={formCanBeSubmit || !!disabledSubmitButton}
+                  formCanBeSubmit={formCanBeSubmit}
                   ignoreFields={ignoreFields}
                 />
               )}

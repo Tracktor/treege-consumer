@@ -14,7 +14,7 @@ interface StandardProps {
   readOnly?: boolean;
   headers?: Headers;
   fieldValues?: FieldValues;
-  isLoadingFormValidation?: boolean;
+  isSubmitting?: boolean;
   style?: CSSProperties;
   formCanBeSubmit: boolean;
   ignoreFields?: string[];
@@ -30,7 +30,7 @@ const Standard = ({
   readOnly,
   headers,
   fieldValues,
-  isLoadingFormValidation,
+  isSubmitting,
   style,
   formCanBeSubmit,
   ignoreFields,
@@ -46,7 +46,7 @@ const Standard = ({
             readOnly={readOnly}
             headers={headers}
             fieldValues={fieldValues}
-            isLoadingFormValidation={isLoadingFormValidation}
+            isSubmitting={isSubmitting}
             ignoreFields={ignoreFields}
           />
         ))
@@ -54,7 +54,7 @@ const Standard = ({
         <FormSkeleton />
       )}
     </Stack>
-    {isLastField && !readOnly && <FormValidation formCanBeSubmit={formCanBeSubmit} />}
+    <FormValidation disabled={!formCanBeSubmit} isLoading={isSubmitting} readOnly={readOnly} isLastField={isLastField} />
   </Box>
 );
 
