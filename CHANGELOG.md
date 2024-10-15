@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.39.0](https://github.com/Tracktor/treege-consumer/compare/1.38.4...1.39.0) (2024-10-11)
+
+
+### Features
+
+* add isSubmitting state ([2c37e08](https://github.com/Tracktor/treege-consumer/commit/2c37e08042554e74ad88134145a9e5ab719bab3c))
+
 ## [1.38.4](https://github.com/Tracktor/treege-consumer/compare/1.38.3...1.38.4) (2024-10-10)
 
 
