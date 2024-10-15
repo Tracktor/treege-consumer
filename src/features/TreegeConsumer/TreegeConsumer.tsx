@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import dayjs from "dayjs";
 import { CSSProperties } from "react";
-import OptionsProvider from "@/context/OptionsContext";
+import OptionsProvider from "@/context/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";

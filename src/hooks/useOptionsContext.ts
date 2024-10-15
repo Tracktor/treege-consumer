@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { OptionsContext } from "@/context/OptionsContext";
+import { OptionsContext } from "@/context/OptionsProvider";
 
 const useOptionsContext = () => {
   const context = useContext(OptionsContext);

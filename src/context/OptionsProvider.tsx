@@ -17,6 +17,7 @@ const OptionsProvider = ({ children, options }: OptionsProviderProps) => {
 
   const value = useMemo(
     () => ({
+      adapterLocale: options?.adapterLocale || treegeConsumerContext.adapterLocale,
       countryAutocompleteService: options?.countryAutocompleteService || treegeConsumerContext.countryAutocompleteService || "fr",
       disablePastDatePicker: options?.disablePastDatePicker,
       disablePastDateRangePicker: options?.disablePastDateRangePicker,
@@ -26,7 +27,14 @@ const OptionsProvider = ({ children, options }: OptionsProviderProps) => {
         options?.prefixResponseImageUriAutocomplete || treegeConsumerContext.prefixResponseImageUriAutocomplete,
     }),
     [
-      options,
+      options?.adapterLocale,
+      options?.countryAutocompleteService,
+      options?.disablePastDatePicker,
+      options?.disablePastDateRangePicker,
+      options?.googleApiKey,
+      options?.licenseMuiX,
+      options?.prefixResponseImageUriAutocomplete,
+      treegeConsumerContext.adapterLocale,
       treegeConsumerContext.countryAutocompleteService,
       treegeConsumerContext.googleApiKey,
       treegeConsumerContext.licenseMuiX,
