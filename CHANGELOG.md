@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.40.0](https://github.com/Tracktor/treege-consumer/compare/1.39.0...1.40.0) (2024-10-15)
+
+
+### Features
+
+* add adapter locale option ([31a5a2e](https://github.com/Tracktor/treege-consumer/commit/31a5a2eb81ac4424e323139047fd19a55bee6d78))
+
 ## [1.39.0](https://github.com/Tracktor/treege-consumer/compare/1.38.4...1.39.0) (2024-10-11)
 
 
