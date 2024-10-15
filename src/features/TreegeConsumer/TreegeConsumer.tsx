@@ -8,6 +8,7 @@ import OptionsProvider from "@/context/OptionsContext";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
+import useOptionsContext from "@/hooks/useOptionsContext";
 import { Headers } from "@/types/Headers";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
@@ -145,9 +146,10 @@ const TreegeConsumer = <T,>({
   });
   const themeProvider = useTheme();
   const queryClient = new QueryClient();
+  const { adapterLocale = options?.adapterLocale } = useOptionsContext();
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={options?.adapterLocale || navigator?.language?.slice(0, 2)}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale || navigator?.language?.slice(0, 2)}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme || themeProvider.palette.mode}>
           {loading ? (

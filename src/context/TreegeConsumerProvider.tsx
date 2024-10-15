@@ -6,6 +6,7 @@ interface TreegeConsumerProviderContext {
   googleApiKey?: string;
   licenseMuiX?: string;
   prefixResponseImageUriAutocomplete?: string;
+  adapterLocale?: string;
 }
 
 export interface TreegeConsumerProviderProps extends TreegeConsumerProviderContext {
@@ -13,6 +14,7 @@ export interface TreegeConsumerProviderProps extends TreegeConsumerProviderConte
 }
 
 export const TreegeConsumerContext = createContext<TreegeConsumerProviderContext>({
+  adapterLocale: "",
   countryAutocompleteService: "",
   googleApiKey: "",
   licenseMuiX: "",
@@ -25,6 +27,7 @@ export const TreegeConsumerProvider = ({
   countryAutocompleteService,
   prefixResponseImageUriAutocomplete,
   googleApiKey,
+  adapterLocale,
 }: TreegeConsumerProviderProps) => {
   // Set license key for mui x if provided
   useLayoutEffect(() => {
@@ -35,12 +38,13 @@ export const TreegeConsumerProvider = ({
 
   const value = useMemo(
     () => ({
+      adapterLocale,
       countryAutocompleteService: countryAutocompleteService || "fr",
       googleApiKey,
       licenseMuiX,
       prefixResponseImageUriAutocomplete,
     }),
-    [countryAutocompleteService, googleApiKey, licenseMuiX, prefixResponseImageUriAutocomplete],
+    [countryAutocompleteService, googleApiKey, licenseMuiX, prefixResponseImageUriAutocomplete, adapterLocale],
   );
 
   return <TreegeConsumerContext.Provider value={value}>{children}</TreegeConsumerContext.Provider>;
