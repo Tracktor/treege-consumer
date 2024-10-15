@@ -110,15 +110,15 @@ export interface TreegeConsumerProps<T = unknown> {
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
 }
 
-const TreegeConsumer = <T,>({
+const TreegeComposition = <T,>({
   tree,
   onSubmit,
   options,
-  theme,
   loading,
   style,
   readOnly,
   headers,
+  theme,
   initialValues,
   ignoreFields,
   debug,
@@ -148,53 +148,89 @@ const TreegeConsumer = <T,>({
   const queryClient = new QueryClient();
   const { adapterLocale = options?.adapterLocale } = useOptionsContext();
 
+  if (loading) {
+    return (
+      <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+        <CircularProgress color="primary" />
+      </Box>
+    );
+  }
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale || navigator?.language?.slice(0, 2)}>
+    <ThemeProvider theme={theme || themeProvider.palette.mode}>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme || themeProvider.palette.mode}>
-          {loading ? (
-            <Box display="flex" alignItems="center" justifyContent="center" height="100%">
-              <CircularProgress color="primary" />
-            </Box>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale || navigator?.language?.slice(0, 2)}>
+          {variant === "stepper" ? (
+            <Stepper
+              activeFieldIndex={activeFieldIndex}
+              firstFieldIndex={firstFieldIndex}
+              isLastField={isLastField}
+              style={style}
+              fields={fields}
+              readOnly={readOnly}
+              headers={headers}
+              fieldValues={fieldValues}
+              isSubmitting={isSubmitting}
+              handleChangeFormValue={handleChangeFormValue}
+              handlePrev={handlePrev}
+              handleSubmit={handleSubmit}
+              formCanBeSubmit={formCanBeSubmit}
+            />
           ) : (
-            <OptionsProvider options={options}>
-              {variant === "stepper" ? (
-                <Stepper
-                  activeFieldIndex={activeFieldIndex}
-                  firstFieldIndex={firstFieldIndex}
-                  isLastField={isLastField}
-                  style={style}
-                  fields={fields}
-                  readOnly={readOnly}
-                  headers={headers}
-                  fieldValues={fieldValues}
-                  isSubmitting={isSubmitting}
-                  handleChangeFormValue={handleChangeFormValue}
-                  handlePrev={handlePrev}
-                  handleSubmit={handleSubmit}
-                  formCanBeSubmit={formCanBeSubmit}
-                />
-              ) : (
-                <Standard
-                  fields={fields}
-                  handleChangeFormValue={handleChangeFormValue}
-                  handleSubmit={handleSubmit}
-                  isLastField={isLastField}
-                  readOnly={readOnly}
-                  headers={headers}
-                  fieldValues={fieldValues}
-                  isSubmitting={isSubmitting}
-                  style={style}
-                  formCanBeSubmit={formCanBeSubmit}
-                  ignoreFields={ignoreFields}
-                />
-              )}
-            </OptionsProvider>
+            <Standard
+              fields={fields}
+              handleChangeFormValue={handleChangeFormValue}
+              handleSubmit={handleSubmit}
+              isLastField={isLastField}
+              readOnly={readOnly}
+              headers={headers}
+              fieldValues={fieldValues}
+              isSubmitting={isSubmitting}
+              style={style}
+              formCanBeSubmit={formCanBeSubmit}
+              ignoreFields={ignoreFields}
+            />
           )}
-        </ThemeProvider>
+        </LocalizationProvider>
       </QueryClientProvider>
-    </LocalizationProvider>
+    </ThemeProvider>
   );
 };
+
+const TreegeConsumer = <T,>({
+  tree,
+  onSubmit,
+  options,
+  theme,
+  loading,
+  style,
+  readOnly,
+  headers,
+  initialValues,
+  ignoreFields,
+  debug,
+  disabledSubmitButton,
+  isSubmitting,
+  variant = "standard",
+}: TreegeConsumerProps<T>) => (
+  <OptionsProvider>
+    <TreegeComposition
+      options={options}
+      loading={loading}
+      variant={variant}
+      onSubmit={onSubmit}
+      tree={tree}
+      isSubmitting={isSubmitting}
+      style={style}
+      readOnly={readOnly}
+      headers={headers}
+      theme={theme}
+      initialValues={initialValues}
+      ignoreFields={ignoreFields}
+      debug={debug}
+      disabledSubmitButton={disabledSubmitButton}
+    />
+  </OptionsProvider>
+);
 
 export default TreegeConsumer;
