@@ -61,6 +61,10 @@ export interface TreegeConsumerProps<T = unknown> {
      * Disable past date range picker
      */
     disablePastDateRangePicker?: boolean;
+    /**
+     * Locale for adapter
+     */
+    adapterLocale?: string;
   };
   /**
    * Custom form style
@@ -143,7 +147,7 @@ const TreegeConsumer = <T,>({
   const queryClient = new QueryClient();
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={navigator.language.slice(0, 2)}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={options?.adapterLocale || navigator?.language?.slice(0, 2)}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme || themeProvider.palette.mode}>
           {loading ? (

@@ -110,6 +110,7 @@ on [Treege](https://github.com/Tracktor/treege) data
 | licenseMuiX                        | string  |         | false    | License MUI X to enable pro and premium feature                                                                                                                               |
 | disablePastDatePicker              | boolean |         | false    | Disable past for date picker                                                                                                                                                  |
 | disablePastDateRangePicker         | boolean |         | false    | Disable past for date range picker                                                                                                                                            |
+| adapterLocale                      | string  |         | false    | Adapter local for locale format                                                                                                                                               |
 
 
 ### TreegeConsumerResponse
