@@ -150,7 +150,7 @@ const TreegeComposition = <T,>({
 
   if (loading) {
     return (
-      <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+      <Box display="flex" alignItems="center" justifyContent="center" height="100%" style={style}>
         <CircularProgress color="primary" />
       </Box>
     );
