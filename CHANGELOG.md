@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.42.0](https://github.com/Tracktor/treege-consumer/compare/1.41.3...1.42.0) (2024-10-28)
+
+
+### Features
+
+* add the ability to customize form validation ([9477b3b](https://github.com/Tracktor/treege-consumer/pull/36/commits/9477b3b468c0b4e7564089a931c1374f9f4d0017))
+
 ## [1.41.3](https://github.com/Tracktor/treege-consumer/compare/1.41.2...1.41.3) (2024-10-24)
 
 
