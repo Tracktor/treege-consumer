@@ -1,6 +1,10 @@
 import { Box, Button, Slide } from "@tracktor/design-system";
 import { ReactNode } from "react";
-import { RenderFormValidationParams } from "@/types/RenderFormValidationParams";
+
+export interface RenderFormValidationParams {
+  disabled?: boolean;
+  isLoading?: boolean;
+}
 
 interface FormValidationProps {
   disabled?: boolean;

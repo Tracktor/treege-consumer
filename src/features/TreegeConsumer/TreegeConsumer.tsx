@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import dayjs from "dayjs";
 import { CSSProperties, ReactNode } from "react";
+import { RenderFormValidationParams } from "@/components/Form/FormValidation";
 import OptionsProvider from "@/context/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
@@ -13,7 +14,6 @@ import { Headers } from "@/types/Headers";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import "dayjs/locale/fr";
-import { RenderFormValidationParams } from "@/types/RenderFormValidationParams";
 import TreeNode from "@/types/TreeNode";
 
 dayjs.locale("fr");
