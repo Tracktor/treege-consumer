@@ -85,20 +85,21 @@ export default App;
 Render a form based
 on [Treege](https://github.com/Tracktor/treege) data
 
-| Props                | Type                                                                                                     | Default   | Required | Detail                                 |
-|----------------------|----------------------------------------------------------------------------------------------------------|-----------|----------|----------------------------------------|
-| tree                 | TreeNode<br/>  undefined                                                                                 | undefined | false    | Treege data                            |
-| variant              | "standard"<br/>  "stepper"                                                                               | "stepper" | false    | The variant to use                     |
-| theme                | "light"<br/>  "dark" <br/> ThemeOptions                                                                  | "light"   | false    | Theme color mode                       |
-| onSubmit             | `data: JsonFormValue[];`<br/>`formData: [string, FormDataEntryValue][];`<br/>`fieldValues: FieldValues;` | undefined | false    | Callback fired form is validate        |
-| options              | "countryAutocompleteService"<br/>"googleApiKey" <br/>"prefixResponseImageUriAutocomplete"                | undefined | false    | Consumer options                       |
-| style                | CSSProperties                                                                                            | undefined | false    | Custom form style                      |
-| initialValues        | { [key: string]: unknown; }                                                                              | undefined | false    | Set initial value to form              |
-| ignoreFields         | string[]                                                                                                 | undefined | false    | Ignored fiels to render                |
-| debug                | boolean                                                                                                  | undefined | false    | Debug in console on form submit        |
-| readOnly             | boolean                                                                                                  | undefined | false    | Read only mode                         |
-| disabledSubmitButton | boolean                                                                                                  | undefined | false    | Disable submit button                  |
-| isSubmitting         | boolean                                                                                                  | undefined | false    | Disable submit button while submitting |
+| Props                | Type                                                                                                                   | Default   | Required | Detail                                 |
+|----------------------|------------------------------------------------------------------------------------------------------------------------|-----------|----------|----------------------------------------|
+| tree                 | [TreeNode](src/types/TreeNode.ts)                                                                                      | undefined | false    | Treege data                            |
+| variant              | "standard"<br/>  "stepper"                                                                                             | "stepper" | false    | The variant to use                     |
+| theme                | "light"<br/>  "dark" <br/> ThemeOptions                                                                                | "light"   | false    | Theme color mode                       |
+| onSubmit             | `data: JsonFormValue[];`<br/>`formData: [string, FormDataEntryValue][];`<br/>`fieldValues: FieldValues;`               | undefined | false    | Callback fired form is validate        |
+| options              | "countryAutocompleteService"<br/>"googleApiKey" <br/>"prefixResponseImageUriAutocomplete"                              | undefined | false    | Consumer options                       |
+| style                | CSSProperties                                                                                                          | undefined | false    | Custom form style                      |
+| initialValues        | { [key: string]: unknown; }                                                                                            | undefined | false    | Set initial value to form              |
+| ignoreFields         | string[]                                                                                                               | undefined | false    | Ignored fields to render               |
+| debug                | boolean                                                                                                                | undefined | false    | Debug in console on form submit        |
+| readOnly             | boolean                                                                                                                | undefined | false    | Read only mode                         |
+| disabledSubmitButton | boolean                                                                                                                | undefined | false    | Disable submit button                  |
+| isSubmitting         | boolean                                                                                                                | undefined | false    | Disable submit button while submitting |
+| renderFormValidation | function({ disabled, isLoading }: [RenderFormValidationParams](src/types/RenderFormValidationParams.ts)): ReactElement | undefined | false    | Custom form validation renderer        |
 
 #### Options
 

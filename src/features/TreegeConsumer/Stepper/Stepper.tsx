@@ -1,7 +1,7 @@
 import { Box, Button, ButtonGroup, Grow, Slide, Stack, Typography } from "@tracktor/design-system";
-import { type CSSProperties, FormEvent, MouseEvent as ReactMouseEvent } from "react";
+import { type CSSProperties, FormEvent, MouseEvent as ReactMouseEvent, ReactNode } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
-import FormValidation from "@/components/Form/FormValidation";
+import FormValidation, { RenderFormValidationParams } from "@/components/Form/FormValidation";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
 import FieldFactory from "@/components/Inputs/FieldFactory";
@@ -24,6 +24,7 @@ interface StepperProps {
   isSubmitting?: boolean;
   style?: CSSProperties;
   formCanBeSubmit: boolean;
+  renderFormValidation?(params: RenderFormValidationParams): ReactNode;
 }
 
 const Stepper = ({
@@ -40,6 +41,7 @@ const Stepper = ({
   handleSubmit,
   style,
   formCanBeSubmit,
+  renderFormValidation,
 }: StepperProps) => (
   <Box
     onSubmit={handleSubmit}
@@ -106,7 +108,13 @@ const Stepper = ({
             </ButtonGroup>
           </Slide>
         </Stack>
-        <FormValidation disabled={!formCanBeSubmit} isLoading={isSubmitting} readOnly={readOnly} isLastField={isLastField} />
+        <FormValidation
+          disabled={!formCanBeSubmit}
+          isLoading={isSubmitting}
+          readOnly={readOnly}
+          isLastField={isLastField}
+          renderFormValidation={renderFormValidation}
+        />
       </Stack>
     )}
   </Box>
