@@ -1,15 +1,22 @@
 import { Box, Button, Slide } from "@tracktor/design-system";
+import { ReactNode } from "react";
+import { RenderFormValidationParams } from "@/types/RenderFormValidationParams";
 
 interface FormValidationProps {
   disabled?: boolean;
   isLoading?: boolean;
   isLastField?: boolean;
   readOnly?: boolean;
+  renderFormValidation?(params: RenderFormValidationParams): ReactNode;
 }
 
-const FormValidation = ({ disabled, isLoading, readOnly, isLastField }: FormValidationProps) => {
+const FormValidation = ({ disabled, isLoading, readOnly, isLastField, renderFormValidation }: FormValidationProps) => {
   if (readOnly || !isLastField) {
     return null;
+  }
+
+  if (renderFormValidation) {
+    return renderFormValidation({ disabled, isLoading });
   }
 
   return (

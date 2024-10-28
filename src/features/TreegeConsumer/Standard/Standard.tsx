@@ -1,11 +1,12 @@
 import { Box, Stack } from "@tracktor/design-system";
-import { type CSSProperties, FormEvent } from "react";
+import { type CSSProperties, FormEvent, ReactNode } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import FormValidation from "@/components/Form/FormValidation";
 import FieldFactory from "@/components/Inputs/FieldFactory";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { Headers } from "@/types/Headers";
+import { RenderFormValidationParams } from "@/types/RenderFormValidationParams";
 import TreeNode from "@/types/TreeNode";
 
 interface StandardProps {
@@ -20,6 +21,7 @@ interface StandardProps {
   ignoreFields?: string[];
   handleChangeFormValue?(dataAttribute: ChangeEventField): void;
   handleSubmit?(event: FormEvent<HTMLFormElement>): void;
+  renderFormValidation?(params: RenderFormValidationParams): ReactNode;
 }
 
 const Standard = ({
@@ -34,6 +36,7 @@ const Standard = ({
   style,
   formCanBeSubmit,
   ignoreFields,
+  renderFormValidation,
 }: StandardProps) => (
   <Box onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style}>
     <Stack spacing={4} direction="column" sx={{ "div:first-of-type hr": { display: "none" } }}>
@@ -54,7 +57,13 @@ const Standard = ({
         <FormSkeleton />
       )}
     </Stack>
-    <FormValidation disabled={!formCanBeSubmit} isLoading={isSubmitting} readOnly={readOnly} isLastField={isLastField} />
+    <FormValidation
+      disabled={!formCanBeSubmit}
+      isLoading={isSubmitting}
+      readOnly={readOnly}
+      isLastField={isLastField}
+      renderFormValidation={renderFormValidation}
+    />
   </Box>
 );
 

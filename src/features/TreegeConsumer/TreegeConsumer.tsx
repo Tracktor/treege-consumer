@@ -3,7 +3,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import dayjs from "dayjs";
-import { CSSProperties } from "react";
+import { CSSProperties, ReactNode } from "react";
 import OptionsProvider from "@/context/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
@@ -13,6 +13,7 @@ import { Headers } from "@/types/Headers";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import "dayjs/locale/fr";
+import { RenderFormValidationParams } from "@/types/RenderFormValidationParams";
 import TreeNode from "@/types/TreeNode";
 
 dayjs.locale("fr");
@@ -108,6 +109,10 @@ export interface TreegeConsumerProps<T = unknown> {
    * @param fieldValues
    */
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
+  /**
+   *  Render custom validation component
+   */
+  renderFormValidation?(params: RenderFormValidationParams): ReactNode;
 }
 
 const TreegeComposition = <T,>({
@@ -124,6 +129,7 @@ const TreegeComposition = <T,>({
   debug,
   disabledSubmitButton,
   isSubmitting,
+  renderFormValidation,
   variant = "standard",
 }: TreegeConsumerProps<T>) => {
   const {
@@ -175,6 +181,7 @@ const TreegeComposition = <T,>({
               handlePrev={handlePrev}
               handleSubmit={handleSubmit}
               formCanBeSubmit={formCanBeSubmit}
+              renderFormValidation={renderFormValidation}
             />
           ) : (
             <Standard
@@ -189,6 +196,7 @@ const TreegeComposition = <T,>({
               style={style}
               formCanBeSubmit={formCanBeSubmit}
               ignoreFields={ignoreFields}
+              renderFormValidation={renderFormValidation}
             />
           )}
         </LocalizationProvider>
@@ -211,6 +219,7 @@ const TreegeConsumer = <T,>({
   debug,
   disabledSubmitButton,
   isSubmitting,
+  renderFormValidation,
   variant = "standard",
 }: TreegeConsumerProps<T>) => (
   <OptionsProvider>
@@ -228,6 +237,7 @@ const TreegeConsumer = <T,>({
       initialValues={initialValues}
       ignoreFields={ignoreFields}
       debug={debug}
+      renderFormValidation={renderFormValidation}
       disabledSubmitButton={disabledSubmitButton}
     />
   </OptionsProvider>
