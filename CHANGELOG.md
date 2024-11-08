@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.42.0](https://github.com/Tracktor/treege-consumer/compare/1.41.3...1.42.0) (2024-10-28)
+
+
+### Features
+
+* **render-custom-form-validation:** CHANGELOG & version ([32b005e](https://github.com/Tracktor/treege-consumer/commit/32b005eda06450fb9721ab6c1a6e8b1724665ed7))
+* **render-custom-form-validation:** README ([c19629e](https://github.com/Tracktor/treege-consumer/commit/c19629e8bde89caa53f7d51c3478183f7b73f701))
+* **render-custom-form-validation:** RenderFormValidationParams feature ([9477b3b](https://github.com/Tracktor/treege-consumer/commit/9477b3b468c0b4e7564089a931c1374f9f4d0017))
+* **render-custom-form-validation:** wip ([f1374bf](https://github.com/Tracktor/treege-consumer/commit/f1374bfa638da9957ae741eb004e86b0084cddf0))
+
 ## [1.41.3](https://github.com/Tracktor/treege-consumer/compare/1.41.2...1.41.3) (2024-10-24)
 
 

@@ -4,7 +4,8 @@ import { LicenseInfo } from "@mui/x-license";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import dayjs from "dayjs";
-import { CSSProperties, useLayoutEffect } from "react";
+import { CSSProperties, ReactNode, useLayoutEffect } from "react";
+import { RenderFormValidationParams } from "@/components/Form/FormValidation";
 import OptionsProvider from "@/context/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
@@ -109,6 +110,10 @@ export interface TreegeConsumerProps<T = unknown> {
    * @param fieldValues
    */
   onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
+  /**
+   *  Render custom validation component
+   */
+  renderFormValidation?(params: RenderFormValidationParams): ReactNode;
 }
 
 const TreegeComposition = <T,>({
@@ -125,6 +130,7 @@ const TreegeComposition = <T,>({
   debug,
   disabledSubmitButton,
   isSubmitting,
+  renderFormValidation,
   variant = "standard",
 }: TreegeConsumerProps<T>) => {
   const {
@@ -184,6 +190,7 @@ const TreegeComposition = <T,>({
               handleSubmit={handleSubmit}
               formCanBeSubmit={formCanBeSubmit}
               options={options}
+              renderFormValidation={renderFormValidation}
             />
           ) : (
             <Standard
@@ -199,6 +206,7 @@ const TreegeComposition = <T,>({
               formCanBeSubmit={formCanBeSubmit}
               ignoreFields={ignoreFields}
               options={options}
+              renderFormValidation={renderFormValidation}
             />
           )}
         </LocalizationProvider>
@@ -221,6 +229,7 @@ const TreegeConsumer = <T,>({
   debug,
   disabledSubmitButton,
   isSubmitting,
+  renderFormValidation,
   variant = "standard",
 }: TreegeConsumerProps<T>) => (
   <OptionsProvider>
@@ -238,6 +247,7 @@ const TreegeConsumer = <T,>({
       initialValues={initialValues}
       ignoreFields={ignoreFields}
       debug={debug}
+      renderFormValidation={renderFormValidation}
       disabledSubmitButton={disabledSubmitButton}
     />
   </OptionsProvider>
