@@ -39,7 +39,7 @@ export const TreegeConsumerProvider = ({
   const value = useMemo(
     () => ({
       adapterLocale,
-      countryAutocompleteService: countryAutocompleteService || "fr",
+      countryAutocompleteService,
       googleApiKey,
       licenseMuiX,
       prefixResponseImageUriAutocomplete,

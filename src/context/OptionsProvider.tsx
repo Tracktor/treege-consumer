@@ -18,7 +18,7 @@ const OptionsProvider = ({ children, options }: OptionsProviderProps) => {
   const value = useMemo(
     () => ({
       adapterLocale: options?.adapterLocale || treegeConsumerContext.adapterLocale,
-      countryAutocompleteService: options?.countryAutocompleteService || treegeConsumerContext.countryAutocompleteService || "fr",
+      countryAutocompleteService: options?.countryAutocompleteService || treegeConsumerContext.countryAutocompleteService,
       disablePastDatePicker: options?.disablePastDatePicker,
       disablePastDateRangePicker: options?.disablePastDateRangePicker,
       googleApiKey: options?.googleApiKey || treegeConsumerContext.googleApiKey,
