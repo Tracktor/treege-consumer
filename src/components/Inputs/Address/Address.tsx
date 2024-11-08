@@ -34,8 +34,6 @@ const Address = (
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  console.log(googleApiKey);
-
   const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&loading=async&libraries=places`, {
     enable: !!googleApiKey && !isIgnored,
     position: "head-end",
