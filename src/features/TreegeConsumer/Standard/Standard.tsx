@@ -3,6 +3,7 @@ import { type CSSProperties, FormEvent } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import FormValidation from "@/components/Form/FormValidation";
 import FieldFactory from "@/components/Inputs/FieldFactory";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { Headers } from "@/types/Headers";
@@ -18,6 +19,7 @@ interface StandardProps {
   style?: CSSProperties;
   formCanBeSubmit: boolean;
   ignoreFields?: string[];
+  options?: TreegeConsumerProps["options"];
   handleChangeFormValue?(dataAttribute: ChangeEventField): void;
   handleSubmit?(event: FormEvent<HTMLFormElement>): void;
 }
@@ -34,6 +36,7 @@ const Standard = ({
   style,
   formCanBeSubmit,
   ignoreFields,
+  options,
 }: StandardProps) => (
   <Box onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style}>
     <Stack spacing={4} direction="column" sx={{ "div:first-of-type hr": { display: "none" } }}>
@@ -48,6 +51,7 @@ const Standard = ({
             fieldValues={fieldValues}
             isSubmitting={isSubmitting}
             ignoreFields={ignoreFields}
+            options={options}
           />
         ))
       ) : (

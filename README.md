@@ -102,15 +102,15 @@ on [Treege](https://github.com/Tracktor/treege) data
 
 #### Options
 
-| Options                            | Type    | Default | Required | Detail                                                                                                                                                                        |
-|------------------------------------|---------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| countryAutocompleteService         | string  | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
-| googleApiKey                       | string  |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
-| prefixResponseImageUriAutocomplete | string  |         | false    | Prefix response image uri for autocomplete image                                                                                                                              |
-| licenseMuiX                        | string  |         | false    | License MUI X to enable pro and premium feature                                                                                                                               |
-| disablePastDatePicker              | boolean |         | false    | Disable past for date picker                                                                                                                                                  |
-| disablePastDateRangePicker         | boolean |         | false    | Disable past for date range picker                                                                                                                                            |
-| adapterLocale                      | string  |         | false    | Adapter local for locale format                                                                                                                                               |
+| Options                            | Type               | Default | Required | Detail                                                                                                                                                                        |
+|------------------------------------|--------------------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| countryAutocompleteService         | string or string[] | "fr"    | false    | Define country restrictions for autocomplete                                                                                                                                  |
+| googleApiKey                       | string             |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
+| prefixResponseImageUriAutocomplete | string             |         | false    | Prefix response image uri for autocomplete image                                                                                                                              |
+| licenseMuiX                        | string             |         | false    | License MUI X to enable pro and premium feature                                                                                                                               |
+| disablePastDatePicker              | boolean            |         | false    | Disable past for date picker                                                                                                                                                  |
+| disablePastDateRangePicker         | boolean            |         | false    | Disable past for date range picker                                                                                                                                            |
+| adapterLocale                      | string             |         | false    | Adapter local for locale format                                                                                                                                               |
 
 
 ### TreegeConsumerResponse

@@ -3,7 +3,6 @@ import { isObject, isString, useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
-import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import TreeNode from "@/types/TreeNode";
 
@@ -11,12 +10,13 @@ type AutocompleteService = google.maps.places.AutocompleteService;
 
 export interface AutocompleteProps {
   inputRef: Ref<unknown>;
-  country?: string;
+  country?: string | string[];
   value?: unknown;
   readOnly?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   node: TreeNode;
   isIgnored?: boolean;
+  googleApiKey?: string;
 }
 
 interface Match {
@@ -24,13 +24,17 @@ interface Match {
   length: number;
 }
 
-const Address = ({ value, inputRef, country, readOnly, onChange, node, isIgnored }: AutocompleteProps, ref: Ref<unknown> | undefined) => {
+const Address = (
+  { value, inputRef, country, readOnly, onChange, node, isIgnored, googleApiKey }: AutocompleteProps,
+  ref: Ref<unknown> | undefined,
+) => {
   const { attributes, children } = node;
   const { name, type, label, required, helperText, isLeaf, isDecision } = attributes;
-  const { googleApiKey, countryAutocompleteService } = useOptionsContext();
   const autocompleteService = useRef<AutocompleteService>();
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
+
+  console.log(googleApiKey);
 
   const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&loading=async&libraries=places`, {
     enable: !!googleApiKey && !isIgnored,
@@ -96,7 +100,7 @@ const Address = ({ value, inputRef, country, readOnly, onChange, node, isIgnored
 
     const request = {
       componentRestrictions: {
-        country: country ?? countryAutocompleteService,
+        country,
       },
       input: searchText,
     };
@@ -120,7 +124,7 @@ const Address = ({ value, inputRef, country, readOnly, onChange, node, isIgnored
     return () => {
       active = false;
     };
-  }, [places, value, searchText, fetch, country, countryAutocompleteService, googleApiKey, isIgnored]);
+  }, [places, value, searchText, fetch, country, googleApiKey, isIgnored]);
 
   if (isIgnored) {
     return null;

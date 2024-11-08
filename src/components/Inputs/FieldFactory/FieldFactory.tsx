@@ -15,6 +15,8 @@ import TextField from "@/components/Inputs/TextField";
 import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
 import Title from "@/components/Inputs/Title";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer";
+import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { Headers } from "@/types/Headers";
@@ -31,6 +33,7 @@ export interface FielFactoryProps {
   isSubmitting?: boolean;
   disableDivider?: boolean;
   ignoreFields?: string[];
+  options?: TreegeConsumerProps["options"];
   handleChangeFormValue?(dataAttribute?: ChangeEventField): void;
 }
 
@@ -59,6 +62,7 @@ const FieldFactory = ({
   isSubmitting,
   ignoreFields,
   disableDivider,
+  options,
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
@@ -71,6 +75,14 @@ const FieldFactory = ({
   const disabledChildrenField = isSubmitting || hasParentRefValue;
   const value = fieldValues?.[name] || "";
   const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
+  const optionsContext = useOptionsContext();
+  const licenseMuiX = options?.licenseMuiX || optionsContext?.licenseMuiX;
+  const googleApiKey = options?.googleApiKey || optionsContext?.googleApiKey;
+  const country = options?.countryAutocompleteService || optionsContext?.countryAutocompleteService;
+  const disablePastDatePicker = options?.disablePastDatePicker || optionsContext?.disablePastDatePicker;
+  const disablePastDateRangePicker = options?.disablePastDateRangePicker || optionsContext?.disablePastDateRangePicker;
+  const prefixResponseImageUriAutocomplete =
+    options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
   const inputRef = (ref: HTMLInputElement) => {
     if (!ref || !autoFocus || ref?.tabIndex > 0) {
@@ -127,6 +139,7 @@ const FieldFactory = ({
             helperText={helperText}
             value={value}
             readOnly={readOnly}
+            disablePast={disablePastDatePicker}
             isIgnored={isFieldIgnored}
           />
         );
@@ -163,7 +176,7 @@ const FieldFactory = ({
           <DateRange
             name={name}
             label={label}
-            isDisabledPast={!!isDisabledPast}
+            disablePast={!!isDisabledPast || disablePastDateRangePicker}
             onChange={handleChangeFormValue}
             required={isRequired}
             inputRef={inputRef}
@@ -171,6 +184,7 @@ const FieldFactory = ({
             value={value}
             readOnly={readOnly}
             isIgnored={isFieldIgnored}
+            licenseMuiX={licenseMuiX}
           />
         );
       case "address":
@@ -182,6 +196,8 @@ const FieldFactory = ({
             node={data}
             onChange={handleChangeFormValue}
             isIgnored={isFieldIgnored}
+            country={country}
+            googleApiKey={googleApiKey}
           />
         );
       case "radio":
@@ -245,6 +261,7 @@ const FieldFactory = ({
             inputRef={inputRef}
             readOnly={readOnly}
             headers={headers}
+            prefixResponseImageUriAutocomplete={prefixResponseImageUriAutocomplete}
             isIgnored={isFieldIgnored}
           />
         );

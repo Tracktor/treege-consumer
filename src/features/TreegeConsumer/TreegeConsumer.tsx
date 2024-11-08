@@ -1,9 +1,10 @@
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
+import { LicenseInfo } from "@mui/x-license";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import dayjs from "dayjs";
-import { CSSProperties } from "react";
+import { CSSProperties, useLayoutEffect } from "react";
 import OptionsProvider from "@/context/OptionsProvider";
 import Standard from "@/features/TreegeConsumer/Standard";
 import Stepper from "@/features/TreegeConsumer/Stepper";
@@ -41,7 +42,7 @@ export interface TreegeConsumerProps<T = unknown> {
     /**
      * The language of the autocomplete service google
      */
-    countryAutocompleteService?: string;
+    countryAutocompleteService?: string | string[];
     /**
      * Provide google api key for autocomplete service
      */
@@ -146,7 +147,14 @@ const TreegeComposition = <T,>({
   });
   const themeProvider = useTheme();
   const queryClient = new QueryClient();
-  const { adapterLocale = options?.adapterLocale } = useOptionsContext();
+  const optionsContext = useOptionsContext();
+  const adapterLocale = options?.adapterLocale || optionsContext?.adapterLocale || navigator?.language?.slice(0, 2);
+
+  useLayoutEffect(() => {
+    if (options?.licenseMuiX) {
+      LicenseInfo.setLicenseKey(options?.licenseMuiX);
+    }
+  }, [options?.licenseMuiX]);
 
   if (loading) {
     return (
@@ -159,7 +167,7 @@ const TreegeComposition = <T,>({
   return (
     <ThemeProvider theme={theme || themeProvider.palette.mode}>
       <QueryClientProvider client={queryClient}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale || navigator?.language?.slice(0, 2)}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale}>
           {variant === "stepper" ? (
             <Stepper
               activeFieldIndex={activeFieldIndex}
@@ -175,6 +183,7 @@ const TreegeComposition = <T,>({
               handlePrev={handlePrev}
               handleSubmit={handleSubmit}
               formCanBeSubmit={formCanBeSubmit}
+              options={options}
             />
           ) : (
             <Standard
@@ -189,6 +198,7 @@ const TreegeComposition = <T,>({
               style={style}
               formCanBeSubmit={formCanBeSubmit}
               ignoreFields={ignoreFields}
+              options={options}
             />
           )}
         </LocalizationProvider>

@@ -2,7 +2,6 @@ import { DatePicker as DatePickerMui } from "@mui/x-date-pickers-pro";
 import { InputLabel, Stack, Typography } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
-import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -14,17 +13,16 @@ export interface DateRangeProps {
   value?: unknown;
   readOnly?: boolean;
   isIgnored?: boolean;
+  disablePast?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
 const FORMAT = "YYYY-MM-DD";
 
 const DatePicker = (
-  { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored }: DateRangeProps,
+  { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored, disablePast }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const { disablePastDatePicker } = useOptionsContext();
-
   const handleChange = (date: Dayjs | null) => {
     onChange?.({
       name,
@@ -42,7 +40,7 @@ const DatePicker = (
         {label}
       </Typography>
       <DatePickerMui
-        disablePast={disablePastDatePicker}
+        disablePast={disablePast}
         readOnly={readOnly}
         ref={ref}
         name={name}

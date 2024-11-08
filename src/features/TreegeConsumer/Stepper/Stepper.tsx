@@ -5,6 +5,7 @@ import FormValidation from "@/components/Form/FormValidation";
 import NavigateBeforeRounded from "@/components/Icon/NavigateBeforeRounded/NavigateBeforeRounded";
 import NavigateNextRounded from "@/components/Icon/NavigateNextRounded/NavigateNextRounded";
 import FieldFactory from "@/components/Inputs/FieldFactory";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { Headers } from "@/types/Headers";
@@ -12,9 +13,6 @@ import TreeNode from "@/types/TreeNode";
 
 interface StepperProps {
   fields?: TreeNode[];
-  handleChangeFormValue?(dataAttribute: ChangeEventField): void;
-  handlePrev?(_: ReactMouseEvent<HTMLButtonElement, MouseEvent>): void;
-  handleSubmit?(event: FormEvent<HTMLFormElement>): void;
   activeFieldIndex: number;
   firstFieldIndex: number;
   isLastField: boolean;
@@ -24,6 +22,10 @@ interface StepperProps {
   isSubmitting?: boolean;
   style?: CSSProperties;
   formCanBeSubmit: boolean;
+  options?: TreegeConsumerProps["options"];
+  handleChangeFormValue?(dataAttribute: ChangeEventField): void;
+  handlePrev?(_: ReactMouseEvent<HTMLButtonElement, MouseEvent>): void;
+  handleSubmit?(event: FormEvent<HTMLFormElement>): void;
 }
 
 const Stepper = ({
@@ -40,6 +42,7 @@ const Stepper = ({
   handleSubmit,
   style,
   formCanBeSubmit,
+  options,
 }: StepperProps) => (
   <Box
     onSubmit={handleSubmit}
@@ -69,6 +72,7 @@ const Stepper = ({
               headers={headers}
               fieldValues={fieldValues}
               isSubmitting={isSubmitting}
+              options={options}
             />
           );
         })

@@ -2,7 +2,6 @@ import { DatePicker as DatePickerMui, DateRangePicker } from "@mui/x-date-picker
 import { InputLabel, Stack, Typography } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
-import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -14,19 +13,19 @@ export interface DateRangeProps {
   value?: unknown;
   readOnly?: boolean;
   isIgnored?: boolean;
-  isDisabledPast?: boolean;
+  disablePast?: boolean;
+  licenseMuiX?: string;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
 const FORMAT = "YYYY-MM-DD";
 
 const DateRange = (
-  { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored, isDisabledPast }: DateRangeProps,
+  { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored, disablePast, licenseMuiX }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const fromDate = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
   const toDate = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
-  const { licenseMuiX } = useOptionsContext();
 
   const handleChangeDatePicker = (field: "start" | "end") => (date: Dayjs | null) => {
     const currentDate = date?.format(FORMAT);
@@ -59,7 +58,7 @@ const DateRange = (
       <Stack spacing={1.5}>
         <Typography variant="h5">{label}</Typography>
         <DateRangePicker
-          disablePast={isDisabledPast}
+          disablePast={disablePast}
           readOnly={readOnly}
           ref={ref}
           name={`${name}[]`}
@@ -91,7 +90,7 @@ const DateRange = (
       </Typography>
       <Stack direction="row" spacing={1} alignItems="center">
         <DatePickerMui
-          disablePast={isDisabledPast}
+          disablePast={disablePast}
           label="Début"
           readOnly={readOnly}
           ref={ref}
@@ -109,7 +108,7 @@ const DateRange = (
           }}
         />
         <DatePickerMui
-          disablePast={isDisabledPast}
+          disablePast={disablePast}
           label="Fin"
           readOnly={readOnly}
           ref={ref}

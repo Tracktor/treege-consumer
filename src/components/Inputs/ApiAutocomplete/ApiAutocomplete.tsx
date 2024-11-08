@@ -13,7 +13,6 @@ import {
 } from "@tracktor/design-system";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
-import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { Headers } from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
@@ -29,13 +28,16 @@ interface ApiAutocompleteProps {
   headers?: Headers;
   value?: Option | null;
   isIgnored?: boolean;
+  prefixResponseImageUriAutocomplete?: string;
 }
 
-const ApiAutocomplete = ({ node, onChange, readOnly, inputRef, headers, value, isIgnored }: ApiAutocompleteProps, ref?: Ref<unknown>) => {
+const ApiAutocomplete = (
+  { node, onChange, readOnly, inputRef, headers, value, isIgnored, prefixResponseImageUriAutocomplete }: ApiAutocompleteProps,
+  ref?: Ref<unknown>,
+) => {
   const [searchValue, setSearchValue] = useState("");
   const { attributes, children } = node;
   const { type, name, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
-  const { prefixResponseImageUriAutocomplete } = useOptionsContext();
   const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
 
   const search = searchResultsFetcher({

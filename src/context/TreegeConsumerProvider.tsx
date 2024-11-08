@@ -2,7 +2,7 @@ import { LicenseInfo } from "@mui/x-license";
 import { ReactNode, useLayoutEffect, useMemo, createContext } from "react";
 
 interface TreegeConsumerProviderContext {
-  countryAutocompleteService?: string;
+  countryAutocompleteService?: string | string[];
   googleApiKey?: string;
   licenseMuiX?: string;
   prefixResponseImageUriAutocomplete?: string;
