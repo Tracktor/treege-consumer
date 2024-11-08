@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.42.3](https://github.com/Tracktor/treege-consumer/compare/1.42.2...1.42.3) (2024-11-08)
+
+
+### Bug Fixes
+
+* remove default countryAutocompleteService ([ccaae5d](https://github.com/Tracktor/treege-consumer/commit/ccaae5d82768992aac1d0c1d8854f1ccbfda4270))
+
 ## [1.42.2](https://github.com/Tracktor/treege-consumer/compare/1.42.1...1.42.2) (2024-11-08)
 
 
