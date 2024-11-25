@@ -16,12 +16,28 @@ import {
   Typography,
 } from "@tracktor/design-system";
 import { ChangeEvent, MouseEvent, ReactNode, SyntheticEvent, useState } from "react";
-import { TreegeConsumerProps } from "treege-consumer";
 import TreegeConsumer from "@/features/TreegeConsumer";
 import { TreegeConsumerProvider } from "@/main";
 import { Headers } from "@/types/Headers";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import TreeNode from "@/types/TreeNode";
+
+interface optionsProps {
+  countryAutocompleteService?: string | string[];
+  googleApiKey?: string;
+  prefixResponseImageUriAutocomplete?: string;
+  licenseMuiX?: string;
+  disablePastDatePicker?: boolean;
+  disablePastDateRangePicker?: boolean;
+  disablePastTimePicker?: boolean;
+  disablePastTimeRangePicker?: boolean;
+  disableFutureDatePicker?: boolean;
+  disableFutureDateRangePicker?: boolean;
+  disableFutureTimePicker?: boolean;
+  disableFutureTimeRangePicker?: boolean;
+  disablePastDateTimePicker?: boolean;
+  disablePastDateTimeRangePicker?: boolean;
+}
 
 interface SandboxProps {
   tree: TreeNode;
@@ -35,7 +51,7 @@ interface SandboxProps {
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
   handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
   isSubmitting?: boolean;
-  options: TreegeConsumerProps["options"];
+  options: optionsProps;
 }
 
 interface TabPanelProps {
