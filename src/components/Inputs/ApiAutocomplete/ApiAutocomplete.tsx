@@ -108,7 +108,7 @@ const ApiAutocomplete = (
           const optionImage = safeGetObjectValueByKey(option, "imageUri");
           const optionLabel = safeGetObjectValueByKey(option, "label");
           const key = `${option?.id}-${option.label}-${index}-${String(id)}`;
-          const logo = optionImage && `${prefixResponseImageUriAutocomplete}${optionImage}`;
+          const logo = optionImage ? `${prefixResponseImageUriAutocomplete}${optionImage}` : undefined;
 
           return (
             // eslint-disable-next-line react/jsx-props-no-spreading
