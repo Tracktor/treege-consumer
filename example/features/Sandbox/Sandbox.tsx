@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@tracktor/design-system";
 import { ChangeEvent, MouseEvent, ReactNode, SyntheticEvent, useState } from "react";
+import { TreegeConsumerProps } from "treege-consumer";
 import TreegeConsumer from "@/features/TreegeConsumer";
 import { TreegeConsumerProvider } from "@/main";
 import { Headers } from "@/types/Headers";
@@ -34,6 +35,7 @@ interface SandboxProps {
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
   handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
   isSubmitting?: boolean;
+  options: TreegeConsumerProps["options"];
 }
 
 interface TabPanelProps {
@@ -68,6 +70,7 @@ const Sandbox = ({
   isSubmitting,
   handleCloseDialog,
   handleChangeComponent,
+  options,
 }: SandboxProps) => {
   const [value, setValue] = useState(0);
 
@@ -129,10 +132,7 @@ const Sandbox = ({
                   onSubmit={onSubmit}
                   isSubmitting={isSubmitting}
                   headers={customHeaders}
-                  options={{
-                    disablePastDatePicker: true,
-                    disablePastDateRangePicker: true,
-                  }}
+                  options={options}
                 />
               </Box>
               <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md" scroll="body">

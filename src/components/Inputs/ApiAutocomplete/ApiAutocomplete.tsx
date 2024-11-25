@@ -108,17 +108,13 @@ const ApiAutocomplete = (
           const optionImage = safeGetObjectValueByKey(option, "imageUri");
           const optionLabel = safeGetObjectValueByKey(option, "label");
           const key = `${option?.id}-${option.label}-${index}-${String(id)}`;
+          const logo = optionImage && `${prefixResponseImageUriAutocomplete}${optionImage}`;
 
           return (
             // eslint-disable-next-line react/jsx-props-no-spreading
             <ListItem {...props} key={key} id={id}>
               <ListItemAvatar>
-                <Avatar
-                  variant="rounded"
-                  alt={optionLabel}
-                  src={optionImage ? prefixResponseImageUriAutocomplete + optionImage : optionLabel}
-                  sx={{ height: 30, width: 30 }}
-                />
+                <Avatar variant="rounded" alt={optionLabel} src={logo} sx={{ height: 30, width: 30 }} />
               </ListItemAvatar>
               <ListItemText primary={optionLabel} />
             </ListItem>
