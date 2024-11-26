@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.42.4](https://github.com/Tracktor/treege-consumer/compare/1.42.3...1.42.4) (2024-11-26)
+
+
+### Bug Fixes
+
+* invalid url value ([6c8848b](https://github.com/Tracktor/treege-consumer/commit/6c8848b413d2165aea4ee946111f59c5490d3ad1))
+* invalid url value ([c6e0569](https://github.com/Tracktor/treege-consumer/commit/c6e0569a3dfb1c0469dfaec56508e7b1e75b12bd))
+* invalid url value ([91c31f1](https://github.com/Tracktor/treege-consumer/commit/91c31f17d37101308c88350cacb906280712e11f))
+* rollback ([f91ddf2](https://github.com/Tracktor/treege-consumer/commit/f91ddf22ba37c2c0bf2a0c776f5cc6cb51c0d2cc))
+
 ## [1.42.3](https://github.com/Tracktor/treege-consumer/compare/1.42.2...1.42.3) (2024-11-08)
 
 
