@@ -51,7 +51,6 @@ const App = () => {
       isSubmitting={isSubmitting}
       variant={variant}
       tree={tree}
-      customHeaders={{ Authorization: `Bearer - yourApiToken` }}
       dialogOpen={dialogOpen}
       handleChangeVariant={handleChangeVariant}
       handleChangeTree={handleChangeTree}
@@ -59,9 +58,6 @@ const App = () => {
       onSubmit={handleSubmit}
       submitData={submitData}
       handleChangeComponent={handleChangeComponent}
-      options={{
-        disablePastDateRangePicker: true,
-      }}
     />
   );
 };

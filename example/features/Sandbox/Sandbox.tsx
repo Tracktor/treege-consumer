@@ -22,23 +22,6 @@ import { Headers } from "@/types/Headers";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import TreeNode from "@/types/TreeNode";
 
-interface optionsProps {
-  countryAutocompleteService?: string | string[];
-  googleApiKey?: string;
-  prefixResponseImageUriAutocomplete?: string;
-  licenseMuiX?: string;
-  disablePastDatePicker?: boolean;
-  disablePastDateRangePicker?: boolean;
-  disablePastTimePicker?: boolean;
-  disablePastTimeRangePicker?: boolean;
-  disableFutureDatePicker?: boolean;
-  disableFutureDateRangePicker?: boolean;
-  disableFutureTimePicker?: boolean;
-  disableFutureTimeRangePicker?: boolean;
-  disablePastDateTimePicker?: boolean;
-  disablePastDateTimeRangePicker?: boolean;
-}
-
 interface SandboxProps {
   tree: TreeNode;
   variant: "standard" | "stepper" | undefined;
@@ -51,7 +34,6 @@ interface SandboxProps {
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
   handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
   isSubmitting?: boolean;
-  options: optionsProps;
 }
 
 interface TabPanelProps {
@@ -86,7 +68,6 @@ const Sandbox = ({
   isSubmitting,
   handleCloseDialog,
   handleChangeComponent,
-  options,
 }: SandboxProps) => {
   const [value, setValue] = useState(0);
 
@@ -148,7 +129,10 @@ const Sandbox = ({
                   onSubmit={onSubmit}
                   isSubmitting={isSubmitting}
                   headers={customHeaders}
-                  options={options}
+                  options={{
+                    disablePastDatePicker: true,
+                    disablePastDateRangePicker: true,
+                  }}
                 />
               </Box>
               <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md" scroll="body">
