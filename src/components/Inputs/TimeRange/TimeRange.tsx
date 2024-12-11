@@ -1,7 +1,8 @@
 import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
-import { InputLabel, Stack, Typography } from "@tracktor/design-system";
+import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
+import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface TimeRangeProps {
@@ -40,9 +41,7 @@ const TimeRange = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <Stack direction="row" spacing={1} alignItems="center">
         <TimePickerMui
           ampm={false}

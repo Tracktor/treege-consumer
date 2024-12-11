@@ -1,15 +1,6 @@
-import {
-  Alert,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormHelperText,
-  InputLabel,
-  Radio,
-  Stack,
-  Typography,
-} from "@tracktor/design-system";
+import { Alert, FormControl, FormControlLabel, FormGroup, FormHelperText, Radio, Stack } from "@tracktor/design-system";
 import { forwardRef, Ref, useState } from "react";
+import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import TreeNode from "@/types/TreeNode";
 
@@ -44,9 +35,7 @@ const CheckBoxField = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography component={InputLabel} variant="h5" required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <FormControl aria-readonly={readOnly} fullWidth>
         <FormGroup ref={ref}>
           <Stack spacing={1}>

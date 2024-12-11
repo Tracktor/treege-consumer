@@ -1,5 +1,6 @@
-import { InputLabel, Stack, File as FileDS, Typography } from "@tracktor/design-system";
+import { Stack, File as FileDS } from "@tracktor/design-system";
 import { ChangeEvent } from "react";
+import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface FileProps {
@@ -25,9 +26,7 @@ const File = ({ label, name, helperText, onChange, required, readOnly, multiple,
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <FileDS
         fullWidth
         disabled={readOnly}

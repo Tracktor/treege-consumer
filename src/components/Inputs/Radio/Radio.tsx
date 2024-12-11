@@ -1,15 +1,6 @@
-import {
-  Alert,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  InputLabel,
-  Radio as RadioDS,
-  RadioGroup,
-  Stack,
-  Typography,
-} from "@tracktor/design-system";
+import { Alert, FormControl, FormControlLabel, FormHelperText, Radio as RadioDS, RadioGroup, Stack } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
+import InputLabel from "@/components/Inputs/InputLabel";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import TreeNode from "@/types/TreeNode";
@@ -62,9 +53,7 @@ const Radio = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography component={InputLabel} variant="h5" required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>
         <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} value={value} aria-readonly={readOnly}>
           <Stack spacing={1}>

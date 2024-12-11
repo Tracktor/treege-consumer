@@ -1,18 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  Autocomplete,
-  Avatar,
-  CircularProgress,
-  InputLabel,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Stack,
-  TextField,
-  Typography,
-} from "@tracktor/design-system";
+import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, Stack, TextField } from "@tracktor/design-system";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
+import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import { Headers } from "@/types/Headers";
 import TreeNode from "@/types/TreeNode";
@@ -79,9 +69,7 @@ const ApiAutocomplete = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <Autocomplete
         filterSelectedOptions
         readOnly={readOnly}

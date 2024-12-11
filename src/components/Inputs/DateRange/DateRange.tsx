@@ -1,7 +1,8 @@
 import { DatePicker as DatePickerMui, DateRangePicker } from "@mui/x-date-pickers-pro";
-import { InputLabel, Stack, Typography } from "@tracktor/design-system";
+import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
+import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface DateRangeProps {
@@ -56,7 +57,7 @@ const DateRange = (
   if (licenseMuiX) {
     return (
       <Stack spacing={1.5}>
-        <Typography variant="h5">{label}</Typography>
+        <InputLabel required={required}>{label}</InputLabel>
         <DateRangePicker
           disablePast={disablePast}
           readOnly={readOnly}
@@ -85,9 +86,7 @@ const DateRange = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <Stack direction="row" spacing={1} alignItems="center">
         <DatePickerMui
           disablePast={disablePast}

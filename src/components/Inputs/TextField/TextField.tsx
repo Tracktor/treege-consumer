@@ -1,5 +1,6 @@
-import { InputLabel, Stack, TextField as TextFieldDS, Typography } from "@tracktor/design-system";
+import { Stack, TextField as TextFieldDS } from "@tracktor/design-system";
 import { ChangeEvent, forwardRef, Ref } from "react";
+import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface TextFieldProps {
@@ -32,9 +33,7 @@ const TextField = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <TextFieldDS
         fullWidth
         ref={ref}

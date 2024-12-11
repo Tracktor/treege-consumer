@@ -1,8 +1,9 @@
-import { Autocomplete as AutocompleteDS, Box, Grid, InputLabel, Stack, TextField, Typography } from "@tracktor/design-system";
+import { Autocomplete as AutocompleteDS, Box, Grid, Stack, TextField, Typography } from "@tracktor/design-system";
 import { isObject, isString, useScript } from "@tracktor/react-utils";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
+import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import TreeNode from "@/types/TreeNode";
 
@@ -130,9 +131,7 @@ const Address = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <AutocompleteDS
         freeSolo
         filterSelectedOptions

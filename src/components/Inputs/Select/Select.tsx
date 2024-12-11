@@ -1,16 +1,7 @@
-import {
-  Alert,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select as SelectDS,
-  SelectChangeEvent,
-  Stack,
-  Typography,
-} from "@tracktor/design-system";
+import { Alert, FormControl, FormHelperText, MenuItem, Select as SelectDS, SelectChangeEvent, Stack } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
 import { forwardRef, Ref, useEffect, useRef, useState } from "react";
+import InputLabel from "@/components/Inputs/InputLabel";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
 import TreeNode from "@/types/TreeNode";
@@ -64,9 +55,7 @@ const Select = (
 
   return (
     <Stack spacing={1.5}>
-      <Typography variant="h5" component={InputLabel} required={required} color="text.primary">
-        {label}
-      </Typography>
+      <InputLabel required={required}>{label}</InputLabel>
       <FormControl required={required} ref={ref} fullWidth>
         <SelectDS
           fullWidth
