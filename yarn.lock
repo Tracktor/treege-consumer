@@ -2366,19 +2366,19 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@tracktor/design-system@^2.7.1":
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/@tracktor/design-system/-/design-system-2.7.2.tgz#8ee7ddce0847fcfcb54f7c28a93e77a9599d60ae"
-  integrity sha512-1JbdCm3BMdGnIV+lRUnQObM36Jej824puwDRdbiLlJF8GimimtGBNbiyBTCSKbB9rqToEEvkAbn41iNw8FVDHA==
+"@tracktor/design-system@^2.7.16":
+  version "2.7.16"
+  resolved "https://registry.yarnpkg.com/@tracktor/design-system/-/design-system-2.7.16.tgz#2fc5072148e0e9fc41c6cf822523b3a81805d66b"
+  integrity sha512-sIGQDhEoIcvrgDCf5ouLvu8c02Wte/YtCXk3qnd7BH6+H/C0LQ4OfKjWA0kcYOPYfhbYYTIruGTxDq5+POGDgQ==
   dependencies:
     "@emotion/react" "^11.13.3"
     "@emotion/styled" "^11.13.0"
     "@mui/material" "^5.16.7"
 
-"@tracktor/react-utils@^1.16.3":
-  version "1.16.3"
-  resolved "https://registry.yarnpkg.com/@tracktor/react-utils/-/react-utils-1.16.3.tgz#7f7663ad8ab8837a5bac0d26d96a61b3ac91fc8b"
-  integrity sha512-KC+FD9DTmD691u1sVutaPIfQleuIURrD8eIxHSPApgo2udOoKj4sU0fIrnA8pz1ugjtYU7R3gp/nRFE/TTzA9g==
+"@tracktor/react-utils@^1.17.1":
+  version "1.17.1"
+  resolved "https://registry.yarnpkg.com/@tracktor/react-utils/-/react-utils-1.17.1.tgz#755874f0b86041457c76b2728a8b3d5cf39fabea"
+  integrity sha512-fFVYh6ZLX4MpSIr7ZCH4l0WkdUo4fqrdfwn1CUVWBayHa85UmTcxNdBAUWx4hVO9E6W1zdnNQYp9yyOtBxILZw==
 
 "@types/argparse@1.0.38":
   version "1.0.38"
