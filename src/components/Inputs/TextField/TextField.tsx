@@ -1,5 +1,5 @@
 import { Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, forwardRef, Ref } from "react";
+import { ChangeEvent, FocusEvent, forwardRef, Ref } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -31,28 +31,49 @@ const TextField = (
     return null;
   }
 
+  const handleFocus = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    // Disable wheel on number input, because this change the value
+    if (type === "number") {
+      const handleWheel = (e: Event) => {
+        e.preventDefault();
+      };
+
+      event.target.addEventListener("wheel", handleWheel, { passive: false });
+
+      event.target.addEventListener(
+        "blur",
+        () => {
+          event.target.removeEventListener("wheel", handleWheel);
+        },
+        { once: true },
+      );
+    }
+  };
+
   return (
     <Stack spacing={1.5}>
       <InputLabel required={required}>{label}</InputLabel>
       <TextFieldDS
         fullWidth
+        onChange={handleChange}
+        onFocus={handleFocus}
         ref={ref}
         name={name}
         type={type}
         helperText={helperText}
-        onChange={handleChange}
         required={required}
         value={value}
         inputRef={inputRef}
-        inputProps={{
-          multiple,
-        }}
-        // eslint-disable-next-line react/jsx-no-duplicate-props
-        InputProps={{
-          readOnly,
-        }}
-        InputLabelProps={{
-          shrink,
+        slotProps={{
+          htmlInput: {
+            multiple,
+          },
+          input: {
+            readOnly,
+          },
+          inputLabel: {
+            shrink,
+          },
         }}
       />
     </Stack>
