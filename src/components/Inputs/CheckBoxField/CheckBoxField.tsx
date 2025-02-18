@@ -18,7 +18,7 @@ const CheckBoxField = (
   { data, helperText, readOnly, onChange, value, isIgnored, required }: CheckBoxFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
-  const { attributes, children } = data;
+  const { attributes, children, uuid } = data;
   const { label, type, isLeaf, messages, name } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
 
@@ -39,8 +39,26 @@ const CheckBoxField = (
       <FormControl aria-readonly={readOnly} fullWidth>
         <FormGroup ref={ref}>
           <Stack spacing={1}>
-            <FormControlLabel variant="card" checked={!!value} control={<Radio />} label="Oui" onChange={() => handleCheck(true)} />
-            <FormControlLabel variant="card" checked={!value} control={<Radio />} label="Non" onChange={() => handleCheck(false)} />
+            <FormControlLabel
+              variant="card"
+              checked={!!value}
+              label="Oui"
+              data-label-name-value={`${name}-yes`}
+              name={name}
+              htmlFor={`${uuid}-yes`}
+              control={<Radio id={`${uuid}-yes`} />}
+              onChange={() => handleCheck(true)}
+            />
+            <FormControlLabel
+              variant="card"
+              checked={!value}
+              label="Non"
+              data-label-name-value={`${name}-no`}
+              name={name}
+              htmlFor={`${uuid}-yes`}
+              control={<Radio id={`${uuid}-no`} />}
+              onChange={() => handleCheck(false)}
+            />
           </Stack>
         </FormGroup>
         {helperText && <FormHelperText>{helperText}</FormHelperText>}

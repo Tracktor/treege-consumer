@@ -22,7 +22,7 @@ const Radio = (
   ref: Ref<HTMLDivElement>,
 ) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
-  const { children, attributes } = data;
+  const { children, attributes, uuid } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
@@ -57,30 +57,38 @@ const Radio = (
       <FormControl required={required} ref={ref} aria-readonly={readOnly} fullWidth>
         <RadioGroup aria-labelledby={`${name}-label`} name={name} onChange={handleChange} value={value} aria-readonly={readOnly}>
           <Stack spacing={1}>
-            {options?.map((option, index) => (
-              <FormControlLabel
-                key={option.key}
-                value={option.value}
-                label={option.label}
-                variant="card"
-                control={
-                  <RadioDS
-                    inputRef={inputRef}
-                    data-index={index}
-                    inputProps={{ tabIndex: index }}
-                    readOnly={readOnly}
-                    disabled={readOnly}
-                  />
-                }
-                sx={{
-                  ...(readOnly && {
-                    "& .MuiFormControlLabel-label.Mui-disabled": {
-                      color: "text.primary",
-                    },
-                  }),
-                }}
-              />
-            ))}
+            {options?.map((option, index) => {
+              const id = `${uuid}-${index}`;
+
+              return (
+                <FormControlLabel
+                  key={option.key}
+                  value={option.value}
+                  label={option.label}
+                  htmlFor={id}
+                  variant="card"
+                  aria-label={option.label}
+                  data-label-name-value={`${name}-${option.value}`}
+                  sx={{
+                    ...(readOnly && {
+                      "& .MuiFormControlLabel-label.Mui-disabled": {
+                        color: "text.primary",
+                      },
+                    }),
+                  }}
+                  control={
+                    <RadioDS
+                      inputRef={inputRef}
+                      data-index={index}
+                      inputProps={{ tabIndex: index }}
+                      readOnly={readOnly}
+                      disabled={readOnly}
+                      id={id}
+                    />
+                  }
+                />
+              );
+            })}
           </Stack>
         </RadioGroup>
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
