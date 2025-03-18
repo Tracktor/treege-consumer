@@ -1,11 +1,11 @@
 import { Autocomplete as AutocompleteDS, Box, Grid, Stack, TextField, Typography } from "@tracktor/design-system";
 import { isObject, isString, useScript } from "@tracktor/react-utils";
+import type { TreeNode } from "@tracktor/types-treege";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 type AutocompleteService = google.maps.places.AutocompleteService;
 

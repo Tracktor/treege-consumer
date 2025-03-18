@@ -1,4 +1,5 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { memo } from "react";
 import Address from "@/components/Inputs/Address";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
@@ -20,7 +21,6 @@ import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { Headers } from "@/types/Headers";
-import TreeNode from "@/types/TreeNode";
 
 export interface FielFactoryProps {
   fieldValues?: FieldValues;

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, Stack, TextField } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import { Headers } from "@/types/Headers";
-import TreeNode from "@/types/TreeNode";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";
 import searchResultsFetcher from "@/utils/searchResultsFetcher/searchResultsFetcher";

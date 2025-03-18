@@ -1,10 +1,10 @@
+import type { TreeNode } from "@tracktor/types-treege";
 import basicExample from "example/data/basicExample";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
-import TreeNode from "@/types/TreeNode";
 
 const App = () => {
   const [tree, setTree] = useState<TreeNode>(basicExample);

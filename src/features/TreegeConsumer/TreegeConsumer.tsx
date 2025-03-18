@@ -3,6 +3,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { LicenseInfo } from "@mui/x-license";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import dayjs from "dayjs";
 import { CSSProperties, ReactNode, useLayoutEffect } from "react";
 import { RenderFormValidationParams } from "@/components/Form/FormValidation";
@@ -15,7 +16,6 @@ import { Headers } from "@/types/Headers";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import "dayjs/locale/fr";
-import TreeNode from "@/types/TreeNode";
 
 dayjs.locale("fr");
 

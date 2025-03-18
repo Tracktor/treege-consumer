@@ -1,4 +1,5 @@
 import { Box, Stack } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { type CSSProperties, FormEvent, ReactNode } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import FormValidation, { RenderFormValidationParams } from "@/components/Form/FormValidation";
@@ -7,7 +8,6 @@ import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { Headers } from "@/types/Headers";
-import TreeNode from "@/types/TreeNode";
 
 interface StandardProps {
   fields?: TreeNode[];

@@ -1,6 +1,6 @@
 import { SelectChangeEvent } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { ChangeEvent, SyntheticEvent } from "react";
-import TreeNode from "@/types/TreeNode";
 
 export default interface ChangeEventField {
   event?:

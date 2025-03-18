@@ -1,10 +1,10 @@
 import { Alert, FormControl, FormHelperText, MenuItem, Select as SelectDS, SelectChangeEvent, Stack } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
+import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 export interface SelectProps {
   data: TreeNode;

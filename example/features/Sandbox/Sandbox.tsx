@@ -15,12 +15,12 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { ChangeEvent, MouseEvent, ReactNode, SyntheticEvent, useState } from "react";
 import TreegeConsumer from "@/features/TreegeConsumer";
 import { TreegeConsumerProvider } from "@/main";
 import { Headers } from "@/types/Headers";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
-import TreeNode from "@/types/TreeNode";
 
 interface SandboxProps {
   tree: TreeNode;

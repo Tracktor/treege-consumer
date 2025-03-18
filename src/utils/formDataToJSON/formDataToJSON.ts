@@ -1,7 +1,6 @@
+import type { TreeNode } from "@tracktor/types-treege";
 import { FieldValues, FieldValue } from "@/types/FieldValues";
 import { JsonFormValue } from "@/types/JsonFormValue";
-import TreeNode from "@/types/TreeNode";
-
 /**
  * Get the current attributes of the field
  * @param currentField

@@ -1,11 +1,11 @@
 import { isDeepEqualObject } from "@tracktor/react-utils";
+import type { TreeNode } from "@tracktor/types-treege";
 import { FormEvent, MouseEvent as ReactMouseEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
-import TreeNode from "@/types/TreeNode";
 import formDataToJSON from "@/utils/formDataToJSON/formDataToJSON";
 import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
 import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";

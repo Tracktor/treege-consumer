@@ -1,5 +1,5 @@
+import type { Params } from "@tracktor/types-treege";
 import { Headers as HeaderType } from "@/types/Headers";
-import { Params } from "@/types/TreeNode";
 
 type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 

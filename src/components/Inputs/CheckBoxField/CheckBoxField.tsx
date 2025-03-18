@@ -1,8 +1,8 @@
 import { Alert, FormControl, FormControlLabel, FormGroup, FormHelperText, Radio, Stack } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 export interface CheckBoxFieldProps {
   data: TreeNode;

@@ -1,9 +1,9 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, Radio as RadioDS, RadioGroup, Stack } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 export interface RadioProps {
   data: TreeNode;
@@ -83,6 +83,7 @@ const Radio = (
                       inputProps={{ tabIndex: index }}
                       readOnly={readOnly}
                       disabled={readOnly}
+                      required={required}
                       id={id}
                     />
                   }

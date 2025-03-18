@@ -1,5 +1,5 @@
+import type { Params } from "@tracktor/types-treege";
 import { Headers } from "@/types/Headers";
-import { Params } from "@/types/TreeNode";
 
 interface Mock {
   url: string;
