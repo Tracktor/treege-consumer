@@ -85,6 +85,17 @@ const FieldFactory = ({
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
+  const handleChangeDate = useCallback(
+    (dataAttribute: ChangeEventField) => {
+      if (dataAttribute.value) {
+        setError("");
+      }
+
+      handleChangeFormValue?.(dataAttribute);
+    },
+    [handleChangeFormValue],
+  );
+
   const handleInputRef = useCallback(
     (element: HTMLInputElement | null) => {
       if (element) {
@@ -180,16 +191,19 @@ const FieldFactory = ({
       case "date":
         return (
           <DatePicker
-            onChange={handleChangeFormValue}
             readOnly={readOnly}
+            onChange={handleChangeDate}
             name={name}
             label={label}
             required={isRequired}
             inputRef={handleInputRef}
-            helperText={helperText}
+            helperText={error || helperText}
             value={value}
             disablePast={disablePastDatePicker}
             isIgnored={isFieldIgnored}
+            pattern={pattern}
+            patternMessage={patternMessage}
+            error={!!error}
           />
         );
       case "time":

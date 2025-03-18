@@ -1,3 +1,4 @@
+import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { DatePicker as DatePickerMui } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
@@ -15,20 +16,40 @@ export interface DateRangeProps {
   readOnly?: boolean;
   isIgnored?: boolean;
   disablePast?: boolean;
-  onChange?(dataAttribute: ChangeEventField): void;
+  pattern?: string;
+  patternMessage?: string;
+  error?: boolean;
+  onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
 }
 
 const FORMAT = "YYYY-MM-DD";
 
 const DatePicker = (
-  { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored, disablePast }: DateRangeProps,
+  {
+    label,
+    name,
+    helperText,
+    inputRef,
+    onChange,
+    required,
+    value,
+    readOnly,
+    isIgnored,
+    disablePast,
+    error,
+    pattern,
+    patternMessage,
+  }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const handleChange = (date: Dayjs | null) => {
-    onChange?.({
-      name,
-      value: date?.format(FORMAT),
-    });
+  const handleChange = (date: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
+    onChange?.(
+      {
+        name,
+        value: date?.format(FORMAT),
+      },
+      context,
+    );
   };
 
   if (isIgnored) {
@@ -48,10 +69,13 @@ const DatePicker = (
         format="ll"
         slotProps={{
           textField: () => ({
+            error,
             fullWidth: true,
             helperText,
             inputRef,
+            pattern,
             required,
+            title: patternMessage,
           }),
         }}
       />
