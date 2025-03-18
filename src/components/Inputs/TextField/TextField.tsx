@@ -1,5 +1,5 @@
-import { FormControl, FormHelperText, Stack, TextField as TextFieldDS, useFormControl } from "@tracktor/design-system";
-import { ChangeEvent, FocusEvent, forwardRef, Ref, useMemo } from "react";
+import { Stack, TextField as TextFieldDS } from "@tracktor/design-system";
+import { ChangeEvent, FocusEvent, forwardRef, Ref } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -19,20 +19,6 @@ export interface TextFieldProps {
   pattern?: string;
   patternMessage?: string;
 }
-
-const MyFormHelperText = () => {
-  const { focused } = useFormControl() || {};
-
-  const helperText = useMemo(() => {
-    if (focused) {
-      return "This field is being focused";
-    }
-
-    return "Helper text";
-  }, [focused]);
-
-  return <FormHelperText>{helperText}</FormHelperText>;
-};
 
 const TextField = (
   {
@@ -84,34 +70,31 @@ const TextField = (
   return (
     <Stack spacing={1.5}>
       <InputLabel required={required}>{label}</InputLabel>
-      <FormControl>
-        <TextFieldDS
-          fullWidth
-          onChange={handleChange}
-          onFocus={handleFocus}
-          ref={ref}
-          name={name}
-          type={type}
-          helperText={helperText}
-          required={required}
-          value={value}
-          inputRef={inputRef}
-          slotProps={{
-            htmlInput: {
-              multiple,
-              pattern,
-              title: patternMessage,
-            },
-            input: {
-              readOnly,
-            },
-            inputLabel: {
-              shrink,
-            },
-          }}
-        />
-        <MyFormHelperText />
-      </FormControl>
+      <TextFieldDS
+        fullWidth
+        onChange={handleChange}
+        onFocus={handleFocus}
+        ref={ref}
+        name={name}
+        type={type}
+        helperText={helperText}
+        required={required}
+        value={value}
+        inputRef={inputRef}
+        slotProps={{
+          htmlInput: {
+            multiple,
+            pattern,
+            title: patternMessage,
+          },
+          input: {
+            readOnly,
+          },
+          inputLabel: {
+            shrink,
+          },
+        }}
+      />
     </Stack>
   );
 };
