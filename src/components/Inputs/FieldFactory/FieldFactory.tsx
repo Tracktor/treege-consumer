@@ -1,6 +1,6 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
-import { memo } from "react";
+import { memo, useCallback, useState } from "react";
 import Address from "@/components/Inputs/Address";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import CheckBoxField from "@/components/Inputs/CheckBoxField";
@@ -66,6 +66,7 @@ const FieldFactory = ({
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
+  const [error, setError] = useState("");
   const { attributes } = data;
   const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage } = attributes;
   const animationTimeout = animated ? 200 : 0;
@@ -84,13 +85,54 @@ const FieldFactory = ({
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
-  const inputRef = (ref: HTMLInputElement) => {
-    if (!ref || !autoFocus || ref?.tabIndex > 0) {
-      return null;
-    }
-    setTimeout(() => ref.focus(), animationTimeout);
-    return null;
-  };
+  const handleInputRef = useCallback(
+    (element: HTMLInputElement | null) => {
+      if (element) {
+        // Handle invalid event with custom pattern message
+        const handleInvalid = (event: Event) => {
+          event.preventDefault();
+          element.focus();
+
+          const inputElement = event.target as HTMLInputElement;
+
+          // Check if validation failed due to pattern mismatch and we have a custom message
+          if (inputElement.validity && inputElement.validity.patternMismatch && patternMessage) {
+            // Prevent the browser's default validation message
+
+            // Set our custom error message
+            setError(patternMessage);
+          } else if (inputElement.validationMessage) {
+            // For other validation errors, use the browser's message
+            setError(inputElement.validationMessage);
+          }
+        };
+
+        // Handle input event to clear errors when user types
+        const handleInput = () => {
+          setTimeout(() => setError(""), 50);
+        };
+
+        // Clean up old event listeners in case this function runs multiple times
+        element.removeEventListener("invalid", handleInvalid);
+        element.removeEventListener("input", handleInput);
+
+        // Add event listeners
+        element.addEventListener("invalid", handleInvalid);
+        element.addEventListener("input", handleInput);
+
+        // If the pattern attribute is set, add a title attribute with the error message
+        if (pattern && patternMessage) {
+          element.setAttribute("title", patternMessage);
+        }
+      }
+
+      if (!element || !autoFocus || element.tabIndex > 0) {
+        return;
+      }
+      setTimeout(() => element.focus(), animationTimeout);
+    },
+    [animationTimeout, autoFocus, pattern, patternMessage],
+  );
 
   const field = () => {
     switch (type) {
@@ -102,45 +144,50 @@ const FieldFactory = ({
       case "url":
         return (
           <TextField
+            onChange={handleChangeFormValue}
+            readOnly={readOnly}
             name={name}
             label={label}
             type={type}
-            onChange={handleChangeFormValue}
             value={value}
             required={isRequired}
-            inputRef={inputRef}
-            helperText={helperText}
-            readOnly={readOnly}
+            inputRef={handleInputRef}
+            helperText={error || helperText}
             multiple={isMultiple}
             isIgnored={isFieldIgnored}
             pattern={pattern}
             patternMessage={patternMessage}
+            error={!!error}
           />
         );
       case "file":
         return (
           <File
+            onChange={handleChangeFormValue}
+            readOnly={readOnly}
+            inputRef={handleInputRef}
             name={name}
             label={label}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            helperText={helperText}
-            readOnly={readOnly}
+            helperText={error || helperText}
             multiple={isMultiple}
             isIgnored={isFieldIgnored}
+            pattern={pattern}
+            patternMessage={patternMessage}
+            error={!!error}
           />
         );
       case "date":
         return (
           <DatePicker
+            onChange={handleChangeFormValue}
+            readOnly={readOnly}
             name={name}
             label={label}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            inputRef={inputRef}
+            inputRef={handleInputRef}
             helperText={helperText}
             value={value}
-            readOnly={readOnly}
             disablePast={disablePastDatePicker}
             isIgnored={isFieldIgnored}
           />
@@ -148,43 +195,43 @@ const FieldFactory = ({
       case "time":
         return (
           <TimePicker
+            onChange={handleChangeFormValue}
+            readOnly={readOnly}
             name={name}
             label={label}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            inputRef={inputRef}
+            inputRef={handleInputRef}
             helperText={helperText}
             value={value}
-            readOnly={readOnly}
             isIgnored={isFieldIgnored}
           />
         );
       case "timeRange":
         return (
           <TimeRange
+            onChange={handleChangeFormValue}
+            readOnly={readOnly}
             name={name}
             label={label}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            inputRef={inputRef}
+            inputRef={handleInputRef}
             helperText={helperText}
             value={value}
-            readOnly={readOnly}
             isIgnored={isFieldIgnored}
           />
         );
       case "dateRange":
         return (
           <DateRange
+            onChange={handleChangeFormValue}
+            readOnly={readOnly}
             name={name}
             label={label}
             disablePast={!!isDisabledPast || disablePastDateRangePicker}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            inputRef={inputRef}
+            inputRef={handleInputRef}
             helperText={helperText}
             value={value}
-            readOnly={readOnly}
             isIgnored={isFieldIgnored}
             licenseMuiX={licenseMuiX}
           />
@@ -192,11 +239,11 @@ const FieldFactory = ({
       case "address":
         return (
           <Address
-            inputRef={inputRef}
-            value={value}
             readOnly={readOnly}
             node={data}
             onChange={handleChangeFormValue}
+            inputRef={handleInputRef}
+            value={value}
             isIgnored={isFieldIgnored}
             country={country}
             googleApiKey={googleApiKey}
@@ -206,13 +253,13 @@ const FieldFactory = ({
         return (
           <Radio
             data={data}
-            inputRef={inputRef}
-            required={isRequired}
             onChange={handleChangeFormValue}
             onInit={handleChangeFormValue}
+            readOnly={readOnly}
+            inputRef={handleInputRef}
+            required={isRequired}
             helperText={helperText}
             value={value}
-            readOnly={readOnly}
             isIgnored={isFieldIgnored}
           />
         );
@@ -220,11 +267,11 @@ const FieldFactory = ({
         return (
           <Select
             data={data}
-            inputRef={inputRef}
             onChange={handleChangeFormValue}
             onInit={handleChangeFormValue}
-            helperText={helperText}
             readOnly={readOnly}
+            inputRef={handleInputRef}
+            helperText={helperText}
             required={isRequired}
             value={value}
             isIgnored={isFieldIgnored}
@@ -235,9 +282,9 @@ const FieldFactory = ({
           <CheckBoxField
             data={data}
             onChange={handleChangeFormValue}
+            readOnly={readOnly}
             helperText={helperText}
             value={value}
-            readOnly={readOnly}
             isIgnored={isFieldIgnored}
             required={isRequired}
           />
@@ -246,11 +293,11 @@ const FieldFactory = ({
         return (
           <SwitchField
             data={data}
-            inputRef={inputRef}
             onChange={handleChangeFormValue}
+            readOnly={readOnly}
+            inputRef={handleInputRef}
             helperText={helperText}
             value={value}
-            readOnly={readOnly}
             isIgnored={isFieldIgnored}
           />
         );
@@ -260,7 +307,7 @@ const FieldFactory = ({
             node={data}
             value={value}
             onChange={handleChangeFormValue}
-            inputRef={inputRef}
+            inputRef={handleInputRef}
             readOnly={readOnly}
             headers={headers}
             prefixResponseImageUriAutocomplete={prefixResponseImageUriAutocomplete}
@@ -270,13 +317,13 @@ const FieldFactory = ({
       case "dynamicSelect":
         return (
           <DynamicSelect
-            value={value}
             onChange={handleChangeFormValue}
             fieldValues={fieldValues}
             node={data}
             headers={headers}
+            value={value}
             disabledChildrenField={disabledChildrenField}
-            inputRef={inputRef}
+            inputRef={handleInputRef}
             isIgnored={isFieldIgnored}
           />
         );
@@ -294,8 +341,8 @@ const FieldFactory = ({
   return (
     <Slide
       mountOnEnter
-      timeout={animationTimeout}
       in={visible}
+      timeout={animationTimeout}
       appear={!isFieldIgnored}
       style={isFieldIgnored ? { display: "none" } : undefined}
     >

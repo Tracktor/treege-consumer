@@ -2407,10 +2407,10 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@tracktor/design-system@^3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@tracktor/design-system/-/design-system-3.5.1.tgz#4d21b0aa6416d07fc998c96c9f1d1555303eef7f"
-  integrity sha512-USy+dryP7dIDvX21Umu2CyuaOp+K2Vb65jnGRV7MC7UfmxQ14wrC0dep0u+wYbSLlLj7we+YytqQI/yN/9f77A==
+"@tracktor/design-system@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@tracktor/design-system/-/design-system-3.7.0.tgz#e752e3d28cf13baa89e761fc0f1756b75d6fb912"
+  integrity sha512-Kau1AbnsEsnmcOs8Rql4v2M/louMn/fDE7n5CjUTZMIQ4ebrrZldPWxm35iFsgLOQyhoRgG/BjRRzev6P9J7WA==
   dependencies:
     "@emotion/react" "^11.13.3"
     "@emotion/styled" "^11.13.0"

@@ -7,7 +7,7 @@ export interface TextFieldProps {
   label?: string;
   name: string;
   helperText?: string;
-  inputRef: Ref<unknown>;
+  inputRef: Ref<HTMLInputElement>;
   onChange?(dataAttribute: ChangeEventField): void;
   required?: boolean;
   type: string;
@@ -18,6 +18,7 @@ export interface TextFieldProps {
   isIgnored?: boolean;
   pattern?: string;
   patternMessage?: string;
+  error?: boolean;
 }
 
 const TextField = (
@@ -36,6 +37,7 @@ const TextField = (
     isIgnored,
     pattern,
     patternMessage,
+    error,
   }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
@@ -81,6 +83,7 @@ const TextField = (
         required={required}
         value={value}
         inputRef={inputRef}
+        error={error}
         slotProps={{
           htmlInput: {
             multiple,
