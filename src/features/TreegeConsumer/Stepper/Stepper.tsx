@@ -47,6 +47,7 @@ const Stepper = ({
   options,
 }: StepperProps) => (
   <Box
+    noValidate={options?.noValidate}
     onSubmit={handleSubmit}
     component="form"
     paddingX={15}

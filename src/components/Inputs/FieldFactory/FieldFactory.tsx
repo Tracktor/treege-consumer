@@ -67,7 +67,7 @@ const FieldFactory = ({
   visible = true,
 }: FielFactoryProps) => {
   const { attributes } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name } = attributes;
+  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage } = attributes;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
@@ -113,6 +113,8 @@ const FieldFactory = ({
             readOnly={readOnly}
             multiple={isMultiple}
             isIgnored={isFieldIgnored}
+            pattern={pattern}
+            patternMessage={patternMessage}
           />
         );
       case "file":

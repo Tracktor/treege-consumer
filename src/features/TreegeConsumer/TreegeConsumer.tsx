@@ -68,6 +68,10 @@ export interface TreegeConsumerProps<T = unknown> {
      * Locale for adapter
      */
     adapterLocale?: string;
+    /**
+     * Indicate that the form is not to be validated on submit
+     */
+    noValidate?: boolean;
   };
   /**
    * Custom form style

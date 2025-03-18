@@ -109,9 +109,10 @@ on [Treege](https://github.com/Tracktor/treege) data
 | googleApiKey                       | string             |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
 | prefixResponseImageUriAutocomplete | string             |         | false    | Prefix response image uri for autocomplete image                                                                                                                              |
 | licenseMuiX                        | string             |         | false    | License MUI X to enable pro and premium feature                                                                                                                               |
-| disablePastDatePicker              | boolean            |         | false    | Disable past for date picker                                                                                                                                                  |
-| disablePastDateRangePicker         | boolean            |         | false    | Disable past for date range picker                                                                                                                                            |
 | adapterLocale                      | string             |         | false    | Adapter local for locale format                                                                                                                                               |
+| disablePastDateRangePicker         | boolean            |         | false    | Disable past for date range picker                                                                                                                                            |
+| disablePastDatePicker              | boolean            |         | false    | Disable past for date picker                                                                                                                                                  |
+| noValidate                         | boolean            |         | false    | Indicate that the form is not to be validated on submit                                                                                                                       |
 
 
 ### TreegeConsumerResponse
@@ -157,3 +158,6 @@ const App = () => {
 
 export default App;
 ```
+## Type Definitions
+
+This library uses type definitions from [@tracktor/types-treege](https://www.npmjs.com/package/@tracktor/types-treege)

@@ -1,5 +1,5 @@
-import { Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, FocusEvent, forwardRef, Ref } from "react";
+import { FormControl, FormHelperText, Stack, TextField as TextFieldDS, useFormControl } from "@tracktor/design-system";
+import { ChangeEvent, FocusEvent, forwardRef, Ref, useMemo } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -16,10 +16,41 @@ export interface TextFieldProps {
   shrink?: boolean;
   value?: unknown;
   isIgnored?: boolean;
+  pattern?: string;
+  patternMessage?: string;
 }
 
+const MyFormHelperText = () => {
+  const { focused } = useFormControl() || {};
+
+  const helperText = useMemo(() => {
+    if (focused) {
+      return "This field is being focused";
+    }
+
+    return "Helper text";
+  }, [focused]);
+
+  return <FormHelperText>{helperText}</FormHelperText>;
+};
+
 const TextField = (
-  { label, name, helperText, inputRef, onChange, required, type, readOnly, multiple, shrink, value, isIgnored }: TextFieldProps,
+  {
+    label,
+    name,
+    helperText,
+    inputRef,
+    onChange,
+    required,
+    type,
+    readOnly,
+    multiple,
+    shrink,
+    value,
+    isIgnored,
+    pattern,
+    patternMessage,
+  }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -53,29 +84,34 @@ const TextField = (
   return (
     <Stack spacing={1.5}>
       <InputLabel required={required}>{label}</InputLabel>
-      <TextFieldDS
-        fullWidth
-        onChange={handleChange}
-        onFocus={handleFocus}
-        ref={ref}
-        name={name}
-        type={type}
-        helperText={helperText}
-        required={required}
-        value={value}
-        inputRef={inputRef}
-        slotProps={{
-          htmlInput: {
-            multiple,
-          },
-          input: {
-            readOnly,
-          },
-          inputLabel: {
-            shrink,
-          },
-        }}
-      />
+      <FormControl>
+        <TextFieldDS
+          fullWidth
+          onChange={handleChange}
+          onFocus={handleFocus}
+          ref={ref}
+          name={name}
+          type={type}
+          helperText={helperText}
+          required={required}
+          value={value}
+          inputRef={inputRef}
+          slotProps={{
+            htmlInput: {
+              multiple,
+              pattern,
+              title: patternMessage,
+            },
+            input: {
+              readOnly,
+            },
+            inputLabel: {
+              shrink,
+            },
+          }}
+        />
+        <MyFormHelperText />
+      </FormControl>
     </Stack>
   );
 };
