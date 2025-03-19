@@ -191,7 +191,7 @@ const TreegeComposition = <T,>({
               isSubmitting={isSubmitting}
               handleChangeFormValue={handleChangeFormValue}
               handlePrev={handlePrev}
-              handleSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               formCanBeSubmit={formCanBeSubmit}
               options={options}
               renderFormValidation={renderFormValidation}
@@ -200,7 +200,7 @@ const TreegeComposition = <T,>({
             <Standard
               fields={fields}
               handleChangeFormValue={handleChangeFormValue}
-              handleSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               isLastField={isLastField}
               readOnly={readOnly}
               headers={headers}

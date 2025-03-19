@@ -21,14 +21,14 @@ interface StandardProps {
   ignoreFields?: string[];
   options?: TreegeConsumerProps["options"];
   handleChangeFormValue?(dataAttribute: ChangeEventField): void;
-  handleSubmit?(event: FormEvent<HTMLFormElement>): void;
+  onSubmit?(event: FormEvent<HTMLFormElement>): void;
   renderFormValidation?(params: RenderFormValidationParams): ReactNode;
 }
 
 const Standard = ({
   fields,
   handleChangeFormValue,
-  handleSubmit,
+  onSubmit,
   isLastField,
   readOnly,
   headers,
@@ -42,7 +42,7 @@ const Standard = ({
 }: StandardProps) => {
   const formRef = useRef<HTMLFormElement>(null);
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     // Prevent default form submission behavior
     event.preventDefault();
 
@@ -82,11 +82,11 @@ const Standard = ({
 
     // If we reach here, the form is valid
     // Call the original submit handler
-    handleSubmit?.(event);
+    onSubmit?.(event);
   };
 
   return (
-    <Box noValidate onSubmit={onSubmit} component="form" paddingX={15} paddingY={5} style={style} ref={formRef}>
+    <Box noValidate onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style} ref={formRef}>
       <Stack spacing={4} direction="column" sx={{ "div:first-of-type hr": { display: "none" } }}>
         {fields ? (
           fields.map((field) => (

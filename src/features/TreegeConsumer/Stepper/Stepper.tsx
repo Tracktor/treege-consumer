@@ -26,7 +26,7 @@ interface StepperProps {
   options?: TreegeConsumerProps["options"];
   handleChangeFormValue?(dataAttribute: ChangeEventField): void;
   handlePrev?(_: ReactMouseEvent<HTMLButtonElement, MouseEvent>): void;
-  handleSubmit?(event: FormEvent<HTMLFormElement>): void;
+  onSubmit?(event: FormEvent<HTMLFormElement>): void;
 }
 
 const Stepper = ({
@@ -40,7 +40,7 @@ const Stepper = ({
   headers,
   handleChangeFormValue,
   handlePrev,
-  handleSubmit,
+  onSubmit,
   style,
   formCanBeSubmit,
   renderFormValidation,
@@ -48,7 +48,7 @@ const Stepper = ({
 }: StepperProps) => (
   <Box
     noValidate={options?.noValidate}
-    onSubmit={handleSubmit}
+    onSubmit={onSubmit}
     component="form"
     paddingX={15}
     height="100%"
