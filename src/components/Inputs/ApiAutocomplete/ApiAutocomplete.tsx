@@ -19,15 +19,28 @@ interface ApiAutocompleteProps {
   value?: Option | null;
   isIgnored?: boolean;
   prefixResponseImageUriAutocomplete?: string;
+  helperText?: string;
+  error?: boolean;
 }
 
 const ApiAutocomplete = (
-  { node, onChange, readOnly, inputRef, headers, value, isIgnored, prefixResponseImageUriAutocomplete }: ApiAutocompleteProps,
+  {
+    node,
+    onChange,
+    readOnly,
+    inputRef,
+    headers,
+    value,
+    isIgnored,
+    prefixResponseImageUriAutocomplete,
+    error,
+    helperText,
+  }: ApiAutocompleteProps,
   ref?: Ref<unknown>,
 ) => {
   const [searchValue, setSearchValue] = useState("");
   const { attributes, children } = node;
-  const { type, name, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
+  const { type, name, label, required, route, initialQuery, isLeaf, isDecision } = attributes;
   const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
 
   const search = searchResultsFetcher({
@@ -117,11 +130,13 @@ const ApiAutocomplete = (
             required={required}
             helperText={helperText}
             inputRef={inputRef}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
-              error: isError,
-              readOnly,
+            error={isError || error}
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
+                readOnly,
+              },
             }}
           />
         )}

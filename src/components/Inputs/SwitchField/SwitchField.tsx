@@ -11,10 +11,11 @@ export interface SwitchFieldProps {
   onChange?(dataAttribute: ChangeEventField): void;
   value?: unknown;
   isIgnored?: boolean;
+  error?: boolean;
 }
 
 const SwitchField = (
-  { data, inputRef, helperText, readOnly, onChange, value, isIgnored }: SwitchFieldProps,
+  { data, inputRef, helperText, readOnly, onChange, value, isIgnored, error }: SwitchFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
   const { attributes, children } = data;
@@ -41,9 +42,22 @@ const SwitchField = (
           label={label}
           aria-readonly={readOnly}
           control={
-            <Field name={name} onChange={handleCheck} inputRef={inputRef} checked={!!value} readOnly={readOnly} disabled={readOnly} />
+            <Field
+              name={name}
+              onChange={handleCheck}
+              inputRef={inputRef}
+              checked={!!value}
+              readOnly={readOnly}
+              disabled={readOnly}
+              color="error"
+            />
           }
           sx={{
+            ...(error && {
+              "& .MuiRadio-root": {
+                borderColor: "red",
+              },
+            }),
             ...(readOnly && {
               "& .MuiFormControlLabel-label.Mui-disabled": {
                 color: "text.primary",
@@ -52,7 +66,7 @@ const SwitchField = (
           }}
         />
       </FormGroup>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && <FormHelperText sx={{ ...(error && { color: "error.main" }) }}>{helperText}</FormHelperText>}
       {message && (
         <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
           {message}

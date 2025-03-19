@@ -1,3 +1,4 @@
+import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
@@ -14,25 +15,31 @@ export interface TimeRangeProps {
   readOnly?: boolean;
   value?: unknown;
   isIgnored?: boolean;
-  onChange?(dataAttribute: ChangeEventField): void;
+  pattern?: string;
+  patternMessage?: string;
+  error?: boolean;
+  onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
 }
 
 const FORMAT = "HH:mm";
 
 const TimeRange = (
-  { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored }: TimeRangeProps,
+  { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored, pattern, patternMessage, error }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const startValue = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
   const endValue = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
 
-  const handleChange = (field: "start" | "end") => (time: Dayjs | null) => {
+  const handleChange = (field: "start" | "end") => (time: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
     const currentTime = time?.format(FORMAT);
 
-    onChange?.({
-      name,
-      value: field === "start" ? [currentTime, endValue?.format(FORMAT)] : [startValue?.format(FORMAT), currentTime],
-    });
+    onChange?.(
+      {
+        name,
+        value: field === "start" ? [currentTime, endValue?.format(FORMAT)] : [startValue?.format(FORMAT), currentTime],
+      },
+      context,
+    );
   };
 
   if (isIgnored) {
@@ -54,10 +61,13 @@ const TimeRange = (
           format={FORMAT}
           slotProps={{
             textField: () => ({
+              error,
               fullWidth: true,
               helperText,
               inputRef,
+              pattern,
               required,
+              title: patternMessage,
             }),
           }}
         />
@@ -72,10 +82,13 @@ const TimeRange = (
           format={FORMAT}
           slotProps={{
             textField: () => ({
+              error,
               fullWidth: true,
               helperText,
               inputRef,
+              pattern,
               required,
+              title: patternMessage,
             }),
           }}
         />

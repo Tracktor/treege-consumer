@@ -1,3 +1,4 @@
+import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { DatePicker as DatePickerMui, DateRangePicker } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
@@ -16,32 +17,59 @@ export interface DateRangeProps {
   isIgnored?: boolean;
   disablePast?: boolean;
   licenseMuiX?: string;
-  onChange?(dataAttribute: ChangeEventField): void;
+  pattern?: string;
+  patternMessage?: string;
+  error?: boolean;
+  onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
 }
 
 const FORMAT = "YYYY-MM-DD";
 
 const DateRange = (
-  { label, name, helperText, inputRef, onChange, required, value, readOnly, isIgnored, disablePast, licenseMuiX }: DateRangeProps,
+  {
+    label,
+    name,
+    helperText,
+    inputRef,
+    onChange,
+    required,
+    value,
+    readOnly,
+    isIgnored,
+    disablePast,
+    licenseMuiX,
+    pattern,
+    patternMessage,
+    error,
+  }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const fromDate = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
   const toDate = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
 
-  const handleChangeDatePicker = (field: "start" | "end") => (date: Dayjs | null) => {
+  const handleChangeDatePicker = (field: "start" | "end") => (date: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
     const currentDate = date?.format(FORMAT);
 
-    onChange?.({
-      name,
-      value: field === "start" ? [currentDate, toDate?.format(FORMAT)] : [fromDate?.format(FORMAT), currentDate],
-    });
+    onChange?.(
+      {
+        name,
+        value: field === "start" ? [currentDate, toDate?.format(FORMAT)] : [fromDate?.format(FORMAT), currentDate],
+      },
+      context,
+    );
   };
 
-  const handleChangeDateRangePickerPro = (date: [Dayjs, Dayjs] | [Dayjs, null] | [null, Dayjs] | [null, null]) => {
-    onChange?.({
-      name,
-      value: [date[0]?.format(FORMAT), date[1]?.format(FORMAT)],
-    });
+  const handleChangeDateRangePickerPro = (
+    date: [Dayjs, Dayjs] | [Dayjs, null] | [null, Dayjs] | [null, null],
+    context: PickerChangeHandlerContext<unknown>,
+  ) => {
+    onChange?.(
+      {
+        name,
+        value: [date[0]?.format(FORMAT), date[1]?.format(FORMAT)],
+      },
+      context,
+    );
   };
 
   if (isIgnored) {
@@ -72,11 +100,14 @@ const DateRange = (
           }}
           slotProps={{
             textField: () => ({
+              error,
               fullWidth: true,
               helperText,
               inputRef,
               name: `${name}[]`,
+              pattern,
               required,
+              title: patternMessage,
             }),
           }}
         />
@@ -99,10 +130,13 @@ const DateRange = (
           format="ll"
           slotProps={{
             textField: () => ({
+              error,
               fullWidth: true,
               helperText,
               inputRef,
+              pattern,
               required,
+              title: patternMessage,
             }),
           }}
         />
@@ -118,10 +152,13 @@ const DateRange = (
           format="ll"
           slotProps={{
             textField: () => ({
+              error,
               fullWidth: true,
               helperText,
               inputRef,
+              pattern,
               required,
+              title: patternMessage,
             }),
           }}
         />

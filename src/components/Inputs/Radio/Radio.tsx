@@ -13,12 +13,13 @@ export interface RadioProps {
   value?: unknown;
   readOnly?: boolean;
   isIgnored?: boolean;
+  error?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   onInit?(dataAttribute: ChangeEventField): void;
 }
 
 const Radio = (
-  { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored }: RadioProps,
+  { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored, error }: RadioProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
@@ -70,6 +71,11 @@ const Radio = (
                   aria-label={option.label}
                   data-label-name-value={`${name}-${option.value}`}
                   sx={{
+                    ...(error && {
+                      "& .MuiRadio-root": {
+                        borderColor: "red",
+                      },
+                    }),
                     ...(readOnly && {
                       "& .MuiFormControlLabel-label.Mui-disabled": {
                         color: "text.primary",
@@ -92,7 +98,7 @@ const Radio = (
             })}
           </Stack>
         </RadioGroup>
-        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {helperText && <FormHelperText sx={{ ...(error && { color: "error.main" }) }}>{helperText}</FormHelperText>}
         {message && (
           <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
             {message}

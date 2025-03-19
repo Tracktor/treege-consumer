@@ -12,10 +12,11 @@ export interface CheckBoxFieldProps {
   value?: unknown;
   isIgnored?: boolean;
   required?: boolean;
+  error?: boolean;
 }
 
 const CheckBoxField = (
-  { data, helperText, readOnly, onChange, value, isIgnored, required }: CheckBoxFieldProps,
+  { data, helperText, readOnly, onChange, value, isIgnored, required, error }: CheckBoxFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
   const { attributes, children, uuid } = data;
@@ -48,6 +49,13 @@ const CheckBoxField = (
               htmlFor={`${uuid}-yes`}
               control={<Radio id={`${uuid}-yes`} />}
               onChange={() => handleCheck(true)}
+              sx={{
+                ...(error && {
+                  "& .MuiRadio-root": {
+                    borderColor: "red",
+                  },
+                }),
+              }}
             />
             <FormControlLabel
               variant="card"
@@ -61,7 +69,7 @@ const CheckBoxField = (
             />
           </Stack>
         </FormGroup>
-        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {helperText && <FormHelperText sx={{ ...(error && { color: "error.main" }) }}>{helperText}</FormHelperText>}
         {message && (
           <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
             {message}

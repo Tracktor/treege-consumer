@@ -1,3 +1,4 @@
+import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
@@ -14,20 +15,26 @@ export interface TimeRangeProps {
   readOnly?: boolean;
   value?: unknown;
   isIgnored?: boolean;
-  onChange?(dataAttribute: ChangeEventField): void;
+  pattern?: string;
+  patternMessage?: string;
+  error?: boolean;
+  onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
 }
 
 const FORMAT = "HH:mm";
 
 const TimePicker = (
-  { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored }: TimeRangeProps,
+  { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored, pattern, patternMessage, error }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const handleChange = (time: Dayjs | null) => {
-    onChange?.({
-      name,
-      value: time?.format(FORMAT),
-    });
+  const handleChange = (time: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
+    onChange?.(
+      {
+        name,
+        value: time?.format(FORMAT),
+      },
+      context,
+    );
   };
 
   if (isIgnored) {
@@ -47,9 +54,12 @@ const TimePicker = (
         format={FORMAT}
         slotProps={{
           textField: () => ({
+            error,
             helperText,
             inputRef,
+            pattern,
             required,
+            title: patternMessage,
           }),
         }}
       />
