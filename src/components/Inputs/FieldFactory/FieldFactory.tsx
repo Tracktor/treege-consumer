@@ -122,27 +122,15 @@ const FieldFactory = ({
           }
         };
 
-        // Handle input event to clear errors when user types
-        const handleInput = () => {
-          setTimeout(() => setError(""), 50);
-        };
-
         // Clean up old event listeners in case this function runs multiple times
         element.removeEventListener("invalid", handleInvalid);
-        element.removeEventListener("input", handleInput);
 
         // Add event listeners
         element.addEventListener("invalid", handleInvalid);
-        element.addEventListener("input", handleInput);
 
         // If the pattern attribute is set, add a title attribute with the error message
         if (pattern && patternMessage) {
           element.setAttribute("title", patternMessage);
-        }
-
-        // Reset validation message when the value is set with a select
-        if (nodeElement?.value) {
-          setTimeout(() => setError(""), 50);
         }
       }
 

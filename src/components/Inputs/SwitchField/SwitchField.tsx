@@ -49,7 +49,7 @@ const SwitchField = (
               checked={!!value}
               readOnly={readOnly}
               disabled={readOnly}
-              color="error"
+              color={error ? "error" : undefined}
             />
           }
           sx={{
