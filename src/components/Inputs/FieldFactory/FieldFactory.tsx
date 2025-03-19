@@ -16,7 +16,7 @@ import TextField from "@/components/Inputs/TextField";
 import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
 import Title from "@/components/Inputs/Title";
-import { TreegeConsumerProps } from "@/features/TreegeConsumer";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";

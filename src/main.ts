@@ -1,6 +1,6 @@
 // Components
-export { default as TreegeConsumer } from "@/features/TreegeConsumer";
-export * from "@/features/TreegeConsumer";
+export { default as TreegeConsumer } from "@/features/TreegeConsumer/TreegeConsumer";
+export * from "@/features/TreegeConsumer/TreegeConsumer";
 export { default as TreegeConsumerResponse } from "@/features/TreegeConsumerResponse";
 export * from "@/features/TreegeConsumerResponse";
 

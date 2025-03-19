@@ -69,7 +69,6 @@ const App = () => {
   return (
     <TreegeConsumer
       tree={tree}
-      variant={variant}
       onSubmit={handleSubmit}
       options={{ googleApiKey: "YOUR_API_KEY" }}/>
   );
@@ -88,7 +87,6 @@ on [Treege](https://github.com/Tracktor/treege) data
 | Props                | Type                                                                                                                   | Default   | Required | Detail                                 |
 |----------------------|------------------------------------------------------------------------------------------------------------------------|-----------|----------|----------------------------------------|
 | tree                 | [TreeNode](src/types/TreeNode.ts)                                                                                      | undefined | false    | Treege data                            |
-| variant              | "standard"<br/>  "stepper"                                                                                             | "stepper" | false    | The variant to use                     |
 | theme                | "light"<br/>  "dark" <br/> ThemeOptions                                                                                | "light"   | false    | Theme color mode                       |
 | onSubmit             | `data: JsonFormValue[];`<br/>`formData: [string, FormDataEntryValue][];`<br/>`fieldValues: FieldValues;`               | undefined | false    | Callback fired form is validate        |
 | options              | "countryAutocompleteService"<br/>"googleApiKey" <br/>"prefixResponseImageUriAutocomplete"                              | undefined | false    | Consumer options                       |
@@ -149,7 +147,6 @@ const App = () => {
     <TreegeConsumerProvider licenseMuiX={"YOUR_LICENCE"}>
       <TreegeConsumer
         tree={tree}
-        variant={variant}
         onSubmit={handleSubmit}
         options={{googleApiKey: "YOUR_API_KEY"}}/>
     </TreegeConsumerProvider>

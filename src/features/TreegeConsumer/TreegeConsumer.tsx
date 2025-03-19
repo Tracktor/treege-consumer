@@ -2,14 +2,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { LicenseInfo } from "@mui/x-license";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Box, CircularProgress, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
+import { Box, CircularProgress, Stack, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
 import dayjs from "dayjs";
-import { CSSProperties, ReactNode, useLayoutEffect } from "react";
-import { RenderFormValidationParams } from "@/components/Form/FormValidation";
+import { CSSProperties, ReactNode, useLayoutEffect, useRef } from "react";
+import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
+import FormValidation, { RenderFormValidationParams } from "@/components/Form/FormValidation";
+import FieldFactory from "@/components/Inputs/FieldFactory";
 import OptionsProvider from "@/context/OptionsProvider";
-import Standard from "@/features/TreegeConsumer/Standard";
-import Stepper from "@/features/TreegeConsumer/Stepper";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import { Headers } from "@/types/Headers";
@@ -28,10 +28,6 @@ export interface TreegeConsumerProps<T = unknown> {
    * Loading state
    */
   loading?: boolean;
-  /**
-   * The variant of the stepper. If not set, it will use the variant of the parent ThemeProvider.
-   */
-  variant?: "standard" | "stepper";
   /**
    *  The theme of Treege Consumer. If not set, it will use the theme of the parent ThemeProvider.
    */
@@ -135,30 +131,20 @@ const TreegeComposition = <T,>({
   disabledSubmitButton,
   isSubmitting,
   renderFormValidation,
-  variant = "standard",
 }: TreegeConsumerProps<T>) => {
-  const {
-    activeFieldIndex,
-    fields,
-    handleChangeFormValue,
-    firstFieldIndex,
-    handlePrev,
-    handleSubmit,
-    isLastField,
-    fieldValues,
-    formCanBeSubmit,
-  } = useTreegeConsumer({
+  const { fields, handleChangeFormValue, handleSubmit, isLastField, fieldValues, formCanBeSubmit } = useTreegeConsumer({
     debug,
     disabledSubmitButton,
     initialValues,
     onSubmit,
+    options,
     tree,
-    variant,
   });
   const themeProvider = useTheme();
   const queryClient = new QueryClient();
   const optionsContext = useOptionsContext();
   const adapterLocale = options?.adapterLocale || optionsContext?.adapterLocale || navigator?.language?.slice(0, 2);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useLayoutEffect(() => {
     if (options?.licenseMuiX) {
@@ -178,41 +164,34 @@ const TreegeComposition = <T,>({
     <ThemeProvider theme={theme || themeProvider.palette.mode}>
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale}>
-          {variant === "stepper" ? (
-            <Stepper
-              activeFieldIndex={activeFieldIndex}
-              firstFieldIndex={firstFieldIndex}
-              isLastField={isLastField}
-              style={style}
-              fields={fields}
+          <Box noValidate onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style} ref={formRef}>
+            <Stack spacing={4} direction="column" sx={{ "div:first-of-type hr": { display: "none" } }}>
+              {fields ? (
+                fields.map((field) => (
+                  <FieldFactory
+                    key={field.uuid}
+                    data={field}
+                    handleChangeFormValue={handleChangeFormValue}
+                    readOnly={readOnly}
+                    headers={headers}
+                    fieldValues={fieldValues}
+                    isSubmitting={isSubmitting}
+                    ignoreFields={ignoreFields}
+                    options={options}
+                  />
+                ))
+              ) : (
+                <FormSkeleton />
+              )}
+            </Stack>
+            <FormValidation
+              disabled={!formCanBeSubmit}
+              isLoading={isSubmitting}
               readOnly={readOnly}
-              headers={headers}
-              fieldValues={fieldValues}
-              isSubmitting={isSubmitting}
-              handleChangeFormValue={handleChangeFormValue}
-              handlePrev={handlePrev}
-              onSubmit={handleSubmit}
-              formCanBeSubmit={formCanBeSubmit}
-              options={options}
+              isLastField={isLastField}
               renderFormValidation={renderFormValidation}
             />
-          ) : (
-            <Standard
-              fields={fields}
-              handleChangeFormValue={handleChangeFormValue}
-              onSubmit={handleSubmit}
-              isLastField={isLastField}
-              readOnly={readOnly}
-              headers={headers}
-              fieldValues={fieldValues}
-              isSubmitting={isSubmitting}
-              style={style}
-              formCanBeSubmit={formCanBeSubmit}
-              ignoreFields={ignoreFields}
-              options={options}
-              renderFormValidation={renderFormValidation}
-            />
-          )}
+          </Box>
         </LocalizationProvider>
       </QueryClientProvider>
     </ThemeProvider>
@@ -234,13 +213,11 @@ const TreegeConsumer = <T,>({
   disabledSubmitButton,
   isSubmitting,
   renderFormValidation,
-  variant = "standard",
 }: TreegeConsumerProps<T>) => (
   <OptionsProvider>
     <TreegeComposition
       options={options}
       loading={loading}
-      variant={variant}
       onSubmit={onSubmit}
       tree={tree}
       isSubmitting={isSubmitting}
