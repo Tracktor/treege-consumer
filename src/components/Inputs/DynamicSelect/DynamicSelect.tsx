@@ -87,14 +87,7 @@ const DynamicSelect = (
         ref={ref}
         value={isMultiple ? value || [] : value || null}
         onChange={handleChange}
-        options={
-          options || [
-            {
-              label: "a",
-              value: "a",
-            },
-          ]
-        }
+        options={options || []}
         slots={{
           popper: isParentFieldRequiredAndEmpty ? () => null : undefined,
         }}
@@ -128,7 +121,7 @@ const DynamicSelect = (
             {...params}
             name={name}
             required={required}
-            helperText={isParentFieldRequiredAndEmpty ? `Le champ «${parentRef}»  doit être doit être complété` : helperText}
+            helperText={isParentFieldRequiredAndEmpty ? `Le champ «${parentRef}» doit être complété` : helperText}
             inputRef={inputRef}
             error={error}
             slotProps={{
