@@ -8,7 +8,7 @@ export interface TextFieldProps {
   name: string;
   helperText?: string;
   inputRef: Ref<HTMLInputElement>;
-  onChange?(dataAttribute: ChangeEventField): void;
+
   required?: boolean;
   type: string;
   readOnly?: boolean;
@@ -19,6 +19,7 @@ export interface TextFieldProps {
   pattern?: string;
   patternMessage?: string;
   error?: boolean;
+  onChange?(dataAttribute: ChangeEventField): void;
 }
 
 const TextField = (
