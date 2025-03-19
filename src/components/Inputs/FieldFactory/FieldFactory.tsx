@@ -102,11 +102,10 @@ const FieldFactory = ({
       const element = nodeElement && "node" in nodeElement ? nodeElement.node : nodeElement;
 
       // Display error message on invalid event
-      if (element) {
+      if (element && !options?.noValidate) {
         // Handle invalid event with custom pattern message
         const handleInvalid = (event: Event) => {
           event.preventDefault();
-          element.focus();
 
           const inputElement = event.target as HTMLInputElement;
 
@@ -140,7 +139,7 @@ const FieldFactory = ({
 
       setTimeout(() => element.focus(), animationTimeout);
     },
-    [animationTimeout, autoFocus, pattern, patternMessage],
+    [animationTimeout, autoFocus, options?.noValidate, pattern, patternMessage],
   );
 
   const field = () => {
