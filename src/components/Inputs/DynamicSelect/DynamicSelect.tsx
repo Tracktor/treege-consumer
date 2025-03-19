@@ -1,5 +1,5 @@
 import { Autocomplete, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, Stack } from "@tracktor/design-system";
-import { capitalize, isObject } from "@tracktor/react-utils";
+import { isObject } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent } from "react";
 import useDynamicSelect from "@/components/Inputs/DynamicSelect/useDynamicSelect";
@@ -128,7 +128,7 @@ const DynamicSelect = (
             {...params}
             name={name}
             required={required}
-            helperText={isParentFieldRequiredAndEmpty ? capitalize(`${parentRef} doit être doit être complété`) : helperText}
+            helperText={isParentFieldRequiredAndEmpty ? `Le champ «${parentRef}»  doit être doit être complété` : helperText}
             inputRef={inputRef}
             error={error}
             slotProps={{
