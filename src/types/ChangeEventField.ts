@@ -17,4 +17,5 @@ export default interface ChangeEventField {
   isDecision?: boolean;
   children?: TreeNode[];
   isRequiredAndEmpty?: boolean;
+  uuid?: string;
 }

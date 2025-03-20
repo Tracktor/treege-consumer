@@ -67,7 +67,7 @@ const FieldFactory = ({
   visible = true,
 }: FielFactoryProps) => {
   const [error, setError] = useState("");
-  const { attributes } = data;
+  const { attributes, uuid } = data;
   const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage } = attributes;
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
@@ -92,9 +92,12 @@ const FieldFactory = ({
         setError("");
       }
 
-      handleChangeFormValue?.(dataAttribute);
+      handleChangeFormValue?.({
+        ...dataAttribute,
+        uuid,
+      });
     },
-    [handleChangeFormValue],
+    [handleChangeFormValue, uuid],
   );
 
   const handleInputRef = useCallback(
@@ -270,6 +273,21 @@ const FieldFactory = ({
             error={!!error}
           />
         );
+      case "radio":
+        return (
+          <Radio
+            data={data}
+            onChange={handleChange}
+            onInit={handleChangeFormValue}
+            readOnly={readOnly}
+            inputRef={handleInputRef}
+            required={isRequired}
+            helperText={errorOrHelperText}
+            value={value}
+            isIgnored={isFieldIgnored}
+            error={!!error}
+          />
+        );
       case "select":
         return (
           <Select
@@ -295,21 +313,6 @@ const FieldFactory = ({
             value={value}
             isIgnored={isFieldIgnored}
             required={isRequired}
-            error={!!error}
-          />
-        );
-      case "radio":
-        return (
-          <Radio
-            data={data}
-            onChange={handleChange}
-            onInit={handleChangeFormValue}
-            readOnly={readOnly}
-            inputRef={handleInputRef}
-            required={isRequired}
-            helperText={errorOrHelperText}
-            value={value}
-            isIgnored={isFieldIgnored}
             error={!!error}
           />
         );
