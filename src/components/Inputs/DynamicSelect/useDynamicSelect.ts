@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import type { Route } from "@tracktor/types-treege";
 import { useMemo } from "react";
 import { FieldValues } from "@/types/FieldValues";
-import { Headers } from "@/types/Headers";
 import adaptRouteResponseToOptions from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 
 interface useDynamicSelectProps {
@@ -11,7 +10,7 @@ interface useDynamicSelectProps {
   initialQuery?: boolean;
   name: string;
   fieldValues?: FieldValues;
-  headers?: Headers;
+  headers?: HeadersInit;
 }
 
 const useDynamicSelect = ({ headers, fieldValues, route, parentRef, initialQuery, name }: useDynamicSelectProps) => {

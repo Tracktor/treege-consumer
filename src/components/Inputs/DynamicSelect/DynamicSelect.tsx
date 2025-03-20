@@ -6,15 +6,14 @@ import useDynamicSelect from "@/components/Inputs/DynamicSelect/useDynamicSelect
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
-import { Headers } from "@/types/Headers";
 import { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
-import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";
+import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey/safeGetObjectValueByKey";
 
 interface DynamicSelectProps {
   inputRef: Ref<unknown>;
   node: TreeNode;
   fieldValues?: FieldValues;
-  headers?: Headers;
+  headers?: HeadersInit;
   value?: unknown;
   readOnly?: boolean;
   isParentFieldRequiredAndEmpty?: boolean;

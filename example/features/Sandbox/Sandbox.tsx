@@ -17,13 +17,12 @@ import type { TreeNode } from "@tracktor/types-treege";
 import { ChangeEvent, ReactNode, SyntheticEvent, useState } from "react";
 import TreegeConsumer from "@/features/TreegeConsumer/TreegeConsumer";
 import { TreegeConsumerProvider } from "@/main";
-import { Headers } from "@/types/Headers";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 
 interface SandboxProps {
   tree: TreeNode;
   dialogOpen: boolean;
-  customHeaders?: Headers;
+  customHeaders?: HeadersInit;
   submitData?: OnSubmitReturn;
   handleCloseDialog: () => void;
   handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;

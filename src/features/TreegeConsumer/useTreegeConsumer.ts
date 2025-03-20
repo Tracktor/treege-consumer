@@ -7,8 +7,8 @@ import { FieldValues } from "@/types/FieldValues";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import formDataToJSON from "@/utils/formDataToJSON/formDataToJSON";
-import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
-import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
+import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint/getFieldsFromTreePoint";
+import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest/getFieldsFromTreeRest";
 import initializeFieldValuesFromJson from "@/utils/initializeFieldValuesFromJson/initializeFieldValuesFromJson";
 
 export interface useTreegeConsumerParams {

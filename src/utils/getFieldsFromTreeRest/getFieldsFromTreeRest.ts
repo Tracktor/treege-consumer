@@ -1,5 +1,5 @@
 import type { TreeNode } from "@tracktor/types-treege";
-import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
+import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint/getFieldsFromTreePoint";
 
 const getFieldsFromTreeRest = (childrenTreeRest?: TreeNode["childrenTreeRest"]): TreeNode[] | [] => {
   let fieldArray: [] | TreeNode[] = [];

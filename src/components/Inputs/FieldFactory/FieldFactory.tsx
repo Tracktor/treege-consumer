@@ -20,7 +20,6 @@ import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
-import { Headers } from "@/types/Headers";
 
 export interface FielFactoryProps {
   fieldValues?: FieldValues;
@@ -29,7 +28,7 @@ export interface FielFactoryProps {
   data: TreeNode;
   visible?: boolean;
   readOnly?: boolean;
-  headers?: Headers;
+  headers?: HeadersInit;
   isSubmitting?: boolean;
   disableDivider?: boolean;
   ignoreFields?: string[];

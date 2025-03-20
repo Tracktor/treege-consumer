@@ -1,4 +1,4 @@
-import formDataToJSON from "@/utils/formDataToJSON";
+import formDataToJSON from "@/utils/formDataToJSON/formDataToJSON";
 import {
   formWithTextFields,
   formWithDecision,

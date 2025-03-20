@@ -5,9 +5,8 @@ import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
-import { Headers } from "@/types/Headers";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
-import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";
+import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey/safeGetObjectValueByKey";
 import searchResultsFetcher from "@/utils/searchResultsFetcher/searchResultsFetcher";
 
 interface ApiAutocompleteProps {
@@ -15,7 +14,7 @@ interface ApiAutocompleteProps {
   node: TreeNode;
   onChange?(dataAttribute: ChangeEventField): void;
   readOnly?: boolean;
-  headers?: Headers;
+  headers?: HeadersInit;
   value?: Option | null;
   isIgnored?: boolean;
   prefixResponseImageUriAutocomplete?: string;

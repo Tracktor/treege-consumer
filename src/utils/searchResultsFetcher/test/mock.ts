@@ -1,11 +1,10 @@
 import type { Params } from "@tracktor/types-treege";
-import { Headers } from "@/types/Headers";
 
 interface Mock {
   url: string;
   searchKey: string;
   value: string;
-  headers?: Headers;
+  headers?: HeadersInit;
   additionalParams?: Params[];
   signal: AbortSignal;
   responseData?: Record<string, string[]>;

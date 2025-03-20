@@ -12,7 +12,6 @@ import FieldFactory from "@/components/Inputs/FieldFactory";
 import OptionsProvider from "@/context/OptionsProvider";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
-import { Headers } from "@/types/Headers";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import "dayjs/locale/fr";
@@ -81,7 +80,7 @@ export interface TreegeConsumerProps<T = unknown> {
   /**
    * Headers for fetch request
    */
-  headers?: Headers;
+  headers?: HeadersInit;
   /**
    * initial Values
    */
