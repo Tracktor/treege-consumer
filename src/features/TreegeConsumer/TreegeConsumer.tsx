@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, CircularProgress, Stack, ThemeOptions, ThemeProvider, useTheme } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
 import dayjs from "dayjs";
-import { CSSProperties, ReactNode, useLayoutEffect, useRef } from "react";
+import { CSSProperties, ReactNode, useLayoutEffect } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 import FormValidation, { RenderFormValidationParams } from "@/components/Form/FormValidation";
 import FieldFactory from "@/components/Inputs/FieldFactory";
@@ -144,8 +144,10 @@ const TreegeComposition = <T,>({
   const queryClient = new QueryClient();
   const optionsContext = useOptionsContext();
   const adapterLocale = options?.adapterLocale || optionsContext?.adapterLocale || navigator?.language?.slice(0, 2);
-  const formRef = useRef<HTMLFormElement>(null);
 
+  /**
+   * Set license key for mui x
+   */
   useLayoutEffect(() => {
     if (options?.licenseMuiX) {
       LicenseInfo.setLicenseKey(options?.licenseMuiX);
@@ -164,7 +166,7 @@ const TreegeComposition = <T,>({
     <ThemeProvider theme={theme || themeProvider.palette.mode}>
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale}>
-          <Box noValidate onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style} ref={formRef}>
+          <Box noValidate onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style}>
             <Stack spacing={4} direction="column" sx={{ "div:first-of-type hr": { display: "none" } }}>
               {fields ? (
                 fields.map((field) => (
