@@ -1,16 +1,14 @@
+import type { TreeNode } from "@tracktor/types-treege";
 import basicExample from "example/data/basicExample";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
-import { ChangeEvent, MouseEvent, useState } from "react";
-import { TreegeConsumerProps } from "@/features/TreegeConsumer";
+import { ChangeEvent, useState } from "react";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
-import TreeNode from "@/types/TreeNode";
 
 const App = () => {
   const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [variant, setVariant] = useState<TreegeConsumerProps["variant"]>("standard");
   const [submitData, setSubmitData] = useState<OnSubmitReturn>();
   const [component, setComponent] = useState<"DataViewer" | "TreegeConsumer">("TreegeConsumer");
 
@@ -20,10 +18,6 @@ const App = () => {
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-  };
-
-  const handleChangeVariant = (_: MouseEvent<HTMLElement>, newAlignment: TreegeConsumerProps["variant"]) => {
-    setVariant(newAlignment);
   };
 
   const handleChangeTree = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,10 +43,8 @@ const App = () => {
   ) : (
     <Sandbox
       isSubmitting={isSubmitting}
-      variant={variant}
       tree={tree}
       dialogOpen={dialogOpen}
-      handleChangeVariant={handleChangeVariant}
       handleChangeTree={handleChangeTree}
       handleCloseDialog={handleCloseDialog}
       onSubmit={handleSubmit}

@@ -1,4 +1,4 @@
-import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest";
+import getFieldsFromTreeRest from "@/utils/getFieldsFromTreeRest/getFieldsFromTreeRest";
 import { restFieldsArrayWithDecision, simpleRestFieldsArray } from "@/utils/getFieldsFromTreeRest/test/mock";
 
 describe("test getFieldsFromTreePoint tree input output fieldArray", () => {

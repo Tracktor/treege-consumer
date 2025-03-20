@@ -1,4 +1,4 @@
-import TreeNode from "@/types/TreeNode";
+import type { TreeNode } from "@tracktor/types-treege";
 
 const basicExample: TreeNode = {
   attributes: {

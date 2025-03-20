@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, Stack, TextField } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
-import { Headers } from "@/types/Headers";
-import TreeNode from "@/types/TreeNode";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
-import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey";
+import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey/safeGetObjectValueByKey";
 import searchResultsFetcher from "@/utils/searchResultsFetcher/searchResultsFetcher";
 
 interface ApiAutocompleteProps {
@@ -15,19 +14,32 @@ interface ApiAutocompleteProps {
   node: TreeNode;
   onChange?(dataAttribute: ChangeEventField): void;
   readOnly?: boolean;
-  headers?: Headers;
+  headers?: HeadersInit;
   value?: Option | null;
   isIgnored?: boolean;
   prefixResponseImageUriAutocomplete?: string;
+  helperText?: string;
+  error?: boolean;
 }
 
 const ApiAutocomplete = (
-  { node, onChange, readOnly, inputRef, headers, value, isIgnored, prefixResponseImageUriAutocomplete }: ApiAutocompleteProps,
+  {
+    node,
+    onChange,
+    readOnly,
+    inputRef,
+    headers,
+    value,
+    isIgnored,
+    prefixResponseImageUriAutocomplete,
+    error,
+    helperText,
+  }: ApiAutocompleteProps,
   ref?: Ref<unknown>,
 ) => {
   const [searchValue, setSearchValue] = useState("");
   const { attributes, children } = node;
-  const { type, name, label, required, route, helperText, initialQuery, isLeaf, isDecision } = attributes;
+  const { type, name, label, required, route, initialQuery, isLeaf, isDecision } = attributes;
   const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
 
   const search = searchResultsFetcher({
@@ -117,11 +129,13 @@ const ApiAutocomplete = (
             required={required}
             helperText={helperText}
             inputRef={inputRef}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
-              error: isError,
-              readOnly,
+            error={isError || error}
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
+                readOnly,
+              },
             }}
           />
         )}

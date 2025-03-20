@@ -11,28 +11,23 @@ import {
   Tabs,
   TextareaAutosize,
   ThemeProvider,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
 } from "@tracktor/design-system";
-import { ChangeEvent, MouseEvent, ReactNode, SyntheticEvent, useState } from "react";
-import TreegeConsumer from "@/features/TreegeConsumer";
+import type { TreeNode } from "@tracktor/types-treege";
+import { ChangeEvent, ReactNode, SyntheticEvent, useState } from "react";
+import TreegeConsumer from "@/features/TreegeConsumer/TreegeConsumer";
 import { TreegeConsumerProvider } from "@/main";
-import { Headers } from "@/types/Headers";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
-import TreeNode from "@/types/TreeNode";
 
 interface SandboxProps {
   tree: TreeNode;
-  variant: "standard" | "stepper" | undefined;
   dialogOpen: boolean;
-  customHeaders?: Headers;
+  customHeaders?: HeadersInit;
   submitData?: OnSubmitReturn;
   handleCloseDialog: () => void;
   handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: ({ data, formData, fieldValues }: OnSubmitReturn) => void;
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
-  handleChangeVariant: (_: MouseEvent<HTMLElement>, newAlignment: "standard" | "stepper" | undefined) => void;
   isSubmitting?: boolean;
 }
 
@@ -59,8 +54,6 @@ const CustomTabPanel = (props: TabPanelProps) => {
 const Sandbox = ({
   tree,
   handleChangeTree,
-  handleChangeVariant,
-  variant,
   onSubmit,
   submitData,
   dialogOpen,
@@ -115,17 +108,10 @@ const Sandbox = ({
               <Button variant="link" onClick={() => handleChangeComponent("DataViewer")}>
                 See values
               </Button>
-              <Box display="flex" justifyContent="center" pt={2}>
-                <ToggleButtonGroup value={variant} size="small" onChange={handleChangeVariant} exclusive>
-                  <ToggleButton value="stepper">Stepper</ToggleButton>
-                  <ToggleButton value="standard">Standard</ToggleButton>
-                </ToggleButtonGroup>
-              </Box>
               <Box flex={1} pt={2}>
                 <TreegeConsumer
                   debug
                   tree={tree}
-                  variant={variant}
                   onSubmit={onSubmit}
                   isSubmitting={isSubmitting}
                   headers={customHeaders}

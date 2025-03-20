@@ -1,5 +1,5 @@
 import { Stack, File as FileDS } from "@tracktor/design-system";
-import { ChangeEvent } from "react";
+import { ChangeEvent, Ref } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -11,10 +11,27 @@ export interface FileProps {
   readOnly?: boolean;
   multiple?: boolean;
   isIgnored?: boolean;
+  pattern?: string;
+  patternMessage?: string;
+  error?: boolean;
+  inputRef: Ref<HTMLInputElement>;
   onChange?(dataAttribute: ChangeEventField): void;
 }
 
-const File = ({ label, name, helperText, onChange, required, readOnly, multiple, isIgnored }: FileProps) => {
+const File = ({
+  label,
+  name,
+  helperText,
+  onChange,
+  required,
+  readOnly,
+  multiple,
+  isIgnored,
+  patternMessage,
+  inputRef,
+  pattern,
+  error,
+}: FileProps) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { target } = event;
     onChange?.({ event, name, value: target.value });
@@ -36,6 +53,10 @@ const File = ({ label, name, helperText, onChange, required, readOnly, multiple,
         required={required}
         label={label}
         multiple={multiple}
+        error={error}
+        pattern={pattern}
+        title={patternMessage}
+        ref={inputRef}
       />
     </Stack>
   );

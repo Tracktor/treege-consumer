@@ -1,7 +1,7 @@
 import { TextField } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { useEffect, useRef } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 export interface HiddenFieldProps {
   data: TreeNode;

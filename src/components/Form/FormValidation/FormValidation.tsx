@@ -26,7 +26,7 @@ const FormValidation = ({ disabled, isLoading, readOnly, isLastField, renderForm
   return (
     <Slide direction="up" in mountOnEnter>
       <Box display="flex" alignItems="center" justifyContent="center" paddingY={5}>
-        <Button variant="contained" type="submit" disabled={disabled} isLoading={isLoading}>
+        <Button variant="contained" type="submit" isLoading={isLoading}>
           Valider
         </Button>
       </Box>

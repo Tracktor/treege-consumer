@@ -1,11 +1,10 @@
-import { Headers } from "@/types/Headers";
-import { Params } from "@/types/TreeNode";
+import type { Params } from "@tracktor/types-treege";
 
 interface Mock {
   url: string;
   searchKey: string;
   value: string;
-  headers?: Headers;
+  headers?: HeadersInit;
   additionalParams?: Params[];
   signal: AbortSignal;
   responseData?: Record<string, string[]>;

@@ -1,4 +1,4 @@
-import TreeNode from "@/types/TreeNode";
+import type { TreeNode } from "@tracktor/types-treege";
 
 export const isTreeNode = (node: unknown | undefined): node is TreeNode =>
   !(!node || typeof node !== "object" || !("uuid" in node) || !("attributes" in node) || !("children" in node));

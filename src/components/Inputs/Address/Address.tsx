@@ -1,11 +1,11 @@
 import { Autocomplete as AutocompleteDS, Box, Grid, Stack, TextField, Typography } from "@tracktor/design-system";
 import { isObject, isString, useScript } from "@tracktor/react-utils";
+import type { TreeNode } from "@tracktor/types-treege";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 type AutocompleteService = google.maps.places.AutocompleteService;
 
@@ -18,6 +18,10 @@ export interface AutocompleteProps {
   node: TreeNode;
   isIgnored?: boolean;
   googleApiKey?: string;
+  helperText?: string;
+  pattern?: string;
+  patternMessage?: string;
+  error?: boolean;
 }
 
 interface Match {
@@ -26,11 +30,24 @@ interface Match {
 }
 
 const Address = (
-  { value, inputRef, country, readOnly, onChange, node, isIgnored, googleApiKey }: AutocompleteProps,
+  {
+    value,
+    inputRef,
+    country,
+    readOnly,
+    onChange,
+    node,
+    isIgnored,
+    googleApiKey,
+    error,
+    pattern,
+    patternMessage,
+    helperText,
+  }: AutocompleteProps,
   ref: Ref<unknown> | undefined,
 ) => {
   const { attributes, children } = node;
-  const { name, type, label, required, helperText, isLeaf, isDecision } = attributes;
+  const { name, type, label, required, isLeaf, isDecision } = attributes;
   const autocompleteService = useRef<AutocompleteService>();
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
@@ -158,13 +175,16 @@ const Address = (
             helperText={helperText}
             disabled={disabled}
             inputRef={inputRef}
-            inputProps={{
-              ...inputProps,
-              autoComplete: "new-password",
-            }} // eslint-disable-next-line react/jsx-no-duplicate-props
-            InputProps={InputProps}
-            InputLabelProps={{
-              ...InputLabelProps,
+            error={error}
+            slotProps={{
+              htmlInput: {
+                ...inputProps,
+                autoComplete: "new-password",
+                pattern,
+                title: patternMessage,
+              },
+              input: InputProps,
+              inputLabel: InputLabelProps,
             }}
           />
         )}

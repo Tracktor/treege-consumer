@@ -1,4 +1,4 @@
-import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint";
+import getFieldsFromTreePoint from "@/utils/getFieldsFromTreePoint/getFieldsFromTreePoint";
 import {
   complexeTreeWithDecision,
   simpleTreeMock,

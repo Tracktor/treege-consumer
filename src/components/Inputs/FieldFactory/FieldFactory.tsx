@@ -1,5 +1,6 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
-import { memo } from "react";
+import type { TreeNode } from "@tracktor/types-treege";
+import { memo, useCallback, useState } from "react";
 import Address from "@/components/Inputs/Address";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import CheckBoxField from "@/components/Inputs/CheckBoxField";
@@ -15,12 +16,10 @@ import TextField from "@/components/Inputs/TextField";
 import TimePicker from "@/components/Inputs/TimePicker";
 import TimeRange from "@/components/Inputs/TimeRange";
 import Title from "@/components/Inputs/Title";
-import { TreegeConsumerProps } from "@/features/TreegeConsumer";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
-import { Headers } from "@/types/Headers";
-import TreeNode from "@/types/TreeNode";
 
 export interface FielFactoryProps {
   fieldValues?: FieldValues;
@@ -29,7 +28,7 @@ export interface FielFactoryProps {
   data: TreeNode;
   visible?: boolean;
   readOnly?: boolean;
-  headers?: Headers;
+  headers?: HeadersInit;
   isSubmitting?: boolean;
   disableDivider?: boolean;
   ignoreFields?: string[];
@@ -66,13 +65,15 @@ const FieldFactory = ({
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
-  const { attributes } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name } = attributes;
+  const [error, setError] = useState("");
+  const { attributes, uuid } = data;
+  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage } = attributes;
+  const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
   const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]);
-  const disabledChildrenField = isSubmitting || hasParentRefValue;
+  const isParentFieldRequiredAndEmpty = isSubmitting || hasParentRefValue;
   const value = fieldValues?.[name] || "";
   const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
   const optionsContext = useOptionsContext();
@@ -84,13 +85,64 @@ const FieldFactory = ({
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
-  const inputRef = (ref: HTMLInputElement) => {
-    if (!ref || !autoFocus || ref?.tabIndex > 0) {
-      return null;
-    }
-    setTimeout(() => ref.focus(), animationTimeout);
-    return null;
-  };
+  const handleChange = useCallback(
+    (dataAttribute: ChangeEventField) => {
+      if (dataAttribute.value) {
+        setError("");
+      }
+
+      handleChangeFormValue?.({
+        ...dataAttribute,
+        uuid,
+      });
+    },
+    [handleChangeFormValue, uuid],
+  );
+
+  const handleInputRef = useCallback(
+    (nodeElement: HTMLInputElement | null | { node: HTMLInputElement; value: string }) => {
+      const element = nodeElement && "node" in nodeElement ? nodeElement.node : nodeElement;
+
+      // Display error message on invalid event
+      if (element && !options?.noValidate) {
+        // Handle invalid event with custom pattern message
+        const handleInvalid = (event: Event) => {
+          event.preventDefault();
+
+          const inputElement = event.target as HTMLInputElement;
+
+          // Check if validation failed due to pattern mismatch and we have a custom message
+          if (inputElement.validity && inputElement.validity.patternMismatch && patternMessage) {
+            // Prevent the browser's default validation message
+
+            // Set our custom error message
+            setError(patternMessage);
+          } else if (inputElement.validationMessage) {
+            // For other validation errors, use the browser's message
+            setError(inputElement.validationMessage);
+          }
+        };
+
+        // Clean up old event listeners in case this function runs multiple times
+        element.removeEventListener("invalid", handleInvalid);
+
+        // Add event listeners
+        element.addEventListener("invalid", handleInvalid);
+
+        // If the pattern attribute is set, add a title attribute with the error message
+        if (pattern && patternMessage) {
+          element.setAttribute("title", patternMessage);
+        }
+      }
+
+      if (!element || !autoFocus || element.tabIndex > 0) {
+        return;
+      }
+
+      setTimeout(() => element.focus(), animationTimeout);
+    },
+    [animationTimeout, autoFocus, options?.noValidate, pattern, patternMessage],
+  );
 
   const field = () => {
     switch (type) {
@@ -102,180 +154,208 @@ const FieldFactory = ({
       case "url":
         return (
           <TextField
+            onChange={handleChange}
+            readOnly={readOnly}
             name={name}
             label={label}
             type={type}
-            onChange={handleChangeFormValue}
             value={value}
             required={isRequired}
-            inputRef={inputRef}
-            helperText={helperText}
-            readOnly={readOnly}
+            inputRef={handleInputRef}
+            helperText={errorOrHelperText}
             multiple={isMultiple}
             isIgnored={isFieldIgnored}
+            pattern={pattern}
+            patternMessage={patternMessage}
+            error={!!error}
           />
         );
       case "file":
         return (
           <File
+            onChange={handleChange}
+            readOnly={readOnly}
+            inputRef={handleInputRef}
             name={name}
             label={label}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            helperText={helperText}
-            readOnly={readOnly}
+            helperText={errorOrHelperText}
             multiple={isMultiple}
             isIgnored={isFieldIgnored}
+            pattern={pattern}
+            patternMessage={patternMessage}
+            error={!!error}
           />
         );
       case "date":
         return (
           <DatePicker
+            readOnly={readOnly}
+            onChange={handleChange}
             name={name}
             label={label}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            inputRef={inputRef}
-            helperText={helperText}
+            inputRef={handleInputRef}
+            helperText={errorOrHelperText}
             value={value}
-            readOnly={readOnly}
             disablePast={disablePastDatePicker}
             isIgnored={isFieldIgnored}
+            pattern={pattern}
+            patternMessage={patternMessage}
+            error={!!error}
           />
         );
       case "time":
         return (
           <TimePicker
+            readOnly={readOnly}
+            onChange={handleChange}
             name={name}
             label={label}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            inputRef={inputRef}
-            helperText={helperText}
+            inputRef={handleInputRef}
+            helperText={errorOrHelperText}
             value={value}
-            readOnly={readOnly}
             isIgnored={isFieldIgnored}
+            pattern={pattern}
+            patternMessage={patternMessage}
+            error={!!error}
           />
         );
       case "timeRange":
         return (
           <TimeRange
+            readOnly={readOnly}
+            onChange={handleChange}
             name={name}
             label={label}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            inputRef={inputRef}
-            helperText={helperText}
+            inputRef={handleInputRef}
+            helperText={errorOrHelperText}
             value={value}
-            readOnly={readOnly}
+            pattern={pattern}
             isIgnored={isFieldIgnored}
+            error={!!error}
           />
         );
       case "dateRange":
         return (
           <DateRange
+            readOnly={readOnly}
+            onChange={handleChange}
             name={name}
             label={label}
             disablePast={!!isDisabledPast || disablePastDateRangePicker}
-            onChange={handleChangeFormValue}
             required={isRequired}
-            inputRef={inputRef}
-            helperText={helperText}
+            inputRef={handleInputRef}
+            helperText={errorOrHelperText}
             value={value}
-            readOnly={readOnly}
+            pattern={pattern}
             isIgnored={isFieldIgnored}
             licenseMuiX={licenseMuiX}
+            error={!!error}
           />
         );
       case "address":
         return (
           <Address
-            inputRef={inputRef}
-            value={value}
             readOnly={readOnly}
             node={data}
-            onChange={handleChangeFormValue}
+            onChange={handleChange}
+            helperText={errorOrHelperText}
+            inputRef={handleInputRef}
+            value={value}
             isIgnored={isFieldIgnored}
             country={country}
+            pattern={pattern}
             googleApiKey={googleApiKey}
+            error={!!error}
           />
         );
       case "radio":
         return (
           <Radio
             data={data}
-            inputRef={inputRef}
-            required={isRequired}
-            onChange={handleChangeFormValue}
+            onChange={handleChange}
             onInit={handleChangeFormValue}
-            helperText={helperText}
-            value={value}
             readOnly={readOnly}
+            inputRef={handleInputRef}
+            required={isRequired}
+            helperText={errorOrHelperText}
+            value={value}
             isIgnored={isFieldIgnored}
+            error={!!error}
           />
         );
       case "select":
         return (
           <Select
             data={data}
-            inputRef={inputRef}
-            onChange={handleChangeFormValue}
+            onChange={handleChange}
             onInit={handleChangeFormValue}
-            helperText={helperText}
             readOnly={readOnly}
+            inputRef={handleInputRef}
+            helperText={errorOrHelperText}
             required={isRequired}
             value={value}
             isIgnored={isFieldIgnored}
+            error={!!error}
           />
         );
       case "checkbox":
         return (
           <CheckBoxField
             data={data}
-            onChange={handleChangeFormValue}
-            helperText={helperText}
-            value={value}
+            onChange={handleChange}
             readOnly={readOnly}
+            helperText={errorOrHelperText}
+            value={value}
             isIgnored={isFieldIgnored}
             required={isRequired}
+            error={!!error}
           />
         );
       case "switch":
         return (
           <SwitchField
             data={data}
-            inputRef={inputRef}
-            onChange={handleChangeFormValue}
-            helperText={helperText}
-            value={value}
+            onChange={handleChange}
             readOnly={readOnly}
+            inputRef={handleInputRef}
+            helperText={errorOrHelperText}
+            value={value}
             isIgnored={isFieldIgnored}
+            error={!!error}
           />
         );
       case "autocomplete":
         return (
           <ApiAutocomplete
             node={data}
-            value={value}
-            onChange={handleChangeFormValue}
-            inputRef={inputRef}
+            onChange={handleChange}
             readOnly={readOnly}
             headers={headers}
+            inputRef={handleInputRef}
+            value={value}
+            helperText={errorOrHelperText}
             prefixResponseImageUriAutocomplete={prefixResponseImageUriAutocomplete}
             isIgnored={isFieldIgnored}
+            error={!!error}
           />
         );
       case "dynamicSelect":
         return (
           <DynamicSelect
-            value={value}
-            onChange={handleChangeFormValue}
+            onChange={handleChange}
             fieldValues={fieldValues}
             node={data}
             headers={headers}
-            disabledChildrenField={disabledChildrenField}
-            inputRef={inputRef}
+            value={value}
+            isParentFieldRequiredAndEmpty={isParentFieldRequiredAndEmpty}
+            inputRef={handleInputRef}
             isIgnored={isFieldIgnored}
+            helperText={errorOrHelperText}
+            error={!!error}
           />
         );
       case "title":
@@ -292,8 +372,8 @@ const FieldFactory = ({
   return (
     <Slide
       mountOnEnter
-      timeout={animationTimeout}
       in={visible}
+      timeout={animationTimeout}
       appear={!isFieldIgnored}
       style={isFieldIgnored ? { display: "none" } : undefined}
     >

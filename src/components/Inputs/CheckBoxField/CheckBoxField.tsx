@@ -1,8 +1,8 @@
 import { Alert, FormControl, FormControlLabel, FormGroup, FormHelperText, Radio, Stack } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 export interface CheckBoxFieldProps {
   data: TreeNode;
@@ -12,10 +12,11 @@ export interface CheckBoxFieldProps {
   value?: unknown;
   isIgnored?: boolean;
   required?: boolean;
+  error?: boolean;
 }
 
 const CheckBoxField = (
-  { data, helperText, readOnly, onChange, value, isIgnored, required }: CheckBoxFieldProps,
+  { data, helperText, readOnly, onChange, value, isIgnored, required, error }: CheckBoxFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
   const { attributes, children, uuid } = data;
@@ -41,6 +42,7 @@ const CheckBoxField = (
           <Stack spacing={1}>
             <FormControlLabel
               variant="card"
+              value={!!value}
               checked={!!value}
               label="Oui"
               data-label-name-value={`${name}-yes`}
@@ -48,10 +50,18 @@ const CheckBoxField = (
               htmlFor={`${uuid}-yes`}
               control={<Radio id={`${uuid}-yes`} />}
               onChange={() => handleCheck(true)}
+              sx={{
+                ...(error && {
+                  "& .MuiRadio-root": {
+                    borderColor: "red",
+                  },
+                }),
+              }}
             />
             <FormControlLabel
               variant="card"
               checked={!value}
+              value={!value}
               label="Non"
               data-label-name-value={`${name}-no`}
               name={name}
@@ -61,7 +71,7 @@ const CheckBoxField = (
             />
           </Stack>
         </FormGroup>
-        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {helperText && <FormHelperText sx={{ ...(error && { color: "error.main" }) }}>{helperText}</FormHelperText>}
         {message && (
           <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
             {message}

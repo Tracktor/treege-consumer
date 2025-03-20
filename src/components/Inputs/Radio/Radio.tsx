@@ -1,9 +1,9 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, Radio as RadioDS, RadioGroup, Stack } from "@tracktor/design-system";
+import type { TreeNode } from "@tracktor/types-treege";
 import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 export interface RadioProps {
   data: TreeNode;
@@ -13,12 +13,13 @@ export interface RadioProps {
   value?: unknown;
   readOnly?: boolean;
   isIgnored?: boolean;
+  error?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   onInit?(dataAttribute: ChangeEventField): void;
 }
 
 const Radio = (
-  { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored }: RadioProps,
+  { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored, error }: RadioProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
@@ -70,6 +71,11 @@ const Radio = (
                   aria-label={option.label}
                   data-label-name-value={`${name}-${option.value}`}
                   sx={{
+                    ...(error && {
+                      "& .MuiRadio-root": {
+                        borderColor: "red",
+                      },
+                    }),
                     ...(readOnly && {
                       "& .MuiFormControlLabel-label.Mui-disabled": {
                         color: "text.primary",
@@ -83,6 +89,7 @@ const Radio = (
                       inputProps={{ tabIndex: index }}
                       readOnly={readOnly}
                       disabled={readOnly}
+                      required={required}
                       id={id}
                     />
                   }
@@ -91,7 +98,7 @@ const Radio = (
             })}
           </Stack>
         </RadioGroup>
-        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {helperText && <FormHelperText sx={{ ...(error && { color: "error.main" }) }}>{helperText}</FormHelperText>}
         {message && (
           <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
             {message}

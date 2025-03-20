@@ -1,7 +1,7 @@
 import { LicenseInfo } from "@mui/x-license";
 import { createContext, ReactNode, useContext, useLayoutEffect, useMemo } from "react";
 import { TreegeConsumerContext } from "@/context/TreegeConsumerProvider";
-import { TreegeConsumerProps } from "@/features/TreegeConsumer";
+import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 
 export type OptionsProviderContext = TreegeConsumerProps["options"];
 

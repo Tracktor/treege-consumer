@@ -7,8 +7,8 @@ export interface TextFieldProps {
   label?: string;
   name: string;
   helperText?: string;
-  inputRef: Ref<unknown>;
-  onChange?(dataAttribute: ChangeEventField): void;
+  inputRef: Ref<HTMLInputElement>;
+
   required?: boolean;
   type: string;
   readOnly?: boolean;
@@ -16,10 +16,30 @@ export interface TextFieldProps {
   shrink?: boolean;
   value?: unknown;
   isIgnored?: boolean;
+  pattern?: string;
+  patternMessage?: string;
+  error?: boolean;
+  onChange?(dataAttribute: ChangeEventField): void;
 }
 
 const TextField = (
-  { label, name, helperText, inputRef, onChange, required, type, readOnly, multiple, shrink, value, isIgnored }: TextFieldProps,
+  {
+    label,
+    name,
+    helperText,
+    inputRef,
+    onChange,
+    required,
+    type,
+    readOnly,
+    multiple,
+    shrink,
+    value,
+    isIgnored,
+    pattern,
+    patternMessage,
+    error,
+  }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -64,9 +84,12 @@ const TextField = (
         required={required}
         value={value}
         inputRef={inputRef}
+        error={error}
         slotProps={{
           htmlInput: {
             multiple,
+            pattern,
+            title: patternMessage,
           },
           input: {
             readOnly,

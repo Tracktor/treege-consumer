@@ -1,10 +1,10 @@
 import { Alert, FormControl, FormHelperText, MenuItem, Select as SelectDS, SelectChangeEvent, Stack } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
+import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
-import TreeNode from "@/types/TreeNode";
 
 export interface SelectProps {
   data: TreeNode;
@@ -16,10 +16,11 @@ export interface SelectProps {
   onInit?(dataAttribute: ChangeEventField): void;
   value?: unknown;
   isIgnored?: boolean;
+  error?: boolean;
 }
 
 const Select = (
-  { data, helperText, inputRef, required, onChange, onInit, readOnly, isIgnored, value = "" }: SelectProps,
+  { data, helperText, inputRef, required, onChange, onInit, readOnly, isIgnored, error, value = "" }: SelectProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
@@ -59,6 +60,8 @@ const Select = (
       <FormControl required={required} ref={ref} fullWidth>
         <SelectDS
           fullWidth
+          required={required}
+          error={error}
           value={isString(value) ? value : ""}
           labelId={`${name}-label`}
           id={name}
@@ -73,7 +76,7 @@ const Select = (
             </MenuItem>
           ))}
         </SelectDS>
-        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {helperText && <FormHelperText sx={{ ...(error && { color: "error.main" }) }}>{helperText}</FormHelperText>}
         {message && (
           <Alert severity="info" variant="standard" sx={{ mt: 1 }}>
             {message}

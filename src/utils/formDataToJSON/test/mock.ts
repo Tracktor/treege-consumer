@@ -1,6 +1,6 @@
+import type { TreeNode } from "@tracktor/types-treege";
 import { FieldValues } from "@/types/FieldValues";
 import { JsonFormValue } from "@/types/JsonFormValue";
-import TreeNode from "@/types/TreeNode";
 
 interface Mock {
   fields: TreeNode[];

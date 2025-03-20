@@ -1,5 +1,4 @@
-import { Headers as HeaderType } from "@/types/Headers";
-import { Params } from "@/types/TreeNode";
+import type { Params } from "@tracktor/types-treege";
 
 type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
@@ -7,7 +6,7 @@ interface searchResultsFetcherParams {
   url: string;
   searchKey: string;
   searchValue: string;
-  headers?: HeaderType;
+  headers?: HeadersInit;
   additionalParams?: Params[];
   localFetch?: LocalFetch;
 }

@@ -69,7 +69,6 @@ const App = () => {
   return (
     <TreegeConsumer
       tree={tree}
-      variant={variant}
       onSubmit={handleSubmit}
       options={{ googleApiKey: "YOUR_API_KEY" }}/>
   );
@@ -88,7 +87,6 @@ on [Treege](https://github.com/Tracktor/treege) data
 | Props                | Type                                                                                                                   | Default   | Required | Detail                                 |
 |----------------------|------------------------------------------------------------------------------------------------------------------------|-----------|----------|----------------------------------------|
 | tree                 | [TreeNode](src/types/TreeNode.ts)                                                                                      | undefined | false    | Treege data                            |
-| variant              | "standard"<br/>  "stepper"                                                                                             | "stepper" | false    | The variant to use                     |
 | theme                | "light"<br/>  "dark" <br/> ThemeOptions                                                                                | "light"   | false    | Theme color mode                       |
 | onSubmit             | `data: JsonFormValue[];`<br/>`formData: [string, FormDataEntryValue][];`<br/>`fieldValues: FieldValues;`               | undefined | false    | Callback fired form is validate        |
 | options              | "countryAutocompleteService"<br/>"googleApiKey" <br/>"prefixResponseImageUriAutocomplete"                              | undefined | false    | Consumer options                       |
@@ -109,9 +107,10 @@ on [Treege](https://github.com/Tracktor/treege) data
 | googleApiKey                       | string             |         | false    | If you want use some google service like <strong>autocomplete address</strong>, then you want provide [Google Api Key](https://cloud.google.com/docs/authentication/api-keys) |
 | prefixResponseImageUriAutocomplete | string             |         | false    | Prefix response image uri for autocomplete image                                                                                                                              |
 | licenseMuiX                        | string             |         | false    | License MUI X to enable pro and premium feature                                                                                                                               |
-| disablePastDatePicker              | boolean            |         | false    | Disable past for date picker                                                                                                                                                  |
-| disablePastDateRangePicker         | boolean            |         | false    | Disable past for date range picker                                                                                                                                            |
 | adapterLocale                      | string             |         | false    | Adapter local for locale format                                                                                                                                               |
+| disablePastDateRangePicker         | boolean            |         | false    | Disable past for date range picker                                                                                                                                            |
+| disablePastDatePicker              | boolean            |         | false    | Disable past for date picker                                                                                                                                                  |
+| noValidate                         | boolean            |         | false    | Indicate that the form is not to be validated on submit                                                                                                                       |
 
 
 ### TreegeConsumerResponse
@@ -148,7 +147,6 @@ const App = () => {
     <TreegeConsumerProvider licenseMuiX={"YOUR_LICENCE"}>
       <TreegeConsumer
         tree={tree}
-        variant={variant}
         onSubmit={handleSubmit}
         options={{googleApiKey: "YOUR_API_KEY"}}/>
     </TreegeConsumerProvider>
@@ -157,3 +155,6 @@ const App = () => {
 
 export default App;
 ```
+## Type Definitions
+
+This library uses type definitions from [@tracktor/types-treege](https://www.npmjs.com/package/@tracktor/types-treege)

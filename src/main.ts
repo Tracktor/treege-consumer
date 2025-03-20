@@ -1,6 +1,6 @@
 // Components
-export { default as TreegeConsumer } from "@/features/TreegeConsumer";
-export * from "@/features/TreegeConsumer";
+export { default as TreegeConsumer } from "@/features/TreegeConsumer/TreegeConsumer";
+export * from "@/features/TreegeConsumer/TreegeConsumer";
 export { default as TreegeConsumerResponse } from "@/features/TreegeConsumerResponse";
 export * from "@/features/TreegeConsumerResponse";
 
@@ -9,6 +9,5 @@ export { default as TreegeConsumerProvider } from "@/context/TreegeConsumerProvi
 export * from "@/context/TreegeConsumerProvider";
 
 // Types
-export * from "@/types/TreeNode";
 export * from "@/types/JsonFormValue";
 export * from "@/types/OnSubmitReturn";
