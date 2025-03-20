@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.43.0](https://github.com/Tracktor/treege-consumer/compare/1.42.8...1.43.0) (2025-03-20)
+
+
+### Features
+
+* form validation ([14590bb](https://github.com/Tracktor/treege-consumer/commit/14590bb6f7f7da2f732ea74c7d2ba6852ed35b3a))
+* form validation ([a07072c](https://github.com/Tracktor/treege-consumer/commit/a07072cd70158c1a07b8e0d44c6006f904e107b3))
+* form validation (WIP) ([97e6f6e](https://github.com/Tracktor/treege-consumer/commit/97e6f6e9deefd505a90dd8bf157c65ff5d5887bf))
+* form validation add no validate options ([739fc09](https://github.com/Tracktor/treege-consumer/commit/739fc095bcb99e2f986d742b32f7d47ef0d39843))
+* form validation add no validate options ([321ba9b](https://github.com/Tracktor/treege-consumer/commit/321ba9b4c6a865d997d3da25738010dc2f579cab))
+* form validation date ([9bb4388](https://github.com/Tracktor/treege-consumer/commit/9bb438816b78e916c2a330b54c3e3ca1c9032cae))
+* form validation improvement ([efddeb5](https://github.com/Tracktor/treege-consumer/commit/efddeb58a9ea6a619e1af654da64e6818b6a925f))
+* form validation improvement ([c31ceea](https://github.com/Tracktor/treege-consumer/commit/c31ceea27956564d8954b79d7340ae998fb78c48))
+* form validation improvement ([f84ee87](https://github.com/Tracktor/treege-consumer/commit/f84ee8703996fec9b7ca9d893388d25f0d140e80))
+* form validation improvement ([31ade74](https://github.com/Tracktor/treege-consumer/commit/31ade746d5fcf074103af662d8ab16708bc3dcc4))
+* form validation improvement ([8ab0b39](https://github.com/Tracktor/treege-consumer/commit/8ab0b39347b50570c893bbdf09f647153df1e1bf))
+* form validation improvement ([885e543](https://github.com/Tracktor/treege-consumer/commit/885e543575eee0ed0a012aba058123970af31321))
+* form validation improvement ([83771e7](https://github.com/Tracktor/treege-consumer/commit/83771e7f65aa4e4cd5c6c0c743a1959abfc8f7c6))
+* validation form improvement ([cb09b59](https://github.com/Tracktor/treege-consumer/commit/cb09b597e29bff0fa91223c96a327c469870dc74))
+* validation form improvement ([b7c2045](https://github.com/Tracktor/treege-consumer/commit/b7c2045091c3192a5973eb527491a64a05821e12))
+
+
+### Bug Fixes
+
+* boolean field form data ([d9a49d2](https://github.com/Tracktor/treege-consumer/commit/d9a49d2de4ad1658d6e0a9f2c51711e3b2e379f4))
+
 ## [1.42.8](https://github.com/Tracktor/treege-consumer/compare/1.42.7...1.42.8) (2025-02-18)
 
 
