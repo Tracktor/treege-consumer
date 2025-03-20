@@ -46,6 +46,7 @@ const SwitchField = (
               name={name}
               onChange={handleCheck}
               inputRef={inputRef}
+              value={!!value}
               checked={!!value}
               readOnly={readOnly}
               disabled={readOnly}

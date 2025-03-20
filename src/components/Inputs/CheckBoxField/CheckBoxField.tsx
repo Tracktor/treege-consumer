@@ -42,6 +42,7 @@ const CheckBoxField = (
           <Stack spacing={1}>
             <FormControlLabel
               variant="card"
+              value={!!value}
               checked={!!value}
               label="Oui"
               data-label-name-value={`${name}-yes`}
@@ -60,6 +61,7 @@ const CheckBoxField = (
             <FormControlLabel
               variant="card"
               checked={!value}
+              value={!value}
               label="Non"
               data-label-name-value={`${name}-no`}
               name={name}

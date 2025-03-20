@@ -270,21 +270,6 @@ const FieldFactory = ({
             error={!!error}
           />
         );
-      case "radio":
-        return (
-          <Radio
-            data={data}
-            onChange={handleChange}
-            onInit={handleChangeFormValue}
-            readOnly={readOnly}
-            inputRef={handleInputRef}
-            required={isRequired}
-            helperText={errorOrHelperText}
-            value={value}
-            isIgnored={isFieldIgnored}
-            error={!!error}
-          />
-        );
       case "select":
         return (
           <Select
@@ -310,6 +295,21 @@ const FieldFactory = ({
             value={value}
             isIgnored={isFieldIgnored}
             required={isRequired}
+            error={!!error}
+          />
+        );
+      case "radio":
+        return (
+          <Radio
+            data={data}
+            onChange={handleChange}
+            onInit={handleChangeFormValue}
+            readOnly={readOnly}
+            inputRef={handleInputRef}
+            required={isRequired}
+            helperText={errorOrHelperText}
+            value={value}
+            isIgnored={isFieldIgnored}
             error={!!error}
           />
         );
