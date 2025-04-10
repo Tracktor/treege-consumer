@@ -15,7 +15,7 @@ const DataViewer = ({ handleChangeComponent }: DataViewerProps) => {
   };
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme="dark">
       <Container>
         <Stack alignItems="center" p={3}>
           <Button variant="link" onClick={() => handleChangeComponent("TreegeConsumer")}>

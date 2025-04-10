@@ -125,6 +125,9 @@ Display values from form based on [Treege](https://github.com/Tracktor/treege)
 | collapse                  | boolean                                                                                                                                     | undefined | false    | Enable collapse or note                                                |
 | collapseVisibleItemNumber | number                                                                                                                                      | 4         | false    | Number of visible item before collapse. Works only if collapse is true |
 | collapseStyle             | CSSProperties                                                                                                                               | undefined | false    | Custom collapse style                                                  |
+| collapseSx                | SxProps                                                                                                                                     | undefined | false    | Custom collapse sx                                                     |
+| style                     | CSSProperties                                                                                                                               | undefined | false    | Container style                                                        |
+| sx                        | SxProps                                                                                                                                     | undefined | false    | Container sx                                                           |
 
 ## Provider
 

@@ -1,6 +1,17 @@
-import { Checkbox, Collapse, FormControlLabel, List, ListItem, TextField, IconButton, SvgIcon, Box } from "@tracktor/design-system";
+import {
+  Checkbox,
+  Collapse,
+  FormControlLabel,
+  List,
+  ListItem,
+  TextField,
+  IconButton,
+  SvgIcon,
+  Box,
+  SxProps,
+} from "@tracktor/design-system";
 import { isObject, isString, useToggle } from "@tracktor/react-utils";
-import { CSSProperties, ReactElement } from "react";
+import { CSSProperties, Fragment, ReactElement } from "react";
 import { JsonFormValue } from "@/types/JsonFormValue";
 
 export interface TreegeViewerProps {
@@ -35,6 +46,18 @@ export interface TreegeViewerProps {
    */
   collapseStyle?: CSSProperties;
   /**
+   * Custom sx for the collapse
+   */
+  collapseSx?: SxProps;
+  /**
+   * Custom style for the collapse
+   */
+  style?: CSSProperties;
+  /**
+   *  Style sx
+   */
+  sx?: SxProps;
+  /**
    * Render custom fields (replaces `renderInputs`)
    * <TreegeConsumer renderFields={({ value, name, type }) => <input name={name} type={type} value={value} />}/>
    */
@@ -60,7 +83,10 @@ const TreegeViewer = ({
   useCollapse,
   isCollapsed,
   onToggleCollapse,
+  style,
+  sx,
   collapseStyle,
+  collapseSx,
   collapseVisibleItemNumber = 4,
 }: TreegeViewerProps) => {
   const [internalIsCollapsed, toggleInternalIsCollapsed] = useToggle(false);
@@ -119,7 +145,7 @@ const TreegeViewer = ({
       })}
 
       {collapseIsEnabled && (
-        <Collapse in={collapsed} style={collapseStyle}>
+        <Collapse in={collapsed} style={collapseStyle} sx={collapseSx} component={Box}>
           {items.slice(collapseVisibleItemNumber).map(({ label, value, type }, index) => {
             const key = `${collapseVisibleItemNumber + index}-${label}-${value}`;
             const responseValue = checkValue(value);
@@ -137,14 +163,14 @@ const TreegeViewer = ({
       {/* Visible Items */}
       {items.slice(0, collapseIsEnabled ? collapseVisibleItemNumber : items.length).map((value, index) => {
         const key = `${index}-${value.label}-${value.value}`;
-        return <div key={key}>{renderFields!(value)}</div>;
+        return <Fragment key={key}>{renderFields!(value)}</Fragment>;
       })}
       {/* Collapse items */}
       {collapseIsEnabled && (
-        <Collapse in={collapsed} style={collapseStyle}>
+        <Collapse in={collapsed} style={collapseStyle} sx={collapseSx}>
           {items.slice(collapseVisibleItemNumber).map((value, index) => {
             const key = `${collapseVisibleItemNumber + index}-${value.label}-${value.value}`;
-            return <div key={key}>{renderFields!(value)}</div>;
+            return <Fragment key={key}>{renderFields!(value)}</Fragment>;
           })}
         </Collapse>
       )}
@@ -154,7 +180,9 @@ const TreegeViewer = ({
   return (
     <>
       {/* Render */}
-      {isCustomRenderInput ? renderCustom(filteredValues!) : renderDefault(filteredValues!)}
+      <Box style={style} sx={sx}>
+        {isCustomRenderInput ? renderCustom(filteredValues!) : renderDefault(filteredValues!)}
+      </Box>
 
       {/* Collapse toggle button */}
       {useCollapse && filteredValues && filteredValues.length > collapseVisibleItemNumber && (

@@ -1958,10 +1958,10 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@tracktor/design-system@^3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@tracktor/design-system/-/design-system-3.7.0.tgz#e752e3d28cf13baa89e761fc0f1756b75d6fb912"
-  integrity sha512-Kau1AbnsEsnmcOs8Rql4v2M/louMn/fDE7n5CjUTZMIQ4ebrrZldPWxm35iFsgLOQyhoRgG/BjRRzev6P9J7WA==
+"@tracktor/design-system@^3.11.4":
+  version "3.11.4"
+  resolved "https://registry.yarnpkg.com/@tracktor/design-system/-/design-system-3.11.4.tgz#f6a19553e59fb5681d4466f9f4a55c1f1c731c62"
+  integrity sha512-RcHpeCvyZ/W+OdDJ5e8GA9I47War147Qmt0TyVDaxTu6gMqlyDv2U12q5VR5gfTkoaQWGPwUqWWiQGL+/R9eGg==
   dependencies:
     "@emotion/react" "^11.13.3"
     "@emotion/styled" "^11.13.0"
