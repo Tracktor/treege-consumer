@@ -124,6 +124,7 @@ Display values from form based on [Treege](https://github.com/Tracktor/treege)
 | excludedFields            | string[]                                                                                                                                    | undefined | false    | Excluded fields                                                        |
 | collapse                  | boolean                                                                                                                                     | undefined | false    | Enable collapse or note                                                |
 | collapseVisibleItemNumber | number                                                                                                                                      | 4         | false    | Number of visible item before collapse. Works only if collapse is true |
+| collapseStyle             | CSSProperties                                                                                                                               | undefined | false    | Custom collapse style                                                  |
 
 ## Provider
 
