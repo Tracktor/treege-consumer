@@ -10,7 +10,7 @@
   - [Provide options](#Provide-options)
 - [Components](#Components)
   - [TreegeConsumer](#TreegeConsumer)
-  - [TreegeConsumerResponse](#TreegeConsumerResponse)
+  - [TreegeViewer](#TreegeViewer)
 
 ## Installation
 
@@ -113,20 +113,17 @@ on [Treege](https://github.com/Tracktor/treege) data
 | noValidate                         | boolean            |         | false    | Indicate that the form is not to be validated on submit                                                                                                                       |
 
 
-### TreegeConsumerResponse
+### TreegeViewer
 
-Render values from form based on [Treege](https://github.com/Tracktor/treege)
+Display values from form based on [Treege](https://github.com/Tracktor/treege)
 
 | Props                     | Type                                                                                                                                        | Default   | Required | Detail                                                                 |
 |---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-----------|----------|------------------------------------------------------------------------|
 | values                    | {<br/>label: string;<br/>name: string;<br/>type: string;<br/>tag?: string;<br/>value: string; &#124; { label: string; value: string }<br/>} | undefined | true     | Object of data                                                         |
-| renderInputs              | function(input: JsonFormValue): ReactElement \| undefined                                                                                   | undefined | false    | Custom inputs rendering                                                |
-| ignoreFields              | string[]                                                                                                                                    | undefined | false    | Ignored fiels to render                                                |
+| renderFields              | function(input: JsonFormValue): ReactElement \| undefined                                                                                   | undefined | false    | Custom fields rendering                                                |
+| excludedFields            | string[]                                                                                                                                    | undefined | false    | Excluded fields                                                        |
 | collapse                  | boolean                                                                                                                                     | undefined | false    | Enable collapse or note                                                |
 | collapseVisibleItemNumber | number                                                                                                                                      | 4         | false    | Number of visible item before collapse. Works only if collapse is true |
-| disabledSubmitButton      | boolean                                                                                                                                     | undefined | false    | Boolean to disable submit button                                       |
-
-
 
 ## Provider
 

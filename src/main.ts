@@ -1,8 +1,8 @@
 // Components
 export { default as TreegeConsumer } from "@/features/TreegeConsumer/TreegeConsumer";
 export * from "@/features/TreegeConsumer/TreegeConsumer";
-export { default as TreegeConsumerResponse } from "@/features/TreegeConsumerResponse";
-export * from "@/features/TreegeConsumerResponse";
+export { default as TreegeViewer } from "@/features/TreegeViewer/TreegeViewer";
+export * from "@/features/TreegeViewer/TreegeViewer";
 
 // Context
 export { default as TreegeConsumerProvider } from "@/context/TreegeConsumerProvider";
