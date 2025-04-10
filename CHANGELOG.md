@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.46.0](https://github.com/Tracktor/treege-consumer/compare/1.45.0...1.46.0) (2025-04-10)
+
+
+### Features
+
+* add style and sx props for TreegeViewer ([5168115](https://github.com/Tracktor/treege-consumer/commit/5168115dcc7cf7dcc297b75a4fe15ebff7c094c4))
+
 ## [1.45.0](https://github.com/Tracktor/treege-consumer/compare/1.44.0...1.45.0) (2025-04-10)
 
 
