@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.45.0](https://github.com/Tracktor/treege-consumer/compare/1.44.0...1.45.0) (2025-04-10)
+
+
+### Features
+
+* add collapseStyle ([4b964c3](https://github.com/Tracktor/treege-consumer/commit/4b964c31ba4039aa35d75c4210abf165a05107c5))
+
 ## [1.44.0](https://github.com/Tracktor/treege-consumer/compare/1.43.0...1.44.0) (2025-04-10)
 
 
