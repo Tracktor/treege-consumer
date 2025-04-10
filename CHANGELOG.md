@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.44.0](https://github.com/Tracktor/treege-consumer/compare/1.43.0...1.44.0) (2025-04-10)
+
+
+### Features
+
+* rename TreegeConsumerResponse to TreegeViewer with new props useCollapse, isCollapsed, onToggleCollapse ([416342c](https://github.com/Tracktor/treege-consumer/commit/416342c1e1a07667191f17008e8d2e0c9e6fcc56))
+
 ## [1.43.0](https://github.com/Tracktor/treege-consumer/compare/1.42.8...1.43.0) (2025-03-20)
 
 
