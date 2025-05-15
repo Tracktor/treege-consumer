@@ -15,10 +15,6 @@ interface FormValidationProps {
 }
 
 const FormValidation = ({ disabled, isLoading, readOnly, isLastField, renderFormValidation }: FormValidationProps) => {
-  if (readOnly || !isLastField) {
-    return null;
-  }
-
   if (renderFormValidation) {
     return renderFormValidation({ disabled, isLoading });
   }
@@ -26,7 +22,7 @@ const FormValidation = ({ disabled, isLoading, readOnly, isLastField, renderForm
   return (
     <Slide direction="up" in mountOnEnter>
       <Box display="flex" alignItems="center" justifyContent="center" paddingY={5}>
-        <Button variant="contained" type="submit" isLoading={isLoading}>
+        <Button variant="contained" type="submit" isLoading={isLoading} disabled={readOnly || !isLastField}>
           Valider
         </Button>
       </Box>
