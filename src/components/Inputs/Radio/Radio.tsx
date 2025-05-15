@@ -1,6 +1,6 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, Radio as RadioDS, RadioGroup, Stack } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
-import { ChangeEvent, forwardRef, Ref, useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import useInputs from "@/hooks/useInputs";
 import ChangeEventField from "@/types/ChangeEventField";
@@ -29,15 +29,12 @@ const Radio = (
   const options = getOptionsForDecisionsField({ children, values });
   const onInitRef = useRef(onInit);
 
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>, fieldValue: string) => {
-      const messageValue = getMessageByValue({ options, value: fieldValue });
+  const handleChange = (event: ChangeEvent<HTMLInputElement>, fieldValue: string) => {
+    const messageValue = getMessageByValue({ options, value: fieldValue });
 
-      onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
-      setMessage(messageValue);
-    },
-    [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, type],
-  );
+    onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: fieldValue });
+    setMessage(messageValue);
+  };
 
   // If there's no selected value, only one child option, and the field is required,
   useEffect(() => {
