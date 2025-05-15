@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.46.1](https://github.com/Tracktor/treege-consumer/compare/1.46.0...1.46.1) (2025-05-15)
+
+
+### Bug Fixes
+
+* improve form validation and radio component behavior ([7eb5a51](https://github.com/Tracktor/treege-consumer/commit/7eb5a51972d21caa0196bd1e0bef67bc72e95dc3))
+* simplify handleChange function in Radio component ([f116b78](https://github.com/Tracktor/treege-consumer/commit/f116b78052c20a34f20f25903745ea9c77327a47))
+
 ## [1.46.0](https://github.com/Tracktor/treege-consumer/compare/1.45.0...1.46.0) (2025-04-10)
 
 
