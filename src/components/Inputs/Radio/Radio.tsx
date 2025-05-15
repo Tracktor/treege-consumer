@@ -36,6 +36,33 @@ const Radio = (
     setMessage(messageValue);
   };
 
+  // If there's no selected value, only one child option, and the field is required,
+  useEffect(() => {
+    // we auto-select the single available option.
+    if (!value && children.length === 1 && required) {
+      const singleOption = options[0];
+      if (singleOption) {
+        // Retrieve the message associated with the selected option (if any).
+        const messageValue = getMessageByValue({ options, value: singleOption.value });
+
+        // Trigger the onChange callback to propagate the selection upstream.
+        onChange?.({
+          children,
+          event: undefined, // No user event triggered this — it's an automatic selection.
+          hasMessage: !!messageValue,
+          isDecision,
+          isLeaf,
+          name,
+          type,
+          value: singleOption.value,
+        });
+
+        // Store the message locally to be displayed in the UI
+        setMessage(messageValue);
+      }
+    }
+  }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, type, value]);
+
   // Trigger the onInit when the component is mounted
   useEffect(() => {
     if (isDecision && value) {
