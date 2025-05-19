@@ -1972,10 +1972,10 @@
   resolved "https://registry.yarnpkg.com/@tracktor/react-utils/-/react-utils-1.21.0.tgz#7c57dc423e3c9c7e74113dc6bcd1dd150713af9c"
   integrity sha512-bYLGuEFwbDKizXt3LNiFR8Z6rnU7OQDQAhD1NeuzNltcIkL5ic7sQWrAMUEKSUhWJtLNGlblQ6d8KS8POs1spw==
 
-"@tracktor/types-treege@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@tracktor/types-treege/-/types-treege-0.1.8.tgz#c1e9e730a7a394ba305c38f82b6acc7869c7a95f"
-  integrity sha512-jj4QaZZxdql+SWxi/sZJlHM85BlcWsLuqrpD1RyhR0PZnr58uE+EqkA2lVXIuAuZzpYYaKl+wJE2YwItBVLQEA==
+"@tracktor/types-treege@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@tracktor/types-treege/-/types-treege-0.3.3.tgz#7cbba192216742f4d1d218421faedd0decd35f81"
+  integrity sha512-O1WAbkAbfqIPr7gWt0+ks6rQNwLjhsUbWSZFkIqBUn35aUkzCCLEiRV2OPNaPB/dHx/HJ0c97I/kWNCW98p/tw==
 
 "@types/argparse@1.0.38":
   version "1.0.38"

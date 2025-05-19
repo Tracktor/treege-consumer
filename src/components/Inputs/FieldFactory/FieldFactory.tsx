@@ -20,12 +20,15 @@ import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
+import { isTreeNode } from "@/types/TypeGuards";
+import findNodeByUUIDInTree from "@/utils/findNodeByUUIDInTree/findNodeByUUIDInTree";
 
 export interface FielFactoryProps {
   fieldValues?: FieldValues;
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;
+  tree?: unknown;
   visible?: boolean;
   readOnly?: boolean;
   headers?: HeadersInit;
@@ -41,6 +44,7 @@ export interface FielFactoryProps {
  * @param handleChangeFormValue
  * @param autoFocus
  * @param data
+ * @param tree
  * @param readOnly
  * @param animated
  * @param visible
@@ -55,6 +59,7 @@ const FieldFactory = ({
   handleChangeFormValue,
   autoFocus,
   data,
+  tree,
   readOnly,
   headers,
   fieldValues,
@@ -67,7 +72,8 @@ const FieldFactory = ({
 }: FielFactoryProps) => {
   const [error, setError] = useState("");
   const { attributes, uuid } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage } = attributes;
+  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage, ancestorId } =
+    attributes;
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
@@ -84,6 +90,10 @@ const FieldFactory = ({
   const disablePastDateRangePicker = options?.disablePastDateRangePicker || optionsContext?.disablePastDateRangePicker;
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
+
+  const fullTree = isTreeNode(tree) ? tree : null;
+  const ancestorValues = ancestorId && tree ? findNodeByUUIDInTree(fullTree, ancestorId) : null;
+  const { inputObjectKey: ancestorInjectedData } = ancestorValues?.attributes?.defaultValueFromAncestor || {};
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {
@@ -159,7 +169,7 @@ const FieldFactory = ({
             name={name}
             label={label}
             type={type}
-            value={value}
+            value={value || ancestorInjectedData}
             required={isRequired}
             inputRef={handleInputRef}
             helperText={errorOrHelperText}
