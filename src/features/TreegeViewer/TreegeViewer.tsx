@@ -14,11 +14,11 @@ import { isObject, isString, useToggle } from "@tracktor/react-utils";
 import { CSSProperties, Fragment, ReactElement } from "react";
 import { JsonFormValue } from "@/types/JsonFormValue";
 
-export interface TreegeViewerProps {
+export interface TreegeViewerProps<T = unknown> {
   /**
    * Json form value
    */
-  values?: JsonFormValue[] | null;
+  values?: T | JsonFormValue[] | null;
   /**
    * Array of field name that we want to ignore (replaces `ignoreFields`)
    * @d
@@ -93,7 +93,7 @@ const TreegeViewer = ({
   const collapsed = isCollapsed !== undefined ? isCollapsed : internalIsCollapsed;
   const collapseIsEnabled = useCollapse || isCollapsed !== undefined;
   const isCustomRenderInput = values && renderFields;
-  const filteredValues = values?.filter((value) => !excludedFields?.includes(value.name));
+  const filteredValues = Array.isArray(values) ? values?.filter((value) => !excludedFields?.includes(value.name)) : undefined;
   const toggleCollapse = onToggleCollapse || toggleInternalIsCollapsed;
 
   const renderListItem = ({

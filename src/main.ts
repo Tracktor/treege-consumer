@@ -8,6 +8,9 @@ export * from "@/features/TreegeViewer/TreegeViewer";
 export { default as TreegeConsumerProvider } from "@/context/TreegeConsumerProvider";
 export * from "@/context/TreegeConsumerProvider";
 
+// TypeGuards
+export { isTreeNode } from "@/types/TypeGuards";
+
 // Types
 export * from "@/types/JsonFormValue";
 export * from "@/types/OnSubmitReturn";
