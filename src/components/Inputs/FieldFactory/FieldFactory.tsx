@@ -20,15 +20,12 @@ import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues } from "@/types/FieldValues";
-import { isTreeNode } from "@/types/TypeGuards";
-import findNodeByUUIDInTree from "@/utils/findNodeByUUIDInTree/findNodeByUUIDInTree";
 
 export interface FielFactoryProps {
   fieldValues?: FieldValues;
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;
-  tree?: unknown;
   visible?: boolean;
   readOnly?: boolean;
   headers?: HeadersInit;
@@ -44,7 +41,6 @@ export interface FielFactoryProps {
  * @param handleChangeFormValue
  * @param autoFocus
  * @param data
- * @param tree
  * @param readOnly
  * @param animated
  * @param visible
@@ -59,7 +55,6 @@ const FieldFactory = ({
   handleChangeFormValue,
   autoFocus,
   data,
-  tree,
   readOnly,
   headers,
   fieldValues,
@@ -102,9 +97,9 @@ const FieldFactory = ({
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
-  const fullTree = isTreeNode(tree) ? tree : null;
-  const { inputObjectKey, outputModel, name: ancestorName } = defaultValueFromAncestor || {};
+  const { name: ancestorName } = defaultValueFromAncestor || {};
   const ancestorValue = ancestorName ? fieldValues?.[ancestorName] : "";
+  const textAncestorValue = typeof ancestorValue === "string" ? String(ancestorValue) : "";
 
   // test: Se 78 Acheres - Sncf Reseau - Réseau M2 - Bznx.226162
   // console.log("ancestorValue", ancestorValue, initialAddress);
@@ -183,7 +178,7 @@ const FieldFactory = ({
             name={name}
             label={label}
             type={type}
-            value={value || ancestorValue || ""}
+            value={value}
             required={isRequired}
             inputRef={handleInputRef}
             helperText={errorOrHelperText}
@@ -192,6 +187,7 @@ const FieldFactory = ({
             pattern={pattern}
             patternMessage={patternMessage}
             error={!!error}
+            ancestorValue={textAncestorValue}
           />
         );
       case "file":
