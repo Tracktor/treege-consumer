@@ -179,7 +179,6 @@ const TreegeComposition = <T,>({
                     isSubmitting={isSubmitting}
                     ignoreFields={ignoreFields}
                     options={options}
-                    tree={tree}
                   />
                 ))
               ) : (
