@@ -72,8 +72,19 @@ const FieldFactory = ({
 }: FielFactoryProps) => {
   const [error, setError] = useState("");
   const { attributes, uuid } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage, ancestorId } =
-    attributes;
+  const {
+    type,
+    label,
+    required,
+    helperText,
+    isMultiple,
+    parentRef,
+    isDisabledPast,
+    name,
+    pattern,
+    patternMessage,
+    defaultValueFromAncestor,
+  } = attributes;
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
@@ -92,8 +103,11 @@ const FieldFactory = ({
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
   const fullTree = isTreeNode(tree) ? tree : null;
-  const ancestorValues = ancestorId && tree ? findNodeByUUIDInTree(fullTree, ancestorId) : null;
-  const { inputObjectKey: ancestorInjectedData } = ancestorValues?.attributes?.defaultValueFromAncestor || {};
+  const { inputObjectKey, outputModel, name: ancestorName } = defaultValueFromAncestor || {};
+  const ancestorValue = ancestorName ? fieldValues?.[ancestorName] : "";
+
+  // test: Se 78 Acheres - Sncf Reseau - Réseau M2 - Bznx.226162
+  // console.log("ancestorValue", ancestorValue, initialAddress);
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {
@@ -169,7 +183,7 @@ const FieldFactory = ({
             name={name}
             label={label}
             type={type}
-            value={value || ancestorInjectedData}
+            value={value || ancestorValue || ""}
             required={isRequired}
             inputRef={handleInputRef}
             helperText={errorOrHelperText}
@@ -269,6 +283,7 @@ const FieldFactory = ({
       case "address":
         return (
           <Address
+            key={`${value}`}
             readOnly={readOnly}
             node={data}
             onChange={handleChange}
@@ -333,7 +348,7 @@ const FieldFactory = ({
             readOnly={readOnly}
             inputRef={handleInputRef}
             helperText={errorOrHelperText}
-            value={value}
+            value={value || ancestorValue}
             isIgnored={isFieldIgnored}
             error={!!error}
           />
