@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.46.2](https://github.com/Tracktor/treege-consumer/compare/1.46.1...1.46.2) (2025-05-20)
+
+
+### Bug Fixes
+
+* export typeguard ([b48e0ee](https://github.com/Tracktor/treege-consumer/commit/b48e0ee15fb98819644dfbb5d0cdfcbd48042fc7))
+
 ## [1.46.1](https://github.com/Tracktor/treege-consumer/compare/1.46.0...1.46.1) (2025-05-15)
 
 
