@@ -1,13 +1,17 @@
 import { Autocomplete as AutocompleteDS, Box, Grid, Stack, TextField, Typography } from "@tracktor/design-system";
-import { isObject, isString, useScript } from "@tracktor/react-utils";
+import { addressToString, isObject, isString, useScript } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
 import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
+import addressToGoogleAutocompleteAdapter from "@/utils/addressToGoogleAutocompleteAdapter/addressToGoogleAutocompleteAdapter";
 
 type AutocompleteService = google.maps.places.AutocompleteService;
+type OptionsRecord = Record<string, unknown>;
+
+const ancestorHasOptions = (obj: unknown): obj is { options: unknown } => typeof obj === "object" && obj !== null && "options" in obj;
 
 export interface AutocompleteProps {
   inputRef: Ref<unknown>;
@@ -22,6 +26,8 @@ export interface AutocompleteProps {
   pattern?: string;
   patternMessage?: string;
   error?: boolean;
+  ancestorValue?: unknown;
+  ancestorMapping?: string;
 }
 
 interface Match {
@@ -43,6 +49,8 @@ const Address = (
     pattern,
     patternMessage,
     helperText,
+    ancestorValue,
+    ancestorMapping,
   }: AutocompleteProps,
   ref: Ref<unknown> | undefined,
 ) => {
@@ -51,6 +59,12 @@ const Address = (
   const autocompleteService = useRef<AutocompleteService>();
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
+  const apiAncestorFull = ancestorHasOptions(ancestorValue) ? ancestorValue?.options : undefined;
+  const ancestorValueMapped = ancestorMapping ? (apiAncestorFull as OptionsRecord)?.[ancestorMapping] : undefined;
+
+  const [localValue, setLocalValue] = useState<unknown | null>(value || null);
+
+  const lastAncestorRef = useRef(ancestorValueMapped);
 
   const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&loading=async&libraries=places`, {
     enable: !!googleApiKey && !isIgnored,
@@ -58,6 +72,8 @@ const Address = (
   });
 
   const handleChange = (event: SyntheticEvent<Element, Event>, newValue: unknown | null) => {
+    setLocalValue(newValue);
+
     onChange?.({
       children,
       event,
@@ -142,9 +158,34 @@ const Address = (
     };
   }, [places, value, searchText, fetch, country, googleApiKey, isIgnored]);
 
+  useEffect(() => {
+    if (ancestorValueMapped !== lastAncestorRef.current) {
+      lastAncestorRef.current = ancestorValueMapped;
+
+      const updatedAddress = addressToGoogleAutocompleteAdapter(ancestorValueMapped);
+      const updatedAddressString = addressToString(ancestorValueMapped);
+
+      setLocalValue(updatedAddress);
+      setSearchText(updatedAddressString);
+
+      onChange?.({
+        children,
+        event: undefined,
+        isDecision,
+        isLeaf,
+        name,
+        type,
+        value: ancestorValueMapped,
+      });
+    }
+  }, [ancestorValueMapped, children, isDecision, isLeaf, name, onChange, options, type]);
+
   if (isIgnored) {
     return null;
   }
+
+  // test: Main D'oeuvre Sav - 024x.mosav1 || PS Ressources Humaines - Z32X.CO2210
+  // console.log("localValue", localValue);
 
   return (
     <Stack spacing={1.5}>
@@ -155,7 +196,7 @@ const Address = (
         ref={ref}
         filterOptions={(filterOptions) => filterOptions}
         options={options || []}
-        value={value || null}
+        value={localValue}
         onChange={handleChange}
         onBlur={handleOnBlurChange}
         onInputChange={(_, newInputValue) => setSearchText(newInputValue)}

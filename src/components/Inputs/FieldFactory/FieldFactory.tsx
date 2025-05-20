@@ -97,12 +97,9 @@ const FieldFactory = ({
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
-  const { name: ancestorName } = defaultValueFromAncestor || {};
+  const { name: ancestorName, inputObjectKey } = defaultValueFromAncestor || {};
   const ancestorValue = ancestorName ? fieldValues?.[ancestorName] : "";
   const textAncestorValue = typeof ancestorValue === "string" ? String(ancestorValue) : "";
-
-  // test: Se 78 Acheres - Sncf Reseau - Réseau M2 - Bznx.226162
-  // console.log("ancestorValue", ancestorValue, initialAddress);
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {
@@ -291,6 +288,8 @@ const FieldFactory = ({
             pattern={pattern}
             googleApiKey={googleApiKey}
             error={!!error}
+            ancestorValue={ancestorValue}
+            ancestorMapping={inputObjectKey}
           />
         );
       case "radio":
