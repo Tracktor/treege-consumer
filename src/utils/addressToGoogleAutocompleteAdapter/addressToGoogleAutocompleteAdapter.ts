@@ -15,9 +15,7 @@ const addressToGoogleAutocompleteAdapter = (address?: unknown | null) => {
     return null;
   }
 
-  console.log(addressToString(address));
-
-  const googleAddress = {
+  return {
     description: addressToString(address),
     distance_meters: 0,
     matched_substrings: [],
@@ -26,10 +24,8 @@ const addressToGoogleAutocompleteAdapter = (address?: unknown | null) => {
     terms: [],
     types: [],
   };
-
-  console.log("output", googleAddress);
-
-  return googleAddress;
 };
+
+// test: Main D'oeuvre Sav - 024x.mosav1 || PS Ressources Humaines - Z32X.CO2210
 
 export default addressToGoogleAutocompleteAdapter;

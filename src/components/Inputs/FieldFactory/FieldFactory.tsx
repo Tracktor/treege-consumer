@@ -276,7 +276,6 @@ const FieldFactory = ({
       case "address":
         return (
           <Address
-            key={`${value}`}
             readOnly={readOnly}
             node={data}
             onChange={handleChange}

@@ -11,7 +11,21 @@ import addressToGoogleAutocompleteAdapter from "@/utils/addressToGoogleAutocompl
 type AutocompleteService = google.maps.places.AutocompleteService;
 type OptionsRecord = Record<string, unknown>;
 
+interface AddressAdapterParams {
+  streetNumber?: string | number | null;
+  route?: string | null;
+  postalCode?: string | null;
+  city?: string | null;
+  country?: string | null;
+}
+
 const ancestorHasOptions = (obj: unknown): obj is { options: unknown } => typeof obj === "object" && obj !== null && "options" in obj;
+const isAddressAdapterParams = (obj: unknown): obj is AddressAdapterParams => {
+  if (typeof obj !== "object" || obj === null) return false;
+
+  // Adapte cette partie selon les propriétés requises de AddressAdapterParams
+  return "street" in obj && "city" in obj && "postalCode" in obj;
+};
 
 export interface AutocompleteProps {
   inputRef: Ref<unknown>;
@@ -126,7 +140,7 @@ const Address = (
     }
 
     if (searchText === "") {
-      setOptions(value ? [value] : []);
+      setOptions(localValue ? [localValue] : []);
       return undefined;
     }
 
@@ -141,8 +155,8 @@ const Address = (
       if (active) {
         let newOptions: readonly unknown[] = [];
 
-        if (value) {
-          newOptions = [value];
+        if (localValue) {
+          newOptions = [localValue];
         }
 
         if (results) {
@@ -156,14 +170,14 @@ const Address = (
     return () => {
       active = false;
     };
-  }, [places, value, searchText, fetch, country, googleApiKey, isIgnored]);
+  }, [country, fetch, googleApiKey, isIgnored, localValue, places, searchText]);
 
   useEffect(() => {
     if (ancestorValueMapped !== lastAncestorRef.current) {
       lastAncestorRef.current = ancestorValueMapped;
 
       const updatedAddress = addressToGoogleAutocompleteAdapter(ancestorValueMapped);
-      const updatedAddressString = addressToString(ancestorValueMapped);
+      const updatedAddressString = isAddressAdapterParams(ancestorValueMapped) ? addressToString(ancestorValueMapped) : "";
 
       setLocalValue(updatedAddress);
       setSearchText(updatedAddressString);
@@ -178,7 +192,7 @@ const Address = (
         value: ancestorValueMapped,
       });
     }
-  }, [ancestorValueMapped, children, isDecision, isLeaf, name, onChange, options, type]);
+  }, [ancestorValueMapped, children, isDecision, isLeaf, name, onChange, type]);
 
   if (isIgnored) {
     return null;
