@@ -43,12 +43,12 @@ const TextField = (
   }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const [text, setText] = useState(() => ancestorValue || (typeof value === "string" ? value : ""));
+  const [text, setText] = useState(() => (ancestorValue || value) ?? "");
   const lastAncestorRef = useRef(ancestorValue);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value: newValue } = event.target;
-    setText(newValue); // mise à jour locale
+    setText(newValue);
     onChange?.({ event, name, type, value: newValue });
   };
 

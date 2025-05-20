@@ -344,9 +344,10 @@ const FieldFactory = ({
             readOnly={readOnly}
             inputRef={handleInputRef}
             helperText={errorOrHelperText}
-            value={value || ancestorValue}
+            value={value}
             isIgnored={isFieldIgnored}
             error={!!error}
+            ancestorValue={ancestorValue}
           />
         );
       case "autocomplete":
