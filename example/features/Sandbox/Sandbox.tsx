@@ -118,6 +118,8 @@ const Sandbox = ({
                   options={{
                     disablePastDatePicker: true,
                     disablePastDateRangePicker: true,
+                    // todo: dont commit this
+                    googleApiKey: "AIzaSyC17-NnUnisi7EU039zhmTtH8_UfDohE4A",
                   }}
                 />
               </Box>
