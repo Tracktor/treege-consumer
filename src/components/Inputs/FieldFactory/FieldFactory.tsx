@@ -67,7 +67,19 @@ const FieldFactory = ({
 }: FielFactoryProps) => {
   const [error, setError] = useState("");
   const { attributes, uuid } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage } = attributes;
+  const {
+    type,
+    label,
+    required,
+    helperText,
+    isMultiple,
+    parentRef,
+    isDisabledPast,
+    name,
+    pattern,
+    patternMessage,
+    defaultValueFromAncestor,
+  } = attributes;
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
@@ -84,6 +96,10 @@ const FieldFactory = ({
   const disablePastDateRangePicker = options?.disablePastDateRangePicker || optionsContext?.disablePastDateRangePicker;
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
+
+  const { name: ancestorName, inputObjectKey } = defaultValueFromAncestor || {};
+  const ancestorValue = ancestorName ? fieldValues?.[ancestorName] : "";
+  const textAncestorValue = typeof ancestorValue === "string" ? String(ancestorValue) : "";
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {
@@ -168,6 +184,7 @@ const FieldFactory = ({
             pattern={pattern}
             patternMessage={patternMessage}
             error={!!error}
+            ancestorValue={textAncestorValue}
           />
         );
       case "file":
@@ -270,6 +287,8 @@ const FieldFactory = ({
             pattern={pattern}
             googleApiKey={googleApiKey}
             error={!!error}
+            ancestorValue={ancestorValue}
+            ancestorMapping={inputObjectKey}
           />
         );
       case "radio":
@@ -326,6 +345,7 @@ const FieldFactory = ({
             value={value}
             isIgnored={isFieldIgnored}
             error={!!error}
+            ancestorValue={ancestorValue}
           />
         );
       case "autocomplete":
