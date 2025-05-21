@@ -136,7 +136,7 @@ const TreegeViewer = ({
 
   const renderDefault = (items: JsonFormValue[]) => (
     <List>
-      {(collapseIsEnabled ? items.slice(0, collapseVisibleItemNumber) : items)?.map(({ label, value, type }, index) => {
+      {(collapseIsEnabled ? items?.slice(0, collapseVisibleItemNumber) : items)?.map(({ label, value, type }, index) => {
         const key = `${index}-${label}-${value}`;
         const responseValue = checkValue(value);
         const isBooleanField = ["switch", "checkbox"]?.includes(type || "");
@@ -146,7 +146,7 @@ const TreegeViewer = ({
 
       {collapseIsEnabled && (
         <Collapse in={collapsed} style={collapseStyle} sx={collapseSx} component={Box}>
-          {items.slice(collapseVisibleItemNumber).map(({ label, value, type }, index) => {
+          {items?.slice(collapseVisibleItemNumber).map(({ label, value, type }, index) => {
             const key = `${collapseVisibleItemNumber + index}-${label}-${value}`;
             const responseValue = checkValue(value);
             const isBooleanField = ["switch", "checkbox"]?.includes(type || "");
@@ -161,14 +161,14 @@ const TreegeViewer = ({
   const renderCustom = (items: JsonFormValue[]) => (
     <>
       {/* Visible Items */}
-      {items.slice(0, collapseIsEnabled ? collapseVisibleItemNumber : items.length).map((value, index) => {
+      {items?.slice(0, collapseIsEnabled ? collapseVisibleItemNumber : items.length).map((value, index) => {
         const key = `${index}-${value.label}-${value.value}`;
         return <Fragment key={key}>{renderFields!(value)}</Fragment>;
       })}
       {/* Collapse items */}
       {collapseIsEnabled && (
         <Collapse in={collapsed} style={collapseStyle} sx={collapseSx}>
-          {items.slice(collapseVisibleItemNumber).map((value, index) => {
+          {items?.slice(collapseVisibleItemNumber).map((value, index) => {
             const key = `${collapseVisibleItemNumber + index}-${value.label}-${value.value}`;
             return <Fragment key={key}>{renderFields!(value)}</Fragment>;
           })}

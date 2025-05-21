@@ -63,7 +63,7 @@ const useTreegeConsumer = ({
         const noChildren = !decisionChildrenSelected?.length && !childrenTreeRestDecision?.length;
 
         // Remove all field after decision
-        const initialField = prevState.slice(0, indexDecisionField + 1);
+        const initialField = prevState?.slice(0, indexDecisionField + 1);
 
         // if the decision & treeDecision don't have children
         if (noChildren) {
