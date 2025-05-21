@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.46.3](https://github.com/Tracktor/treege-consumer/compare/1.46.2...1.46.3) (2025-05-21)
+
+
+### Bug Fixes
+
+* sentry error ([c240379](https://github.com/Tracktor/treege-consumer/commit/c240379497c2c071ceab63935a5cefcb1f0e5f8b))
+
 ## [1.46.2](https://github.com/Tracktor/treege-consumer/compare/1.46.1...1.46.2) (2025-05-20)
 
 
