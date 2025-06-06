@@ -1,5 +1,5 @@
 import { SelectChangeEvent } from "@tracktor/design-system";
-import type { TreeNode } from "@tracktor/types-treege";
+import type { DefaultValueFromAncestor, TreeNode } from "@tracktor/types-treege";
 import { ChangeEvent, SyntheticEvent } from "react";
 
 export default interface ChangeEventField {
@@ -18,4 +18,5 @@ export default interface ChangeEventField {
   children?: TreeNode[];
   isRequiredAndEmpty?: boolean;
   uuid?: string;
+  defaultValueFromAncestor?: DefaultValueFromAncestor;
 }
