@@ -3,7 +3,7 @@ import type { TreeNode } from "@tracktor/types-treege";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
-import { FieldValues } from "@/types/FieldValues";
+import { FieldValues, TreeFieldValues } from "@/types/FieldValues";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import formDataToJSON from "@/utils/formDataToJSON/formDataToJSON";
@@ -33,6 +33,7 @@ const useTreegeConsumer = ({
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
+  const [treeFieldValues, setTreeFieldValues] = useState<TreeFieldValues[]>([]);
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
   const initialValuesRef = useRef<JsonFormValue[]>();
 
@@ -83,6 +84,28 @@ const useTreegeConsumer = ({
         return newFields;
       });
     }
+
+    setTreeFieldValues((prevEntries) => {
+      const field = fields.find((f) => f.attributes.name === name);
+      if (!field) return prevEntries;
+
+      const existingIndex = prevEntries.findIndex((entry) => entry.uuid === field.uuid);
+
+      const updatedEntry: TreeFieldValues = {
+        name,
+        type: field.attributes.type || "text",
+        uuid: field.uuid,
+        value,
+      };
+
+      if (existingIndex !== -1) {
+        const newEntries = [...prevEntries];
+        newEntries[existingIndex] = updatedEntry;
+        return newEntries;
+      }
+
+      return [...prevEntries, updatedEntry];
+    });
 
     setFieldValues((prevFieldValues) => ({
       ...prevFieldValues,
@@ -176,6 +199,7 @@ const useTreegeConsumer = ({
     handleChangeFormValue,
     handleSubmit,
     isLastField,
+    treeFieldValues,
   };
 };
 

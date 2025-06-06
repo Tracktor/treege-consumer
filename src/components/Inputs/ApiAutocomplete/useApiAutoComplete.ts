@@ -18,12 +18,14 @@ const useApiAutoComplete = () => {
     }
 
     const value = originData.value as { id?: string; image?: string; name?: string; options?: unknown };
+    const raw = "raw" in originData && originData.raw ? (originData.raw as Record<string, unknown>) : undefined;
 
     return {
       id: value?.id || originData.id,
       image: "image" in originData ? value?.image || originData.image : originData.imageUri,
       label: value?.name || originData.label,
       options: value?.options || value,
+      raw: raw || originData,
     };
   };
 

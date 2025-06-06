@@ -6,7 +6,7 @@ const autocompleteTest: TreeNode = {
     initialQuery: true,
     isLeaf: false,
     isRoot: true,
-    label: "Chantier",
+    label: "worksite",
     name: "worksite",
     route: {
       params: [
@@ -18,6 +18,7 @@ const autocompleteTest: TreeNode = {
       ],
       pathKey: {
         label: "name",
+        value: "id",
       },
       searchKey: "text",
       url: "https://app.api.dev.tracktor.fr/v2/search/worksites",
@@ -28,22 +29,20 @@ const autocompleteTest: TreeNode = {
     {
       attributes: {
         defaultValueFromAncestor: {
-          inputObjectKey: "address",
-          name: "worksite",
-          outputModel: "address",
-          uuid: "1747747424763oilhs2i54919.09999990463",
+          sourceValue: "address",
+          uuid: "17490464395187cqrfgz1142.6999998092651",
         },
         depth: 1,
         isLeaf: true,
-        label: "adresse",
-        name: "adresse",
+        label: "adress",
+        name: "adress",
         type: "address",
       },
       children: [],
-      uuid: "1747747483554vegj2jr113709.5",
+      uuid: "1749046548312hmbkvvm109936.19999980927",
     },
   ],
-  uuid: "1747747424763oilhs2i54919.09999990463",
+  uuid: "17490464395187cqrfgz1142.6999998092651",
 };
 
 export default autocompleteTest;
