@@ -144,7 +144,6 @@ const ApiAutocomplete = (
               error={isError || error}
               slotProps={{
                 input: {
-                  ...params.InputProps,
                   endAdornment: isFetching ? (
                     <InputAdornment position="end">
                       <CircularProgress color="inherit" size={20} />
