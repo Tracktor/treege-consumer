@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.46.8](https://github.com/Tracktor/treege-consumer/compare/1.46.7...1.46.8) (2025-06-13)
+
+
+### Bug Fixes
+
+* api autocomplete add debounce ([7277ac7](https://github.com/Tracktor/treege-consumer/commit/7277ac79fe58d517011a5016e014d60eb2d3a8c7))
+
 ## [1.46.7](https://github.com/Tracktor/treege-consumer/compare/1.46.6...1.46.7) (2025-06-13)
 
 
