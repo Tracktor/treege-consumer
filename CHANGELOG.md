@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.46.7](https://github.com/Tracktor/treege-consumer/compare/1.46.6...1.46.7) (2025-06-13)
+
+
+### Bug Fixes
+
+* api autocomplete input adornment ([4c9ceeb](https://github.com/Tracktor/treege-consumer/commit/4c9ceeb778d03885277ae6bf11ec1b7beff5e847))
+
 ## [1.46.6](https://github.com/Tracktor/treege-consumer/compare/1.46.5...1.46.6) (2025-06-13)
 
 
