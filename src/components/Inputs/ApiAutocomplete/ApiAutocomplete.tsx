@@ -1,15 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  Autocomplete,
-  Avatar,
-  CircularProgress,
-  InputAdornment,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Stack,
-  TextField,
-} from "@tracktor/design-system";
+import { Autocomplete, Avatar, ListItem, ListItemAvatar, ListItemText, Stack, TextField } from "@tracktor/design-system";
+import { useDebounce } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
@@ -51,19 +42,20 @@ const ApiAutocomplete = (
   const { attributes, children } = node;
   const { type, name, label, required, route, initialQuery, isLeaf, isDecision } = attributes;
   const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
+  const debouncedSearchValue = useDebounce(searchValue, 150);
 
   const search = searchResultsFetcher({
     additionalParams: route?.params,
     headers,
     searchKey: route?.searchKey || "",
-    searchValue,
+    searchValue: debouncedSearchValue,
     url: route?.url || "",
   });
 
   const { data, isFetching, isError } = useQuery({
-    enabled: !!searchValue || !!initialQuery,
+    enabled: !!debouncedSearchValue || !!initialQuery,
     queryFn: ({ signal }) => search(signal),
-    queryKey: [name, searchValue],
+    queryKey: [name, debouncedSearchValue],
   });
 
   const options = adaptRouteResponseToOptions(data, route);
@@ -130,34 +122,23 @@ const ApiAutocomplete = (
             </ListItem>
           );
         }}
-        renderInput={(params) => {
-          const { endAdornment, ...InputPropsWithoutEndAdornment } = params.InputProps;
-
-          return (
-            <TextField
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...params}
-              name={name}
-              required={required}
-              helperText={helperText}
-              inputRef={inputRef}
-              error={isError || error}
-              slotProps={{
-                input: {
-                  endAdornment: isFetching ? (
-                    <InputAdornment position="end">
-                      <CircularProgress color="inherit" size={20} />
-                    </InputAdornment>
-                  ) : (
-                    endAdornment
-                  ),
-                  readOnly,
-                  ...InputPropsWithoutEndAdornment,
-                },
-              }}
-            />
-          );
-        }}
+        renderInput={(params) => (
+          <TextField
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...params}
+            name={name}
+            required={required}
+            helperText={helperText}
+            inputRef={inputRef}
+            error={isError || error}
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                readOnly,
+              },
+            }}
+          />
+        )}
       />
     </Stack>
   );
