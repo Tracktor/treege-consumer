@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@tracktor/design-system";
-import { isObject, isString, useScript } from "@tracktor/react-utils";
+import { addressToString, isObject, isString, useScript } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";

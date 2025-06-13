@@ -13,9 +13,7 @@ const basicExample: TreeNode = {
     {
       attributes: {
         defaultValueFromAncestor: {
-          inputObjectKey: "1234",
-          name: "a",
-          outputModel: "string",
+          sourceValue: "1234",
           uuid: "1747748561685va8xp781105.7000000476837",
         },
         depth: 1,
@@ -28,9 +26,7 @@ const basicExample: TreeNode = {
         {
           attributes: {
             defaultValueFromAncestor: {
-              inputObjectKey: "",
-              name: "a",
-              outputModel: "boolean",
+              sourceValue: "1234",
               uuid: "1747748576475dhhwd2015895.100000023842",
             },
             depth: 2,

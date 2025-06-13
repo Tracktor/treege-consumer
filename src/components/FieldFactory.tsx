@@ -72,24 +72,14 @@ const FieldFactory = ({
 }: FielFactoryProps) => {
   const [error, setError] = useState("");
   const { attributes, uuid } = data;
-  const {
-    type,
-    label,
-    required,
-    helperText,
-    isMultiple,
-    parentRef,
-    isDisabledPast,
-    name,
-    pattern,
-    patternMessage,
-    defaultValueFromAncestor,
-  } = attributes;
+  const { type, label, required, helperText, isMultiple, isDisabledPast, name, pattern, patternMessage, defaultValueFromAncestor } =
+    attributes;
+  const { useSourceValueAsAPIParam } = defaultValueFromAncestor || {};
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
-  const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]);
+  const hasParentRefValue = !!useSourceValueAsAPIParam;
   const isParentFieldRequiredAndEmpty = isSubmitting || hasParentRefValue;
   const value = fieldValues?.[name] || "";
   const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);

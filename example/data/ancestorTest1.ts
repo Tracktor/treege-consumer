@@ -1,4 +1,6 @@
-const ancestorTest1 = {
+import type { TreeNode } from "@tracktor/types-treege";
+
+const ancestorTest1: TreeNode = {
   attributes: {
     depth: 0,
     isLeaf: false,
@@ -47,7 +49,6 @@ const ancestorTest1 = {
           url: "https://app.api.dev.tracktor.fr/v2/search/categories?articleType[]={{}}",
         },
         type: "autocomplete",
-        useSourceValueAsAPIParam: true,
       },
       children: [],
       uuid: "1749817093387pygyv9y112415.09999990463",
