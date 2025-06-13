@@ -1,9 +1,19 @@
-import { Autocomplete as AutocompleteDS, Box, Grid, Stack, TextField, Typography } from "@tracktor/design-system";
+import {
+  Autocomplete as AutocompleteDS,
+  Box,
+  CircularProgress,
+  Grid2,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+  TextFieldProps,
+} from "@tracktor/design-system";
 import { isObject, isString, useScript } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
-import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, ReactNode, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -51,6 +61,7 @@ const Address = (
   const autocompleteService = useRef<AutocompleteService>();
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&loading=async&libraries=places`, {
     enable: !!googleApiKey && !isIgnored,
@@ -89,7 +100,11 @@ const Address = (
   const fetch = useMemo(
     () =>
       throttle((request: { input: string }, callback: (results: unknown[] | null) => void) => {
-        autocompleteService?.current?.getPlacePredictions(request, callback);
+        setIsFetching(true);
+        autocompleteService?.current?.getPlacePredictions(request, (results) => {
+          callback(results);
+          setIsFetching(false);
+        });
       }, 200),
     [],
   );
@@ -111,6 +126,7 @@ const Address = (
 
     if (searchText === "") {
       setOptions(value ? [value] : []);
+      setIsFetching(false);
       return undefined;
     }
 
@@ -167,27 +183,40 @@ const Address = (
 
           return isObject(option) && "description" in option && isString(option?.description) ? option?.description : "";
         }}
-        renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => (
-          <TextField
-            fullWidth
-            required={required}
-            name={name}
-            helperText={helperText}
-            disabled={disabled}
-            inputRef={inputRef}
-            error={error}
-            slotProps={{
-              htmlInput: {
-                ...inputProps,
-                autoComplete: "off",
-                pattern,
-                title: patternMessage,
-              },
-              input: InputProps,
-              inputLabel: InputLabelProps,
-            }}
-          />
-        )}
+        renderInput={({ disabled, InputLabelProps, inputProps, InputProps }) => {
+          const { endAdornment, ...InputPropsWithoutEndAdornment } = InputProps;
+
+          return (
+            <TextField
+              fullWidth
+              required={required}
+              name={name}
+              helperText={helperText}
+              disabled={disabled}
+              inputRef={inputRef}
+              error={error}
+              slotProps={{
+                htmlInput: {
+                  ...inputProps,
+                  autoComplete: "off",
+                  pattern,
+                  title: patternMessage,
+                },
+                input: {
+                  endAdornment: isFetching ? (
+                    <InputAdornment position="end">
+                      <CircularProgress color="inherit" size={20} />
+                    </InputAdornment>
+                  ) : (
+                    endAdornment
+                  ),
+                  ...InputPropsWithoutEndAdornment,
+                },
+                inputLabel: InputLabelProps,
+              }}
+            />
+          );
+        }}
         renderOption={({ id, ...props }, option, { index }) => {
           const matches =
             (isObject(option) &&
@@ -220,33 +249,28 @@ const Address = (
           return (
             // eslint-disable-next-line react/jsx-props-no-spreading
             <li {...props} key={key} id={id}>
-              <Grid container alignItems="center">
-                <Grid item>
-                  <Box sx={{ color: "text.secondary", height: 10, mr: 2, width: 10 }} />
-                </Grid>
-                <Grid item xs>
-                  {parts.map((part, i) => {
-                    const placeId = isObject(option) && "place_id" in option && option.place_id;
-                    const keyId = `${placeId}-${i}`;
+              <Box>
+                {parts.map((part, i) => {
+                  const placeId = isObject(option) && "place_id" in option && option.place_id;
+                  const keyId = `${placeId}-${i}`;
 
-                    return (
-                      <Typography
-                        variant="body1"
-                        component="span"
-                        key={keyId}
-                        sx={{
-                          fontWeight: part.highlight ? 700 : 400,
-                        }}
-                      >
-                        {part.text}
-                      </Typography>
-                    );
-                  })}
-                  <Typography variant="body2" color="text.secondary">
-                    {optionSecondaryText}
-                  </Typography>
-                </Grid>
-              </Grid>
+                  return (
+                    <Typography
+                      variant="body1"
+                      component="span"
+                      key={keyId}
+                      sx={{
+                        fontWeight: part.highlight ? 700 : 400,
+                      }}
+                    >
+                      {part.text}
+                    </Typography>
+                  );
+                })}
+                <Typography variant="body2" color="text.secondary">
+                  {optionSecondaryText}
+                </Typography>
+              </Box>
             </li>
           );
         }}
