@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.46.8](https://github.com/Tracktor/treege-consumer/compare/1.46.7...1.46.8) (2025-06-13)
+
+
+### Bug Fixes
+
+* api autocomplete add debounce ([7277ac7](https://github.com/Tracktor/treege-consumer/commit/7277ac79fe58d517011a5016e014d60eb2d3a8c7))
+
+## [1.46.7](https://github.com/Tracktor/treege-consumer/compare/1.46.6...1.46.7) (2025-06-13)
+
+
+### Bug Fixes
+
+* api autocomplete input adornment ([4c9ceeb](https://github.com/Tracktor/treege-consumer/commit/4c9ceeb778d03885277ae6bf11ec1b7beff5e847))
+
+## [1.46.6](https://github.com/Tracktor/treege-consumer/compare/1.46.5...1.46.6) (2025-06-13)
+
+
+### Bug Fixes
+
+* api autocomplete input adornment ([b74ccc3](https://github.com/Tracktor/treege-consumer/commit/b74ccc31bc54fc8533c04fdc2950fedef8105832))
+
+## [1.46.5](https://github.com/Tracktor/treege-consumer/compare/1.46.4...1.46.5) (2025-06-13)
+
+
+### Bug Fixes
+
+* autocomplete improvement ([44e3d88](https://github.com/Tracktor/treege-consumer/commit/44e3d8811c577c36831e52bd57ee018ec39cc07e))
+* autocomplete improvement ([3cdfc71](https://github.com/Tracktor/treege-consumer/commit/3cdfc71a4f09ff150153b58f5ac60f5bea99546a))
+
+## [1.46.4](https://github.com/Tracktor/treege-consumer/compare/1.46.3...1.46.4) (2025-06-11)
+
+
+### Bug Fixes
+
+* autocomplete off address ([50f06f6](https://github.com/Tracktor/treege-consumer/commit/50f06f6d7b010c7e384c55c6e7f1d82eaadebe08))
+
 ## [1.46.3](https://github.com/Tracktor/treege-consumer/compare/1.46.2...1.46.3) (2025-05-21)
 
 

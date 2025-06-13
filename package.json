@@ -1,7 +1,7 @@
 {
   "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
-  "version": "1.46.3",
+  "version": "1.46.8",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.umd.cjs",
@@ -47,7 +47,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
-    "@tracktor/types-treege": "^0.3.8",
+    "@tracktor/types-treege": "^0.3.10",
     "@types/autosuggest-highlight": "^3.2.0",
     "@types/google.maps": "^3.54.3",
     "@types/lodash-es": "^4.17.12",
