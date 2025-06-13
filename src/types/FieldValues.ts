@@ -4,4 +4,11 @@ interface FieldValues {
   [name: string]: FieldValue;
 }
 
-export type { FieldValues, FieldValue };
+interface TreeFieldValues {
+  uuid: string;
+  name: string;
+  type: string;
+  value: FieldValue;
+}
+
+export type { FieldValues, FieldValue, TreeFieldValues };

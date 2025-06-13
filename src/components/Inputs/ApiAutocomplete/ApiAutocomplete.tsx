@@ -40,7 +40,7 @@ const ApiAutocomplete = (
 ) => {
   const [searchValue, setSearchValue] = useState("");
   const { attributes, children } = node;
-  const { type, name, label, required, route, initialQuery, isLeaf, isDecision } = attributes;
+  const { type, name, label, required, route, initialQuery, isLeaf, isDecision, defaultValueFromAncestor } = attributes;
   const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
   const debouncedSearchValue = useDebounce(searchValue, 150);
 
@@ -64,6 +64,12 @@ const ApiAutocomplete = (
   const handleChange = (event: SyntheticEvent, newValue: Option | null) => {
     onChange?.({
       children,
+      defaultValueFromAncestor: {
+        ...defaultValueFromAncestor,
+        ...(newValue && {
+          value: newValue.value,
+        }),
+      },
       event,
       isDecision,
       isLeaf,

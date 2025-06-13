@@ -2,11 +2,11 @@ import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
 import { memo, useCallback, useState } from "react";
 import Address from "@/components/Inputs/Address";
-import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
+import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete/ApiAutocomplete";
 import CheckBoxField from "@/components/Inputs/CheckBoxField";
 import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
-import DynamicSelect from "@/components/Inputs/DynamicSelect";
+import DynamicSelect from "@/components/Inputs/DynamicSelect/DynamicSelect";
 import File from "@/components/Inputs/File";
 import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
@@ -19,13 +19,16 @@ import Title from "@/components/Inputs/Title";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
-import { FieldValues } from "@/types/FieldValues";
+import { FieldValues, TreeFieldValues } from "@/types/FieldValues";
+
+const textType = ["email", "number", "password", "tel", "text", "url"];
 
 export interface FielFactoryProps {
   fieldValues?: FieldValues;
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;
+  treeFieldValues: TreeFieldValues[];
   visible?: boolean;
   readOnly?: boolean;
   headers?: HeadersInit;
@@ -41,6 +44,7 @@ export interface FielFactoryProps {
  * @param handleChangeFormValue
  * @param autoFocus
  * @param data
+ * @param treeFieldValues
  * @param readOnly
  * @param animated
  * @param visible
@@ -55,6 +59,7 @@ const FieldFactory = ({
   handleChangeFormValue,
   autoFocus,
   data,
+  treeFieldValues,
   readOnly,
   headers,
   fieldValues,
@@ -67,12 +72,14 @@ const FieldFactory = ({
 }: FielFactoryProps) => {
   const [error, setError] = useState("");
   const { attributes, uuid } = data;
-  const { type, label, required, helperText, isMultiple, parentRef, isDisabledPast, name, pattern, patternMessage } = attributes;
+  const { type, label, required, helperText, isMultiple, isDisabledPast, name, pattern, patternMessage, defaultValueFromAncestor } =
+    attributes;
+  const { useSourceValueAsAPIParam } = defaultValueFromAncestor || {};
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
-  const hasParentRefValue = !!(parentRef && !fieldValues?.[parentRef]);
+  const hasParentRefValue = !!useSourceValueAsAPIParam;
   const isParentFieldRequiredAndEmpty = isSubmitting || hasParentRefValue;
   const value = fieldValues?.[name] || "";
   const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
@@ -84,6 +91,14 @@ const FieldFactory = ({
   const disablePastDateRangePicker = options?.disablePastDateRangePicker || optionsContext?.disablePastDateRangePicker;
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
+
+  const { uuid: ancestorUuid, sourceValue } = defaultValueFromAncestor || {};
+  const ancestorRef = treeFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
+  const { type: ancestorType, value: ancestorValue } = ancestorRef || {};
+
+  // Ancestor value
+  const textAncestorValue = ancestorType && textType.includes(ancestorType) ? String(ancestorValue) : undefined;
+  const autoCompleteAncestorValue = type === "autocomplete" && typeof value === "object" && "raw" in value ? value.raw : undefined;
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {
@@ -168,6 +183,7 @@ const FieldFactory = ({
             pattern={pattern}
             patternMessage={patternMessage}
             error={!!error}
+            ancestorValue={textAncestorValue}
           />
         );
       case "file":
@@ -270,6 +286,8 @@ const FieldFactory = ({
             pattern={pattern}
             googleApiKey={googleApiKey}
             error={!!error}
+            ancestorValue={ancestorValue}
+            ancestorMapping={String(sourceValue)}
           />
         );
       case "radio":
@@ -326,6 +344,7 @@ const FieldFactory = ({
             value={value}
             isIgnored={isFieldIgnored}
             error={!!error}
+            ancestorValue={ancestorValue}
           />
         );
       case "autocomplete":

@@ -7,8 +7,8 @@ import type { TreeNode } from "@tracktor/types-treege";
 import dayjs from "dayjs";
 import { CSSProperties, ReactNode, useLayoutEffect } from "react";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
+import FieldFactory from "@/components/FieldFactory";
 import FormValidation, { RenderFormValidationParams } from "@/components/Form/FormValidation";
-import FieldFactory from "@/components/Inputs/FieldFactory";
 import OptionsProvider from "@/context/OptionsProvider";
 import useTreegeConsumer from "@/features/TreegeConsumer/useTreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
@@ -131,7 +131,7 @@ const TreegeComposition = <T,>({
   isSubmitting,
   renderFormValidation,
 }: TreegeConsumerProps<T>) => {
-  const { fields, handleChangeFormValue, handleSubmit, isLastField, fieldValues, formCanBeSubmit } = useTreegeConsumer({
+  const { fields, handleChangeFormValue, handleSubmit, isLastField, fieldValues, formCanBeSubmit, treeFieldValues } = useTreegeConsumer({
     debug,
     disabledSubmitButton,
     initialValues,
@@ -172,6 +172,7 @@ const TreegeComposition = <T,>({
                   <FieldFactory
                     key={field.uuid}
                     data={field}
+                    treeFieldValues={treeFieldValues}
                     handleChangeFormValue={handleChangeFormValue}
                     readOnly={readOnly}
                     headers={headers}

@@ -49,14 +49,13 @@ const DynamicSelect = (
   ref: Ref<unknown> | undefined,
 ) => {
   const { attributes, children } = node;
-  const { name, label, type, isLeaf, parentRef, isDecision, route, required, isMultiple, initialQuery } = attributes;
+  const { name, label, type, isLeaf, isDecision, route, required, isMultiple, initialQuery } = attributes;
 
   const { options } = useDynamicSelect({
     fieldValues,
     headers,
     initialQuery,
     name,
-    parentRef,
     route,
   });
 
@@ -120,7 +119,7 @@ const DynamicSelect = (
             {...params}
             name={name}
             required={required}
-            helperText={isParentFieldRequiredAndEmpty ? `Le champ «${parentRef}» doit être complété` : helperText}
+            helperText={helperText}
             inputRef={inputRef}
             error={error}
             slotProps={{
