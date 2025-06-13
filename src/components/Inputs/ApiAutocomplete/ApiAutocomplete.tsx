@@ -1,5 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { Autocomplete, Avatar, CircularProgress, ListItem, ListItemAvatar, ListItemText, Stack, TextField } from "@tracktor/design-system";
+import {
+  Autocomplete,
+  Avatar,
+  CircularProgress,
+  InputAdornment,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Stack,
+  TextField,
+} from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
@@ -120,25 +130,35 @@ const ApiAutocomplete = (
             </ListItem>
           );
         }}
-        renderInput={(params) => (
-          // const { InputProps, size, InputLabelProps, disabled, id, inputProps, fullWidth } = params;
-          <TextField
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...params}
-            name={name}
-            required={required}
-            helperText={helperText}
-            inputRef={inputRef}
-            error={isError || error}
-            slotProps={{
-              input: {
-                ...params.InputProps,
-                endAdornment: isFetching && <CircularProgress color="inherit" size={20} />,
-                readOnly,
-              },
-            }}
-          />
-        )}
+        renderInput={(params) => {
+          const { endAdornment, ...InputPropsWithoutEndAdornment } = params.InputProps;
+
+          return (
+            <TextField
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...params}
+              name={name}
+              required={required}
+              helperText={helperText}
+              inputRef={inputRef}
+              error={isError || error}
+              slotProps={{
+                input: {
+                  ...params.InputProps,
+                  endAdornment: isFetching ? (
+                    <InputAdornment position="end">
+                      <CircularProgress color="inherit" size={20} />
+                    </InputAdornment>
+                  ) : (
+                    endAdornment
+                  ),
+                  readOnly,
+                  ...InputPropsWithoutEndAdornment,
+                },
+              }}
+            />
+          );
+        }}
       />
     </Stack>
   );
