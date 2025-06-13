@@ -2,18 +2,16 @@ import {
   Autocomplete as AutocompleteDS,
   Box,
   CircularProgress,
-  Grid2,
   InputAdornment,
   Stack,
   TextField,
   Typography,
-  TextFieldProps,
 } from "@tracktor/design-system";
 import { isObject, isString, useScript } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import parse from "autosuggest-highlight/parse";
 import { isArray, throttle } from "lodash-es";
-import { forwardRef, ReactNode, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, Ref, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
