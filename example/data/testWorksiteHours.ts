@@ -51,12 +51,44 @@ const testWorksiteHours: TreeNode = {
               uuid: "1750111409376oo9z1zj8861332.5",
             },
             depth: 2,
-            isLeaf: true,
+            isLeaf: false,
             label: "hours constraint",
             name: "hours_constraint",
             type: "timeRange",
           },
-          children: [],
+          children: [
+            {
+              attributes: {
+                defaultValueFromAncestor: {
+                  sourceValue: "latitude",
+                  uuid: "1750111409376oo9z1zj8861332.5",
+                },
+                depth: 3,
+                isLeaf: false,
+                label: "latitude",
+                name: "latitude",
+                type: "text",
+              },
+              children: [
+                {
+                  attributes: {
+                    defaultValueFromAncestor: {
+                      sourceValue: "longitude",
+                      uuid: "1750111409376oo9z1zj8861332.5",
+                    },
+                    depth: 4,
+                    isLeaf: true,
+                    label: "longitude",
+                    name: "longitude",
+                    type: "text",
+                  },
+                  children: [],
+                  uuid: "17501145638286rjen1n596513.8000000119",
+                },
+              ],
+              uuid: "1750114319367la53bqv352053.8000000119",
+            },
+          ],
           uuid: "1750111564885agn7qos9016840.599999994",
         },
       ],

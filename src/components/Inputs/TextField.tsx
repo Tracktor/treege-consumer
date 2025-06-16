@@ -19,7 +19,7 @@ export interface TextFieldProps {
   patternMessage?: string;
   error?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
-  ancestorValue?: string;
+  ancestorValue?: unknown;
 }
 
 const TextField = (

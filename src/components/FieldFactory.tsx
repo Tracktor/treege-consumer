@@ -93,8 +93,8 @@ const FieldFactory = ({
     ancestorType && textType.includes(ancestorType) && typeof ancestorValue === "string" ? ancestorValue : undefined;
   // worksite with address = L15EN TUNNEL - EXBY.L15EN92961
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
-
-  console.log("ancestorValue", ancestorValue, "objectAncestorValue", objectAncestorValue);
+  // todo: add boolean, number, date, time types support
+  const ancestorValueToConsume = textAncestorValue || objectAncestorValue;
 
   // Derived values
   const errorOrHelperText = error || helperText;
@@ -199,7 +199,7 @@ const FieldFactory = ({
             pattern={pattern}
             patternMessage={patternMessage}
             error={!!error}
-            ancestorValue={textAncestorValue}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "file":
@@ -268,7 +268,7 @@ const FieldFactory = ({
             pattern={pattern}
             isIgnored={isFieldIgnored}
             error={!!error}
-            ancestorValue={objectAncestorValue}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "dateRange":
@@ -303,7 +303,7 @@ const FieldFactory = ({
             pattern={pattern}
             googleApiKey={googleApiKey}
             error={!!error}
-            ancestorValue={objectAncestorValue}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "radio":
