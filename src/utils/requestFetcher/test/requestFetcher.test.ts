@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
-import searchResultsFetcher from "@/utils/searchResultsFetcher/searchResultsFetcher";
-import { mockSuccessfulRequest, mockFailedRequest, mockNoAdditionalParams, mockNoHeaders } from "@/utils/searchResultsFetcher/test/mock";
+import requestFetcher from "@/utils/requestFetcher/requestFetcher";
+import { mockSuccessfulRequest, mockFailedRequest, mockNoAdditionalParams, mockNoHeaders } from "@/utils/requestFetcher/test/mock";
 
 const viFns = vi.fn();
 
@@ -27,7 +27,7 @@ describe("test getSearch", () => {
   test("test mockSuccessfulRequest", async () => {
     const { url, searchKey, value, headers, additionalParams, signal, responseData } = mockSuccessfulRequest;
     const localFetch = viFns.mockResolvedValue(createFetchResponse(mockSuccessfulRequest.responseData));
-    const result = await searchResultsFetcher({ additionalParams, headers, localFetch, searchKey, searchValue: value, url })(signal);
+    const result = await requestFetcher({ additionalParams, headers, localFetch, searchKey, searchValue: value, url })(signal);
     expect(result).toEqual(responseData);
   });
 
@@ -36,7 +36,7 @@ describe("test getSearch", () => {
     const localFetch = viFns.mockResolvedValue(createFetchResponse(undefined));
 
     try {
-      await searchResultsFetcher({ additionalParams, headers, localFetch, searchKey, searchValue: value, url })(signal);
+      await requestFetcher({ additionalParams, headers, localFetch, searchKey, searchValue: value, url })(signal);
     } catch (error) {
       expect(error).toEqual(errorResponse);
     }
@@ -45,14 +45,14 @@ describe("test getSearch", () => {
   test("test mockNoAdditionalParams", async () => {
     const { url, searchKey, value, headers, signal, responseData } = mockNoAdditionalParams;
     const localFetch = viFns.mockResolvedValue(createFetchResponse(responseData));
-    const result = await searchResultsFetcher({ headers, localFetch, searchKey, searchValue: value, url })(signal);
+    const result = await requestFetcher({ headers, localFetch, searchKey, searchValue: value, url })(signal);
     expect(result).toEqual(responseData);
   });
 
   test("test mockNoHeaders", async () => {
     const { url, searchKey, value, signal, responseData } = mockNoHeaders;
     const localFetch = viFns.mockResolvedValue(createFetchResponse(responseData));
-    const result = await searchResultsFetcher({ localFetch, searchKey, searchValue: value, url })(signal);
+    const result = await requestFetcher({ localFetch, searchKey, searchValue: value, url })(signal);
     expect(result).toEqual(responseData);
   });
 });

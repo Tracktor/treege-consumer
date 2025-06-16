@@ -6,7 +6,7 @@ import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import CheckBoxField from "@/components/Inputs/CheckBoxField";
 import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
-import DynamicSelect from "@/components/Inputs/DynamicSelect/DynamicSelect";
+import DynamicSelect from "@/components/Inputs/DynamicSelect";
 import File from "@/components/Inputs/File";
 import HiddenField from "@/components/Inputs/HiddenField";
 import Radio from "@/components/Inputs/Radio";
@@ -368,7 +368,6 @@ const FieldFactory = ({
         return (
           <DynamicSelect
             onChange={handleChange}
-            fieldValues={fieldValues}
             node={data}
             headers={headers}
             value={value}
@@ -377,6 +376,7 @@ const FieldFactory = ({
             isIgnored={isFieldIgnored}
             helperText={errorOrHelperText}
             error={!!error}
+            treeFieldValues={treeFieldValues}
           />
         );
       case "title":

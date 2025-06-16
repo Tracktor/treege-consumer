@@ -75,7 +75,7 @@ const ancestorTest2: TreeNode = {
               searchKey: "text",
               url: "https://app.api.dev.tracktor.fr/v2/search/articles",
             },
-            type: "autocomplete",
+            type: "dynamicSelect",
           },
           children: [],
           uuid: "17500765510887x3e8rh284917.1999999881",

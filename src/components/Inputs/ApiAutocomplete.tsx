@@ -7,8 +7,9 @@ import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import { TreeFieldValues } from "@/types/FieldValues";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
+import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
+import searchResultsFetcher from "@/utils/requestFetcher/requestFetcher";
 import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey/safeGetObjectValueByKey";
-import searchResultsFetcher from "@/utils/searchResultsFetcher/searchResultsFetcher";
 
 interface ApiAutocompleteProps {
   inputRef: Ref<unknown>;
@@ -41,33 +42,11 @@ const ApiAutocomplete = (
   ref?: Ref<unknown>,
 ) => {
   const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 150);
   const { attributes, children } = node;
   const { type, name, label, required, route, initialQuery, isLeaf, isDecision } = attributes;
-  const { params } = route || {};
-
-  const paramsWithStaticValue =
-    params
-      ?.filter((param) => !param?.useAncestorValue)
-      .map((obj) => ({
-        key: obj?.key,
-        value: obj?.staticValue || "",
-      })) || [];
-
-  const paramsWithDynamicValue =
-    params
-      ?.filter((param) => param.useAncestorValue)
-      .map((param) => {
-        const matchingField = treeFieldValues?.find((field) => field.uuid === param.ancestorUuid);
-        const stringValue = typeof matchingField?.value === "string" ? matchingField.value : "";
-
-        return {
-          key: param.key,
-          value: stringValue ?? "",
-        };
-      }) || [];
-  const nonEmptyDynamicParams = paramsWithDynamicValue.filter((p) => p.value);
-
-  const apiParams = [...paramsWithStaticValue, ...nonEmptyDynamicParams];
+  const { params, url, searchKey } = route || {};
+  const apiParams = paramsBuilder({ params, treeFieldValues });
 
   const addValueToOptions = (options?: Option[] | null, inputValue?: Option | null) => {
     if (!inputValue) {
@@ -77,14 +56,12 @@ const ApiAutocomplete = (
     return typeof inputValue === "object" ? [inputValue, ...(options || [])] : [{ value: inputValue }, ...(options || [])];
   };
 
-  const debouncedSearchValue = useDebounce(searchValue, 150);
-
   const search = searchResultsFetcher({
     additionalParams: apiParams,
     headers,
-    searchKey: route?.searchKey || "",
+    searchKey: searchKey || "",
     searchValue: debouncedSearchValue,
-    url: route?.url || "",
+    url: url || "",
   });
 
   const { data, isFetching, isError } = useQuery({

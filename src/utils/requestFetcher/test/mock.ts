@@ -1,4 +1,4 @@
-import { DryParams } from "@/utils/searchResultsFetcher/searchResultsFetcher";
+import { DryParams } from "@/utils/requestFetcher/requestFetcher";
 
 interface Mock {
   url: string;

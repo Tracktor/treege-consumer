@@ -7,8 +7,8 @@ type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
 interface searchResultsFetcherParams {
   url: string;
-  searchKey: string;
-  searchValue: string;
+  searchKey?: string;
+  searchValue?: string;
   headers?: HeadersInit;
   additionalParams?: DryParams[];
   localFetch?: LocalFetch;
@@ -23,13 +23,15 @@ interface searchResultsFetcherParams {
  * @param headers
  * @param localFetch
  */
-const searchResultsFetcher =
+const requestFetcher =
   ({ url, searchKey, searchValue, headers, additionalParams, localFetch }: searchResultsFetcherParams) =>
   async (signal: AbortSignal) => {
     const searchParams = new URLSearchParams();
 
     // Add search value to URL
-    searchParams.append(searchKey, searchValue);
+    if (searchKey && searchValue) {
+      searchParams.append(searchKey, searchValue);
+    }
 
     // Add additional params to URL
     if (additionalParams) {
@@ -63,4 +65,4 @@ const searchResultsFetcher =
     return response.json();
   };
 
-export default searchResultsFetcher;
+export default requestFetcher;
