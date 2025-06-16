@@ -38,6 +38,7 @@ const safeGetProperty = (obj: unknown, key: string): unknown => {
   return undefined;
 };
 
+// todo: import detailFieldValues instead of ancestorValue & ancestorMapping
 export interface AutocompleteProps {
   inputRef: Ref<unknown>;
   country?: string | string[];

@@ -4,7 +4,7 @@ interface FieldValues {
   [name: string]: FieldValue;
 }
 
-interface TreeFieldValues {
+interface DetailFieldValues {
   uuid: string;
   name: string;
   type: string;
@@ -12,4 +12,4 @@ interface TreeFieldValues {
   rawData?: unknown;
 }
 
-export type { FieldValues, FieldValue, TreeFieldValues };
+export type { FieldValues, FieldValue, DetailFieldValues };

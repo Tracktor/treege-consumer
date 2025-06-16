@@ -3,7 +3,7 @@ import type { TreeNode } from "@tracktor/types-treege";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
-import { FieldValues, TreeFieldValues } from "@/types/FieldValues";
+import { FieldValues, DetailFieldValues } from "@/types/FieldValues";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import formDataToJSON from "@/utils/formDataToJSON/formDataToJSON";
@@ -33,7 +33,7 @@ const useTreegeConsumer = ({
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
-  const [treeFieldValues, setTreeFieldValues] = useState<TreeFieldValues[]>([]);
+  const [detailFieldValues, setDetailFieldValues] = useState<DetailFieldValues[]>([]);
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
   const initialValuesRef = useRef<JsonFormValue[]>();
 
@@ -87,13 +87,13 @@ const useTreegeConsumer = ({
 
     const safeValue = value && typeof value === "object" && "value" in value ? value.value : value;
 
-    setTreeFieldValues((prevEntries) => {
+    setDetailFieldValues((prevEntries) => {
       const field = fields.find((f) => f.attributes.name === name);
       if (!field) return prevEntries;
 
       const existingIndex = prevEntries.findIndex((entry) => entry.uuid === field.uuid);
 
-      const updatedEntry: TreeFieldValues = {
+      const updatedEntry: DetailFieldValues = {
         name,
         rawData,
         type: field.attributes.type || "text",
@@ -196,13 +196,13 @@ const useTreegeConsumer = ({
   }, [lastFieldHasNoChildren]);
 
   return {
+    detailFieldValues,
     fields,
     fieldValues,
     formCanBeSubmit,
     handleChangeFormValue,
     handleSubmit,
     isLastField,
-    treeFieldValues,
   };
 };
 

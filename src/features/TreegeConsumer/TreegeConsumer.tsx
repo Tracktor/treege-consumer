@@ -131,7 +131,7 @@ const TreegeComposition = <T,>({
   isSubmitting,
   renderFormValidation,
 }: TreegeConsumerProps<T>) => {
-  const { fields, handleChangeFormValue, handleSubmit, isLastField, fieldValues, formCanBeSubmit, treeFieldValues } = useTreegeConsumer({
+  const { fields, handleChangeFormValue, handleSubmit, isLastField, fieldValues, formCanBeSubmit, detailFieldValues } = useTreegeConsumer({
     debug,
     disabledSubmitButton,
     initialValues,
@@ -172,7 +172,7 @@ const TreegeComposition = <T,>({
                   <FieldFactory
                     key={field.uuid}
                     data={field}
-                    treeFieldValues={treeFieldValues}
+                    detailFieldValues={detailFieldValues}
                     handleChangeFormValue={handleChangeFormValue}
                     readOnly={readOnly}
                     headers={headers}

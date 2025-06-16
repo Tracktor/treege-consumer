@@ -1,6 +1,6 @@
 import type { Params } from "@tracktor/types-treege";
 import { describe, test, expect } from "vitest";
-import type { TreeFieldValues } from "@/types/FieldValues";
+import type { DetailFieldValues } from "@/types/FieldValues";
 import urlBuilder from "@/utils/urlBuilder/urlBuilder";
 
 describe("urlBuilder", () => {
@@ -18,21 +18,24 @@ describe("urlBuilder", () => {
     const params: Params[] = [
       {
         ancestorUuid: "123",
+        id: "1",
         key: "{id}",
         useAncestorValue: true,
-      } as Params,
+      },
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
+        name: "Test",
+        type: "string",
         uuid: "123",
         value: "456",
-      } as TreeFieldValues,
+      },
     ];
 
     const result = urlBuilder({
+      detailFieldValues,
       params,
-      treeFieldValues,
       url: "https://example.com/{id}",
     });
 
@@ -43,21 +46,22 @@ describe("urlBuilder", () => {
     const params: Params[] = [
       {
         ancestorUuid: "123",
+        id: "1",
         key: "{id}",
         useAncestorValue: true,
-      } as Params,
+      },
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
         uuid: "123",
         value: "",
-      } as TreeFieldValues,
+      } as DetailFieldValues,
     ];
 
     const result = urlBuilder({
+      detailFieldValues,
       params,
-      treeFieldValues,
       url: "https://example.com/{id}",
     });
 
@@ -68,30 +72,32 @@ describe("urlBuilder", () => {
     const params: Params[] = [
       {
         ancestorUuid: "123",
+        id: "1",
         key: "{id}",
         useAncestorValue: true,
-      } as Params,
+      },
       {
         ancestorUuid: "456",
+        id: "2",
         key: "{name}",
         useAncestorValue: true,
-      } as Params,
+      },
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
         uuid: "123",
         value: "789",
-      } as TreeFieldValues,
+      },
       {
         uuid: "456",
         value: "John",
-      } as TreeFieldValues,
-    ];
+      },
+    ] as DetailFieldValues[];
 
     const result = urlBuilder({
+      detailFieldValues,
       params,
-      treeFieldValues,
       url: "https://example.com/{id}/{name}",
     });
 
@@ -107,16 +113,18 @@ describe("urlBuilder", () => {
       } as Params,
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
+        name: "Test",
+        type: "string",
         uuid: "123",
         value: "000",
-      } as TreeFieldValues,
+      },
     ];
 
     const result = urlBuilder({
+      detailFieldValues,
       params,
-      treeFieldValues,
       url: "https://example.com/id",
     });
 

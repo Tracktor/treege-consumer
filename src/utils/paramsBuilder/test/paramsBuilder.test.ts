@@ -1,6 +1,6 @@
 import type { Params } from "@tracktor/types-treege";
 import { describe, test, expect } from "vitest";
-import type { TreeFieldValues } from "@/types/FieldValues";
+import type { DetailFieldValues } from "@/types/FieldValues";
 import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
 
 describe("paramsBuilder", () => {
@@ -34,44 +34,51 @@ describe("paramsBuilder", () => {
     const params: Params[] = [
       {
         ancestorUuid: "abc",
+        id: "1",
         key: "id",
         useAncestorValue: true,
-      } as Params,
+      },
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
+        name: "Test",
+        type: "string",
         uuid: "abc",
         value: "123",
-      } as TreeFieldValues,
+      },
     ];
 
-    const result = paramsBuilder({ params, treeFieldValues });
+    const result = paramsBuilder({ detailFieldValues, params });
     expect(result).toEqual([{ key: "id", value: "123" }]);
   });
 
   test("returns both static and dynamic params", () => {
     const params: Params[] = [
       {
+        id: "1",
         key: "staticParam",
         staticValue: "foo",
         useAncestorValue: false,
-      } as Params,
+      },
       {
         ancestorUuid: "uuid-1",
+        id: "2",
         key: "dynParam",
         useAncestorValue: true,
-      } as Params,
+      },
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
+        name: "Dynamic Param",
+        type: "string",
         uuid: "uuid-1",
         value: "bar",
-      } as TreeFieldValues,
+      },
     ];
 
-    const result = paramsBuilder({ params, treeFieldValues });
+    const result = paramsBuilder({ detailFieldValues, params });
     expect(result).toEqual([
       { key: "staticParam", value: "foo" },
       { key: "dynParam", value: "bar" },
@@ -87,14 +94,16 @@ describe("paramsBuilder", () => {
       } as Params,
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
+        name: "Empty Value",
+        type: "string",
         uuid: "abc",
         value: "",
-      } as TreeFieldValues,
+      },
     ];
 
-    const result = paramsBuilder({ params, treeFieldValues });
+    const result = paramsBuilder({ detailFieldValues, params });
     expect(result).toEqual([]);
   });
 
@@ -107,14 +116,16 @@ describe("paramsBuilder", () => {
       } as Params,
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
+        name: "Test Number",
+        type: "number",
         uuid: "abc",
         value: 1234,
-      } as unknown as TreeFieldValues,
+      },
     ];
 
-    const result = paramsBuilder({ params, treeFieldValues });
+    const result = paramsBuilder({ detailFieldValues, params });
 
     expect(result).toEqual([
       {
@@ -133,14 +144,16 @@ describe("paramsBuilder", () => {
       } as Params,
     ];
 
-    const treeFieldValues: TreeFieldValues[] = [
+    const detailFieldValues: DetailFieldValues[] = [
       {
+        name: "Object Value",
+        type: "object",
         uuid: "abc",
         value: { nested: "value" },
-      } as unknown as TreeFieldValues,
+      },
     ];
 
-    const result = paramsBuilder({ params, treeFieldValues });
+    const result = paramsBuilder({ detailFieldValues, params });
 
     expect(result).toEqual([]);
   });

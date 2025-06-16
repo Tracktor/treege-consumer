@@ -1,13 +1,13 @@
 import type { Params } from "@tracktor/types-treege";
-import { TreeFieldValues } from "@/types/FieldValues";
+import { DetailFieldValues } from "@/types/FieldValues";
 
 interface UrlBuilderParams {
   url?: string;
   params?: Params[];
-  treeFieldValues?: TreeFieldValues[];
+  detailFieldValues?: DetailFieldValues[];
 }
 
-const urlBuilder = ({ url, treeFieldValues, params = [] }: UrlBuilderParams) => {
+const urlBuilder = ({ url, detailFieldValues, params = [] }: UrlBuilderParams) => {
   if (!url) {
     return "";
   }
@@ -17,7 +17,7 @@ const urlBuilder = ({ url, treeFieldValues, params = [] }: UrlBuilderParams) => 
     filteredParams
       ?.filter((param) => param.useAncestorValue)
       .map((param) => {
-        const matchingField = treeFieldValues?.find((field) => field.uuid === param.ancestorUuid);
+        const matchingField = detailFieldValues?.find((field) => field.uuid === param.ancestorUuid);
         const stringValue = typeof matchingField?.value === "string" ? matchingField.value : "";
 
         return {

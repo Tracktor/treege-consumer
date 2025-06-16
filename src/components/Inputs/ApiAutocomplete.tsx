@@ -5,7 +5,7 @@ import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
-import { TreeFieldValues } from "@/types/FieldValues";
+import { DetailFieldValues } from "@/types/FieldValues";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
 import requestFetcher from "@/utils/requestFetcher/requestFetcher";
@@ -23,7 +23,7 @@ interface ApiAutocompleteProps {
   prefixResponseImageUriAutocomplete?: string;
   helperText?: string;
   error?: boolean;
-  treeFieldValues?: TreeFieldValues[];
+  detailFieldValues?: DetailFieldValues[];
 }
 
 const isPlainEmptyObject = (val: unknown): boolean => {
@@ -43,7 +43,7 @@ const ApiAutocomplete = (
     prefixResponseImageUriAutocomplete,
     error,
     helperText,
-    treeFieldValues,
+    detailFieldValues,
   }: ApiAutocompleteProps,
   ref?: Ref<unknown>,
 ) => {
@@ -52,8 +52,8 @@ const ApiAutocomplete = (
   const { attributes, children } = node;
   const { type, name, label, required, route, initialQuery, isLeaf, isDecision } = attributes;
   const { params, url, searchKey } = route || {};
-  const apiParams = paramsBuilder({ params, treeFieldValues });
-  const dynamicUrl = urlBuilder({ params, treeFieldValues, url });
+  const apiParams = paramsBuilder({ detailFieldValues, params });
+  const dynamicUrl = urlBuilder({ detailFieldValues, params, url });
   const hasUnresolvedPlaceholders = !/\{[^}]+}/.test(dynamicUrl);
 
   const addValueToOptions = (options?: Option[] | null, inputValue?: Option | null) => {

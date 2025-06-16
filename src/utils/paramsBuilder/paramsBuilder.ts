@@ -1,12 +1,12 @@
 import type { Params } from "@tracktor/types-treege";
-import { TreeFieldValues } from "@/types/FieldValues";
+import { DetailFieldValues } from "@/types/FieldValues";
 
 interface ParamsBuilderParams {
   params?: Params[];
-  treeFieldValues?: TreeFieldValues[];
+  detailFieldValues?: DetailFieldValues[];
 }
 
-const paramsBuilder = ({ params, treeFieldValues }: ParamsBuilderParams) => {
+const paramsBuilder = ({ params, detailFieldValues }: ParamsBuilderParams) => {
   const paramsWithStaticValue =
     params
       ?.filter((param) => !param?.useAncestorValue)
@@ -19,7 +19,7 @@ const paramsBuilder = ({ params, treeFieldValues }: ParamsBuilderParams) => {
     params
       ?.filter((param) => param.useAncestorValue)
       .map((param) => {
-        const matchingField = treeFieldValues?.find((field) => field.uuid === param.ancestorUuid);
+        const matchingField = detailFieldValues?.find((field) => field.uuid === param.ancestorUuid);
         const rawValue = matchingField?.value;
 
         const stringValue = rawValue !== null && rawValue !== undefined && typeof rawValue !== "object" ? String(rawValue) : "";

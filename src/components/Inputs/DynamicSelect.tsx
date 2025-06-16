@@ -5,7 +5,7 @@ import type { TreeNode } from "@tracktor/types-treege";
 import { Ref } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
-import { TreeFieldValues } from "@/types/FieldValues";
+import { DetailFieldValues } from "@/types/FieldValues";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
 import requestFetcher from "@/utils/requestFetcher/requestFetcher";
@@ -22,7 +22,7 @@ interface DynamicSelectProps {
   helperText?: string;
   error?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
-  treeFieldValues?: TreeFieldValues[];
+  detailFieldValues?: DetailFieldValues[];
 }
 
 /**
@@ -44,13 +44,13 @@ const DynamicSelect = ({
   helperText,
   error,
   value,
-  treeFieldValues,
+  detailFieldValues,
 }: DynamicSelectProps) => {
   const { attributes, children } = node;
   const { name, label, type, isLeaf, isDecision, route, required, isMultiple, initialQuery } = attributes;
   const { params, url } = route || {};
-  const apiParams = paramsBuilder({ params, treeFieldValues });
-  const dynamicUrl = urlBuilder({ params, treeFieldValues, url });
+  const apiParams = paramsBuilder({ detailFieldValues, params });
+  const dynamicUrl = urlBuilder({ detailFieldValues, params, url });
   const hasUnresolvedPlaceholders = !/\{[^}]+}/.test(dynamicUrl);
 
   const fetchData = requestFetcher({

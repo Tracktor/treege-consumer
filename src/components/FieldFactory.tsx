@@ -19,7 +19,7 @@ import Title from "@/components/Inputs/Title";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
-import { FieldValues, TreeFieldValues } from "@/types/FieldValues";
+import { FieldValues, DetailFieldValues } from "@/types/FieldValues";
 
 const textType = ["email", "number", "password", "tel", "text", "url"];
 
@@ -28,7 +28,7 @@ export interface FielFactoryProps {
   animated?: boolean;
   autoFocus?: boolean;
   data: TreeNode;
-  treeFieldValues: TreeFieldValues[];
+  detailFieldValues: DetailFieldValues[];
   visible?: boolean;
   readOnly?: boolean;
   headers?: HeadersInit;
@@ -44,7 +44,7 @@ export interface FielFactoryProps {
  * @param handleChangeFormValue
  * @param autoFocus
  * @param data
- * @param treeFieldValues
+ * @param detailFieldValues
  * @param readOnly
  * @param animated
  * @param visible
@@ -59,7 +59,7 @@ const FieldFactory = ({
   handleChangeFormValue,
   autoFocus,
   data,
-  treeFieldValues,
+  detailFieldValues,
   readOnly,
   headers,
   fieldValues,
@@ -93,7 +93,7 @@ const FieldFactory = ({
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
-  const ancestorRef = treeFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
+  const ancestorRef = detailFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
   const { type: ancestorType, value: ancestorValue, rawData: ancestorRawData } = ancestorRef || {};
 
   // Ancestor value
@@ -361,7 +361,7 @@ const FieldFactory = ({
             prefixResponseImageUriAutocomplete={prefixResponseImageUriAutocomplete}
             isIgnored={isFieldIgnored}
             error={!!error}
-            treeFieldValues={treeFieldValues}
+            detailFieldValues={detailFieldValues}
           />
         );
       case "dynamicSelect":
@@ -376,7 +376,7 @@ const FieldFactory = ({
             isIgnored={isFieldIgnored}
             helperText={errorOrHelperText}
             error={!!error}
-            treeFieldValues={treeFieldValues}
+            detailFieldValues={detailFieldValues}
           />
         );
       case "title":
