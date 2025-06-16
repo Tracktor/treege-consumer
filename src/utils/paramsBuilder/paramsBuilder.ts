@@ -20,7 +20,9 @@ const paramsBuilder = ({ params, treeFieldValues }: ParamsBuilderParams) => {
       ?.filter((param) => param.useAncestorValue)
       .map((param) => {
         const matchingField = treeFieldValues?.find((field) => field.uuid === param.ancestorUuid);
-        const stringValue = typeof matchingField?.value === "string" ? matchingField.value : "";
+        const rawValue = matchingField?.value;
+
+        const stringValue = rawValue !== null && rawValue !== undefined && typeof rawValue !== "object" ? String(rawValue) : "";
 
         return {
           key: param.key,
