@@ -1,5 +1,5 @@
 import { Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, FocusEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FocusEvent, forwardRef, Ref, useEffect, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -39,12 +39,11 @@ const TextField = (
     pattern,
     patternMessage,
     error,
-    ancestorValue = "",
+    ancestorValue,
   }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const [text, setText] = useState(() => (ancestorValue || value) ?? "");
-  const lastAncestorRef = useRef(ancestorValue);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value: newValue } = event.target;
@@ -67,16 +66,9 @@ const TextField = (
     }
   };
 
-  // Update local state when ancestorValue changes
   useEffect(() => {
-    if (ancestorValue !== lastAncestorRef.current) {
-      setText(ancestorValue || "");
-      lastAncestorRef.current = ancestorValue;
-
-      // Call onChange with the new ancestorValue
-      onChange?.({ event: undefined, name, type, value: lastAncestorRef.current });
-    }
-  }, [ancestorValue, name, onChange, type]);
+    setText(ancestorValue ?? "");
+  }, [ancestorValue]);
 
   if (isIgnored) return null;
 

@@ -2,14 +2,15 @@ import type { TreeNode } from "@tracktor/types-treege";
 // import ancestorTest1 from "example/data/ancestorTest1";
 // import ancestorTest2 from "example/data/ancestorTest2";
 // import autocompleteTest from "example/data/autocompleteExample";
-import ancestorTest3 from "example/data/ancestorTest3";
+// import ancestorTest3 from "example/data/ancestorTest3";
+import basicExample from "example/data/basicExample";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
 import { ChangeEvent, useState } from "react";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 
 const App = () => {
-  const [tree, setTree] = useState<TreeNode>(ancestorTest3);
+  const [tree, setTree] = useState<TreeNode>(basicExample);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitData, setSubmitData] = useState<OnSubmitReturn>();
