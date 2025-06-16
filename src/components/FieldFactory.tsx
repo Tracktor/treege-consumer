@@ -1,6 +1,6 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import Address from "@/components/Inputs/Address";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import CheckBoxField from "@/components/Inputs/CheckBoxField";
@@ -94,17 +94,10 @@ const FieldFactory = ({
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
   const ancestorRef = treeFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
-  const { type: ancestorType, value: ancestorValue } = ancestorRef || {};
+  const { type: ancestorType, value: ancestorValue, rawData: ancestorRawData } = ancestorRef || {};
 
   // Ancestor value
   const textAncestorValue = ancestorType && textType.includes(ancestorType) ? String(ancestorValue) : undefined;
-  const apiAncestorValue = useMemo(() => {
-    if (!ancestorValue) return undefined;
-    if (typeof ancestorValue === "object" && "raw" in ancestorValue) {
-      return ancestorValue.raw;
-    }
-    return undefined;
-  }, [ancestorValue]);
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {
@@ -294,7 +287,7 @@ const FieldFactory = ({
             pattern={pattern}
             googleApiKey={googleApiKey}
             error={!!error}
-            ancestorValue={apiAncestorValue}
+            ancestorValue={ancestorRawData}
             ancestorMapping={String(sourceValue)}
           />
         );

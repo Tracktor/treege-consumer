@@ -116,8 +116,6 @@ const useTreegeConsumer = ({
     }));
   };
 
-  console.log("A", treeFieldValues);
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     // Prevent default form submission behavior
     event.preventDefault();
