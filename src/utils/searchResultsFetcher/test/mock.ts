@@ -1,18 +1,18 @@
-import type { Params } from "@tracktor/types-treege";
+import { DryParams } from "@/utils/searchResultsFetcher/searchResultsFetcher";
 
 interface Mock {
   url: string;
   searchKey: string;
   value: string;
   headers?: HeadersInit;
-  additionalParams?: Params[];
+  additionalParams?: DryParams[];
   signal: AbortSignal;
   responseData?: Record<string, string[]>;
   errorResponse?: Error;
 }
 
 const mockSuccessfulRequest: Mock = {
-  additionalParams: [{ id: "0", key: "filter", value: "true" }],
+  additionalParams: [{ key: "filter", value: "true" }],
   headers: { Authorization: "Bearer token" },
   responseData: { results: ["result1", "result2"] },
   searchKey: "query",
@@ -22,7 +22,7 @@ const mockSuccessfulRequest: Mock = {
 };
 
 const mockFailedRequest: Mock = {
-  additionalParams: [{ id: "0", key: "filter", value: "true" }],
+  additionalParams: [{ key: "filter", value: "true" }],
   errorResponse: new Error("Network response was not ok"),
   headers: { Authorization: "Bearer token" },
   searchKey: "query",

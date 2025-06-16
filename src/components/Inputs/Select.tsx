@@ -34,6 +34,8 @@ const Select = (
     const { target } = event;
     const messageValue = getMessageByValue({ options, value: target.value });
 
+    console.log("value", target.value);
+
     onChange?.({ children, event, hasMessage: !!messageValue, isDecision, isLeaf, name, type, value: target.value });
     setMessage(messageValue);
   };

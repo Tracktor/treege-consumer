@@ -5,8 +5,8 @@ const ancestorTest1: TreeNode = {
     depth: 0,
     isLeaf: false,
     isRoot: true,
-    label: "article type",
-    name: "article type",
+    label: "articleType",
+    name: "articleType",
     type: "select",
     values: [
       {
@@ -24,21 +24,23 @@ const ancestorTest1: TreeNode = {
   children: [
     {
       attributes: {
-        defaultValueFromAncestor: {
-          sourceValue: "",
-          useSourceValueAsAPIParam: true,
-          uuid: "1749816982537vbnif4e1566.1999998092651",
-        },
         depth: 1,
+        initialQuery: true,
         isLeaf: true,
-        label: "first filter",
-        name: "first filter",
+        label: "article",
+        name: "article",
         route: {
           params: [
             {
               id: "1",
               key: "onlyParents",
-              value: "true",
+              staticValue: "true",
+            },
+            {
+              ancestorUuid: "17498930680273x47jom17647.5",
+              id: "2",
+              key: "articleType[]",
+              useAncestorValue: true,
             },
           ],
           pathKey: {
@@ -46,15 +48,15 @@ const ancestorTest1: TreeNode = {
             value: "id",
           },
           searchKey: "text",
-          url: "https://app.api.dev.tracktor.fr/v2/search/categories?articleType[]={{}}",
+          url: "https://app.api.dev.tracktor.fr/v2/search/articles",
         },
         type: "autocomplete",
       },
       children: [],
-      uuid: "1749817093387pygyv9y112415.09999990463",
+      uuid: "174989310346130ewjw553082",
     },
   ],
-  uuid: "1749816982537vbnif4e1566.1999998092651",
+  uuid: "17498930680273x47jom17647.5",
 };
 
 export default ancestorTest1;

@@ -13,7 +13,7 @@ const autocompleteTest: TreeNode = {
         {
           id: "1",
           key: "linked_to_user_only",
-          value: "true",
+          staticValue: "true",
         },
       ],
       pathKey: {

@@ -6,6 +6,7 @@ import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
+import { TreeFieldValues } from "@/types/FieldValues";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey/safeGetObjectValueByKey";
 import searchResultsFetcher from "@/utils/searchResultsFetcher/searchResultsFetcher";
@@ -21,6 +22,7 @@ interface ApiAutocompleteProps {
   prefixResponseImageUriAutocomplete?: string;
   helperText?: string;
   error?: boolean;
+  treeFieldValues?: TreeFieldValues[];
 }
 
 const ApiAutocomplete = (
@@ -35,17 +37,44 @@ const ApiAutocomplete = (
     prefixResponseImageUriAutocomplete,
     error,
     helperText,
+    treeFieldValues,
   }: ApiAutocompleteProps,
   ref?: Ref<unknown>,
 ) => {
   const [searchValue, setSearchValue] = useState("");
   const { attributes, children } = node;
-  const { type, name, label, required, route, initialQuery, isLeaf, isDecision, defaultValueFromAncestor } = attributes;
+  const { type, name, label, required, route, initialQuery, isLeaf, isDecision } = attributes;
+  const { params } = route || {};
+
+  const paramsWithStaticValue =
+    params
+      ?.filter((param) => !param?.useAncestorValue)
+      .map((obj) => ({
+        key: obj?.key,
+        value: obj?.staticValue || "",
+      })) || [];
+
+  const paramsWithDynamicValue =
+    params
+      ?.filter((param) => param.useAncestorValue)
+      .map((param) => {
+        const matchingField = treeFieldValues?.find((field) => field.uuid === param.ancestorUuid);
+        const stringValue = typeof matchingField?.value === "string" ? matchingField.value : "";
+
+        return {
+          key: param.key,
+          value: stringValue ?? "",
+        };
+      }) || [];
+  const nonEmptyDynamicParams = paramsWithDynamicValue.filter((p) => p.value);
+
+  const apiParams = [...paramsWithStaticValue, ...nonEmptyDynamicParams];
+
   const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
   const debouncedSearchValue = useDebounce(searchValue, 150);
 
   const search = searchResultsFetcher({
-    additionalParams: route?.params,
+    additionalParams: apiParams,
     headers,
     searchKey: route?.searchKey || "",
     searchValue: debouncedSearchValue,
@@ -55,7 +84,7 @@ const ApiAutocomplete = (
   const { data, isFetching, isError } = useQuery({
     enabled: !!debouncedSearchValue || !!initialQuery,
     queryFn: ({ signal }) => search(signal),
-    queryKey: [name, debouncedSearchValue],
+    queryKey: [name, debouncedSearchValue, JSON.stringify(apiParams)],
   });
 
   const options = adaptRouteResponseToOptions(data, route);
@@ -64,12 +93,6 @@ const ApiAutocomplete = (
   const handleChange = (event: SyntheticEvent, newValue: Option | null) => {
     onChange?.({
       children,
-      defaultValueFromAncestor: {
-        ...defaultValueFromAncestor,
-        ...(newValue && {
-          value: newValue.value,
-        }),
-      },
       event,
       isDecision,
       isLeaf,
@@ -128,10 +151,10 @@ const ApiAutocomplete = (
             </ListItem>
           );
         }}
-        renderInput={(params) => (
+        renderInput={(renderParams) => (
           <TextField
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...params}
+            {...renderParams}
             name={name}
             required={required}
             helperText={helperText}
@@ -139,7 +162,7 @@ const ApiAutocomplete = (
             error={isError || error}
             slotProps={{
               input: {
-                ...params.InputProps,
+                ...renderParams.InputProps,
                 readOnly,
               },
             }}

@@ -74,12 +74,13 @@ const FieldFactory = ({
   const { attributes, uuid } = data;
   const { type, label, required, helperText, isMultiple, isDisabledPast, name, pattern, patternMessage, defaultValueFromAncestor } =
     attributes;
-  const { useSourceValueAsAPIParam } = defaultValueFromAncestor || {};
+  const { uuid: ancestorUuid, sourceValue } = defaultValueFromAncestor || {};
+
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
-  const hasParentRefValue = !!useSourceValueAsAPIParam;
+  const hasParentRefValue = !!ancestorUuid;
   const isParentFieldRequiredAndEmpty = isSubmitting || hasParentRefValue;
   const value = fieldValues?.[name] || "";
   const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
@@ -92,13 +93,14 @@ const FieldFactory = ({
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
 
-  const { uuid: ancestorUuid, sourceValue } = defaultValueFromAncestor || {};
   const ancestorRef = treeFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
   const { type: ancestorType, value: ancestorValue } = ancestorRef || {};
 
   // Ancestor value
   const textAncestorValue = ancestorType && textType.includes(ancestorType) ? String(ancestorValue) : undefined;
-  const autoCompleteAncestorValue = type === "autocomplete" && typeof value === "object" && "raw" in value ? value.raw : undefined;
+  const apiAncestorValue = typeof value === "object" && "raw" in value ? value.raw : undefined;
+
+  console.log("ancestorValue", ancestorValue);
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {
@@ -286,7 +288,7 @@ const FieldFactory = ({
             pattern={pattern}
             googleApiKey={googleApiKey}
             error={!!error}
-            ancestorValue={ancestorValue}
+            ancestorValue={apiAncestorValue}
             ancestorMapping={String(sourceValue)}
           />
         );
@@ -360,6 +362,7 @@ const FieldFactory = ({
             prefixResponseImageUriAutocomplete={prefixResponseImageUriAutocomplete}
             isIgnored={isFieldIgnored}
             error={!!error}
+            treeFieldValues={treeFieldValues}
           />
         );
       case "dynamicSelect":

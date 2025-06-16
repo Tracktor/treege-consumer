@@ -1,4 +1,7 @@
-import type { Params } from "@tracktor/types-treege";
+export interface DryParams {
+  key: string;
+  value: string;
+}
 
 type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
@@ -7,7 +10,7 @@ interface searchResultsFetcherParams {
   searchKey: string;
   searchValue: string;
   headers?: HeadersInit;
-  additionalParams?: Params[];
+  additionalParams?: DryParams[];
   localFetch?: LocalFetch;
 }
 
