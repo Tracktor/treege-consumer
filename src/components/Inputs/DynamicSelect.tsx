@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Stack, Select, MenuItem, FormHelperText, SelectChangeEvent } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
-import { Ref } from "react";
+import { Ref, useEffect } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import { DetailFieldValues } from "@/types/FieldValues";
@@ -94,6 +94,23 @@ const DynamicSelect = ({
       value: event.target.value,
     });
   };
+
+  // if there are only one option and the select is not readOnly, automatically select it
+  useEffect(() => {
+    if (!readOnly && !value && uniqueOptions?.length === 1) {
+      const singleOption = uniqueOptions[0];
+      onChange?.({
+        children,
+        event: { target: { value: singleOption.value } } as SelectChangeEvent,
+        isDecision,
+        isLeaf,
+        name,
+        rawData: singleOption.rawData,
+        type,
+        value: singleOption.value,
+      });
+    }
+  }, [children, isDecision, isLeaf, name, onChange, readOnly, type, uniqueOptions, value]);
 
   if (isIgnored) {
     return null;

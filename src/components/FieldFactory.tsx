@@ -94,13 +94,13 @@ const FieldFactory = ({
   // worksite with address = L15EN TUNNEL - EXBY.L15EN92961
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
 
+  console.log("ancestorValue", ancestorValue, "objectAncestorValue", objectAncestorValue);
+
   // Derived values
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
   const isHidden = type === "hidden";
-  const hasParentRefValue = !!ancestorUuid;
-  const isParentFieldRequiredAndEmpty = isSubmitting || hasParentRefValue;
   const value = fieldValues?.[name] || "";
   const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
 
@@ -268,6 +268,7 @@ const FieldFactory = ({
             pattern={pattern}
             isIgnored={isFieldIgnored}
             error={!!error}
+            ancestorValue={objectAncestorValue}
           />
         );
       case "dateRange":
@@ -385,7 +386,7 @@ const FieldFactory = ({
             node={data}
             headers={headers}
             value={value}
-            isParentFieldRequiredAndEmpty={isParentFieldRequiredAndEmpty}
+            isParentFieldRequiredAndEmpty={isSubmitting}
             inputRef={handleInputRef}
             isIgnored={isFieldIgnored}
             helperText={errorOrHelperText}

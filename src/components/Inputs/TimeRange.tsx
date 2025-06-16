@@ -19,24 +19,50 @@ export interface TimeRangeProps {
   patternMessage?: string;
   error?: boolean;
   onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
+  ancestorValue?: unknown;
 }
 
 const FORMAT = "HH:mm";
 
+const parseTimeRange = (value?: unknown, fallback?: unknown): [Dayjs | null, Dayjs | null] => {
+  if (Array.isArray(value) && (value[0] || value[1])) {
+    return [value[0] ? dayjs(value[0], FORMAT) : null, value[1] ? dayjs(value[1], FORMAT) : null];
+  }
+
+  if (typeof fallback === "string") {
+    const [startStr, endStr] = fallback.split(" - ");
+    return [startStr ? dayjs(startStr, FORMAT) : null, endStr ? dayjs(endStr, FORMAT) : null];
+  }
+
+  return [null, null];
+};
+
 const TimeRange = (
-  { label, name, helperText, inputRef, onChange, required, readOnly, value, isIgnored, pattern, patternMessage, error }: TimeRangeProps,
+  {
+    label,
+    name,
+    helperText,
+    inputRef,
+    onChange,
+    required,
+    readOnly,
+    value,
+    isIgnored,
+    pattern,
+    patternMessage,
+    error,
+    ancestorValue,
+  }: TimeRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const startValue = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
-  const endValue = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
+  const [startTime, endTime] = parseTimeRange(value, ancestorValue);
 
   const handleChange = (field: "start" | "end") => (time: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
-    const currentTime = time?.format(FORMAT);
-
+    const formattedTime = time?.format(FORMAT);
     onChange?.(
       {
         name,
-        value: field === "start" ? [currentTime, endValue?.format(FORMAT)] : [startValue?.format(FORMAT), currentTime],
+        value: field === "start" ? [formattedTime, endTime?.format(FORMAT)] : [startTime?.format(FORMAT), formattedTime],
       },
       context,
     );
@@ -55,7 +81,7 @@ const TimeRange = (
           label="Début"
           readOnly={readOnly}
           ref={ref}
-          value={startValue}
+          value={startTime}
           name={`${name}[]`}
           onChange={handleChange("start")}
           format={FORMAT}
@@ -76,7 +102,7 @@ const TimeRange = (
           label="Fin"
           readOnly={readOnly}
           ref={ref}
-          value={endValue}
+          value={endTime}
           name={`${name}[]`}
           onChange={handleChange("end")}
           format={FORMAT}
