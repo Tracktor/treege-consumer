@@ -53,7 +53,7 @@ const App = () => {
       submitData={submitData}
       handleChangeComponent={handleChangeComponent}
       customHeaders={{
-        Authorization: process.env.REACT_APP_BEARER_TOKEN || "",
+        Authorization: (import.meta as any).env.VITE_BEARER_TOKEN || "",
         "Content-Type": "application/json",
       }}
     />
