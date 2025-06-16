@@ -47,7 +47,7 @@ const useTreegeConsumer = ({
   const lastFieldHasNoChildren = !initialFields[(initialFields?.length || 0) - 1]?.children?.length && !!tree;
 
   const handleChangeFormValue = (dataAttribute: ChangeEventField): void => {
-    const { value, name, isDecision, children } = dataAttribute;
+    const { value, name, isDecision, children, rawData } = dataAttribute;
 
     if (isDecision) {
       setFields((prevState) => {
@@ -85,6 +85,8 @@ const useTreegeConsumer = ({
       });
     }
 
+    const safeValue = value && typeof value === "object" && "value" in value ? value.value : value;
+
     setTreeFieldValues((prevEntries) => {
       const field = fields.find((f) => f.attributes.name === name);
       if (!field) return prevEntries;
@@ -93,9 +95,10 @@ const useTreegeConsumer = ({
 
       const updatedEntry: TreeFieldValues = {
         name,
+        rawData,
         type: field.attributes.type || "text",
         uuid: field.uuid,
-        value,
+        value: safeValue,
       };
 
       if (existingIndex !== -1) {
@@ -112,6 +115,8 @@ const useTreegeConsumer = ({
       [name]: value,
     }));
   };
+
+  console.log("A", treeFieldValues);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     // Prevent default form submission behavior

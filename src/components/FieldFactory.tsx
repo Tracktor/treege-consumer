@@ -2,7 +2,7 @@ import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
 import { memo, useCallback, useMemo, useState } from "react";
 import Address from "@/components/Inputs/Address";
-import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete/ApiAutocomplete";
+import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete";
 import CheckBoxField from "@/components/Inputs/CheckBoxField";
 import DatePicker from "@/components/Inputs/DatePicker";
 import DateRange from "@/components/Inputs/DateRange";
@@ -114,7 +114,9 @@ const FieldFactory = ({
 
       handleChangeFormValue?.({
         ...dataAttribute,
+        rawData: dataAttribute.rawData,
         uuid,
+        value: dataAttribute.value || "",
       });
     },
     [handleChangeFormValue, uuid],

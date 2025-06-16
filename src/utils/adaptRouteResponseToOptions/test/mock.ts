@@ -25,7 +25,7 @@ const mockArrayData: Mock = {
       id: "1",
       imageUri: "image1.jpg",
       label: "Item 1",
-      raw: {
+      rawData: {
         id: "1",
         imageUrl: "image1.jpg",
         name: "Item 1",
@@ -36,7 +36,7 @@ const mockArrayData: Mock = {
       id: "2",
       imageUri: "image2.jpg",
       label: "Item 2",
-      raw: {
+      rawData: {
         id: "2",
         imageUrl: "image2.jpg",
         name: "Item 2",
@@ -65,7 +65,7 @@ const mockObjectData: Mock = {
       id: "1",
       imageUri: "image1.jpg",
       label: "Item 1",
-      raw: {
+      rawData: {
         id: "1",
         imageUrl: "image1.jpg",
         name: "Item 1",
@@ -76,7 +76,7 @@ const mockObjectData: Mock = {
       id: "2",
       imageUri: "image2.jpg",
       label: "Item 2",
-      raw: {
+      rawData: {
         id: "2",
         imageUrl: "image2.jpg",
         name: "Item 2",
@@ -96,7 +96,7 @@ const mockObjectData: Mock = {
 
 const mockSingleObjectData: Mock = {
   data: { id: "1", imageUrl: "image1.jpg", name: "Item 1" },
-  output: [{ id: "1", imageUri: "image1.jpg", label: "Item 1", raw: { id: "1", imageUrl: "image1.jpg", name: "Item 1" }, value: "1" }],
+  output: [{ id: "1", imageUri: "image1.jpg", label: "Item 1", rawData: { id: "1", imageUrl: "image1.jpg", name: "Item 1" }, value: "1" }],
   route: {
     pathKey: {
       image: "imageUrl",

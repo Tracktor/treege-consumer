@@ -9,6 +9,7 @@ interface TreeFieldValues {
   name: string;
   type: string;
   value: FieldValue;
+  rawData?: unknown;
 }
 
 export type { FieldValues, FieldValue, TreeFieldValues };

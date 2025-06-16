@@ -3,7 +3,6 @@ import { Autocomplete, Avatar, ListItem, ListItemAvatar, ListItemText, Stack, Te
 import { useDebounce } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
-import useApiAutoComplete from "@/components/Inputs/ApiAutocomplete/useApiAutoComplete";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import { TreeFieldValues } from "@/types/FieldValues";
@@ -70,7 +69,14 @@ const ApiAutocomplete = (
 
   const apiParams = [...paramsWithStaticValue, ...nonEmptyDynamicParams];
 
-  const { reformatReturnAutocomplete, addValueToOptions } = useApiAutoComplete();
+  const addValueToOptions = (options?: Option[] | null, inputValue?: Option | null) => {
+    if (!inputValue) {
+      return options;
+    }
+
+    return typeof inputValue === "object" ? [inputValue, ...(options || [])] : [{ value: inputValue }, ...(options || [])];
+  };
+
   const debouncedSearchValue = useDebounce(searchValue, 150);
 
   const search = searchResultsFetcher({
@@ -91,14 +97,17 @@ const ApiAutocomplete = (
   const optionsWithValues = addValueToOptions(options, value); // We add the value to the options to avoid warnings because the value is not in the options
 
   const handleChange = (event: SyntheticEvent, newValue: Option | null) => {
+    const { rawData, ...valueWithoutRawData } = newValue ?? {};
+
     onChange?.({
       children,
       event,
       isDecision,
       isLeaf,
       name,
+      rawData,
       type,
-      value: reformatReturnAutocomplete(newValue),
+      value: valueWithoutRawData,
     });
   };
 

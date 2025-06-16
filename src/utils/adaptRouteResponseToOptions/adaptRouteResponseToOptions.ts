@@ -10,7 +10,7 @@ export type Option = {
   id?: string;
   label?: string;
   value?: string;
-  raw?: unknown;
+  rawData?: unknown;
 };
 
 const isData = (obj: unknown): obj is { [key: string]: string } => typeof obj === "object" && obj !== null;
@@ -32,7 +32,7 @@ const adaptRouteResponseToOptions = (data: unknown, route?: Route): Option[] | u
         id: item.id,
         imageUri: mappedImage,
         label: mappedLabel,
-        raw: item,
+        rawData: item,
         value: mappedValue,
       };
     });
@@ -56,8 +56,8 @@ const adaptRouteResponseToOptions = (data: unknown, route?: Route): Option[] | u
           id: item.id,
           imageUri: mappedImage,
           label: mappedLabel,
-          raw: item,
-          value: mappedValue, // ← ici aussi
+          rawData: item,
+          value: mappedValue,
         };
       });
     }
@@ -72,8 +72,8 @@ const adaptRouteResponseToOptions = (data: unknown, route?: Route): Option[] | u
         id: "id" in data ? String(data.id) : "",
         imageUri: mappedImage,
         label: mappedLabel,
-        raw: data,
-        value: mappedValue, // ← ici encore
+        rawData: data,
+        value: mappedValue,
       },
     ];
   }

@@ -19,4 +19,5 @@ export default interface ChangeEventField {
   isRequiredAndEmpty?: boolean;
   uuid?: string;
   defaultValueFromAncestor?: DefaultValueFromAncestor;
+  rawData?: unknown;
 }
