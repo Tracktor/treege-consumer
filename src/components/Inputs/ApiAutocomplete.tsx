@@ -8,7 +8,7 @@ import ChangeEventField from "@/types/ChangeEventField";
 import { TreeFieldValues } from "@/types/FieldValues";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
-import searchResultsFetcher from "@/utils/requestFetcher/requestFetcher";
+import requestFetcher from "@/utils/requestFetcher/requestFetcher";
 import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey/safeGetObjectValueByKey";
 
 interface ApiAutocompleteProps {
@@ -24,6 +24,11 @@ interface ApiAutocompleteProps {
   error?: boolean;
   treeFieldValues?: TreeFieldValues[];
 }
+
+const isPlainEmptyObject = (val: unknown): boolean => {
+  if (val === null || val === undefined) return true;
+  return typeof val === "object" && !Array.isArray(val) && val.constructor === Object && Object.keys(val).length === 0;
+};
 
 const ApiAutocomplete = (
   {
@@ -56,7 +61,7 @@ const ApiAutocomplete = (
     return typeof inputValue === "object" ? [inputValue, ...(options || [])] : [{ value: inputValue }, ...(options || [])];
   };
 
-  const search = searchResultsFetcher({
+  const search = requestFetcher({
     additionalParams: apiParams,
     headers,
     searchKey: searchKey || "",
@@ -67,13 +72,15 @@ const ApiAutocomplete = (
   const { data, isFetching, isError } = useQuery({
     enabled: !!debouncedSearchValue || !!initialQuery,
     queryFn: ({ signal }) => search(signal),
-    queryKey: [name, debouncedSearchValue, JSON.stringify(apiParams)],
+    queryKey: [name, debouncedSearchValue, JSON.stringify(apiParams), url],
   });
 
   const options = adaptRouteResponseToOptions(data, route);
   const optionsWithValues = addValueToOptions(options, value); // We add the value to the options to avoid warnings because the value is not in the options
 
   const handleChange = (event: SyntheticEvent, newValue: Option | null) => {
+    const isEmptyObject = isPlainEmptyObject(newValue);
+
     const { rawData, ...valueWithoutRawData } = newValue ?? {};
 
     onChange?.({
@@ -84,7 +91,7 @@ const ApiAutocomplete = (
       name,
       rawData,
       type,
-      value: valueWithoutRawData,
+      value: isEmptyObject ? "" : valueWithoutRawData,
     });
   };
 

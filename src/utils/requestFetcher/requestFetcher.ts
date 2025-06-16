@@ -37,11 +37,15 @@ const requestFetcher =
     if (additionalParams) {
       for (let i = 0; i < additionalParams.length; i += 1) {
         const param = additionalParams[i];
-        searchParams.append(param.key, param.value);
+
+        const valueIsEmpty = param.value === "" || (Array.isArray(param.value) && param.value.length === 0);
+
+        if (!valueIsEmpty) {
+          searchParams.append(param.key, String(param.value));
+        }
       }
     }
 
-    // Construct final URL
     const finalUrl = `${url}?${searchParams.toString()}`;
 
     // Add headers to request

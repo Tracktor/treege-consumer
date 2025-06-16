@@ -50,10 +50,6 @@ const DynamicSelect = ({
   const { params, url } = route || {};
   const apiParams = paramsBuilder({ params, treeFieldValues });
 
-  if (!url) {
-    throw new Error("DynamicSelect component requires a valid URL in the route.");
-  }
-
   const fetchData = requestFetcher({
     additionalParams: apiParams,
     headers,
@@ -63,7 +59,7 @@ const DynamicSelect = ({
   const { data, isError, isLoading } = useQuery({
     enabled: initialQuery,
     queryFn: ({ signal }) => fetchData(signal),
-    queryKey: [name, JSON.stringify(apiParams)],
+    queryKey: [name, JSON.stringify(apiParams), url],
   });
 
   const addValueToOptions = (options?: Option[] | null, inputValue?: Option | null) => {
@@ -76,14 +72,13 @@ const DynamicSelect = ({
   };
 
   const options = adaptRouteResponseToOptions(data, route);
-
   const optionsWithValues = addValueToOptions(options, value);
   const uniqueOptions = optionsWithValues?.filter(
     (opt, index, self) => opt?.value && index === self.findIndex((o) => o?.value === opt?.value),
   );
 
   const handleChange = (event: SelectChangeEvent) => {
-    const findRawData = optionsWithValues?.find((opt) => opt.id === event.target.value);
+    const findSelectedRawData = optionsWithValues?.find((opt) => opt.id === event.target.value);
 
     onChange?.({
       children,
@@ -91,7 +86,7 @@ const DynamicSelect = ({
       isDecision,
       isLeaf,
       name,
-      rawData: findRawData?.rawData,
+      rawData: findSelectedRawData?.rawData,
       type,
       value: event.target.value,
     });
@@ -121,6 +116,11 @@ const DynamicSelect = ({
             {option.label}
           </MenuItem>
         ))}
+        {uniqueOptions?.length === 0 && (
+          <MenuItem disabled value="">
+            No options available
+          </MenuItem>
+        )}
       </Select>
       {isLoading && <FormHelperText>Loading...</FormHelperText>}
       {helperText && <FormHelperText error={error || isError}>{helperText}</FormHelperText>}

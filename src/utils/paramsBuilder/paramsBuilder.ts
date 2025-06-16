@@ -24,7 +24,7 @@ const paramsBuilder = ({ params, treeFieldValues }: ParamsBuilderParams) => {
 
         return {
           key: param.key,
-          value: stringValue ?? "",
+          value: stringValue,
         };
       }) || [];
 
