@@ -17,7 +17,6 @@ import ChangeEventField from "@/types/ChangeEventField";
 import addressToGoogleAutocompleteAdapter from "@/utils/addressToGoogleAutocompleteAdapter/addressToGoogleAutocompleteAdapter";
 
 type AutocompleteService = google.maps.places.AutocompleteService;
-type OptionsRecord = Record<string, unknown>;
 
 interface AddressAdapterParams {
   streetNumber?: string | number | null;
@@ -27,10 +26,16 @@ interface AddressAdapterParams {
   country?: string | null;
 }
 
-const ancestorHasOptions = (obj: unknown): obj is { options: unknown } => typeof obj === "object" && obj !== null && "options" in obj;
 const isAddressAdapterParams = (obj: unknown): obj is AddressAdapterParams => {
   if (typeof obj !== "object" || obj === null) return false;
   return "street" in obj && "city" in obj && "postalCode" in obj;
+};
+
+const safeGetProperty = (obj: unknown, key: string): unknown => {
+  if (obj && typeof obj === "object") {
+    return Object.prototype.hasOwnProperty.call(obj, key) ? Object.getOwnPropertyDescriptor(obj, key)?.value : undefined;
+  }
+  return undefined;
 };
 
 export interface AutocompleteProps {
@@ -80,8 +85,7 @@ const Address = (
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const apiAncestorFull = ancestorHasOptions(ancestorValue) ? ancestorValue : undefined;
-  const ancestorValueMapped = ancestorMapping ? (apiAncestorFull as OptionsRecord)?.[ancestorMapping] : undefined;
+  const ancestorValueMapped = ancestorMapping ? safeGetProperty(ancestorValue, ancestorMapping) : undefined;
   const [localValue, setLocalValue] = useState<unknown | null>(value || null);
 
   // worksite with address = L15EN TUNNEL - EXBY.L15EN92961

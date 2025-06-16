@@ -1,6 +1,6 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import Address from "@/components/Inputs/Address";
 import ApiAutocomplete from "@/components/Inputs/ApiAutocomplete/ApiAutocomplete";
 import CheckBoxField from "@/components/Inputs/CheckBoxField";
@@ -98,9 +98,13 @@ const FieldFactory = ({
 
   // Ancestor value
   const textAncestorValue = ancestorType && textType.includes(ancestorType) ? String(ancestorValue) : undefined;
-  const apiAncestorValue = typeof value === "object" && "raw" in value ? value.raw : undefined;
-
-  console.log("ancestorValue", ancestorValue);
+  const apiAncestorValue = useMemo(() => {
+    if (!ancestorValue) return undefined;
+    if (typeof ancestorValue === "object" && "raw" in ancestorValue) {
+      return ancestorValue.raw;
+    }
+    return undefined;
+  }, [ancestorValue]);
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {

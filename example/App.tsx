@@ -1,6 +1,5 @@
 import type { TreeNode } from "@tracktor/types-treege";
 // import ancestorTest1 from "example/data/ancestorTest1";
-// import autocompleteTest from "example/data/autocompleteExample";
 import autocompleteTest from "example/data/autocompleteExample";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
