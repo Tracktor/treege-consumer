@@ -23,6 +23,13 @@ import { FieldValues, DetailFieldValues } from "@/types/FieldValues";
 
 const textType = ["email", "number", "password", "tel", "text", "url"];
 
+const safeGetProperty = (obj: unknown, key: string): unknown => {
+  if (obj && typeof obj === "object") {
+    return Object.prototype.hasOwnProperty.call(obj, key) ? Object.getOwnPropertyDescriptor(obj, key)?.value : undefined;
+  }
+  return undefined;
+};
+
 export interface FielFactoryProps {
   fieldValues?: FieldValues;
   animated?: boolean;
@@ -70,12 +77,24 @@ const FieldFactory = ({
   animated = true,
   visible = true,
 }: FielFactoryProps) => {
+  // States
   const [error, setError] = useState("");
+
+  // Fields attributes
   const { attributes, uuid } = data;
   const { type, label, required, helperText, isMultiple, isDisabledPast, name, pattern, patternMessage, defaultValueFromAncestor } =
     attributes;
-  const { uuid: ancestorUuid, sourceValue } = defaultValueFromAncestor || {};
 
+  // Ancestor field reference
+  const { uuid: ancestorUuid, sourceValue } = defaultValueFromAncestor || {};
+  const ancestorRef = detailFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
+  const { type: ancestorType, value: ancestorValue, rawData: ancestorRawData } = ancestorRef || {};
+  const textAncestorValue =
+    ancestorType && textType.includes(ancestorType) && typeof ancestorValue === "string" ? ancestorValue : undefined;
+  // worksite with address = L15EN TUNNEL - EXBY.L15EN92961
+  const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
+
+  // Derived values
   const errorOrHelperText = error || helperText;
   const animationTimeout = animated ? 200 : 0;
   const isRequired = visible && required;
@@ -84,6 +103,8 @@ const FieldFactory = ({
   const isParentFieldRequiredAndEmpty = isSubmitting || hasParentRefValue;
   const value = fieldValues?.[name] || "";
   const isFieldIgnored = !!ignoreFields?.find((fieldName) => fieldName === name);
+
+  // Context and options overrides
   const optionsContext = useOptionsContext();
   const licenseMuiX = options?.licenseMuiX || optionsContext?.licenseMuiX;
   const googleApiKey = options?.googleApiKey || optionsContext?.googleApiKey;
@@ -92,12 +113,6 @@ const FieldFactory = ({
   const disablePastDateRangePicker = options?.disablePastDateRangePicker || optionsContext?.disablePastDateRangePicker;
   const prefixResponseImageUriAutocomplete =
     options?.prefixResponseImageUriAutocomplete || optionsContext?.prefixResponseImageUriAutocomplete;
-
-  const ancestorRef = detailFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
-  const { type: ancestorType, value: ancestorValue, rawData: ancestorRawData } = ancestorRef || {};
-
-  // Ancestor value
-  const textAncestorValue = ancestorType && textType.includes(ancestorType) ? String(ancestorValue) : undefined;
 
   const handleChange = useCallback(
     (dataAttribute: ChangeEventField) => {
@@ -287,8 +302,7 @@ const FieldFactory = ({
             pattern={pattern}
             googleApiKey={googleApiKey}
             error={!!error}
-            ancestorValue={ancestorRawData}
-            ancestorMapping={String(sourceValue)}
+            ancestorValue={objectAncestorValue}
           />
         );
       case "radio":

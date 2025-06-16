@@ -31,14 +31,6 @@ const isAddressAdapterParams = (obj: unknown): obj is AddressAdapterParams => {
   return "street" in obj && "city" in obj && "postalCode" in obj;
 };
 
-const safeGetProperty = (obj: unknown, key: string): unknown => {
-  if (obj && typeof obj === "object") {
-    return Object.prototype.hasOwnProperty.call(obj, key) ? Object.getOwnPropertyDescriptor(obj, key)?.value : undefined;
-  }
-  return undefined;
-};
-
-// todo: import detailFieldValues instead of ancestorValue & ancestorMapping
 export interface AutocompleteProps {
   inputRef: Ref<unknown>;
   country?: string | string[];
@@ -53,7 +45,6 @@ export interface AutocompleteProps {
   patternMessage?: string;
   error?: boolean;
   ancestorValue?: unknown;
-  ancestorMapping?: string;
 }
 
 interface Match {
@@ -76,7 +67,6 @@ const Address = (
     patternMessage,
     helperText,
     ancestorValue,
-    ancestorMapping,
   }: AutocompleteProps,
   ref: Ref<unknown> | undefined,
 ) => {
@@ -86,12 +76,8 @@ const Address = (
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const ancestorValueMapped = ancestorMapping ? safeGetProperty(ancestorValue, ancestorMapping) : undefined;
   const [localValue, setLocalValue] = useState<unknown | null>(value || null);
-
-  // worksite with address = L15EN TUNNEL - EXBY.L15EN92961
-
-  const lastAncestorRef = useRef(ancestorValueMapped);
+  const lastAncestorRef = useRef(ancestorValue);
 
   const places = useScript(`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&loading=async&libraries=places`, {
     enable: !!googleApiKey && !isIgnored,
@@ -191,11 +177,11 @@ const Address = (
   }, [country, fetch, googleApiKey, isIgnored, localValue, places, searchText]);
 
   useEffect(() => {
-    if (ancestorValueMapped !== lastAncestorRef.current) {
-      lastAncestorRef.current = ancestorValueMapped;
+    if (ancestorValue !== lastAncestorRef.current) {
+      lastAncestorRef.current = ancestorValue;
 
-      const updatedAddress = addressToGoogleAutocompleteAdapter(ancestorValueMapped);
-      const updatedAddressString = isAddressAdapterParams(ancestorValueMapped) ? addressToString(ancestorValueMapped) : "";
+      const updatedAddress = addressToGoogleAutocompleteAdapter(ancestorValue);
+      const updatedAddressString = isAddressAdapterParams(ancestorValue) ? addressToString(ancestorValue) : "";
 
       setLocalValue(updatedAddress);
       setSearchText(updatedAddressString);
@@ -207,10 +193,10 @@ const Address = (
         isLeaf,
         name,
         type,
-        value: ancestorValueMapped,
+        value: ancestorValue,
       });
     }
-  }, [ancestorValueMapped, children, isDecision, isLeaf, name, onChange, type]);
+  }, [ancestorValue, children, isDecision, isLeaf, name, onChange, type]);
 
   if (isIgnored) {
     return null;
