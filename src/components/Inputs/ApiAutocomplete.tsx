@@ -10,6 +10,7 @@ import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseT
 import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
 import requestFetcher from "@/utils/requestFetcher/requestFetcher";
 import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey/safeGetObjectValueByKey";
+import urlBuilder from "@/utils/urlBuilder/urlBuilder";
 
 interface ApiAutocompleteProps {
   inputRef: Ref<unknown>;
@@ -52,6 +53,8 @@ const ApiAutocomplete = (
   const { type, name, label, required, route, initialQuery, isLeaf, isDecision } = attributes;
   const { params, url, searchKey } = route || {};
   const apiParams = paramsBuilder({ params, treeFieldValues });
+  const dynamicUrl = urlBuilder({ params, treeFieldValues, url });
+  const hasUnresolvedPlaceholders = !/\{[^}]+}/.test(dynamicUrl);
 
   const addValueToOptions = (options?: Option[] | null, inputValue?: Option | null) => {
     if (!inputValue) {
@@ -70,7 +73,7 @@ const ApiAutocomplete = (
   });
 
   const { data, isFetching, isError } = useQuery({
-    enabled: !!debouncedSearchValue || !!initialQuery,
+    enabled: !!debouncedSearchValue || !!initialQuery || hasUnresolvedPlaceholders,
     queryFn: ({ signal }) => search(signal),
     queryKey: [name, debouncedSearchValue, JSON.stringify(apiParams), url],
   });

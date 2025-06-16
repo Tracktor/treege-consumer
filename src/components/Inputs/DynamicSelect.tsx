@@ -9,6 +9,7 @@ import { TreeFieldValues } from "@/types/FieldValues";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
 import requestFetcher from "@/utils/requestFetcher/requestFetcher";
+import urlBuilder from "@/utils/urlBuilder/urlBuilder";
 
 interface DynamicSelectProps {
   inputRef: Ref<unknown>;
@@ -49,17 +50,19 @@ const DynamicSelect = ({
   const { name, label, type, isLeaf, isDecision, route, required, isMultiple, initialQuery } = attributes;
   const { params, url } = route || {};
   const apiParams = paramsBuilder({ params, treeFieldValues });
+  const dynamicUrl = urlBuilder({ params, treeFieldValues, url });
+  const hasUnresolvedPlaceholders = !/\{[^}]+}/.test(dynamicUrl);
 
   const fetchData = requestFetcher({
     additionalParams: apiParams,
     headers,
-    url: url || "",
+    url: dynamicUrl || "",
   });
 
   const { data, isError, isLoading } = useQuery({
-    enabled: initialQuery,
+    enabled: initialQuery || hasUnresolvedPlaceholders,
     queryFn: ({ signal }) => fetchData(signal),
-    queryKey: [name, JSON.stringify(apiParams), url],
+    queryKey: [name, JSON.stringify(apiParams), dynamicUrl],
   });
 
   const addValueToOptions = (options?: Option[] | null, inputValue?: Option | null) => {
