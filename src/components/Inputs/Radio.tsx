@@ -24,6 +24,7 @@ const Radio = (
   ref: Ref<HTMLDivElement>,
 ) => {
   const stringAncestor = typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const ancestorRef = useRef<string>();
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes, uuid } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
@@ -39,7 +40,28 @@ const Radio = (
   };
 
   // If there's no selected value, only one child option, or a string ancestor, select the option by default
+  // Update selection when ancestor changes or set default value
   useEffect(() => {
+    if (stringAncestor && stringAncestor !== ancestorRef.current) {
+      ancestorRef.current = stringAncestor;
+
+      const messageValue = getMessageByValue({ options, value: stringAncestor });
+
+      onChange?.({
+        children,
+        event: undefined,
+        hasMessage: !!messageValue,
+        isDecision,
+        isLeaf,
+        name,
+        type,
+        value: stringAncestor,
+      });
+
+      setMessage(messageValue);
+      return;
+    }
+
     if (value) return;
 
     const selectedDefaultValue = (children.length === 1 && required && options[0]?.value) || stringAncestor;
@@ -60,7 +82,7 @@ const Radio = (
 
       setMessage(messageValue);
     }
-  }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, stringAncestor, type, value]);
+  }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, stringAncestor, type, value, ancestorValue]);
 
   // Trigger the onInit when the component is mounted
   useEffect(() => {
