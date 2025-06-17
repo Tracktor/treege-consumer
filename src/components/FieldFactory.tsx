@@ -21,7 +21,7 @@ import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues, DetailFieldValues } from "@/types/FieldValues";
 
-const textType = ["email", "number", "password", "tel", "text", "url"];
+const textType = ["email", "number", "password", "tel", "text", "url", "date"];
 
 const safeGetProperty = (obj: unknown, key: string): unknown => {
   if (obj && typeof obj === "object") {
@@ -95,7 +95,7 @@ const FieldFactory = ({
   const booleanAncestorValue = ancestorType && typeof ancestorValue === "boolean" ? ancestorValue : undefined;
   const ancestorValueToConsume = textAncestorValue || booleanAncestorValue || objectAncestorValue || "";
   // console.log(name, ancestorRef);
-  console.log("detailFieldValues", detailFieldValues);
+  // console.log("name:", name, "detailFieldValues:", detailFieldValues, "ancestorValueToConsume", ancestorValueToConsume);
 
   // Derived values
   const errorOrHelperText = error || helperText;

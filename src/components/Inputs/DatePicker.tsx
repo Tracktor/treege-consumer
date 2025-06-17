@@ -2,7 +2,7 @@ import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { DatePicker as DatePickerMui } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
-import { forwardRef, Ref, useEffect } from "react";
+import { forwardRef, Ref, useEffect, useRef } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -44,7 +44,9 @@ const DatePicker = (
   }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const rawValue = value || ancestorValue;
+  const previousAncestorRef = useRef<string | undefined>();
+  const ancestorValueString = typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const rawValue = value || ancestorValueString;
   const formattedValue = rawValue ? dayjs(String(rawValue), FORMAT) : null;
 
   const handleChange = (date: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
@@ -58,8 +60,10 @@ const DatePicker = (
   };
 
   useEffect(() => {
-    if (ancestorValue && !value) {
-      const formattedAncestor = dayjs(String(ancestorValue), FORMAT);
+    const shouldSync = ancestorValueString && previousAncestorRef.current !== ancestorValueString;
+
+    if (shouldSync) {
+      const formattedAncestor = dayjs(String(ancestorValueString), FORMAT);
 
       onChange?.(
         {
@@ -68,8 +72,10 @@ const DatePicker = (
         },
         { validationError: null },
       );
+
+      previousAncestorRef.current = ancestorValueString;
     }
-  }, [ancestorValue, value, name, onChange]);
+  }, [ancestorValueString, name, onChange]);
 
   if (isIgnored) {
     return null;
