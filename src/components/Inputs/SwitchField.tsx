@@ -48,8 +48,6 @@ const SwitchField = (
     if (ancestorValue !== lastAncestorRef.current) {
       lastAncestorRef.current = ancestorValue;
 
-      console.log("B", lastAncestorRef.current);
-
       onChange?.({
         children,
         event: undefined,

@@ -17,10 +17,11 @@ export interface SelectProps {
   value?: unknown;
   isIgnored?: boolean;
   error?: boolean;
+  ancestorValue?: unknown;
 }
 
 const Select = (
-  { data, helperText, inputRef, required, onChange, onInit, readOnly, isIgnored, error, value = "" }: SelectProps,
+  { data, helperText, inputRef, required, onChange, onInit, readOnly, isIgnored, error, ancestorValue, value = "" }: SelectProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
@@ -29,6 +30,11 @@ const Select = (
   const [message, setMessage] = useState<string | undefined>("");
   const options = getOptionsForDecisionsField({ children, values });
   const onInitRef = useRef(onInit);
+  const ancestorRef = useRef<string>();
+  const stringAncestor = typeof ancestorValue === "string" ? ancestorValue : undefined;
+
+  const validOptionValues = options.map((opt) => String(opt.value));
+  const selectedValue = isString(value) && validOptionValues.includes(value) ? value : "";
 
   const handleChange = (event: SelectChangeEvent) => {
     const { target } = event;
@@ -50,6 +56,41 @@ const Select = (
     onInitRef.current = onInit;
   }, [onInit]);
 
+  useEffect(() => {
+    const getSelectedValue = (): string | undefined => {
+      const optionValues = options.map((opt) => String(opt.value));
+
+      if (stringAncestor && stringAncestor !== ancestorRef.current && optionValues.includes(stringAncestor)) {
+        ancestorRef.current = stringAncestor;
+        return stringAncestor;
+      }
+
+      if (!value && children.length === 1 && required && optionValues.includes(String(options[0]?.value))) {
+        return String(options[0]?.value);
+      }
+
+      return undefined;
+    };
+
+    const selectValue = getSelectedValue();
+
+    if (selectValue) {
+      const messageValue = getMessageByValue({ options, value: selectValue });
+
+      onChange?.({
+        children,
+        hasMessage: !!messageValue,
+        isDecision,
+        isLeaf,
+        name,
+        type,
+        value: selectValue,
+      });
+
+      setMessage(messageValue);
+    }
+  }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, stringAncestor, type, value, ancestorValue]);
+
   if (isIgnored) {
     return null;
   }
@@ -62,7 +103,7 @@ const Select = (
           fullWidth
           required={required}
           error={error}
-          value={isString(value) ? value : ""}
+          value={selectedValue}
           labelId={`${name}-label`}
           id={name}
           name={name}
@@ -86,4 +127,5 @@ const Select = (
     </Stack>
   );
 };
+
 export default forwardRef(Select);

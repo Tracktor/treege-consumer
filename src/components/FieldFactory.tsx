@@ -94,8 +94,6 @@ const FieldFactory = ({
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
   const booleanAncestorValue = ancestorType && typeof ancestorValue === "boolean" ? ancestorValue : undefined;
   const ancestorValueToConsume = textAncestorValue || booleanAncestorValue || objectAncestorValue || "";
-  // console.log(name, ancestorRef);
-  // console.log("name:", name, "detailFieldValues:", detailFieldValues, "ancestorValueToConsume", ancestorValueToConsume);
 
   // Derived values
   const errorOrHelperText = error || helperText;
@@ -338,6 +336,7 @@ const FieldFactory = ({
             value={value}
             isIgnored={isFieldIgnored}
             error={!!error}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "checkbox":
