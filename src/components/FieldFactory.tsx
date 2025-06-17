@@ -319,6 +319,7 @@ const FieldFactory = ({
             value={value}
             isIgnored={isFieldIgnored}
             error={!!error}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "select":

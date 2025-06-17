@@ -19,7 +19,7 @@ const SwitchField = (
   { data, inputRef, helperText, readOnly, onChange, value, isIgnored, error, ancestorValue }: SwitchFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
-  const stringAncestor = typeof ancestorValue === "string" ? String(ancestorValue) : undefined;
+  const stringAncestor = typeof ancestorValue === "string" ? ancestorValue : undefined;
   const ancestorHasValue = !!stringAncestor?.length;
 
   const [isActive, setIsActive] = useState<boolean>(ancestorHasValue || !!value);

@@ -16,12 +16,14 @@ export interface RadioProps {
   error?: boolean;
   onChange?(dataAttribute: ChangeEventField): void;
   onInit?(dataAttribute: ChangeEventField): void;
+  ancestorValue?: unknown;
 }
 
 const Radio = (
-  { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored, error }: RadioProps,
+  { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored, error, ancestorValue }: RadioProps,
   ref: Ref<HTMLDivElement>,
 ) => {
+  const stringAncestor = typeof ancestorValue === "string" ? ancestorValue : undefined;
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes, uuid } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;
@@ -36,32 +38,29 @@ const Radio = (
     setMessage(messageValue);
   };
 
-  // If there's no selected value, only one child option, and the field is required,
+  // If there's no selected value, only one child option, or a string ancestor, select the option by default
   useEffect(() => {
-    // we auto-select the single available option.
-    if (!value && children.length === 1 && required) {
-      const singleOption = options[0];
-      if (singleOption) {
-        // Retrieve the message associated with the selected option (if any).
-        const messageValue = getMessageByValue({ options, value: singleOption.value });
+    if (value) return;
 
-        // Trigger the onChange callback to propagate the selection upstream.
-        onChange?.({
-          children,
-          event: undefined, // No user event triggered this — it's an automatic selection.
-          hasMessage: !!messageValue,
-          isDecision,
-          isLeaf,
-          name,
-          type,
-          value: singleOption.value,
-        });
+    const selectedDefaultValue = (children.length === 1 && required && options[0]?.value) || stringAncestor;
 
-        // Store the message locally to be displayed in the UI
-        setMessage(messageValue);
-      }
+    if (selectedDefaultValue) {
+      const messageValue = getMessageByValue({ options, value: selectedDefaultValue });
+
+      onChange?.({
+        children,
+        event: undefined,
+        hasMessage: !!messageValue,
+        isDecision,
+        isLeaf,
+        name,
+        type,
+        value: selectedDefaultValue,
+      });
+
+      setMessage(messageValue);
     }
-  }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, type, value]);
+  }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, stringAncestor, type, value]);
 
   // Trigger the onInit when the component is mounted
   useEffect(() => {

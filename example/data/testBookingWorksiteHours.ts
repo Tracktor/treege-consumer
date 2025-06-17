@@ -106,13 +106,18 @@ const testBookingWorksiteHours: TreeNode = {
                             values: [
                               {
                                 id: "0",
-                                label: "test 1",
+                                label: "test 1 - waiting",
                                 value: "12124",
                               },
                               {
                                 id: "1",
-                                label: "test 2",
+                                label: "test 2 - started",
                                 value: "11322",
+                              },
+                              {
+                                id: "2",
+                                label: "test 3 - ended",
+                                value: "11805",
                               },
                             ],
                           },
@@ -184,7 +189,6 @@ const testBookingWorksiteHours: TreeNode = {
                                             {
                                               attributes: {
                                                 depth: 11,
-                                                isLeaf: false,
                                                 label: "started",
                                                 name: "booking_status:started",
                                                 value: "started",
@@ -206,12 +210,11 @@ const testBookingWorksiteHours: TreeNode = {
                                                   uuid: "17501467660751ez0ll67635737.800000012",
                                                 },
                                               ],
-                                              uuid: "175014661302581erpmc7482688.5:started",
+                                              uuid: "17501482012951wpoggs9070953.400000006:started",
                                             },
                                             {
                                               attributes: {
                                                 depth: 11,
-                                                isLeaf: false,
                                                 label: "ended",
                                                 name: "booking_status:ended",
                                                 value: "ended",
@@ -233,15 +236,14 @@ const testBookingWorksiteHours: TreeNode = {
                                                   uuid: "1750146835892mfsm7gj7705554.5",
                                                 },
                                               ],
-                                              uuid: "175014661302581erpmc7482688.5:ended",
+                                              uuid: "17501482012951wpoggs9070953.400000006:ended",
                                             },
                                             {
                                               attributes: {
                                                 depth: 11,
-                                                isLeaf: false,
-                                                label: "other",
-                                                name: "booking_status:other",
-                                                value: "other",
+                                                label: "waiting_for_confirmation",
+                                                name: "booking_status:waiting_for_confirmation",
+                                                value: "waiting_for_confirmation",
                                               },
                                               children: [
                                                 {
@@ -256,7 +258,7 @@ const testBookingWorksiteHours: TreeNode = {
                                                   uuid: "1750146867397f4jyqgz7737060.099999994",
                                                 },
                                               ],
-                                              uuid: "175014661302581erpmc7482688.5:other",
+                                              uuid: "17501482012951wpoggs9070953.400000006:waiting_for_confirmation",
                                             },
                                           ],
                                           uuid: "175014661302581erpmc7482688.5",
