@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Stack, Select, MenuItem, FormHelperText, SelectChangeEvent } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
-import { Ref, useEffect } from "react";
+import { Ref, useEffect, useRef } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import { DetailFieldValues } from "@/types/FieldValues";
@@ -10,6 +10,11 @@ import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseT
 import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
 import requestFetcher from "@/utils/requestFetcher/requestFetcher";
 import urlBuilder from "@/utils/urlBuilder/urlBuilder";
+
+const getSafeValue = (value: string | Option | null | undefined, options?: Option[]): string => {
+  const valueStr = typeof value === "object" && value !== null ? value.value : value;
+  return typeof isString(valueStr) && options?.some((opt) => opt?.value === valueStr) ? String(valueStr) : "";
+};
 
 interface DynamicSelectProps {
   inputRef: Ref<unknown>;
@@ -46,6 +51,7 @@ const DynamicSelect = ({
   value,
   detailFieldValues,
 }: DynamicSelectProps) => {
+  const urlRef = useRef<string>();
   const { attributes, children } = node;
   const { name, label, type, isLeaf, isDecision, route, required, isMultiple, initialQuery } = attributes;
   const { params, url } = route || {};
@@ -65,13 +71,14 @@ const DynamicSelect = ({
     queryKey: [name, JSON.stringify(apiParams), dynamicUrl],
   });
 
-  const addValueToOptions = (options?: Option[] | null, inputValue?: Option | null) => {
-    if (!inputValue) return options ?? [];
+  const addValueToOptions = (options?: Option[] | null, inputValue?: Option | string | null) => {
+    if (!inputValue || !options || options.length === 0) return options ?? [];
 
-    const newOption = typeof inputValue === "object" ? inputValue : { value: inputValue };
-    if (!newOption.value || !newOption.label) return options ?? [];
+    const inputValueStr = typeof inputValue === "object" ? inputValue.value : inputValue;
 
-    return [newOption, ...(options ?? [])];
+    const exists = options.some((opt) => opt?.value === inputValueStr);
+
+    return exists ? options : options;
   };
 
   const options = adaptRouteResponseToOptions(data, route);
@@ -97,20 +104,29 @@ const DynamicSelect = ({
 
   // if there are only one option and the select is not readOnly, automatically select it
   useEffect(() => {
-    if (!readOnly && !value && uniqueOptions?.length === 1) {
-      const singleOption = uniqueOptions[0];
-      onChange?.({
-        children,
-        event: { target: { value: singleOption.value } } as SelectChangeEvent,
-        isDecision,
-        isLeaf,
-        name,
-        rawData: singleOption.rawData,
-        type,
-        value: singleOption.value,
-      });
-    }
-  }, [children, isDecision, isLeaf, name, onChange, readOnly, type, uniqueOptions, value]);
+    const hasUrlChanged = urlRef.current !== dynamicUrl;
+    urlRef.current = dynamicUrl;
+
+    const singleOption = !readOnly && !value && uniqueOptions?.length === 1 ? uniqueOptions[0] : null;
+    const shouldReset = hasUrlChanged;
+    const shouldAutoSelect = !hasUrlChanged && singleOption;
+
+    if (!shouldReset && !shouldAutoSelect) return;
+
+    const nextValue = shouldReset ? "" : singleOption!.value;
+    const nextRawData = shouldReset ? null : singleOption!.rawData;
+
+    onChange?.({
+      children,
+      event: { target: { value: nextValue } } as SelectChangeEvent,
+      isDecision,
+      isLeaf,
+      name,
+      rawData: nextRawData,
+      type,
+      value: nextValue,
+    });
+  }, [children, dynamicUrl, isDecision, isLeaf, name, onChange, readOnly, type, uniqueOptions, value]);
 
   if (isIgnored) {
     return null;
@@ -121,7 +137,7 @@ const DynamicSelect = ({
       <InputLabel required={required}>{label}</InputLabel>
       <Select
         name={name}
-        value={isString(value) ? value : ""}
+        value={getSafeValue(value, uniqueOptions)}
         onChange={handleChange}
         multiple={isMultiple}
         displayEmpty
