@@ -40,34 +40,23 @@ const Radio = (
   };
 
   // If there's no selected value, only one child option, or a string ancestor, select the option by default
-  // Update selection when ancestor changes or set default value
   useEffect(() => {
-    if (stringAncestor && stringAncestor !== ancestorRef.current) {
-      ancestorRef.current = stringAncestor;
+    const getSelectedValue = (): string | undefined => {
+      if (stringAncestor && stringAncestor !== ancestorRef.current) {
+        ancestorRef.current = stringAncestor;
+        return stringAncestor;
+      }
 
-      const messageValue = getMessageByValue({ options, value: stringAncestor });
+      if (!value) {
+        return (children.length === 1 && required && options[0]?.value) || stringAncestor;
+      }
+      return undefined;
+    };
 
-      onChange?.({
-        children,
-        event: undefined,
-        hasMessage: !!messageValue,
-        isDecision,
-        isLeaf,
-        name,
-        type,
-        value: stringAncestor,
-      });
+    const selectedValue = getSelectedValue();
 
-      setMessage(messageValue);
-      return;
-    }
-
-    if (value) return;
-
-    const selectedDefaultValue = (children.length === 1 && required && options[0]?.value) || stringAncestor;
-
-    if (selectedDefaultValue) {
-      const messageValue = getMessageByValue({ options, value: selectedDefaultValue });
+    if (selectedValue) {
+      const messageValue = getMessageByValue({ options, value: selectedValue });
 
       onChange?.({
         children,
@@ -77,13 +66,12 @@ const Radio = (
         isLeaf,
         name,
         type,
-        value: selectedDefaultValue,
+        value: selectedValue,
       });
 
       setMessage(messageValue);
     }
   }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, stringAncestor, type, value, ancestorValue]);
-
   // Trigger the onInit when the component is mounted
   useEffect(() => {
     if (isDecision && value) {
