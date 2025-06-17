@@ -1,13 +1,12 @@
 import type { TreeNode } from "@tracktor/types-treege";
-// import testBookingWorksiteHours from "example/data/testBookingWorksiteHours";
-import basicExample from "example/data/basicExample";
+import testBookingWorksiteHours from "example/data/testBookingWorksiteHours";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
 import { ChangeEvent, useState } from "react";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 
 const App = () => {
-  const [tree, setTree] = useState<TreeNode>(basicExample);
+  const [tree, setTree] = useState<TreeNode>(testBookingWorksiteHours);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitData, setSubmitData] = useState<OnSubmitReturn>();
@@ -26,7 +25,7 @@ const App = () => {
     setTree(JSON.parse(value));
   };
 
-  const handleSubmit = async ({ data, formData, fieldValues }: OnSubmitReturn) => {
+  const handleSubmit = async ({ data, formData, fieldValues, detailFieldValues }: OnSubmitReturn) => {
     setIsSubmitting(true);
 
     // Simulate async call
@@ -35,7 +34,7 @@ const App = () => {
     });
 
     setIsSubmitting(false);
-    setSubmitData({ data, fieldValues, formData });
+    setSubmitData({ data, detailFieldValues, fieldValues, formData });
     setDialogOpen(true);
   };
 

@@ -64,8 +64,6 @@ const Sandbox = ({
 }: SandboxProps) => {
   const [value, setValue] = useState(0);
 
-  console.log("submitData", submitData);
-
   const handleChange = (_: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };

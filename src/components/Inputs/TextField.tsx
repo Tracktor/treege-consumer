@@ -43,7 +43,7 @@ const TextField = (
   }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const stringAncestorValue = typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const stringAncestorValue = String(ancestorValue);
   const lastAncestorValueRef = useRef<string | undefined>(stringAncestorValue);
   const [text, setText] = useState(() => stringAncestorValue || value || "");
 
@@ -69,14 +69,12 @@ const TextField = (
 
   // Update the text state when ancestorValue changes
   useEffect(() => {
-    const ancestorAsString = typeof ancestorValue === "string" ? ancestorValue : "";
-
-    if (ancestorAsString !== lastAncestorValueRef.current) {
-      lastAncestorValueRef.current = ancestorAsString;
-      setText(ancestorAsString);
-      onChange?.({ event: undefined, name, type, value: ancestorAsString });
+    if (stringAncestorValue !== lastAncestorValueRef.current) {
+      lastAncestorValueRef.current = stringAncestorValue;
+      setText(stringAncestorValue);
+      onChange?.({ event: undefined, name, type, value: stringAncestorValue });
     }
-  }, [ancestorValue, name, type, onChange]);
+  }, [name, onChange, stringAncestorValue, type]);
 
   if (isIgnored) {
     return null;

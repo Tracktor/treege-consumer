@@ -107,8 +107,9 @@ export interface TreegeConsumerProps<T = unknown> {
    * @param data
    * @param formData
    * @param fieldValues
+   * @param detailFieldValues
    */
-  onSubmit?({ data, formData, fieldValues }: OnSubmitReturn): void;
+  onSubmit?({ data, formData, fieldValues, detailFieldValues }: OnSubmitReturn): void;
   /**
    *  Render custom validation component
    */
@@ -220,7 +221,10 @@ const TreegeConsumer = <T,>({
     <TreegeComposition
       options={options}
       loading={loading}
-      onSubmit={onSubmit}
+      onSubmit={({ fieldValues, detailFieldValues, formData, data }) => {
+        console.log("detailFieldValues", detailFieldValues);
+        onSubmit?.({ data, detailFieldValues, fieldValues, formData });
+      }}
       tree={tree}
       isSubmitting={isSubmitting}
       style={style}

@@ -36,7 +36,6 @@ const useTreegeConsumer = ({
   const [detailFieldValues, setDetailFieldValues] = useState<DetailFieldValues[]>([]);
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
   const initialValuesRef = useRef<JsonFormValue[]>();
-  const detailFieldValuesRef = useRef<DetailFieldValues[]>([]);
 
   const requiredFields = fields?.filter((field) => {
     // Check if the field is ignored
@@ -163,13 +162,10 @@ const useTreegeConsumer = ({
     const formData = [...currentFormData];
     const data = formDataToJSON(fieldValues, fields);
 
-    const currentDetailFieldValues = detailFieldValuesRef.current;
-    console.log("detailFieldValues dans submit", currentDetailFieldValues);
-
-    onSubmit?.({ data, detailFieldValues: currentDetailFieldValues, fieldValues, formData });
+    onSubmit?.({ data, detailFieldValues, fieldValues, formData });
 
     if (debug) {
-      console.log({ data, detailFieldValues, fieldValues, formData });
+      // console.log({ data, detailFieldValues, fieldValues, formData });
     }
   };
 
