@@ -64,6 +64,8 @@ const Sandbox = ({
 }: SandboxProps) => {
   const [value, setValue] = useState(0);
 
+  console.log("submitData", submitData);
+
   const handleChange = (_: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -131,6 +133,7 @@ const Sandbox = ({
                       <Tab label="Data" id="simple-tab-0" aria-controls="simple-tabpanel-0" />
                       <Tab label="Form Data" id="simple-tab-1" aria-controls="simple-tabpanel-1" />
                       <Tab label="FieldValues" id="simple-tab-2" aria-controls="simple-tabpanel-2" />
+                      <Tab label="DetailFieldValues" id="simple-tab-3" aria-controls="simple-tabpanel-3" />
                     </Tabs>
                   </Box>
                   <CustomTabPanel value={value} index={0}>
@@ -141,6 +144,9 @@ const Sandbox = ({
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={2}>
                     <pre>{JSON.stringify(submitData?.fieldValues, null, 2)}</pre>
+                  </CustomTabPanel>
+                  <CustomTabPanel value={value} index={3}>
+                    <pre>{JSON.stringify(submitData?.detailFieldValues, null, 2)}</pre>
                   </CustomTabPanel>
                 </DialogContent>
                 <DialogActions>

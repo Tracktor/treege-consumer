@@ -1,5 +1,5 @@
 import { Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, FocusEvent, forwardRef, Ref, useEffect, useState } from "react";
+import { ChangeEvent, FocusEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -44,6 +44,7 @@ const TextField = (
   ref: Ref<HTMLDivElement>,
 ) => {
   const stringAncestorValue = typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const lastAncestorValueRef = useRef<string | undefined>(stringAncestorValue);
   const [text, setText] = useState(() => stringAncestorValue || value || "");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -68,11 +69,14 @@ const TextField = (
 
   // Update the text state when ancestorValue changes
   useEffect(() => {
-    if (ancestorValue !== text && ancestorValue !== text) {
-      setText(ancestorValue ?? "");
-      onChange?.({ event: undefined, name, type, value: ancestorValue });
+    const ancestorAsString = typeof ancestorValue === "string" ? ancestorValue : "";
+
+    if (ancestorAsString !== lastAncestorValueRef.current) {
+      lastAncestorValueRef.current = ancestorAsString;
+      setText(ancestorAsString);
+      onChange?.({ event: undefined, name, type, value: ancestorAsString });
     }
-  }, [ancestorValue, name, type, text, onChange]);
+  }, [ancestorValue, name, type, onChange]);
 
   if (isIgnored) {
     return null;
