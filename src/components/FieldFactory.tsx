@@ -92,8 +92,9 @@ const FieldFactory = ({
   const textAncestorValue =
     ancestorType && textType.includes(ancestorType) && typeof ancestorValue === "string" ? ancestorValue : undefined;
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
+  const booleanAncestorValue = ancestorType && typeof ancestorValue === "boolean" ? ancestorValue : undefined;
   // todo: add boolean, number, date, time types support
-  const ancestorValueToConsume = textAncestorValue || objectAncestorValue;
+  const ancestorValueToConsume = textAncestorValue || booleanAncestorValue || objectAncestorValue;
 
   // Derived values
   const errorOrHelperText = error || helperText;
@@ -348,6 +349,7 @@ const FieldFactory = ({
             isIgnored={isFieldIgnored}
             required={isRequired}
             error={!!error}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "switch":
@@ -361,7 +363,7 @@ const FieldFactory = ({
             value={value}
             isIgnored={isFieldIgnored}
             error={!!error}
-            ancestorValue={ancestorValue}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "autocomplete":

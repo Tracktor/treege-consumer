@@ -1,6 +1,6 @@
 import { Alert, FormControl, FormControlLabel, FormGroup, FormHelperText, Radio, Stack } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
-import { forwardRef, Ref, useState } from "react";
+import { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -13,12 +13,16 @@ export interface CheckBoxFieldProps {
   isIgnored?: boolean;
   required?: boolean;
   error?: boolean;
+  ancestorValue?: unknown;
 }
 
 const CheckBoxField = (
-  { data, helperText, readOnly, onChange, value, isIgnored, required, error }: CheckBoxFieldProps,
+  { data, helperText, readOnly, onChange, value, isIgnored, required, error, ancestorValue }: CheckBoxFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
+  const isActive = ancestorValue || !!value;
+  const lastAncestorRef = useRef(ancestorValue);
+
   const { attributes, children, uuid } = data;
   const { label, type, isLeaf, messages, name } = attributes;
   const [message, setMessage] = useState<string | undefined>(messages?.off);
@@ -29,6 +33,22 @@ const CheckBoxField = (
     onChange?.({ children, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
     setMessage(hasMessage);
   };
+
+  // Update the last ancestor value to trigger onChange only when it changes
+  useEffect(() => {
+    if (ancestorValue !== lastAncestorRef.current) {
+      lastAncestorRef.current = ancestorValue;
+      onChange?.({
+        children,
+        event: undefined,
+        hasMessage: !!(ancestorValue ? messages?.on : messages?.off),
+        isLeaf,
+        name,
+        type,
+        value: ancestorValue,
+      });
+    }
+  }, [ancestorValue, children, isLeaf, messages?.off, messages?.on, name, onChange, type]);
 
   if (isIgnored) {
     return null;
@@ -42,8 +62,8 @@ const CheckBoxField = (
           <Stack spacing={1}>
             <FormControlLabel
               variant="card"
-              value={!!value}
-              checked={!!value}
+              value={!!isActive}
+              checked={!!isActive}
               label="Oui"
               data-label-name-value={`${name}-yes`}
               name={name}

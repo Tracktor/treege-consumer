@@ -60,7 +60,6 @@ const Radio = (
 
       onChange?.({
         children,
-        event: undefined,
         hasMessage: !!messageValue,
         isDecision,
         isLeaf,

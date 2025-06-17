@@ -1,6 +1,6 @@
 import { Alert, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Switch } from "@tracktor/design-system";
 import type { TreeNode } from "@tracktor/types-treege";
-import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
+import { ChangeEvent, forwardRef, Ref, useEffect, useRef } from "react";
 import ChangeEventField from "@/types/ChangeEventField";
 
 export interface SwitchFieldProps {
@@ -19,36 +19,45 @@ const SwitchField = (
   { data, inputRef, helperText, readOnly, onChange, value, isIgnored, error, ancestorValue }: SwitchFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
-  const stringAncestor = typeof ancestorValue === "string" ? ancestorValue : undefined;
-  const ancestorHasValue = !!stringAncestor?.length;
-
-  const [isActive, setIsActive] = useState<boolean>(ancestorHasValue || !!value);
-  const lastAncestorRef = useRef(ancestorHasValue);
+  const isActive = ancestorValue || !!value;
+  const lastAncestorRef = useRef(ancestorValue);
 
   const { attributes, children } = data;
   const { label, type, isLeaf, messages, name } = attributes;
-  const [message, setMessage] = useState<string | undefined>(messages?.off);
+
+  const message = isActive ? messages?.on : messages?.off;
   const Field = type === "checkbox" ? Checkbox : Switch;
 
   const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
     const hasMessage = checked ? messages?.on : messages?.off;
 
-    setIsActive(checked);
-    onChange?.({ children, event, hasMessage: !!hasMessage, isLeaf, name, type, value: checked });
-    setMessage(hasMessage);
+    onChange?.({
+      children,
+      event,
+      hasMessage: !!hasMessage,
+      isLeaf,
+      name,
+      type,
+      value: checked,
+    });
   };
 
-  // Update local state when ancestorValue changes
+  // Update the last ancestor value to trigger onChange only when it changes
   useEffect(() => {
-    if (ancestorHasValue !== lastAncestorRef.current) {
-      setIsActive(ancestorHasValue || false);
-      lastAncestorRef.current = ancestorHasValue;
-
-      // Call onChange with the new ancestorValue
-      onChange?.({ event: undefined, name, type, value: lastAncestorRef.current });
+    if (ancestorValue !== lastAncestorRef.current) {
+      lastAncestorRef.current = ancestorValue;
+      onChange?.({
+        children,
+        event: undefined,
+        hasMessage: !!(ancestorValue ? messages?.on : messages?.off),
+        isLeaf,
+        name,
+        type,
+        value: ancestorValue,
+      });
     }
-  }, [ancestorHasValue, ancestorValue, name, onChange, type]);
+  }, [ancestorValue, children, isLeaf, messages?.off, messages?.on, name, onChange, type]);
 
   if (isIgnored) {
     return null;
@@ -65,8 +74,8 @@ const SwitchField = (
               name={name}
               onChange={handleCheck}
               inputRef={inputRef}
-              value={isActive}
-              checked={isActive}
+              value={!!isActive}
+              checked={!!isActive}
               readOnly={readOnly}
               disabled={readOnly}
               color={error ? "error" : undefined}
