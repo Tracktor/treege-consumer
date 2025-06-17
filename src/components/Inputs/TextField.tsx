@@ -1,5 +1,5 @@
 import { Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, FocusEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FocusEvent, forwardRef, Ref, useEffect, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -30,66 +30,67 @@ const TextField = (
     inputRef,
     onChange,
     required,
-    type,
+    type = "text",
     readOnly,
     multiple,
     shrink,
-    value,
-    isIgnored,
-    pattern,
-    patternMessage,
-    error,
+    value = "",
     ancestorValue,
+    error,
+    pattern,
+    isIgnored,
+    patternMessage,
   }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const prevAncestorValue = useRef(ancestorValue);
-  const [text, setText] = useState(() => (ancestorValue || value) ?? "");
+  const stringAncestorValue = typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const [text, setText] = useState(() => stringAncestorValue || value || "");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { value: newValue } = event.target;
+    const newValue = event.target.value;
     setText(newValue);
     onChange?.({ event, name, type, value: newValue });
   };
 
   const handleFocus = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (type === "number") {
-      const handleWheel = (e: Event) => e.preventDefault();
-
-      event.target.addEventListener("wheel", handleWheel, { passive: false });
+      const preventWheel = (e: Event) => e.preventDefault();
+      event.target.addEventListener("wheel", preventWheel, { passive: false });
       event.target.addEventListener(
         "blur",
         () => {
-          event.target.removeEventListener("wheel", handleWheel);
+          event.target.removeEventListener("wheel", preventWheel);
         },
         { once: true },
       );
     }
   };
 
+  // Update the text state when ancestorValue changes
   useEffect(() => {
-    if (ancestorValue !== prevAncestorValue.current && ancestorValue !== text) {
+    if (ancestorValue !== text && ancestorValue !== text) {
       setText(ancestorValue ?? "");
       onChange?.({ event: undefined, name, type, value: ancestorValue });
-      prevAncestorValue.current = ancestorValue;
     }
   }, [ancestorValue, name, type, text, onChange]);
 
-  if (isIgnored) return null;
+  if (isIgnored) {
+    return null;
+  }
 
   return (
     <Stack spacing={1.5}>
       <InputLabel required={required}>{label}</InputLabel>
       <TextFieldDS
         fullWidth
-        onChange={handleChange}
-        onFocus={handleFocus}
         ref={ref}
         name={name}
         type={type}
+        value={text}
+        onChange={handleChange}
+        onFocus={handleFocus}
         helperText={helperText}
         required={required}
-        value={text}
         inputRef={inputRef}
         error={error}
         slotProps={{
