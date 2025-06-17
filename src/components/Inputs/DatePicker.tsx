@@ -2,7 +2,7 @@ import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { DatePicker as DatePickerMui } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
-import { forwardRef, Ref } from "react";
+import { forwardRef, Ref, useEffect } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -56,6 +56,19 @@ const DatePicker = (
       context,
     );
   };
+
+  useEffect(() => {
+    if (ancestorValue && !value) {
+      const formattedAncestorValue = dayjs(String(ancestorValue), FORMAT);
+      onChange?.(
+        {
+          name,
+          value: formattedAncestorValue.format(FORMAT),
+        },
+        { validationError: null },
+      );
+    }
+  }, [ancestorValue, value, name, onChange]);
 
   if (isIgnored) {
     return null;
