@@ -93,7 +93,9 @@ const FieldFactory = ({
     ancestorType && textType.includes(ancestorType) && typeof ancestorValue === "string" ? ancestorValue : undefined;
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
   const booleanAncestorValue = ancestorType && typeof ancestorValue === "boolean" ? ancestorValue : undefined;
-  const ancestorValueToConsume = textAncestorValue || booleanAncestorValue || objectAncestorValue || ancestorValue || "";
+  const ancestorValueToConsume = textAncestorValue || booleanAncestorValue || objectAncestorValue || "";
+  // console.log(name, ancestorRef);
+  console.log("detailFieldValues", detailFieldValues);
 
   // Derived values
   const errorOrHelperText = error || helperText;
@@ -122,11 +124,12 @@ const FieldFactory = ({
       handleChangeFormValue?.({
         ...dataAttribute,
         rawData: dataAttribute.rawData,
+        type,
         uuid,
         value: dataAttribute.value || "",
       });
     },
-    [handleChangeFormValue, uuid],
+    [handleChangeFormValue, uuid, type],
   );
 
   const handleInputRef = useCallback(

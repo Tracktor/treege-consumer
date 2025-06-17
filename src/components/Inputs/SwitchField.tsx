@@ -43,10 +43,15 @@ const SwitchField = (
     });
   };
 
+  console.log("A", ancestorValue);
+
   // Update the last ancestor value to trigger onChange only when it changes
   useEffect(() => {
     if (ancestorValue !== lastAncestorRef.current) {
       lastAncestorRef.current = ancestorValue;
+
+      console.log("B", lastAncestorRef.current);
+
       onChange?.({
         children,
         event: undefined,
@@ -54,7 +59,7 @@ const SwitchField = (
         isLeaf,
         name,
         type,
-        value: ancestorValue,
+        value: lastAncestorRef.current,
       });
     }
   }, [ancestorValue, children, isLeaf, messages?.off, messages?.on, name, onChange, type]);

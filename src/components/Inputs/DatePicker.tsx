@@ -59,11 +59,12 @@ const DatePicker = (
 
   useEffect(() => {
     if (ancestorValue && !value) {
-      const formattedAncestorValue = dayjs(String(ancestorValue), FORMAT);
+      const formattedAncestor = dayjs(String(ancestorValue), FORMAT);
+
       onChange?.(
         {
           name,
-          value: formattedAncestorValue.format(FORMAT),
+          value: formattedAncestor.format(FORMAT),
         },
         { validationError: null },
       );

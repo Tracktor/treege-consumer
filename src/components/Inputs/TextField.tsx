@@ -1,5 +1,5 @@
 import { Stack, TextField as TextFieldDS } from "@tracktor/design-system";
-import { ChangeEvent, FocusEvent, forwardRef, Ref, useEffect, useState } from "react";
+import { ChangeEvent, FocusEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -43,6 +43,7 @@ const TextField = (
   }: TextFieldProps,
   ref: Ref<HTMLDivElement>,
 ) => {
+  const prevAncestorValue = useRef(ancestorValue);
   const [text, setText] = useState(() => (ancestorValue || value) ?? "");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -67,8 +68,12 @@ const TextField = (
   };
 
   useEffect(() => {
-    setText(ancestorValue ?? "");
-  }, [ancestorValue]);
+    if (ancestorValue !== prevAncestorValue.current && ancestorValue !== text) {
+      setText(ancestorValue ?? "");
+      onChange?.({ event: undefined, name, type, value: ancestorValue });
+      prevAncestorValue.current = ancestorValue;
+    }
+  }, [ancestorValue, name, type, text, onChange]);
 
   if (isIgnored) return null;
 
