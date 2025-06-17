@@ -72,6 +72,7 @@ const Radio = (
       setMessage(messageValue);
     }
   }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, stringAncestor, type, value, ancestorValue]);
+
   // Trigger the onInit when the component is mounted
   useEffect(() => {
     if (isDecision && value) {
