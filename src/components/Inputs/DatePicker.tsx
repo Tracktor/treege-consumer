@@ -20,6 +20,7 @@ export interface DateRangeProps {
   patternMessage?: string;
   error?: boolean;
   onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
+  ancestorValue?: unknown;
 }
 
 const FORMAT = "YYYY-MM-DD";
@@ -39,9 +40,13 @@ const DatePicker = (
     error,
     pattern,
     patternMessage,
+    ancestorValue,
   }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
+  const rawValue = value || ancestorValue;
+  const formattedValue = rawValue ? dayjs(String(rawValue), FORMAT) : null;
+
   const handleChange = (date: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
     onChange?.(
       {
@@ -64,7 +69,7 @@ const DatePicker = (
         readOnly={readOnly}
         ref={ref}
         name={name}
-        value={value ? dayjs(String(value), FORMAT) : null}
+        value={formattedValue || null}
         onChange={handleChange}
         format="ll"
         slotProps={{

@@ -91,7 +91,6 @@ const FieldFactory = ({
   const { type: ancestorType, value: ancestorValue, rawData: ancestorRawData } = ancestorRef || {};
   const textAncestorValue =
     ancestorType && textType.includes(ancestorType) && typeof ancestorValue === "string" ? ancestorValue : undefined;
-  // worksite with address = L15EN TUNNEL - EXBY.L15EN92961
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
   // todo: add boolean, number, date, time types support
   const ancestorValueToConsume = textAncestorValue || objectAncestorValue;
@@ -235,6 +234,7 @@ const FieldFactory = ({
             pattern={pattern}
             patternMessage={patternMessage}
             error={!!error}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "time":
