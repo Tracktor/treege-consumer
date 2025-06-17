@@ -59,16 +59,13 @@ const DatePicker = (
     );
   };
 
+  // Update the ancestor value to trigger onChange only when it changes
   useEffect(() => {
-    const shouldSync = ancestorValueString && previousAncestorRef.current !== ancestorValueString;
-
-    if (shouldSync) {
-      const formattedAncestor = dayjs(String(ancestorValueString), FORMAT);
-
+    if (ancestorValueString && previousAncestorRef.current !== ancestorValueString) {
       onChange?.(
         {
           name,
-          value: formattedAncestor.format(FORMAT),
+          value: dayjs(String(ancestorValueString), FORMAT).format(FORMAT),
         },
         { validationError: null },
       );

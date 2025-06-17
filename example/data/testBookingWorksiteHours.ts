@@ -279,12 +279,40 @@ const testBookingWorksiteHours: TreeNode = {
                                                 {
                                                   attributes: {
                                                     depth: 12,
-                                                    isLeaf: true,
+                                                    isLeaf: false,
                                                     label: "comment",
                                                     name: "comment",
                                                     type: "text",
                                                   },
-                                                  children: [],
+                                                  children: [
+                                                    {
+                                                      attributes: {
+                                                        defaultValueFromAncestor: {
+                                                          sourceValue: "entityId",
+                                                          uuid: "1750111409376oo9z1zj8861332.5",
+                                                        },
+                                                        depth: 13,
+                                                        isLeaf: true,
+                                                        label: "entities",
+                                                        name: "entities",
+                                                        type: "select",
+                                                        values: [
+                                                          {
+                                                            id: "0",
+                                                            label: "entité Mickey",
+                                                            value: "22960",
+                                                          },
+                                                          {
+                                                            id: "1",
+                                                            label: "entité Toto",
+                                                            value: "12345",
+                                                          },
+                                                        ],
+                                                      },
+                                                      children: [],
+                                                      uuid: "17501829708732o1juyq13065393.699999988",
+                                                    },
+                                                  ],
                                                   uuid: "1750146867397f4jyqgz7737060.099999994",
                                                 },
                                               ],
