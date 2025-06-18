@@ -151,7 +151,13 @@ const DynamicSelect = ({
         readOnly={readOnly}
         error={error || isError}
         disabled={isParentFieldRequiredAndEmpty || isLoading || isError}
-        renderValue={(selected) => optionsWithValues?.find((opt) => opt.id === selected)?.label ?? ""}
+        renderValue={(selected) => {
+          if (isLoading) {
+            return "Loading...";
+          }
+
+          return optionsWithValues?.find((opt) => opt.id === selected)?.label ?? "";
+        }}
       >
         {uniqueOptions?.map((option) => (
           <MenuItem key={option.value} value={option.value}>
@@ -164,7 +170,6 @@ const DynamicSelect = ({
           </MenuItem>
         )}
       </Select>
-      {isLoading && <FormHelperText>Loading...</FormHelperText>}
       {helperText && <FormHelperText error={error || isError}>{helperText}</FormHelperText>}
     </Stack>
   );
