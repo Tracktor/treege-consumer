@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Autocomplete, Avatar, ListItem, ListItemAvatar, ListItemText, Stack, TextField } from "@tracktor/design-system";
-import { useDebounce } from "@tracktor/react-utils";
+import { getObjectValue, isString, useDebounce } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
@@ -9,7 +9,6 @@ import { DetailFieldValues } from "@/types/FieldValues";
 import adaptRouteResponseToOptions, { Option } from "@/utils/adaptRouteResponseToOptions/adaptRouteResponseToOptions";
 import paramsBuilder from "@/utils/paramsBuilder/paramsBuilder";
 import requestFetcher from "@/utils/requestFetcher/requestFetcher";
-import safeGetObjectValueByKey from "@/utils/safeGetObjectValueByKey/safeGetObjectValueByKey";
 import urlBuilder from "@/utils/urlBuilder/urlBuilder";
 
 interface ApiAutocompleteProps {
@@ -132,8 +131,8 @@ const ApiAutocomplete = (
           return option?.value === optionValue?.value;
         }}
         renderOption={({ id, ...props }, option, { index }) => {
-          const optionImage = safeGetObjectValueByKey(option, "imageUri");
-          const optionLabel = safeGetObjectValueByKey(option, "label");
+          const optionImage = getObjectValue(option, "imageUri");
+          const optionLabel = getObjectValue(option, "label");
           const key = `${option?.id}-${option.label}-${index}-${String(id)}`;
           const logo = optionImage ? `${prefixResponseImageUriAutocomplete}${optionImage}` : undefined;
 
@@ -143,7 +142,7 @@ const ApiAutocomplete = (
               <ListItemAvatar>
                 <Avatar variant="rounded" alt={optionLabel} src={logo} sx={{ height: 30, width: 30 }} />
               </ListItemAvatar>
-              <ListItemText primary={optionLabel} />
+              <ListItemText primary={isString(optionLabel) ? optionLabel : ""} />
             </ListItem>
           );
         }}

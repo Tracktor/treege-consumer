@@ -1,5 +1,5 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
-import { isString } from "@tracktor/react-utils";
+import { isString, getObjectValue } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { memo, useCallback, useState } from "react";
 import Address from "@/components/Inputs/Address";
@@ -23,13 +23,6 @@ import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues, DetailFieldValues } from "@/types/FieldValues";
 
 const textType = ["email", "number", "password", "tel", "text", "url", "date", "time"];
-
-const safeGetProperty = (obj: unknown, key: string): unknown => {
-  if (obj && typeof obj === "object") {
-    return Object.prototype.hasOwnProperty.call(obj, key) ? Object.getOwnPropertyDescriptor(obj, key)?.value : undefined;
-  }
-  return undefined;
-};
 
 export interface FielFactoryProps {
   fieldValues?: FieldValues;
@@ -91,7 +84,7 @@ const FieldFactory = ({
   const ancestorRef = detailFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
   const { type: ancestorType, value: ancestorValue, rawData: ancestorRawData } = ancestorRef || {};
   const textAncestorValue = ancestorType && textType.includes(ancestorType) && isString(ancestorValue) ? ancestorValue : undefined;
-  const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
+  const objectAncestorValue = isString(sourceValue) ? getObjectValue(ancestorRawData, sourceValue, sourceValue) : undefined;
   const booleanAncestorValue = ancestorType && typeof ancestorValue === "boolean" ? ancestorValue : undefined;
   const arrayAncestorValue = ancestorType && Array.isArray(ancestorValue) ? ancestorValue : undefined;
   const ancestorValues = [textAncestorValue, booleanAncestorValue, objectAncestorValue, arrayAncestorValue];
