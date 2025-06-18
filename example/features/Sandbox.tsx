@@ -5,27 +5,30 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
+  Grid2,
   Stack,
   Tab,
   Tabs,
   TextareaAutosize,
   ThemeProvider,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@tracktor/design-system";
-import type { TreeNode } from "@tracktor/types-treege";
-import { ChangeEvent, ReactNode, SyntheticEvent, useState } from "react";
+import basicExample from "example/data/basicExample";
+import testBookingWorksiteHours from "example/data/testBookingWorksiteHours";
+import { ReactNode, SyntheticEvent, useState } from "react";
 import TreegeConsumer from "@/features/TreegeConsumer/TreegeConsumer";
 import { TreegeConsumerProvider } from "@/main";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 
 interface SandboxProps {
-  tree: TreeNode;
   dialogOpen: boolean;
   customHeaders?: HeadersInit;
   submitData?: OnSubmitReturn;
   handleCloseDialog: () => void;
-  handleChangeTree: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: ({ data, formData, fieldValues }: OnSubmitReturn) => void;
   handleChangeComponent: (newComponent: "DataViewer" | "TreegeConsumer") => void;
   isSubmitting?: boolean;
@@ -52,8 +55,6 @@ const CustomTabPanel = (props: TabPanelProps) => {
 };
 
 const Sandbox = ({
-  tree,
-  handleChangeTree,
   onSubmit,
   submitData,
   dialogOpen,
@@ -63,6 +64,8 @@ const Sandbox = ({
   handleChangeComponent,
 }: SandboxProps) => {
   const [value, setValue] = useState(0);
+  const [selectedExample, setSelectedExample] = useState<"basic" | "advanced">("basic");
+  const [treeData, setTreeData] = useState(basicExample);
 
   const handleChange = (_: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -71,10 +74,9 @@ const Sandbox = ({
   return (
     <TreegeConsumerProvider adapterLocale="fr">
       <ThemeProvider theme="dark">
-        <Grid container height="100%">
-          <Grid
-            item
-            md={6}
+        <Grid2 container height="100%">
+          <Grid2
+            size={6}
             sx={{
               display: "flex",
               maxHeight: "100%",
@@ -84,7 +86,7 @@ const Sandbox = ({
           >
             <TextareaAutosize
               minRows={10}
-              value={JSON.stringify(tree, null, 2)}
+              value={JSON.stringify(treeData, null, 2)}
               style={{
                 background: "black",
                 color: "green",
@@ -92,12 +94,10 @@ const Sandbox = ({
                 whiteSpace: "nowrap",
                 width: "100%",
               }}
-              onChange={handleChangeTree}
             />
-          </Grid>
-          <Grid
-            item
-            md={6}
+          </Grid2>
+          <Grid2
+            size={6}
             sx={{
               height: "100%",
               overflow: "hidden",
@@ -105,13 +105,39 @@ const Sandbox = ({
             }}
           >
             <Stack spacing={2} pt={4}>
-              <Button variant="link" onClick={() => handleChangeComponent("DataViewer")}>
-                See values
-              </Button>
+              <Grid2 container direction="row" spacing={2} alignItems="center" justifyContent="center" alignContent="center">
+                <Grid2 size={4} alignContent="center" justifyContent="center" display="flex">
+                  <FormControl fullWidth variant="standard">
+                    <InputLabel id="demo-simple-select-label">Example</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedExample}
+                      onChange={(e) => {
+                        const selectedValue = e.target.value as "basic" | "advanced";
+                        setSelectedExample(selectedValue);
+
+                        const newTree = selectedValue === "basic" ? basicExample : testBookingWorksiteHours;
+                        setTreeData(newTree);
+                      }}
+                    >
+                      <MenuItem value="advanced">advanced</MenuItem>
+                      <MenuItem value="basic">basic</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid2>
+
+                <Grid2 size={6} alignContent="center" justifyContent="center" display="flex">
+                  <Button variant="link" onClick={() => handleChangeComponent("DataViewer")}>
+                    See values
+                  </Button>
+                </Grid2>
+              </Grid2>
+
               <Box flex={1} pt={2}>
                 <TreegeConsumer
                   debug
-                  tree={tree}
+                  tree={treeData}
                   onSubmit={onSubmit}
                   isSubmitting={isSubmitting}
                   headers={customHeaders}
@@ -122,6 +148,7 @@ const Sandbox = ({
                   }}
                 />
               </Box>
+
               <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md" scroll="body">
                 <DialogTitle id="alert-dialog-title">Result:</DialogTitle>
 
@@ -152,8 +179,8 @@ const Sandbox = ({
                 </DialogActions>
               </Dialog>
             </Stack>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </ThemeProvider>
     </TreegeConsumerProvider>
   );

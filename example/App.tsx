@@ -1,12 +1,9 @@
-import type { TreeNode } from "@tracktor/types-treege";
-import testBookingWorksiteHours from "example/data/testBookingWorksiteHours";
 import DataViewer from "example/features/DataViewer";
 import Sandbox from "example/features/Sandbox";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 
 const App = () => {
-  const [tree, setTree] = useState<TreeNode>(testBookingWorksiteHours);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitData, setSubmitData] = useState<OnSubmitReturn>();
@@ -18,11 +15,6 @@ const App = () => {
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-  };
-
-  const handleChangeTree = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = event.currentTarget;
-    setTree(JSON.parse(value));
   };
 
   const handleSubmit = async ({ data, formData, fieldValues, detailFieldValues }: OnSubmitReturn) => {
@@ -43,15 +35,13 @@ const App = () => {
   ) : (
     <Sandbox
       isSubmitting={isSubmitting}
-      tree={tree}
       dialogOpen={dialogOpen}
-      handleChangeTree={handleChangeTree}
       handleCloseDialog={handleCloseDialog}
       onSubmit={handleSubmit}
       submitData={submitData}
       handleChangeComponent={handleChangeComponent}
       customHeaders={{
-        Authorization: (import.meta as any).env.VITE_BEARER_TOKEN || "",
+        ...(import.meta.env.VITE_BEARER_TOKEN ? { Authorization: import.meta.env.VITE_BEARER_TOKEN } : {}),
         "Content-Type": "application/json",
       }}
     />
