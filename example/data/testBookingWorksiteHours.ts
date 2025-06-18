@@ -346,7 +346,7 @@ const testBookingWorksiteHours: TreeNode = {
                                                           uuid: "1750111409376oo9z1zj8861332.5",
                                                         },
                                                         depth: 13,
-                                                        isLeaf: true,
+                                                        isLeaf: false,
                                                         label: "entities",
                                                         name: "entities",
                                                         type: "select",
@@ -363,7 +363,34 @@ const testBookingWorksiteHours: TreeNode = {
                                                           },
                                                         ],
                                                       },
-                                                      children: [],
+                                                      children: [
+                                                        {
+                                                          attributes: {
+                                                            depth: 14,
+                                                            isLeaf: false,
+                                                            label: "timeRange",
+                                                            name: "timeRange",
+                                                            type: "timeRange",
+                                                          },
+                                                          children: [
+                                                            {
+                                                              attributes: {
+                                                                defaultValueFromAncestor: {
+                                                                  uuid: "1750231882326hz1k4jd1574404.5",
+                                                                },
+                                                                depth: 15,
+                                                                isLeaf: true,
+                                                                label: "timeRange from timeRange",
+                                                                name: "timeRange from timeRange",
+                                                                type: "timeRange",
+                                                              },
+                                                              children: [],
+                                                              uuid: "1750231893995cuhe4ee1586074.400000006",
+                                                            },
+                                                          ],
+                                                          uuid: "1750231882326hz1k4jd1574404.5",
+                                                        },
+                                                      ],
                                                       uuid: "17501829708732o1juyq13065393.699999988",
                                                     },
                                                   ],

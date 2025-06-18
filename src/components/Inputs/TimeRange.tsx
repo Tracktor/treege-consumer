@@ -25,13 +25,19 @@ export interface TimeRangeProps {
 const FORMAT = "HH:mm";
 
 const parseTimeRange = (value?: unknown, fallback?: unknown): [Dayjs | null, Dayjs | null] => {
+  const parse = (val: unknown): Dayjs | null => (typeof val === "string" && val.trim() !== "" ? dayjs(val, FORMAT) : null);
+
   if (Array.isArray(value) && (value[0] || value[1])) {
-    return [value[0] ? dayjs(value[0], FORMAT) : null, value[1] ? dayjs(value[1], FORMAT) : null];
+    return [parse(value[0]), parse(value[1])];
   }
 
-  if (typeof fallback === "string") {
+  if (Array.isArray(fallback) && (fallback[0] || fallback[1])) {
+    return [parse(fallback[0]), parse(fallback[1])];
+  }
+
+  if (typeof fallback === "string" && fallback.includes(" - ")) {
     const [startStr, endStr] = fallback.split(" - ");
-    return [startStr ? dayjs(startStr, FORMAT) : null, endStr ? dayjs(endStr, FORMAT) : null];
+    return [parse(startStr), parse(endStr)];
   }
 
   return [null, null];
