@@ -85,7 +85,7 @@ const useTreegeConsumer = ({
       });
     }
 
-    const safeValue = value && typeof value === "object" && "value" in value ? value.value : value;
+    const safeValue = typeof value === "object" && value !== null && "value" in value ? value.value : value;
 
     setDetailFieldValues((prevEntries) => {
       const field = fields.find((f) => f.attributes.name === name);

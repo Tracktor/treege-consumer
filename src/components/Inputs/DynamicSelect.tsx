@@ -13,7 +13,8 @@ import urlBuilder from "@/utils/urlBuilder/urlBuilder";
 
 const getSafeValue = (value: string | Option | null | undefined, options?: Option[]): string => {
   const valueStr = typeof value === "object" && value !== null ? value.value : value;
-  return typeof isString(valueStr) && options?.some((opt) => opt?.value === valueStr) ? String(valueStr) : "";
+
+  return isString(valueStr) && options?.some((opt) => opt?.value === valueStr) ? String(valueStr) : "";
 };
 
 interface DynamicSelectProps {

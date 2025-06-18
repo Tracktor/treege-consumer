@@ -94,7 +94,8 @@ const FieldFactory = ({
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
   const booleanAncestorValue = ancestorType && typeof ancestorValue === "boolean" ? ancestorValue : undefined;
   const arrayAncestorValue = ancestorType && Array.isArray(ancestorValue) ? ancestorValue : undefined;
-  const ancestorValueToConsume = textAncestorValue || booleanAncestorValue || objectAncestorValue || arrayAncestorValue || "";
+  const ancestorValueToConsume =
+    [textAncestorValue, booleanAncestorValue, objectAncestorValue, arrayAncestorValue].find((v) => v !== undefined) ?? "";
 
   // Derived values
   const errorOrHelperText = error || helperText;
@@ -125,7 +126,7 @@ const FieldFactory = ({
         rawData: dataAttribute.rawData,
         type,
         uuid,
-        value: dataAttribute.value || "",
+        value: dataAttribute.value ?? "",
       });
     },
     [handleChangeFormValue, uuid, type],
