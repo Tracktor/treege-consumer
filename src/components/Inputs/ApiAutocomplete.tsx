@@ -69,7 +69,7 @@ const ApiAutocomplete = (
     headers,
     searchKey: searchKey || "",
     searchValue: debouncedSearchValue,
-    url: url || "",
+    url: dynamicUrl || "",
   });
 
   const { data, isFetching, isError } = useQuery({
