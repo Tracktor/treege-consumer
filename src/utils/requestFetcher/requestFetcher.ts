@@ -1,6 +1,6 @@
 export interface DryParams {
   key: string;
-  value: string;
+  value: string | string[];
 }
 
 type LocalFetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;

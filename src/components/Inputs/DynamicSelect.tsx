@@ -57,7 +57,7 @@ const DynamicSelect = ({
   const { params, url } = route || {};
   const apiParams = paramsBuilder({ detailFieldValues, params });
   const dynamicUrl = urlBuilder({ detailFieldValues, params, url });
-  const hasUnresolvedPlaceholders = !/\{[^}]+}/.test(dynamicUrl);
+  const hasAllResolvedPlaceholders = !/\{[^}]+}/.test(dynamicUrl);
 
   const fetchData = requestFetcher({
     additionalParams: apiParams,
@@ -66,19 +66,24 @@ const DynamicSelect = ({
   });
 
   const { data, isError, isLoading } = useQuery({
-    enabled: initialQuery || hasUnresolvedPlaceholders,
+    enabled: initialQuery || hasAllResolvedPlaceholders,
     queryFn: ({ signal }) => fetchData(signal),
     queryKey: [name, JSON.stringify(apiParams), dynamicUrl],
   });
 
-  const addValueToOptions = (options?: Option[] | null, inputValue?: Option | string | null) => {
-    if (!inputValue || !options || options.length === 0) return options ?? [];
+  const addValueToOptions = (options?: Option[] | null, inputValue?: Option | string | null): Option[] => {
+    if (!inputValue) return options ?? [];
 
-    const inputValueStr = typeof inputValue === "object" ? inputValue.value : inputValue;
+    const inputValueObj =
+      typeof inputValue === "object" ? inputValue : { id: String(inputValue), label: String(inputValue), value: String(inputValue) };
 
-    const exists = options.some((opt) => opt?.value === inputValueStr);
+    const exists = options?.some((opt) => opt?.value === inputValueObj.value);
 
-    return exists ? options : options;
+    if (exists) {
+      return options ?? [];
+    }
+
+    return [...(options ?? []), inputValueObj];
   };
 
   const options = adaptRouteResponseToOptions(data, route);
@@ -88,7 +93,7 @@ const DynamicSelect = ({
   );
 
   const handleChange = (event: SelectChangeEvent) => {
-    const findSelectedRawData = optionsWithValues?.find((opt) => opt.id === event.target.value);
+    const findSelectedRawData = optionsWithValues?.find((opt) => opt.value === event.target.value);
 
     onChange?.({
       children,
