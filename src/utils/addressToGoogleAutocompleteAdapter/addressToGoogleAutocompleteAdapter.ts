@@ -1,5 +1,19 @@
 import { addressToString } from "@tracktor/react-utils";
 
+interface ResonseGeocodingAddress {
+  description?: string;
+  distance_meters?: number;
+  matched_substrings?: Array<{ offset: number; length: number }>;
+  place_id?: string;
+  structured_formatting?: {
+    main_text: string;
+    main_text_matched_substrings: Array<{ offset: number; length: number }>;
+    secondary_text: string;
+  };
+  terms?: Array<{ value: string; offset: number }>;
+  types?: string[];
+}
+
 /**
  * Adapts a CommonGeocodingAddress object to a format compatible with
  * the Google Places Autocomplete API.
@@ -10,7 +24,7 @@ import { addressToString } from "@tracktor/react-utils";
  * @returns An object formatted according to the Google Places Autocomplete API,
  *          or null if the input address is invalid.
  */
-const addressToGoogleAutocompleteAdapter = (address?: unknown | null) => {
+const addressToGoogleAutocompleteAdapter = (address?: unknown | null): ResonseGeocodingAddress | null => {
   if (!address) {
     return null;
   }
@@ -25,7 +39,5 @@ const addressToGoogleAutocompleteAdapter = (address?: unknown | null) => {
     types: [],
   };
 };
-
-// test: Main D'oeuvre Sav - 024x.mosav1 || PS Ressources Humaines - Z32X.CO2210
 
 export default addressToGoogleAutocompleteAdapter;
