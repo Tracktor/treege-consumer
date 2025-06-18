@@ -221,10 +221,7 @@ const TreegeConsumer = <T,>({
     <TreegeComposition
       options={options}
       loading={loading}
-      onSubmit={({ fieldValues, detailFieldValues, formData, data }) => {
-        console.log("detailFieldValues", detailFieldValues);
-        onSubmit?.({ data, detailFieldValues, fieldValues, formData });
-      }}
+      onSubmit={onSubmit}
       tree={tree}
       isSubmitting={isSubmitting}
       style={style}

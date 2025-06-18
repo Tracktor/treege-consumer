@@ -165,7 +165,7 @@ const useTreegeConsumer = ({
     onSubmit?.({ data, detailFieldValues, fieldValues, formData });
 
     if (debug) {
-      // console.log({ data, detailFieldValues, fieldValues, formData });
+      console.log({ data, detailFieldValues, fieldValues, formData });
     }
   };
 
