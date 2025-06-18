@@ -1,5 +1,4 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, Radio as RadioDS, RadioGroup, Stack } from "@tracktor/design-system";
-import { isString } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
@@ -24,7 +23,7 @@ const Radio = (
   { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored, error, ancestorValue }: RadioProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const stringAncestor = isString(ancestorValue) ? ancestorValue : undefined;
+  const ancestorPrimitive = ["string", "number", "boolean"].includes(typeof ancestorValue) ? String(ancestorValue) : undefined;
   const ancestorRef = useRef<string>();
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes, uuid } = data;
@@ -43,13 +42,13 @@ const Radio = (
   // If there's no selected value, only one child option, or a string ancestor, select the option by default
   useEffect(() => {
     const getSelectedValue = (): string | undefined => {
-      if (stringAncestor && stringAncestor !== ancestorRef.current) {
-        ancestorRef.current = stringAncestor;
-        return stringAncestor;
+      if (ancestorPrimitive && ancestorPrimitive !== ancestorRef.current) {
+        ancestorRef.current = ancestorPrimitive;
+        return ancestorPrimitive;
       }
 
       if (!value) {
-        return (children.length === 1 && required && options[0]?.value) || stringAncestor;
+        return (children.length === 1 && required && options[0]?.value) || ancestorPrimitive;
       }
       return undefined;
     };
@@ -71,7 +70,7 @@ const Radio = (
 
       setMessage(messageValue);
     }
-  }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, stringAncestor, type, value, ancestorValue]);
+  }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, ancestorPrimitive, type, value, ancestorValue]);
 
   // Trigger the onInit when the component is mounted
   useEffect(() => {

@@ -17,8 +17,10 @@ import {
   Select,
   MenuItem,
 } from "@tracktor/design-system";
+import ancestorAdvancedExample from "example/data/ancestorAdvancedExample";
+import ancestorBasicExample from "example/data/ancestorBasicExample";
+import autocompleteExampleWithAncestor from "example/data/autocompleteExampleWithAncestor";
 import basicExample from "example/data/basicExample";
-import testBookingWorksiteHours from "example/data/testBookingWorksiteHours";
 import { ReactNode, SyntheticEvent, useState } from "react";
 import TreegeConsumer from "@/features/TreegeConsumer/TreegeConsumer";
 import { TreegeConsumerProvider } from "@/main";
@@ -39,6 +41,30 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
+
+const TreeSampleTypes = {
+  ancestorAdvanced: "ancestorAdvanced",
+  ancestorBasic: "ancestorBasic",
+  autocompleteAncestor: "autocompleteAncestor",
+  basic: "basic",
+} as const;
+
+type TreeSampleType = keyof typeof TreeSampleTypes;
+
+const getTreeSample = (selectedExample: TreeSampleType) => {
+  switch (selectedExample) {
+    case TreeSampleTypes.basic:
+      return basicExample;
+    case TreeSampleTypes.ancestorBasic:
+      return ancestorBasicExample;
+    case TreeSampleTypes.ancestorAdvanced:
+      return ancestorAdvancedExample;
+    case TreeSampleTypes.autocompleteAncestor:
+      return autocompleteExampleWithAncestor;
+    default:
+      return basicExample;
+  }
+};
 
 const CustomTabPanel = (props: TabPanelProps) => {
   const { children, value, index } = props;
@@ -64,8 +90,8 @@ const Sandbox = ({
   handleChangeComponent,
 }: SandboxProps) => {
   const [value, setValue] = useState(0);
-  const [selectedExample, setSelectedExample] = useState<"basic" | "advanced">("basic");
-  const [treeData, setTreeData] = useState(basicExample);
+  const [selectedExample, setSelectedExample] = useState<TreeSampleType>(TreeSampleTypes.basic);
+  const [treeData, setTreeData] = useState(() => structuredClone(basicExample));
 
   const handleChange = (_: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -106,7 +132,7 @@ const Sandbox = ({
           >
             <Stack spacing={2} pt={4}>
               <Grid2 container direction="row" spacing={2} alignItems="center" justifyContent="center" alignContent="center">
-                <Grid2 size={4} alignContent="center" justifyContent="center" display="flex">
+                <Grid2 size={5} alignContent="center" justifyContent="center" display="flex">
                   <FormControl fullWidth variant="standard">
                     <InputLabel id="demo-simple-select-label">Example</InputLabel>
                     <Select
@@ -114,20 +140,22 @@ const Sandbox = ({
                       id="demo-simple-select"
                       value={selectedExample}
                       onChange={(e) => {
-                        const selectedValue = e.target.value as "basic" | "advanced";
+                        const selectedValue = e.target.value as TreeSampleType;
                         setSelectedExample(selectedValue);
 
-                        const newTree = selectedValue === "basic" ? basicExample : testBookingWorksiteHours;
+                        const newTree = getTreeSample(selectedValue);
                         setTreeData(newTree);
                       }}
                     >
-                      <MenuItem value="basic">Basic</MenuItem>
-                      <MenuItem value="advanced">Advanced</MenuItem>
+                      <MenuItem value={TreeSampleTypes.basic}>Basic</MenuItem>
+                      <MenuItem value={TreeSampleTypes.ancestorBasic}>ancestor basic</MenuItem>
+                      <MenuItem value={TreeSampleTypes.autocompleteAncestor}>autocomplete with ancestor</MenuItem>
+                      <MenuItem value={TreeSampleTypes.ancestorAdvanced}>ancestor advanced with API calls</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid2>
 
-                <Grid2 size={6} alignContent="center" justifyContent="flex-end" display="flex">
+                <Grid2 size={4} alignContent="center" justifyContent="flex-end" display="flex">
                   <Button variant="link" onClick={() => handleChangeComponent("DataViewer")}>
                     See values
                   </Button>

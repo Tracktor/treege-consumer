@@ -1,6 +1,6 @@
 import type { TreeNode } from "@tracktor/types-treege";
 
-const autocompleteTest: TreeNode = {
+const autocompleteExampleWithAncestor: TreeNode = {
   attributes: {
     depth: 0,
     initialQuery: true,
@@ -45,4 +45,4 @@ const autocompleteTest: TreeNode = {
   uuid: "17490464395187cqrfgz1142.6999998092651",
 };
 
-export default autocompleteTest;
+export default autocompleteExampleWithAncestor;

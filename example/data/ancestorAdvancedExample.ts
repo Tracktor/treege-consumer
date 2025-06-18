@@ -1,6 +1,6 @@
 import type { TreeNode } from "@tracktor/types-treege";
 
-const testBookingWorksiteHours: TreeNode = {
+const ancestorAdvancedExample: TreeNode = {
   attributes: {
     depth: 0,
     isLeaf: false,
@@ -433,4 +433,4 @@ const testBookingWorksiteHours: TreeNode = {
   uuid: "1750111362072v5cwq148814028.5",
 };
 
-export default testBookingWorksiteHours;
+export default ancestorAdvancedExample;
