@@ -121,13 +121,13 @@ const Sandbox = ({
                         setTreeData(newTree);
                       }}
                     >
-                      <MenuItem value="advanced">advanced</MenuItem>
-                      <MenuItem value="basic">basic</MenuItem>
+                      <MenuItem value="basic">Basic</MenuItem>
+                      <MenuItem value="advanced">Advanced</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid2>
 
-                <Grid2 size={6} alignContent="center" justifyContent="center" display="flex">
+                <Grid2 size={6} alignContent="center" justifyContent="flex-end" display="flex">
                   <Button variant="link" onClick={() => handleChangeComponent("DataViewer")}>
                     See values
                   </Button>
