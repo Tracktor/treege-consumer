@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Autocomplete, Avatar, ListItem, ListItemAvatar, ListItemText, Stack, TextField } from "@tracktor/design-system";
-import { getObjectValue, isString, useDebounce } from "@tracktor/react-utils";
+import { getObjectValue, isObject, isString, useDebounce } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, SyntheticEvent, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
@@ -27,7 +27,7 @@ interface ApiAutocompleteProps {
 
 const isPlainEmptyObject = (val: unknown): boolean => {
   if (val === null || val === undefined) return true;
-  return typeof val === "object" && !Array.isArray(val) && val.constructor === Object && Object.keys(val).length === 0;
+  return isObject(val) && !Array.isArray(val) && val.constructor === Object && Object.keys(val).length === 0;
 };
 
 const ApiAutocomplete = (
@@ -60,7 +60,7 @@ const ApiAutocomplete = (
       return options;
     }
 
-    return typeof inputValue === "object" ? [inputValue, ...(options || [])] : [{ value: inputValue }, ...(options || [])];
+    return isObject(inputValue) ? [inputValue, ...(options || [])] : [{ value: inputValue }, ...(options || [])];
   };
 
   const search = requestFetcher({

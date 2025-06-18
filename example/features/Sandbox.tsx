@@ -164,6 +164,7 @@ const Sandbox = ({
 
               <Box flex={1} pt={2}>
                 <TreegeConsumer
+                  key={treeData.uuid}
                   debug
                   tree={treeData}
                   onSubmit={onSubmit}

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Stack, Select, MenuItem, FormHelperText, SelectChangeEvent } from "@tracktor/design-system";
-import { isString } from "@tracktor/react-utils";
+import { isObject, isString } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { Ref, useEffect, useRef } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
@@ -12,7 +12,7 @@ import requestFetcher from "@/utils/requestFetcher/requestFetcher";
 import urlBuilder from "@/utils/urlBuilder/urlBuilder";
 
 const getSafeValue = (value: string | Option | null | undefined, options?: Option[]): string => {
-  const valueStr = typeof value === "object" && value !== null ? value.value : value;
+  const valueStr = isObject(value) && value !== null ? value.value : value;
 
   return isString(valueStr) && options?.some((opt) => opt?.value === valueStr) ? String(valueStr) : "";
 };
@@ -75,8 +75,9 @@ const DynamicSelect = ({
   const addValueToOptions = (options?: Option[] | null, inputValue?: Option | string | null): Option[] => {
     if (!inputValue) return options ?? [];
 
-    const inputValueObj =
-      typeof inputValue === "object" ? inputValue : { id: String(inputValue), label: String(inputValue), value: String(inputValue) };
+    const inputValueObj = isObject(inputValue)
+      ? inputValue
+      : { id: String(inputValue), label: String(inputValue), value: String(inputValue) };
 
     const exists = options?.some((opt) => opt?.value === inputValueObj.value);
 

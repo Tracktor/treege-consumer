@@ -1,4 +1,4 @@
-import { isDeepEqualObject } from "@tracktor/react-utils";
+import { getObjectValue, isDeepEqualObject, isObject } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
@@ -85,7 +85,7 @@ const useTreegeConsumer = ({
       });
     }
 
-    const safeValue = typeof value === "object" && value !== null && "value" in value ? value.value : value;
+    const safeValue = isObject(value) && value !== null ? getObjectValue(value, "value") : value;
 
     setDetailFieldValues((prevEntries) => {
       const field = fields.find((f) => f.attributes.name === name);
