@@ -31,7 +31,7 @@ const Select = (
   const options = getOptionsForDecisionsField({ children, values });
   const onInitRef = useRef(onInit);
   const ancestorRef = useRef<string>();
-  const stringAncestor = typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const stringAncestor = isString(ancestorValue) ? ancestorValue : undefined;
 
   const validOptionValues = options.map((opt) => String(opt.value));
   const selectedValue = isString(value) && validOptionValues.includes(value) ? value : "";

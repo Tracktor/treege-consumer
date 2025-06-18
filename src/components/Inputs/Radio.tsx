@@ -1,4 +1,5 @@
 import { Alert, FormControl, FormControlLabel, FormHelperText, Radio as RadioDS, RadioGroup, Stack } from "@tracktor/design-system";
+import { isString } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
@@ -23,7 +24,7 @@ const Radio = (
   { data, helperText, inputRef, required, onChange, onInit, readOnly, value, isIgnored, error, ancestorValue }: RadioProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const stringAncestor = typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const stringAncestor = isString(ancestorValue) ? ancestorValue : undefined;
   const ancestorRef = useRef<string>();
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes, uuid } = data;

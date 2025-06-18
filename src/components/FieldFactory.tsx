@@ -1,4 +1,5 @@
 import { Box, Skeleton, Slide } from "@tracktor/design-system";
+import { isString } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { memo, useCallback, useState } from "react";
 import Address from "@/components/Inputs/Address";
@@ -89,8 +90,7 @@ const FieldFactory = ({
   const { uuid: ancestorUuid, sourceValue } = defaultValueFromAncestor || {};
   const ancestorRef = detailFieldValues.find((ancestor) => ancestor.uuid === ancestorUuid);
   const { type: ancestorType, value: ancestorValue, rawData: ancestorRawData } = ancestorRef || {};
-  const textAncestorValue =
-    ancestorType && textType.includes(ancestorType) && typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const textAncestorValue = ancestorType && textType.includes(ancestorType) && isString(ancestorValue) ? ancestorValue : undefined;
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
   const booleanAncestorValue = ancestorType && typeof ancestorValue === "boolean" ? ancestorValue : undefined;
   const arrayAncestorValue = ancestorType && Array.isArray(ancestorValue) ? ancestorValue : undefined;

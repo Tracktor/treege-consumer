@@ -1,6 +1,7 @@
 import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
+import { isString } from "@tracktor/react-utils";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
@@ -25,7 +26,12 @@ export interface TimeRangeProps {
 const FORMAT = "HH:mm";
 
 const parseTimeRange = (value?: unknown, fallback?: unknown): [Dayjs | null, Dayjs | null] => {
-  const parse = (val: unknown): Dayjs | null => (typeof val === "string" && val.trim() !== "" ? dayjs(val, FORMAT) : null);
+  const parse = (val: unknown): Dayjs | null => {
+    if (!isString(val) || val.trim() === "") return null;
+
+    const parsed = dayjs(val, FORMAT);
+    return parsed.isValid() ? parsed : null;
+  };
 
   if (Array.isArray(value) && (value[0] || value[1])) {
     return [parse(value[0]), parse(value[1])];
@@ -35,7 +41,7 @@ const parseTimeRange = (value?: unknown, fallback?: unknown): [Dayjs | null, Day
     return [parse(fallback[0]), parse(fallback[1])];
   }
 
-  if (typeof fallback === "string" && fallback.includes(" - ")) {
+  if (isString(fallback) && fallback.includes(" - ")) {
     const [startStr, endStr] = fallback.split(" - ");
     return [parse(startStr), parse(endStr)];
   }

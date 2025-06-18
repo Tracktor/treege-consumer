@@ -1,3 +1,4 @@
+import { isString } from "@tracktor/react-utils";
 import type { Params } from "@tracktor/types-treege";
 import { DetailFieldValues } from "@/types/FieldValues";
 
@@ -12,13 +13,13 @@ const urlBuilder = ({ url, detailFieldValues, params = [] }: UrlBuilderParams) =
     return "";
   }
 
-  const filteredParams = params?.filter((item) => typeof item.key === "string" && /^\{.+}$/.test(item.key));
+  const filteredParams = params?.filter((item) => isString(item.key) && /^\{.+}$/.test(item.key));
   const paramsWithDynamicValue =
     filteredParams
       ?.filter((param) => param.useAncestorValue)
       .map((param) => {
         const matchingField = detailFieldValues?.find((field) => field.uuid === param.ancestorUuid);
-        const stringValue = typeof matchingField?.value === "string" ? matchingField.value : "";
+        const stringValue = isString(matchingField?.value) ? matchingField.value : "";
 
         return {
           key: param.key,

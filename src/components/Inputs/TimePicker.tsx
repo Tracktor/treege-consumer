@@ -1,6 +1,7 @@
 import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
+import { isString } from "@tracktor/react-utils";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref, useEffect, useRef } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
@@ -50,7 +51,7 @@ const TimePicker = (
   ref: Ref<HTMLDivElement>,
 ) => {
   const previousAncestorRef = useRef<string | undefined>();
-  const ancestorValueString = typeof ancestorValue === "string" ? ancestorValue : undefined;
+  const ancestorValueString = isString(ancestorValue) ? ancestorValue : undefined;
   const rawValue = value || ancestorValueString;
   const formattedValue = formatValue(rawValue);
 
