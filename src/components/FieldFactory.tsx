@@ -21,7 +21,7 @@ import useOptionsContext from "@/hooks/useOptionsContext";
 import ChangeEventField from "@/types/ChangeEventField";
 import { FieldValues, DetailFieldValues } from "@/types/FieldValues";
 
-const textType = ["email", "number", "password", "tel", "text", "url", "date"];
+const textType = ["email", "number", "password", "tel", "text", "url", "date", "time"];
 
 const safeGetProperty = (obj: unknown, key: string): unknown => {
   if (obj && typeof obj === "object") {
@@ -254,6 +254,7 @@ const FieldFactory = ({
             pattern={pattern}
             patternMessage={patternMessage}
             error={!!error}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "timeRange":

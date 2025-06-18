@@ -281,12 +281,39 @@ const testBookingWorksiteHours: TreeNode = {
                                                           uuid: "1750146835892mfsm7gj7705554.5",
                                                         },
                                                         depth: 13,
-                                                        isLeaf: true,
+                                                        isLeaf: false,
                                                         label: "date from to date",
                                                         name: "dateFromToDate",
                                                         type: "date",
                                                       },
-                                                      children: [],
+                                                      children: [
+                                                        {
+                                                          attributes: {
+                                                            depth: 14,
+                                                            isLeaf: false,
+                                                            label: "time",
+                                                            name: "time",
+                                                            type: "time",
+                                                          },
+                                                          children: [
+                                                            {
+                                                              attributes: {
+                                                                defaultValueFromAncestor: {
+                                                                  uuid: "1750231119394yshz1ic811468.1999999881",
+                                                                },
+                                                                depth: 15,
+                                                                isLeaf: true,
+                                                                label: "ancestor time",
+                                                                name: "ancestor time",
+                                                                type: "time",
+                                                              },
+                                                              children: [],
+                                                              uuid: "1750231174364wwj0w6m866438.400000006",
+                                                            },
+                                                          ],
+                                                          uuid: "1750231119394yshz1ic811468.1999999881",
+                                                        },
+                                                      ],
                                                       uuid: "17501611241314bjsjq721993748.900000006",
                                                     },
                                                   ],
