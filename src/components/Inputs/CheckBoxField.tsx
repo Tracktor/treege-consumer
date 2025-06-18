@@ -20,7 +20,7 @@ const CheckBoxField = (
   { data, helperText, readOnly, onChange, value, isIgnored, required, error, ancestorValue }: CheckBoxFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
-  const isActive = ancestorValue || !!value;
+  const isActive = ancestorValue !== undefined ? Boolean(ancestorValue) : Boolean(value);
   const lastAncestorRef = useRef(ancestorValue);
 
   const { attributes, children, uuid } = data;
