@@ -28,7 +28,7 @@ interface AddressAdapterParams {
 
 const isAddressAdapterParams = (obj: unknown): obj is AddressAdapterParams => {
   if (typeof obj !== "object" || obj === null) return false;
-  return "street" in obj && "city" in obj && "postalCode" in obj;
+  return "streetNumber" in obj && "city" in obj && "postalCode" in obj;
 };
 
 export interface AutocompleteProps {
