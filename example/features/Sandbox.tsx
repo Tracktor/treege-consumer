@@ -118,7 +118,7 @@ const Sandbox = ({
                   options={{
                     disablePastDatePicker: true,
                     disablePastDateRangePicker: true,
-                    googleApiKey: (import.meta as any).env.VITE_GOOGLE_API_KEY || "",
+                    googleApiKey: import.meta.env.VITE_GOOGLE_API_KEY || "",
                   }}
                 />
               </Box>

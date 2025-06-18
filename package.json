@@ -33,11 +33,11 @@
     "example": "vite"
   },
   "dependencies": {
-    "@mui/x-date-pickers-pro": "^7.11.0",
-    "@mui/x-license": "^7.2.1",
-    "@tanstack/react-query": "^5.59.16",
-    "@tracktor/design-system": "^3.11.4",
-    "@tracktor/react-utils": "^1.21.0",
+    "@mui/x-date-pickers-pro": "^7.29.4",
+    "@mui/x-license": "^7.29.1",
+    "@tanstack/react-query": "^5.80.7",
+    "@tracktor/design-system": "^3.13.4",
+    "@tracktor/react-utils": "^1.22.3",
     "autosuggest-highlight": "^3.3.4",
     "dayjs": "^1.11.13",
     "lodash-es": "^4.17.21"
@@ -53,16 +53,16 @@
     "@types/lodash-es": "^4.17.12",
     "@types/react": "^18.2.26",
     "@types/react-dom": "^18.2.11",
-    "@vitejs/plugin-react": "^4.2.1",
-    "commit-and-tag-version": "^12.2.0",
+    "@vitejs/plugin-react": "^4",
+    "commit-and-tag-version": "^12.5.1",
     "eslint-config-react-tracktor": "^1.10.0",
     "husky": "^8.0.3",
     "jsdom": "^22.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.2.2",
-    "vite": "^5.4.14",
-    "vite-plugin-dts": "^4.5.3",
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^1.6.1"
   },
   "commitlint": {
