@@ -32,7 +32,8 @@ const urlBuilder = ({ url, detailFieldValues, params = [] }: UrlBuilderParams) =
   if (paramsWithDynamicValue.length > 0 && allValuesFilled) {
     return paramsWithDynamicValue.reduce((acc, { key, value }) => {
       const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      return acc.replace(new RegExp(escapedKey, "g"), value);
+
+      return acc.replace(new RegExp(escapedKey, "g"), encodeURIComponent(value));
     }, url);
   }
 
