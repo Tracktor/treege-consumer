@@ -37,7 +37,7 @@
     "@mui/x-license": "^7.29.1",
     "@tanstack/react-query": "^5.80.7",
     "@tracktor/design-system": "^3.13.4",
-    "@tracktor/react-utils": "^1.23.0",
+    "@tracktor/react-utils": "^1.24.0",
     "autosuggest-highlight": "^3.3.4",
     "dayjs": "^1.11.13",
     "lodash-es": "^4.17.21"

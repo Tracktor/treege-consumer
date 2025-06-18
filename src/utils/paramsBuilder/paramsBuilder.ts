@@ -1,5 +1,14 @@
 import type { Params } from "@tracktor/types-treege";
+import dayjs from "dayjs";
 import { DetailFieldValues } from "@/types/FieldValues";
+
+const toParamString = (v: unknown): string => {
+  if (v === null || v === undefined) return "";
+  if (Array.isArray(v)) return v.join(",");
+  if (dayjs.isDayjs(v) || v instanceof Date) return dayjs(v).toISOString();
+
+  return typeof v === "object" ? "" : String(v);
+};
 
 interface ParamsBuilderParams {
   params?: Params[];
@@ -22,8 +31,7 @@ const paramsBuilder = ({ params, detailFieldValues }: ParamsBuilderParams) => {
         const matchingField = detailFieldValues?.find((field) => field.uuid === param.ancestorUuid);
         const rawValue = matchingField?.value;
 
-        const stringValue = rawValue !== null && rawValue !== undefined && typeof rawValue !== "object" ? String(rawValue) : "";
-
+        const stringValue = toParamString(rawValue);
         return {
           key: param.key,
           value: stringValue,

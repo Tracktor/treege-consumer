@@ -2360,10 +2360,10 @@
     "@emotion/styled" "^11.13.0"
     "@mui/material" "~6.2.0"
 
-"@tracktor/react-utils@^1.23.0":
-  version "1.23.0"
-  resolved "https://registry.yarnpkg.com/@tracktor/react-utils/-/react-utils-1.23.0.tgz#d2caad17c09953a40bf4349a16bad10fe60f13fd"
-  integrity sha512-V3ime8drHAE/kdMg9we6GOkp8CyqHNAjwUYcVd6kUCWKlpmEhbbGL9gG1JMnVXE40B/TXSHqGwR83NnJGQbN0g==
+"@tracktor/react-utils@^1.24.0":
+  version "1.24.0"
+  resolved "https://registry.yarnpkg.com/@tracktor/react-utils/-/react-utils-1.24.0.tgz#62fe9744315f72692299c2d426fbb581cb00f1cb"
+  integrity sha512-5aO5SjLgeSQGu+URKOlJUo3Ajk3a4dH8aXkmerCyNTEfAUWeLzSOZ9KK7Xq2RlMIZxWze3tobEuYZBC8B3jiMg==
 
 "@tracktor/types-treege@^0.3.14":
   version "0.3.14"
