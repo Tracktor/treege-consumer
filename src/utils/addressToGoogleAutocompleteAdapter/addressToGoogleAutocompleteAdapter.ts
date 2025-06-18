@@ -1,6 +1,6 @@
 import { addressToString } from "@tracktor/react-utils";
 
-interface ResonseGeocodingAddress {
+interface ResponseGeocodingAddress {
   description?: string;
   distance_meters?: number;
   matched_substrings?: Array<{ offset: number; length: number }>;
@@ -24,7 +24,7 @@ interface ResonseGeocodingAddress {
  * @returns An object formatted according to the Google Places Autocomplete API,
  *          or null if the input address is invalid.
  */
-const addressToGoogleAutocompleteAdapter = (address?: unknown | null): ResonseGeocodingAddress | null => {
+const addressToGoogleAutocompleteAdapter = (address?: unknown | null): ResponseGeocodingAddress | null => {
   if (!address) {
     return null;
   }
