@@ -93,7 +93,8 @@ const FieldFactory = ({
     ancestorType && textType.includes(ancestorType) && typeof ancestorValue === "string" ? ancestorValue : undefined;
   const objectAncestorValue = sourceValue ? safeGetProperty(ancestorRawData, String(sourceValue)) : undefined;
   const booleanAncestorValue = ancestorType && typeof ancestorValue === "boolean" ? ancestorValue : undefined;
-  const ancestorValueToConsume = textAncestorValue || booleanAncestorValue || objectAncestorValue || "";
+  const arrayAncestorValue = ancestorType && Array.isArray(ancestorValue) ? ancestorValue : undefined;
+  const ancestorValueToConsume = textAncestorValue || booleanAncestorValue || objectAncestorValue || arrayAncestorValue || "";
 
   // Derived values
   const errorOrHelperText = error || helperText;
@@ -288,6 +289,7 @@ const FieldFactory = ({
             isIgnored={isFieldIgnored}
             licenseMuiX={licenseMuiX}
             error={!!error}
+            ancestorValue={ancestorValueToConsume}
           />
         );
       case "address":

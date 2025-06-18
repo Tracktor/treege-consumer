@@ -213,12 +213,39 @@ const testBookingWorksiteHours: TreeNode = {
                                                           uuid: "17501467660751ez0ll67635737.800000012",
                                                         },
                                                         depth: 13,
-                                                        isLeaf: true,
+                                                        isLeaf: false,
                                                         label: "is locked locked ?",
                                                         name: "isLockedLocked",
                                                         type: "checkbox",
                                                       },
-                                                      children: [],
+                                                      children: [
+                                                        {
+                                                          attributes: {
+                                                            depth: 14,
+                                                            isLeaf: false,
+                                                            label: "dateRange",
+                                                            name: "dateRange",
+                                                            type: "dateRange",
+                                                          },
+                                                          children: [
+                                                            {
+                                                              attributes: {
+                                                                defaultValueFromAncestor: {
+                                                                  uuid: "1750230358049kk5qtk450118",
+                                                                },
+                                                                depth: 15,
+                                                                isLeaf: true,
+                                                                label: "ancestor dateRange",
+                                                                name: "ancestor dateRange",
+                                                                type: "dateRange",
+                                                              },
+                                                              children: [],
+                                                              uuid: "1750230389799d5gu87v81868.59999999404",
+                                                            },
+                                                          ],
+                                                          uuid: "1750230358049kk5qtk450118",
+                                                        },
+                                                      ],
                                                       uuid: "1750154142640sfbr8o615012278.800000012",
                                                     },
                                                   ],

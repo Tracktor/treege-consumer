@@ -2,7 +2,7 @@ import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import { DatePicker as DatePickerMui, DateRangePicker } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
-import { forwardRef, Ref } from "react";
+import { forwardRef, Ref, useEffect, useRef } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
@@ -21,6 +21,7 @@ export interface DateRangeProps {
   patternMessage?: string;
   error?: boolean;
   onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
+  ancestorValue?: unknown;
 }
 
 const FORMAT = "YYYY-MM-DD";
@@ -41,11 +42,15 @@ const DateRange = (
     pattern,
     patternMessage,
     error,
+    ancestorValue,
   }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const fromDate = Array?.isArray(value) && value?.[0] ? dayjs(String(value?.[0]), FORMAT) : null;
-  const toDate = Array?.isArray(value) && value?.[1] ? dayjs(String(value?.[1]), FORMAT) : null;
+  const previousAncestorRef = useRef<string[] | undefined>();
+  const ancestorValueArray = Array.isArray(ancestorValue) ? ancestorValue : undefined;
+  const rawValue = value || ancestorValueArray;
+  const fromDate = Array.isArray(rawValue) && rawValue[0] ? dayjs(String(rawValue[0]), FORMAT) : null;
+  const toDate = Array.isArray(rawValue) && rawValue[1] ? dayjs(String(rawValue[1]), FORMAT) : null;
 
   const handleChangeDatePicker = (field: "start" | "end") => (date: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
     const currentDate = date?.format(FORMAT);
@@ -72,11 +77,26 @@ const DateRange = (
     );
   };
 
-  if (isIgnored) {
-    return null;
-  }
-
   const disableDateBeforeStart = (date: any) => (fromDate ? date < fromDate : false);
+
+  // If ancestorValue is provided, we update the ancestor value when the component mounts or when ancestorValueArray changes
+  useEffect(() => {
+    if (Array.isArray(ancestorValueArray)) {
+      const ancestorDates: string[] = ancestorValueArray.map((val) => (val ? dayjs(String(val), FORMAT).format(FORMAT) : ""));
+
+      if (JSON.stringify(previousAncestorRef.current) !== JSON.stringify(ancestorDates)) {
+        onChange?.(
+          {
+            name,
+            value: ancestorDates,
+          },
+          { validationError: null },
+        );
+
+        previousAncestorRef.current = ancestorDates;
+      }
+    }
+  }, [ancestorValueArray, name, onChange]);
 
   if (isIgnored) {
     return null;
