@@ -24,6 +24,13 @@ export interface TimeRangeProps {
 
 const FORMAT = "HH:mm";
 
+const formatValue = (rawValue: unknown) => {
+  if (!rawValue) return null;
+  if (dayjs.isDayjs(rawValue)) return rawValue;
+
+  return dayjs(String(rawValue), FORMAT);
+};
+
 const TimePicker = (
   {
     label,
@@ -45,7 +52,7 @@ const TimePicker = (
   const previousAncestorRef = useRef<string | undefined>();
   const ancestorValueString = typeof ancestorValue === "string" ? ancestorValue : undefined;
   const rawValue = value || ancestorValueString;
-  const formattedValue = rawValue ? dayjs(String(rawValue), FORMAT) : null;
+  const formattedValue = formatValue(rawValue);
 
   const handleChange = (time: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
     onChange?.(
