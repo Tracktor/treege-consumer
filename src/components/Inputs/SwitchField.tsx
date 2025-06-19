@@ -19,12 +19,10 @@ const SwitchField = (
   { data, inputRef, helperText, readOnly, onChange, value, isIgnored, error, ancestorValue }: SwitchFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
-  const isActive = ancestorValue || !!value;
-  const lastAncestorRef = useRef(ancestorValue);
-
   const { attributes, children } = data;
   const { label, type, isLeaf, messages, name } = attributes;
-
+  const isActive = !!(ancestorValue || !!value);
+  const lastAncestorRef = useRef(ancestorValue);
   const message = isActive ? messages?.on : messages?.off;
   const Field = type === "checkbox" ? Checkbox : Switch;
 
