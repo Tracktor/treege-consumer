@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file. See [commit
 ## [2.0.0] - 2025-06-19
 
 ### New Features
+- **Ancestor injection in tree structures:** Added support for injecting ancestor field values directly into `TreeNode` structures, enabling nested context propagation throughout dynamic form trees.
+- **UUID-based TreeNode retrieval utility:** Introduced a utility to efficiently retrieve tree nodes by UUID, simplifying lookup and state mapping in complex trees.
 - Added support for propagating ancestor field values to child input components, enabling dynamic field dependencies and value inheritance in forms.
 - Introduced new utility functions for building dynamic URLs and API parameters based on ancestor values.
 - Added new example datasets and advanced tree structures for demonstration and testing.
