@@ -1,3 +1,4 @@
+import { isArray, isObject } from "@tracktor/react-utils";
 import type { Params } from "@tracktor/types-treege";
 import dayjs from "dayjs";
 import { DetailFieldValues } from "@/types/FieldValues";
@@ -13,10 +14,10 @@ interface ParamsBuilderParams {
  */
 const toParamString = (v: unknown): string => {
   if (v === null || v === undefined) return "";
-  if (Array.isArray(v)) return v.join(",");
+  if (isArray(v)) return v.join(",");
   if (dayjs.isDayjs(v) || v instanceof Date) return dayjs(v).toISOString();
 
-  return typeof v === "object" ? "" : String(v);
+  return isObject(v) ? "" : String(v);
 };
 
 const paramsBuilder = ({ params, detailFieldValues }: ParamsBuilderParams) => {
@@ -48,4 +49,3 @@ const paramsBuilder = ({ params, detailFieldValues }: ParamsBuilderParams) => {
 };
 
 export default paramsBuilder;
-
