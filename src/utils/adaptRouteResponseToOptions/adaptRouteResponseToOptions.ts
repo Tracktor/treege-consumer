@@ -1,3 +1,4 @@
+import { isObject, isArray } from "@tracktor/react-utils";
 import type { Route } from "@tracktor/types-treege";
 
 type Item = {
@@ -10,9 +11,10 @@ export type Option = {
   id?: string;
   label?: string;
   value?: string;
+  rawData?: unknown;
 };
 
-const isData = (obj: unknown): obj is { [key: string]: string } => typeof obj === "object" && obj !== null;
+const isData = (obj: unknown): obj is { [key: string]: string } => isObject(obj) && obj !== null;
 
 /**
  * Adapt route response to options
@@ -21,7 +23,7 @@ const isData = (obj: unknown): obj is { [key: string]: string } => typeof obj ==
  */
 const adaptRouteResponseToOptions = (data: unknown, route?: Route): Option[] | undefined => {
   // get autoComplete Options
-  if (Array.isArray(data)) {
+  if (isArray(data)) {
     return data.map((item) => {
       const mappedLabel = item[String(route?.pathKey?.label)];
       const mappedValue = route?.pathKey?.value ? item[String(route?.pathKey?.value)] : item;
@@ -31,16 +33,17 @@ const adaptRouteResponseToOptions = (data: unknown, route?: Route): Option[] | u
         id: item.id,
         imageUri: mappedImage,
         label: mappedLabel,
+        rawData: item,
         value: mappedValue,
       };
     });
   }
 
-  if (typeof data === "object" && data !== null && route?.pathKey?.object !== undefined) {
+  if (isObject(data) && data !== null && route?.pathKey?.object !== undefined) {
     const objectData = data as { [key: string]: unknown };
     const arrayData = objectData[route.pathKey.object] as Item[];
 
-    if (Array.isArray(arrayData)) {
+    if (isArray(arrayData)) {
       return arrayData.map((item: Item) => {
         const mappedLabel = route?.pathKey?.label && String(item[route?.pathKey?.label]);
         const mappedValue = route?.pathKey?.value && String(item[route?.pathKey?.value]);
@@ -54,13 +57,14 @@ const adaptRouteResponseToOptions = (data: unknown, route?: Route): Option[] | u
           id: item.id,
           imageUri: mappedImage,
           label: mappedLabel,
+          rawData: item,
           value: mappedValue,
         };
       });
     }
   }
 
-  if (typeof data === "object" && data !== null) {
+  if (isObject(data) && data !== null) {
     const mappedImage = isData(data) ? data[route?.pathKey?.image || ""] : undefined;
     const mappedLabel = isData(data) ? data[route?.pathKey?.label || ""] : undefined;
     const mappedValue = isData(data) ? data[route?.pathKey?.value || ""] : undefined;
@@ -69,6 +73,7 @@ const adaptRouteResponseToOptions = (data: unknown, route?: Route): Option[] | u
         id: "id" in data ? String(data.id) : "",
         imageUri: mappedImage,
         label: mappedLabel,
+        rawData: data,
         value: mappedValue,
       },
     ];

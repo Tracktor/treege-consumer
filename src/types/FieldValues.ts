@@ -4,4 +4,12 @@ interface FieldValues {
   [name: string]: FieldValue;
 }
 
-export type { FieldValues, FieldValue };
+interface DetailFieldValues {
+  uuid: string;
+  name: string;
+  type: string;
+  value: FieldValue;
+  rawData?: unknown;
+}
+
+export type { FieldValues, FieldValue, DetailFieldValues };

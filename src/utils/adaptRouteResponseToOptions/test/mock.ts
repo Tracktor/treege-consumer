@@ -9,12 +9,40 @@ type Mock = {
 
 const mockArrayData: Mock = {
   data: [
-    { id: "1", imageUrl: "image1.jpg", name: "Item 1" },
-    { id: "2", imageUrl: "image2.jpg", name: "Item 2" },
+    {
+      id: "1",
+      imageUrl: "image1.jpg",
+      name: "Item 1",
+    },
+    {
+      id: "2",
+      imageUrl: "image2.jpg",
+      name: "Item 2",
+    },
   ],
   output: [
-    { id: "1", imageUri: "image1.jpg", label: "Item 1", value: "1" },
-    { id: "2", imageUri: "image2.jpg", label: "Item 2", value: "2" },
+    {
+      id: "1",
+      imageUri: "image1.jpg",
+      label: "Item 1",
+      rawData: {
+        id: "1",
+        imageUrl: "image1.jpg",
+        name: "Item 1",
+      },
+      value: "1",
+    },
+    {
+      id: "2",
+      imageUri: "image2.jpg",
+      label: "Item 2",
+      rawData: {
+        id: "2",
+        imageUrl: "image2.jpg",
+        name: "Item 2",
+      },
+      value: "2",
+    },
   ],
   route: {
     pathKey: {
@@ -33,8 +61,28 @@ const mockObjectData: Mock = {
     ],
   },
   output: [
-    { id: "1", imageUri: "image1.jpg", label: "Item 1", value: "1" },
-    { id: "2", imageUri: "image2.jpg", label: "Item 2", value: "2" },
+    {
+      id: "1",
+      imageUri: "image1.jpg",
+      label: "Item 1",
+      rawData: {
+        id: "1",
+        imageUrl: "image1.jpg",
+        name: "Item 1",
+      },
+      value: "1",
+    },
+    {
+      id: "2",
+      imageUri: "image2.jpg",
+      label: "Item 2",
+      rawData: {
+        id: "2",
+        imageUrl: "image2.jpg",
+        name: "Item 2",
+      },
+      value: "2",
+    },
   ],
   route: {
     pathKey: {
@@ -48,7 +96,7 @@ const mockObjectData: Mock = {
 
 const mockSingleObjectData: Mock = {
   data: { id: "1", imageUrl: "image1.jpg", name: "Item 1" },
-  output: [{ id: "1", imageUri: "image1.jpg", label: "Item 1", value: "1" }],
+  output: [{ id: "1", imageUri: "image1.jpg", label: "Item 1", rawData: { id: "1", imageUrl: "image1.jpg", name: "Item 1" }, value: "1" }],
   route: {
     pathKey: {
       image: "imageUrl",

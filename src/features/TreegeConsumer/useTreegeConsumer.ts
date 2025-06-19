@@ -1,9 +1,9 @@
-import { isDeepEqualObject } from "@tracktor/react-utils";
+import { getObjectValue, isDeepEqualObject, isObject } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TreegeConsumerProps } from "@/features/TreegeConsumer/TreegeConsumer";
 import ChangeEventField from "@/types/ChangeEventField";
-import { FieldValues } from "@/types/FieldValues";
+import { FieldValues, DetailFieldValues } from "@/types/FieldValues";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import formDataToJSON from "@/utils/formDataToJSON/formDataToJSON";
@@ -33,6 +33,7 @@ const useTreegeConsumer = ({
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
+  const [detailFieldValues, setDetailFieldValues] = useState<DetailFieldValues[]>([]);
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
   const initialValuesRef = useRef<JsonFormValue[]>();
 
@@ -46,7 +47,7 @@ const useTreegeConsumer = ({
   const lastFieldHasNoChildren = !initialFields[(initialFields?.length || 0) - 1]?.children?.length && !!tree;
 
   const handleChangeFormValue = (dataAttribute: ChangeEventField): void => {
-    const { value, name, isDecision, children } = dataAttribute;
+    const { value, name, isDecision, children, rawData } = dataAttribute;
 
     if (isDecision) {
       setFields((prevState) => {
@@ -83,6 +84,31 @@ const useTreegeConsumer = ({
         return newFields;
       });
     }
+
+    const safeValue = isObject(value) && value !== null ? getObjectValue(value, "value") : value;
+
+    setDetailFieldValues((prevEntries) => {
+      const field = fields.find((f) => f.attributes.name === name);
+      if (!field) return prevEntries;
+
+      const existingIndex = prevEntries.findIndex((entry) => entry.uuid === field.uuid);
+
+      const updatedEntry: DetailFieldValues = {
+        name,
+        rawData,
+        type: field.attributes.type || "text",
+        uuid: field.uuid,
+        value: safeValue,
+      };
+
+      if (existingIndex !== -1) {
+        const newEntries = [...prevEntries];
+        newEntries[existingIndex] = updatedEntry;
+        return newEntries;
+      }
+
+      return [...prevEntries, updatedEntry];
+    });
 
     setFieldValues((prevFieldValues) => ({
       ...prevFieldValues,
@@ -136,10 +162,10 @@ const useTreegeConsumer = ({
     const formData = [...currentFormData];
     const data = formDataToJSON(fieldValues, fields);
 
-    onSubmit?.({ data, fieldValues, formData });
+    onSubmit?.({ data, detailFieldValues, fieldValues, formData });
 
     if (debug) {
-      console.log({ data, fieldValues, formData });
+      console.log({ data, detailFieldValues, fieldValues, formData });
     }
   };
 
@@ -170,6 +196,7 @@ const useTreegeConsumer = ({
   }, [lastFieldHasNoChildren]);
 
   return {
+    detailFieldValues,
     fields,
     fieldValues,
     formCanBeSubmit,
