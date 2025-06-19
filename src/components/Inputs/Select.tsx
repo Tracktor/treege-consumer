@@ -56,17 +56,21 @@ const Select = (
     onInitRef.current = onInit;
   }, [onInit]);
 
+  // Sync the ancestor value with the onChange handler
   useEffect(() => {
+    // Helper function to determine what value should be selected automatically
     const getSelectedValue = (): string | undefined => {
-      const optionValues = options.map((opt) => String(opt.value));
+      const optionValues = options.map((opt) => String(opt.value)); // Normalize all option values to strings
 
+      // Case 1: If there's a stringAncestor that differs from the current ref and it's a valid option
       if (stringAncestor && stringAncestor !== ancestorRef.current && optionValues.includes(stringAncestor)) {
-        ancestorRef.current = stringAncestor;
-        return stringAncestor;
+        ancestorRef.current = stringAncestor; // Update the ref to avoid repeated triggering
+        return stringAncestor; // Use stringAncestor as the selected value
       }
 
+      // Case 2: If no value is selected, there's exactly one child, it's required, and the first option is valid
       if (!value && children.length === 1 && required && optionValues.includes(String(options[0]?.value))) {
-        return String(options[0]?.value);
+        return String(options[0]?.value); // Use the first option as the selected value
       }
 
       return undefined;
@@ -75,8 +79,10 @@ const Select = (
     const selectValue = getSelectedValue();
 
     if (selectValue) {
+      // Get message associated with the selected value
       const messageValue = getMessageByValue({ options, value: selectValue });
 
+      // Trigger the onChange handler with the new value and context
       onChange?.({
         children,
         hasMessage: !!messageValue,
@@ -89,6 +95,8 @@ const Select = (
 
       setMessage(messageValue);
     }
+
+    // Dependencies: triggers when any of these values change
   }, [children, getMessageByValue, isDecision, isLeaf, name, onChange, options, required, stringAncestor, type, value, ancestorValue]);
 
   if (isIgnored) {
