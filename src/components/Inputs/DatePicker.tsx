@@ -60,17 +60,21 @@ const DatePicker = (
     );
   };
 
-  // Update the ancestor value to trigger onChange only when it changes
+  // Update the ancestor value and trigger onChange only when the value actually changes
   useEffect(() => {
+    // Check if there's a new ancestor value and it's different from the previously stored one
     if (ancestorValueString && previousAncestorRef.current !== ancestorValueString) {
+      // Format the new value using dayjs and call the onChange handler
       onChange?.(
         {
           name,
-          value: dayjs(String(ancestorValueString), FORMAT).format(FORMAT),
+          value: dayjs(String(ancestorValueString), FORMAT).format(FORMAT), // Ensures consistent date formatting
         },
+        // Provide a clean validation state with the update
         { validationError: null },
       );
 
+      // Update the ref to keep track of the current ancestor value and prevent redundant updates
       previousAncestorRef.current = ancestorValueString;
     }
   }, [ancestorValueString, name, onChange]);
