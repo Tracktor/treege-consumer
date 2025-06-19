@@ -88,5 +88,6 @@
     "react",
     "treege",
     "treege consumer"
-  ]
+  ],
+  "version": "2.0.0"
 }
