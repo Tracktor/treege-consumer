@@ -1,4 +1,4 @@
-import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { LocalizationProvider, PickersInputLocaleText } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { LicenseInfo } from "@mui/x-license";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -15,6 +15,7 @@ import useOptionsContext from "@/hooks/useOptionsContext";
 import { JsonFormValue } from "@/types/JsonFormValue";
 import { OnSubmitReturn } from "@/types/OnSubmitReturn";
 import "dayjs/locale/fr";
+import getLocalText from "@/utils/getLocalText/getLocalText";
 
 dayjs.locale("fr");
 
@@ -62,9 +63,9 @@ export interface TreegeConsumerProps<T = unknown> {
     /**
      * Locale for adapter
      */
-    adapterLocale?: string;
+    adapterLocale?: "fr" | "en" | "de" | "es" | "pt" | "it" | string;
     /**
-     * Indicate that the form is not to be validated on submit
+     * Indicate that the form is not to be validated on submitting
      */
     noValidate?: boolean;
   };
@@ -103,7 +104,12 @@ export interface TreegeConsumerProps<T = unknown> {
    */
   isSubmitting?: boolean;
   /**
-   * Callback fired when the user submit form.
+   * Locale text for the date pickers
+   */
+  localText?: PickersInputLocaleText;
+
+  /**
+   * Callback fired when the user submits a form.
    * @param data
    * @param formData
    * @param fieldValues
@@ -131,6 +137,7 @@ const TreegeComposition = <T,>({
   disabledSubmitButton,
   isSubmitting,
   renderFormValidation,
+  localText,
 }: TreegeConsumerProps<T>) => {
   const { fields, handleChangeFormValue, handleSubmit, isLastField, fieldValues, formCanBeSubmit, detailFieldValues } = useTreegeConsumer({
     debug,
@@ -165,7 +172,7 @@ const TreegeComposition = <T,>({
   return (
     <ThemeProvider theme={theme || themeProvider.palette.mode}>
       <QueryClientProvider client={queryClient}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale} localeText={getLocalText(adapterLocale, localText)}>
           <Box noValidate onSubmit={handleSubmit} component="form" paddingX={15} paddingY={5} style={style}>
             <Stack spacing={4} direction="column" sx={{ "div:first-of-type hr": { display: "none" } }}>
               {fields ? (
@@ -216,6 +223,7 @@ const TreegeConsumer = <T,>({
   disabledSubmitButton,
   isSubmitting,
   renderFormValidation,
+  localText,
 }: TreegeConsumerProps<T>) => (
   <OptionsProvider>
     <TreegeComposition
@@ -233,6 +241,7 @@ const TreegeConsumer = <T,>({
       debug={debug}
       renderFormValidation={renderFormValidation}
       disabledSubmitButton={disabledSubmitButton}
+      localText={localText}
     />
   </OptionsProvider>
 );

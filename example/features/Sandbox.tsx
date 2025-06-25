@@ -98,7 +98,7 @@ const Sandbox = ({
   };
 
   return (
-    <TreegeConsumerProvider adapterLocale="fr">
+    <TreegeConsumerProvider adapterLocale="fr" licenseMuiX={import.meta.env.VITE_MUI_LICENSE_KEY || ""}>
       <ThemeProvider theme="dark">
         <Grid2 container height="100%">
           <Grid2

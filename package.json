@@ -1,7 +1,7 @@
 {
   "name": "treege-consumer",
   "description": "A React library to consume easily form generated from Tree",
-  "@tracktor/react-utils": "^1.23.0",
+  "version": "2.0.0",
   "type": "module",
   "types": "dist/main.d.ts",
   "main": "dist/main.umd.cjs",
@@ -33,9 +33,10 @@
     "example": "vite"
   },
   "dependencies": {
-    "@mui/x-date-pickers-pro": "^7.29.4",
-    "@mui/x-license": "^7.29.1",
-    "@tanstack/react-query": "^5.80.7",
+    "@mui/x-date-pickers": "^8.5.3",
+    "@mui/x-date-pickers-pro": "^8.5.3",
+    "@mui/x-license": "^8.5.3",
+    "@tanstack/react-query": "^5.81.2",
     "@tracktor/design-system": "^3.13.4",
     "@tracktor/react-utils": "^1.24.0",
     "autosuggest-highlight": "^3.3.4",
@@ -88,6 +89,5 @@
     "react",
     "treege",
     "treege consumer"
-  ],
-  "version": "2.0.0"
+  ]
 }
