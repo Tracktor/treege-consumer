@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.0](https://github.com/Tracktor/treege-consumer/compare/2.0.0...2.1.0) (2025-06-25)
+
+
+### Features
+
+* add localText for LocalizationProvider ([38f81fc](https://github.com/Tracktor/treege-consumer/commit/38f81fcdb5bc2d3b05e5dad89632ced607f1cfed))
+
 ## [2.0.0](https://github.com/Tracktor/treege-consumer/compare/1.46.8...2.0.0) (2025-06-19)
 
 
