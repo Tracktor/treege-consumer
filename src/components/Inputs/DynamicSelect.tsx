@@ -54,7 +54,7 @@ const DynamicSelect = ({
 }: DynamicSelectProps) => {
   const urlRef = useRef<string>(undefined);
   const { attributes, children } = node;
-  const { name, label, type, isLeaf, isDecision, route, required, isMultiple, initialQuery } = attributes;
+  const { name, label, type, isLeaf, isDecision, route, required, isMultiple } = attributes;
   const { params, url } = route || {};
   const apiParams = paramsBuilder({ detailFieldValues, params });
   const dynamicUrl = urlBuilder({ detailFieldValues, params, url });
@@ -67,7 +67,7 @@ const DynamicSelect = ({
   });
 
   const { data, isError, isLoading } = useQuery({
-    enabled: initialQuery || hasAllResolvedPlaceholders,
+    enabled: hasAllResolvedPlaceholders,
     queryFn: ({ signal }) => fetchData(signal),
     queryKey: [name, JSON.stringify(apiParams), dynamicUrl],
   });
@@ -93,6 +93,7 @@ const DynamicSelect = ({
   const uniqueOptions = optionsWithValues?.filter(
     (opt, index, self) => opt?.value && index === self.findIndex((o) => o?.value === opt?.value),
   );
+  const safeValue = getSafeValue(value, uniqueOptions);
 
   const handleChange = (event: SelectChangeEvent) => {
     const findSelectedRawData = optionsWithValues?.find((opt) => opt.value === event.target.value);
@@ -144,7 +145,7 @@ const DynamicSelect = ({
       <InputLabel required={required}>{label}</InputLabel>
       <Select
         name={name}
-        value={getSafeValue(value, uniqueOptions)}
+        value={safeValue}
         onChange={handleChange}
         multiple={isMultiple}
         displayEmpty
@@ -157,7 +158,7 @@ const DynamicSelect = ({
             return "Loading...";
           }
 
-          return optionsWithValues?.find((opt) => opt.id === selected)?.label ?? "";
+          return optionsWithValues?.find((opt) => opt.value === selected)?.label ?? "";
         }}
       >
         {uniqueOptions?.map((option) => (
