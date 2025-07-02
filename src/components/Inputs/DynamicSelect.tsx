@@ -52,7 +52,7 @@ const DynamicSelect = ({
   value,
   detailFieldValues,
 }: DynamicSelectProps) => {
-  const urlRef = useRef<string>();
+  const urlRef = useRef<string>(undefined);
   const { attributes, children } = node;
   const { name, label, type, isLeaf, isDecision, route, required, isMultiple, initialQuery } = attributes;
   const { params, url } = route || {};

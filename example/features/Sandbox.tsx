@@ -5,7 +5,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid2,
+  Grid,
   Stack,
   Tab,
   Tabs,
@@ -100,8 +100,8 @@ const Sandbox = ({
   return (
     <TreegeConsumerProvider adapterLocale="fr" licenseMuiX={import.meta.env.VITE_MUI_LICENSE_KEY || ""}>
       <ThemeProvider theme="dark">
-        <Grid2 container height="100%">
-          <Grid2
+        <Grid container height="100%">
+          <Grid
             size={6}
             sx={{
               display: "flex",
@@ -121,8 +121,8 @@ const Sandbox = ({
                 width: "100%",
               }}
             />
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={6}
             sx={{
               height: "100%",
@@ -131,8 +131,8 @@ const Sandbox = ({
             }}
           >
             <Stack spacing={2} pt={4}>
-              <Grid2 container direction="row" spacing={2} alignItems="center" justifyContent="center" alignContent="center">
-                <Grid2 size={5} alignContent="center" justifyContent="center" display="flex">
+              <Grid container direction="row" spacing={2} alignItems="center" justifyContent="center" alignContent="center">
+                <Grid size={5} alignContent="center" justifyContent="center" display="flex">
                   <FormControl fullWidth variant="standard">
                     <InputLabel id="demo-simple-select-label">Example</InputLabel>
                     <Select
@@ -153,14 +153,14 @@ const Sandbox = ({
                       <MenuItem value={TreeSampleTypes.ancestorAdvanced}>ancestor advanced with API calls</MenuItem>
                     </Select>
                   </FormControl>
-                </Grid2>
+                </Grid>
 
-                <Grid2 size={4} alignContent="center" justifyContent="flex-end" display="flex">
+                <Grid size={4} alignContent="center" justifyContent="flex-end" display="flex">
                   <Button variant="link" onClick={() => handleChangeComponent("DataViewer")}>
                     See values
                   </Button>
-                </Grid2>
-              </Grid2>
+                </Grid>
+              </Grid>
 
               <Box flex={1} pt={2}>
                 <TreegeConsumer
@@ -208,8 +208,8 @@ const Sandbox = ({
                 </DialogActions>
               </Dialog>
             </Stack>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </ThemeProvider>
     </TreegeConsumerProvider>
   );

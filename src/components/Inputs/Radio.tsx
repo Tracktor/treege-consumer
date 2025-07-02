@@ -24,7 +24,7 @@ const Radio = (
   ref: Ref<HTMLDivElement>,
 ) => {
   const ancestorPrimitive = ["string", "number", "boolean"].includes(typeof ancestorValue) ? String(ancestorValue) : undefined;
-  const ancestorRef = useRef<string>();
+  const ancestorRef = useRef<string>(undefined);
   const { getOptionsForDecisionsField, getMessageByValue } = useInputs();
   const { children, attributes, uuid } = data;
   const { label, values, type, isLeaf, isDecision, name } = attributes;

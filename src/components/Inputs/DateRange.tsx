@@ -46,7 +46,7 @@ const DateRange = (
   }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const previousAncestorRef = useRef<string[] | undefined>();
+  const previousAncestorRef = useRef<string[] | undefined>(undefined);
   const ancestorValueArray = Array.isArray(ancestorValue) ? ancestorValue : undefined;
   const rawValue = value || ancestorValueArray;
   const fromDate = Array.isArray(rawValue) && rawValue[0] ? dayjs(String(rawValue[0]), FORMAT) : null;

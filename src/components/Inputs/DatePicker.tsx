@@ -45,7 +45,7 @@ const DatePicker = (
   }: DateRangeProps,
   ref: Ref<HTMLDivElement>,
 ) => {
-  const previousAncestorRef = useRef<string | undefined>();
+  const previousAncestorRef = useRef<string | undefined>(undefined);
   const ancestorValueString = isString(ancestorValue) ? ancestorValue : undefined;
   const rawValue = value || ancestorValueString;
   const formattedValue = rawValue ? dayjs(String(rawValue), FORMAT) : null;

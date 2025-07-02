@@ -1,8 +1,8 @@
 import { render } from "@testing-library/react";
-import { expect, test } from "vitest";
+import { expect, it } from "vitest";
 import FormSkeleton from "@/components/Feedback/FormSkeleton/FormSkeleton";
 
-test("should have role and attribute", () => {
+it("should have role and attribute", () => {
   const { getByRole } = render(<FormSkeleton />);
   const container = getByRole("alert");
 

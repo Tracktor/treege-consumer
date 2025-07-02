@@ -35,7 +35,7 @@ const useTreegeConsumer = ({
   const [fieldValues, setFieldValues] = useState<FieldValues>({});
   const [detailFieldValues, setDetailFieldValues] = useState<DetailFieldValues[]>([]);
   const initialFields = useMemo(() => getFieldsFromTreePoint({ currentTree: tree }), [tree]);
-  const initialValuesRef = useRef<JsonFormValue[]>();
+  const initialValuesRef = useRef<JsonFormValue[]>(undefined);
 
   const requiredFields = fields?.filter((field) => {
     // Check if the field is ignored
