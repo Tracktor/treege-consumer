@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.2.0](https://github.com/Tracktor/treege-consumer/compare/2.1.1...2.2.0) (2025-07-02)
+
+
+### Features
+
+* refine DynamicSelect component by improving value handling and query enabling logic ([c21f1b7](https://github.com/Tracktor/treege-consumer/commit/c21f1b70f508d450d1bee50c5662ba94e6ab03b8))
+
 ## [2.1.1](https://github.com/Tracktor/treege-consumer/compare/2.1.0...2.1.1) (2025-07-02)
 
 ## [2.1.0](https://github.com/Tracktor/treege-consumer/compare/2.0.0...2.1.0) (2025-06-25)
