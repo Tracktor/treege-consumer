@@ -20,7 +20,6 @@ const CheckBoxField = (
   { data, helperText, readOnly, onChange, value, isIgnored, required, error, ancestorValue }: CheckBoxFieldProps,
   ref: Ref<unknown | undefined>,
 ) => {
-  const isActive = ancestorValue !== undefined ? Boolean(ancestorValue) : Boolean(value);
   const lastAncestorRef = useRef(ancestorValue);
 
   const { attributes, children, uuid } = data;
@@ -62,8 +61,8 @@ const CheckBoxField = (
           <Stack spacing={1}>
             <FormControlLabel
               variant="card"
-              value={isActive}
-              checked={isActive}
+              value={value}
+              checked={!!value}
               label="Oui"
               data-label-name-value={`${name}-yes`}
               name={name}
