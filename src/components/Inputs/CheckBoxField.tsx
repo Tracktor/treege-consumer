@@ -1,4 +1,5 @@
 import { Alert, FormControl, FormControlLabel, FormGroup, FormHelperText, Radio, Stack } from "@tracktor/design-system";
+import { isBoolean } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
 import { forwardRef, Ref, useEffect, useRef, useState } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
@@ -62,7 +63,7 @@ const CheckBoxField = (
             <FormControlLabel
               variant="card"
               value={value}
-              checked={!!value}
+              checked={isBoolean(value) ? value : !!value}
               label="Oui"
               data-label-name-value={`${name}-yes`}
               name={name}
