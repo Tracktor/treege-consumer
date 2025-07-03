@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.0](https://github.com/Tracktor/treege-consumer/compare/2.2.0...2.3.0) (2025-07-03)
+
+
+### Features
+
+* enhance CheckBoxField to improve checked value logic with boolean handling ([163b7f0](https://github.com/Tracktor/treege-consumer/commit/163b7f008bde3202b9e049afdf8a1a7177d3fb7e))
+* update CheckBoxField to simplify active state handling and improve checked value logic ([21c8780](https://github.com/Tracktor/treege-consumer/commit/21c8780de35b3590ac0e3263d00aa41539465bf1))
+
 ## [2.2.0](https://github.com/Tracktor/treege-consumer/compare/2.1.1...2.2.0) (2025-07-02)
 
 
