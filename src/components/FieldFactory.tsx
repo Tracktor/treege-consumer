@@ -232,6 +232,7 @@ const FieldFactory = ({
             patternMessage={patternMessage}
             error={!!error}
             ancestorValue={ancestorValueToConsume}
+            licenseMuiX={licenseMuiX}
           />
         );
       case "time":

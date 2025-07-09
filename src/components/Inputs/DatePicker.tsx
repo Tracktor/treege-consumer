@@ -1,5 +1,6 @@
-import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
-import { DatePicker as DatePickerMui } from "@mui/x-date-pickers-pro";
+import { DatePicker as DatePickerMui } from "@mui/x-date-pickers";
+import { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
+import { DatePicker as DatePickerPro } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
 import dayjs, { Dayjs } from "dayjs";
@@ -7,7 +8,7 @@ import { forwardRef, Ref, useEffect, useRef } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 
-export interface DateRangeProps {
+export interface DatePickerProps {
   label?: string;
   name: string;
   helperText?: string;
@@ -20,6 +21,7 @@ export interface DateRangeProps {
   pattern?: string;
   patternMessage?: string;
   error?: boolean;
+  licenseMuiX?: string;
   onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
   ancestorValue?: unknown;
 }
@@ -42,13 +44,15 @@ const DatePicker = (
     pattern,
     patternMessage,
     ancestorValue,
-  }: DateRangeProps,
+    licenseMuiX,
+  }: DatePickerProps,
   ref: Ref<HTMLDivElement>,
 ) => {
   const previousAncestorRef = useRef<string | undefined>(undefined);
   const ancestorValueString = isString(ancestorValue) ? ancestorValue : undefined;
   const rawValue = value || ancestorValueString;
   const formattedValue = rawValue ? dayjs(String(rawValue), FORMAT) : null;
+  const PickerComponent = licenseMuiX ? DatePickerMui : DatePickerPro;
 
   const handleChange = (date: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
     onChange?.(
@@ -86,7 +90,7 @@ const DatePicker = (
   return (
     <Stack spacing={1.5}>
       <InputLabel required={required}>{label}</InputLabel>
-      <DatePickerMui
+      <PickerComponent
         disablePast={disablePast}
         readOnly={readOnly}
         ref={ref}

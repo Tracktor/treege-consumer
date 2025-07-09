@@ -1,5 +1,6 @@
+import { DatePicker } from "@mui/x-date-pickers";
 import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
-import { DatePicker as DatePickerMui, DateRangePicker } from "@mui/x-date-pickers-pro";
+import { DateRangePicker } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import dayjs, { Dayjs } from "dayjs";
 import { forwardRef, Ref, useEffect, useRef } from "react";
@@ -139,7 +140,7 @@ const DateRange = (
     <Stack spacing={1.5}>
       <InputLabel required={required}>{label}</InputLabel>
       <Stack direction="row" spacing={1} alignItems="center">
-        <DatePickerMui
+        <DatePicker
           disablePast={disablePast}
           label="Début"
           readOnly={readOnly}
@@ -160,7 +161,7 @@ const DateRange = (
             }),
           }}
         />
-        <DatePickerMui
+        <DatePicker
           disablePast={disablePast}
           label="Fin"
           readOnly={readOnly}
