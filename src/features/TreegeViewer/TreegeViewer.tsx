@@ -25,11 +25,16 @@ export interface TreegeViewerProps<T = unknown> {
    */
   excludedFields?: string[];
   /**
+   * Filter hidden fields or not
+   * @default true
+   */
+  filterHiddenFields?: boolean;
+  /**
    * Enable internal collapse or not
    */
   useCollapse?: boolean;
   /**
-   * Number of visible item before collapse
+   * Number of visible items before collapse
    */
   collapseVisibleItemNumber?: number;
   /**
@@ -38,7 +43,7 @@ export interface TreegeViewerProps<T = unknown> {
   isCollapsed?: boolean;
   /**
    * Function triggered when collapse is toggled
-   * Only trigger when "useCollapse" is true
+   * Only triggers when "useCollapse" is true
    */
   onToggleCollapse?: () => void;
   /**
@@ -87,13 +92,20 @@ const TreegeViewer = ({
   sx,
   collapseStyle,
   collapseSx,
+  filterHiddenFields = true,
   collapseVisibleItemNumber = 4,
 }: TreegeViewerProps) => {
   const [internalIsCollapsed, toggleInternalIsCollapsed] = useToggle(false);
   const collapsed = isCollapsed !== undefined ? isCollapsed : internalIsCollapsed;
   const collapseIsEnabled = useCollapse || isCollapsed !== undefined;
   const isCustomRenderInput = values && renderFields;
-  const filteredValues = Array.isArray(values) ? values?.filter((value) => !excludedFields?.includes(value.name)) : undefined;
+
+  const filteredValues = Array.isArray(values)
+    ? values
+        ?.filter((value) => !excludedFields?.includes(value.name)) // Filter out excluded fields
+        .filter((value) => (filterHiddenFields ? value.type !== "hidden" : true)) // Filter hidden fields if filterHiddenFields is true
+    : undefined;
+
   const toggleCollapse = onToggleCollapse || toggleInternalIsCollapsed;
 
   const renderListItem = ({
