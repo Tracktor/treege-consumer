@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.4.0](https://github.com/Tracktor/treege-consumer/compare/2.3.1...2.4.0) (2025-07-10)
+
+
+### Features
+
+* filter hidden field props ([76f8e6f](https://github.com/Tracktor/treege-consumer/commit/76f8e6fc904b8cd59258b2174123de0d3eecbe22))
+
 ## [2.3.1](https://github.com/Tracktor/treege-consumer/compare/2.3.0...2.3.1) (2025-07-09)
 
 
