@@ -25,9 +25,15 @@ const getCurrentAttributes = (currentField: TreeNode, isSelectOrRadio: boolean, 
  * Get the value of the form in json format
  * @param fieldValues
  * @param fields
+ * @param hiddenFields
  */
-const formDataToJSON = (fieldValues: FieldValues, fields: TreeNode[]): JsonFormValue[] =>
-  Object.entries(fieldValues).reduce((acc: JsonFormValue[], [name, value]) => {
+const formDataToJSON = (
+  fieldValues: FieldValues,
+  fields: TreeNode[],
+  hiddenFields?: Record<string, string | string[] | number>,
+): JsonFormValue[] => {
+  // Process regular fields
+  const regularFields = Object.entries(fieldValues).reduce((acc: JsonFormValue[], [name, value]) => {
     const currentField = fields.find((field) => field.attributes.name === name);
     if (!currentField) {
       return acc;
@@ -49,5 +55,19 @@ const formDataToJSON = (fieldValues: FieldValues, fields: TreeNode[]): JsonFormV
 
     return acc;
   }, []);
+
+  // Process hidden fields
+  const hiddenFieldsData = hiddenFields
+    ? Object.entries(hiddenFields).map(([name, value]) => ({
+        label: name,
+        name,
+        type: "hidden" as const,
+        value,
+      }))
+    : [];
+
+  // Combine regular fields and hidden fields
+  return [...regularFields, ...hiddenFieldsData];
+};
 
 export default formDataToJSON;

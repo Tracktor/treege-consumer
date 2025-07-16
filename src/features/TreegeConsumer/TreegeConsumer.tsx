@@ -107,7 +107,10 @@ export interface TreegeConsumerProps<T = unknown> {
    * Locale text for the date pickers
    */
   localText?: PickersInputLocaleText;
-
+  /**
+   * Hidden fields that will not be displayed in the form but will be submitted
+   */
+  hiddenFields?: Record<string, string | string[] | number>;
   /**
    * Callback fired when the user submits a form.
    * @param data
@@ -137,11 +140,13 @@ const TreegeComposition = <T,>({
   disabledSubmitButton,
   isSubmitting,
   renderFormValidation,
+  hiddenFields,
   localText,
 }: TreegeConsumerProps<T>) => {
   const { fields, handleChangeFormValue, handleSubmit, isLastField, fieldValues, formCanBeSubmit, detailFieldValues } = useTreegeConsumer({
     debug,
     disabledSubmitButton,
+    hiddenFields,
     initialValues,
     onSubmit,
     options,
@@ -193,6 +198,8 @@ const TreegeComposition = <T,>({
               ) : (
                 <FormSkeleton />
               )}
+              {hiddenFields &&
+                Object.entries(hiddenFields).map(([name, value]) => <input key={name} type="hidden" name={name} value={value} />)}
             </Stack>
             <FormValidation
               disabled={!formCanBeSubmit}
@@ -224,6 +231,7 @@ const TreegeConsumer = <T,>({
   isSubmitting,
   renderFormValidation,
   localText,
+  hiddenFields,
 }: TreegeConsumerProps<T>) => (
   <OptionsProvider>
     <TreegeComposition
@@ -242,6 +250,7 @@ const TreegeConsumer = <T,>({
       renderFormValidation={renderFormValidation}
       disabledSubmitButton={disabledSubmitButton}
       localText={localText}
+      hiddenFields={hiddenFields}
     />
   </OptionsProvider>
 );

@@ -19,6 +19,7 @@ export interface useTreegeConsumerParams {
   debug?: TreegeConsumerProps["debug"];
   disabledSubmitButton?: TreegeConsumerProps["disabledSubmitButton"];
   options?: TreegeConsumerProps["options"];
+  hiddenFields?: TreegeConsumerProps["hiddenFields"];
 }
 
 const useTreegeConsumer = ({
@@ -29,6 +30,7 @@ const useTreegeConsumer = ({
   ignoreFields,
   disabledSubmitButton,
   options,
+  hiddenFields,
 }: useTreegeConsumerParams) => {
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -136,7 +138,7 @@ const useTreegeConsumer = ({
       const invalidElement = Array.from(formElements).find(
         (element) =>
           // We check only elements that have a checkValidity method
-          // (inputs, selects, textareas)
+          // (inputs, selects, text areas)
           element instanceof HTMLElement && "checkValidity" in element && !(element as HTMLInputElement).checkValidity(),
       ) as HTMLElement;
 
@@ -160,7 +162,7 @@ const useTreegeConsumer = ({
 
     const currentFormData = new FormData(event.currentTarget);
     const formData = [...currentFormData];
-    const data = formDataToJSON(fieldValues, fields);
+    const data = formDataToJSON(fieldValues, fields, hiddenFields);
 
     onSubmit?.({ data, detailFieldValues, fieldValues, formData });
 
