@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.5.0](https://github.com/Tracktor/treege-consumer/compare/2.4.0...2.5.0) (2025-07-16)
+
+
+### Features
+
+* add props for generate hidden field ([d64a294](https://github.com/Tracktor/treege-consumer/commit/d64a2944f7d9757f0492eb2e843d6d2426f08f17))
+* add props for generate hidden field ([1e44bdf](https://github.com/Tracktor/treege-consumer/commit/1e44bdf91fbddfae7e5ac49f0d18b6b64d1de746))
+
 ## [2.4.0](https://github.com/Tracktor/treege-consumer/compare/2.3.1...2.4.0) (2025-07-10)
 
 
