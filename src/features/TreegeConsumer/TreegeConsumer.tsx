@@ -199,7 +199,9 @@ const TreegeComposition = <T,>({
                 <FormSkeleton />
               )}
               {hiddenFields &&
-                Object.entries(hiddenFields).map(([name, value]) => <input key={name} type="hidden" name={name} value={value} />)}
+                Object.entries(hiddenFields).map(([name, value]) => (
+                  <input key={name} type="hidden" name={name} value={Array.isArray(value) ? value.join(",") : value} />
+                ))}
             </Stack>
             <FormValidation
               disabled={!formCanBeSubmit}

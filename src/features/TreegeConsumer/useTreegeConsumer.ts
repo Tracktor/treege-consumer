@@ -164,10 +164,39 @@ const useTreegeConsumer = ({
     const formData = [...currentFormData];
     const data = formDataToJSON(fieldValues, fields, hiddenFields);
 
-    onSubmit?.({ data, detailFieldValues, fieldValues, formData });
+    // Merge field values with hidden fields
+    const mergedFieldValues = {
+      ...fieldValues,
+      ...(hiddenFields || {}),
+    };
+
+    // Merge detail field values with hidden fields
+    const hiddenFieldsDetail = hiddenFields
+      ? Object.entries(hiddenFields).map(([name, value], index) => ({
+          name,
+          rawData: value,
+          type: "hidden",
+          uuid: `${name}-${index}`,
+          value,
+        }))
+      : [];
+
+    const mergedDetailFieldValues = [...detailFieldValues, ...hiddenFieldsDetail];
+
+    onSubmit?.({
+      data,
+      detailFieldValues: mergedDetailFieldValues,
+      fieldValues: mergedFieldValues,
+      formData,
+    });
 
     if (debug) {
-      console.log({ data, detailFieldValues, fieldValues, formData });
+      console.log({
+        data,
+        detailFieldValues: mergedDetailFieldValues,
+        fieldValues: mergedFieldValues,
+        formData,
+      });
     }
   };
 
