@@ -19,6 +19,7 @@ export interface useTreegeConsumerParams {
   debug?: TreegeConsumerProps["debug"];
   disabledSubmitButton?: TreegeConsumerProps["disabledSubmitButton"];
   options?: TreegeConsumerProps["options"];
+  hiddenFields?: TreegeConsumerProps["hiddenFields"];
 }
 
 const useTreegeConsumer = ({
@@ -29,6 +30,7 @@ const useTreegeConsumer = ({
   ignoreFields,
   disabledSubmitButton,
   options,
+  hiddenFields,
 }: useTreegeConsumerParams) => {
   const [fields, setFields] = useState<TreeNode[]>([]);
   const [isLastField, setIsLastField] = useState<boolean>(false);
@@ -136,7 +138,7 @@ const useTreegeConsumer = ({
       const invalidElement = Array.from(formElements).find(
         (element) =>
           // We check only elements that have a checkValidity method
-          // (inputs, selects, textareas)
+          // (inputs, selects, text areas)
           element instanceof HTMLElement && "checkValidity" in element && !(element as HTMLInputElement).checkValidity(),
       ) as HTMLElement;
 
@@ -160,12 +162,41 @@ const useTreegeConsumer = ({
 
     const currentFormData = new FormData(event.currentTarget);
     const formData = [...currentFormData];
-    const data = formDataToJSON(fieldValues, fields);
+    const data = formDataToJSON(fieldValues, fields, hiddenFields);
 
-    onSubmit?.({ data, detailFieldValues, fieldValues, formData });
+    // Merge field values with hidden fields
+    const mergedFieldValues = {
+      ...fieldValues,
+      ...(hiddenFields || {}),
+    };
+
+    // Merge detail field values with hidden fields
+    const hiddenFieldsDetail = hiddenFields
+      ? Object.entries(hiddenFields).map(([name, value], index) => ({
+          name,
+          rawData: value,
+          type: "hidden",
+          uuid: `${name}-${index}`,
+          value,
+        }))
+      : [];
+
+    const mergedDetailFieldValues = [...detailFieldValues, ...hiddenFieldsDetail];
+
+    onSubmit?.({
+      data,
+      detailFieldValues: mergedDetailFieldValues,
+      fieldValues: mergedFieldValues,
+      formData,
+    });
 
     if (debug) {
-      console.log({ data, detailFieldValues, fieldValues, formData });
+      console.log({
+        data,
+        detailFieldValues: mergedDetailFieldValues,
+        fieldValues: mergedFieldValues,
+        formData,
+      });
     }
   };
 
