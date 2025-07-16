@@ -110,7 +110,7 @@ export interface TreegeConsumerProps<T = unknown> {
   /**
    * Hidden fields that will not be displayed in the form but will be submitted
    */
-  hiddenFields?: Record<string, string | string[] | number>;
+  hiddenFields?: Record<string, undefined | string | string[] | number>;
   /**
    * Callback fired when the user submits a form.
    * @param data

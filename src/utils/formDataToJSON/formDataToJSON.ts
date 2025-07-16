@@ -30,7 +30,7 @@ const getCurrentAttributes = (currentField: TreeNode, isSelectOrRadio: boolean, 
 const formDataToJSON = (
   fieldValues: FieldValues,
   fields: TreeNode[],
-  hiddenFields?: Record<string, string | string[] | number>,
+  hiddenFields?: Record<string, undefined | string | string[] | number>,
 ): JsonFormValue[] => {
   // Process regular fields
   const regularFields = Object.entries(fieldValues).reduce((acc: JsonFormValue[], [name, value]) => {
