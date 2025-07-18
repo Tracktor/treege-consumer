@@ -76,6 +76,7 @@
     "tagPrefix": ""
   },
   "peerDependencies": {
+    "@mui/x-date-pickers": "*",
     "@mui/x-date-pickers-pro": "*",
     "@mui/x-license": "*",
     "@tanstack/react-query": ">=5",
