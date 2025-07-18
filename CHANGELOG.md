@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.5.2](https://github.com/Tracktor/treege-consumer/compare/2.5.1...2.5.2) (2025-07-18)
+
+
+### Bug Fixes
+
+* peerDependencies @mui/x-date-pickers ([12ce87e](https://github.com/Tracktor/treege-consumer/commit/12ce87e13045d89094ccc999b52b45090fba8aef))
+
 ## [2.5.1](https://github.com/Tracktor/treege-consumer/compare/2.5.0...2.5.1) (2025-07-16)
 
 
