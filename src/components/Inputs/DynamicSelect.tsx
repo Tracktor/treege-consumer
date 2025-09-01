@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { Stack, Select, MenuItem, FormHelperText, SelectChangeEvent } from "@tracktor/design-system";
+import { Stack, Select as SelectDS, MenuItem, FormHelperText, SelectChangeEvent, FormControl } from "@tracktor/design-system";
 import { isObject, isString } from "@tracktor/react-utils";
 import type { TreeNode } from "@tracktor/types-treege";
-import { Ref, useEffect, useRef } from "react";
+import { forwardRef, Ref, useEffect, useRef } from "react";
 import InputLabel from "@/components/Inputs/InputLabel";
 import ChangeEventField from "@/types/ChangeEventField";
 import { DetailFieldValues } from "@/types/FieldValues";
@@ -39,19 +39,22 @@ interface DynamicSelectProps {
  * @param headers
  * @constructor
  */
-const DynamicSelect = ({
-  inputRef,
-  node,
-  onChange,
-  headers,
-  readOnly,
-  isParentFieldRequiredAndEmpty,
-  isIgnored,
-  helperText,
-  error,
-  value,
-  detailFieldValues,
-}: DynamicSelectProps) => {
+const DynamicSelect = (
+  {
+    inputRef,
+    node,
+    onChange,
+    headers,
+    readOnly,
+    isParentFieldRequiredAndEmpty,
+    isIgnored,
+    helperText,
+    error,
+    value,
+    detailFieldValues,
+  }: DynamicSelectProps,
+  ref: Ref<HTMLDivElement>,
+) => {
   const urlRef = useRef<string>(undefined);
   const { attributes, children } = node;
   const { name, label, type, isLeaf, isDecision, route, required, isMultiple } = attributes;
@@ -143,38 +146,41 @@ const DynamicSelect = ({
   return (
     <Stack spacing={1.5}>
       <InputLabel required={required}>{label}</InputLabel>
-      <Select
-        name={name}
-        value={safeValue}
-        onChange={handleChange}
-        multiple={isMultiple}
-        displayEmpty
-        inputRef={inputRef}
-        readOnly={readOnly}
-        error={error || isError}
-        disabled={isParentFieldRequiredAndEmpty || isLoading || isError}
-        renderValue={(selected) => {
-          if (isLoading) {
-            return "Loading...";
-          }
+      <FormControl required={required} ref={ref} fullWidth>
+        <SelectDS
+          fullWidth
+          name={name}
+          value={safeValue}
+          onChange={handleChange}
+          multiple={isMultiple}
+          displayEmpty
+          inputRef={inputRef}
+          readOnly={readOnly}
+          error={error || isError}
+          disabled={isParentFieldRequiredAndEmpty || isLoading}
+          renderValue={(selected) => {
+            if (isLoading) {
+              return "Loading...";
+            }
 
-          return optionsWithValues?.find((opt) => opt.value === selected)?.label ?? "";
-        }}
-      >
-        {uniqueOptions?.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-        {uniqueOptions?.length === 0 && (
-          <MenuItem disabled value="">
-            No options available
-          </MenuItem>
-        )}
-      </Select>
-      {helperText && <FormHelperText error={error || isError}>{helperText}</FormHelperText>}
+            return optionsWithValues?.find((opt) => opt.value === selected)?.label ?? "";
+          }}
+        >
+          {uniqueOptions?.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+          {uniqueOptions?.length === 0 && (
+            <MenuItem disabled value="">
+              No options available
+            </MenuItem>
+          )}
+        </SelectDS>
+        {helperText && <FormHelperText error={error || isError}>{helperText}</FormHelperText>}
+      </FormControl>
     </Stack>
   );
 };
 
-export default DynamicSelect;
+export default forwardRef(DynamicSelect);
