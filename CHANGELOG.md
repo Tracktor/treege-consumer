@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.6.0](https://github.com/Tracktor/treege-consumer/compare/2.5.2...2.6.0) (2025-09-01)
+
+
+### Features
+
+* refactor DynamicSelect to use FormControl and forwardRef for improved structure and accessibility ([9db70eb](https://github.com/Tracktor/treege-consumer/commit/9db70eb6001af63e47f312ed0615ed5ecb54bbe5))
+
+
+### Bug Fixes
+
+* update ancestorRef initialization to use null instead of undefined for better type handling ([388f474](https://github.com/Tracktor/treege-consumer/commit/388f474d6d940ef47950abd3e71cb553f441ce49))
+
 ## [2.5.2](https://github.com/Tracktor/treege-consumer/compare/2.5.1...2.5.2) (2025-07-18)
 
 
