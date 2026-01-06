@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.6.1](https://github.com/Tracktor/treege-consumer/compare/2.6.0...2.6.1) (2026-01-06)
+
+
+### Bug Fixes
+
+* update imports to use @mui/x-date-pickers-pro for consistency ([0ed7931](https://github.com/Tracktor/treege-consumer/commit/0ed7931eb5d8deacba7cb129baa76e402e92c071))
+
 ## [2.6.0](https://github.com/Tracktor/treege-consumer/compare/2.5.2...2.6.0) (2025-09-01)
 
 
