@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { deDE, frFR, enUS, esES, ptBR, itIT } from "@mui/x-date-pickers/locales";
-import { PickersInputLocaleText } from "@mui/x-date-pickers-pro";
+import { deDE, frFR, enUS, esES, ptBR, itIT, PickersInputLocaleText } from "@mui/x-date-pickers-pro/locales";
 
 const localeTexts: Record<string, PickersInputLocaleText> = {
   de: deDE.components.MuiLocalizationProvider.defaultProps.localeText,

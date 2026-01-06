@@ -1,6 +1,4 @@
-import { DatePicker as DatePickerMui } from "@mui/x-date-pickers";
-import { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
-import { DatePicker as DatePickerPro } from "@mui/x-date-pickers-pro";
+import { DatePicker as DatePickerMui, PickerChangeHandlerContext } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
 import dayjs, { Dayjs } from "dayjs";
@@ -21,7 +19,6 @@ export interface DatePickerProps {
   pattern?: string;
   patternMessage?: string;
   error?: boolean;
-  licenseMuiX?: string;
   onChange?(dataAttribute: ChangeEventField, context: PickerChangeHandlerContext<unknown>): void;
   ancestorValue?: unknown;
 }
@@ -44,7 +41,6 @@ const DatePicker = (
     pattern,
     patternMessage,
     ancestorValue,
-    licenseMuiX,
   }: DatePickerProps,
   ref: Ref<HTMLDivElement>,
 ) => {
@@ -52,7 +48,7 @@ const DatePicker = (
   const ancestorValueString = isString(ancestorValue) ? ancestorValue : undefined;
   const rawValue = value || ancestorValueString;
   const formattedValue = rawValue ? dayjs(String(rawValue), FORMAT) : null;
-  const PickerComponent = licenseMuiX ? DatePickerMui : DatePickerPro;
+  const PickerComponent = DatePickerMui;
 
   const handleChange = (date: Dayjs | null, context: PickerChangeHandlerContext<unknown>) => {
     onChange?.(

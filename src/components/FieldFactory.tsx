@@ -24,7 +24,7 @@ import { FieldValues, DetailFieldValues } from "@/types/FieldValues";
 
 const textType = ["email", "number", "password", "tel", "text", "url", "date", "time"];
 
-export interface FielFactoryProps {
+export interface FieldFactoryProps {
   fieldValues?: FieldValues;
   animated?: boolean;
   autoFocus?: boolean;
@@ -70,7 +70,7 @@ const FieldFactory = ({
   options,
   animated = true,
   visible = true,
-}: FielFactoryProps) => {
+}: FieldFactoryProps) => {
   // States
   const [error, setError] = useState("");
 
@@ -232,7 +232,6 @@ const FieldFactory = ({
             patternMessage={patternMessage}
             error={!!error}
             ancestorValue={ancestorValueToConsume}
-            licenseMuiX={licenseMuiX}
           />
         );
       case "time":

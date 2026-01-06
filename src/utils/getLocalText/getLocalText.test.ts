@@ -1,5 +1,4 @@
-import { deDE, frFR, enUS, esES, ptBR, itIT } from "@mui/x-date-pickers/locales";
-import { PickersInputLocaleText } from "@mui/x-date-pickers-pro";
+import { deDE, frFR, enUS, esES, ptBR, itIT, PickersInputLocaleText } from "@mui/x-date-pickers-pro/locales";
 import { getLocalText } from "./getLocalText";
 
 describe("getLocalText", () => {

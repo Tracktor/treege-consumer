@@ -1,5 +1,4 @@
-import type { PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
-import { TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
+import { PickerChangeHandlerContext, TimePicker as TimePickerMui } from "@mui/x-date-pickers-pro";
 import { Stack } from "@tracktor/design-system";
 import { isString } from "@tracktor/react-utils";
 import dayjs, { Dayjs } from "dayjs";

@@ -1849,7 +1849,7 @@
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
 
-"@mui/x-date-pickers@8.7.0", "@mui/x-date-pickers@^7.0.0 || ^8.0.0":
+"@mui/x-date-pickers@8.7.0":
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-8.7.0.tgz#1451d94e0a8efb029f02d02fadc3dce0e8a1ee7b"
   integrity sha512-7fCRhhoE/2s7wsJWLoY2IoHlN5ZA+ev7ZzhIjLPAOzMXwIflzCgljq6iG/iXpATugsmlxWHhO/7wdDSD6zUNOw==
