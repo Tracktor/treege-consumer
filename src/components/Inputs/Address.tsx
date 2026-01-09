@@ -72,6 +72,7 @@ const Address = (
 ) => {
   const { attributes, children } = node;
   const { name, type, label, required, isLeaf, isDecision } = attributes;
+  const filteredCountry = isArray(country) ? country.filter(Boolean) : country;
   const autocompleteService = useRef<AutocompleteService>(undefined);
   const [options, setOptions] = useState<readonly unknown[]>([]);
   const [searchText, setSearchText] = useState<string>("");
@@ -127,6 +128,9 @@ const Address = (
     [],
   );
 
+  /**
+   * Fetch address options from Google Places Autocomplete API
+   */
   useEffect(() => {
     if (!googleApiKey || isIgnored) {
       return undefined;
@@ -150,7 +154,7 @@ const Address = (
 
     const request = {
       componentRestrictions: {
-        country,
+        country: filteredCountry,
       },
       input: searchText,
     };
@@ -174,7 +178,7 @@ const Address = (
     return () => {
       active = false;
     };
-  }, [country, fetch, googleApiKey, isIgnored, localValue, places, searchText]);
+  }, [filteredCountry, fetch, googleApiKey, isIgnored, localValue, places, searchText]);
 
   useEffect(() => {
     if (ancestorValue !== lastAncestorRef.current) {
