@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.6.2](https://github.com/Tracktor/treege-consumer/compare/2.6.1...2.6.2) (2026-01-09)
+
+
+### Bug Fixes
+
+* filter country options for Google Places Autocomplete API ([8f6187c](https://github.com/Tracktor/treege-consumer/commit/8f6187c1e8cae70d80e34f6e44b70a38961a5467))
+* update .gitignore to include .env and .npmrc files [CI SKIP] ([54a0138](https://github.com/Tracktor/treege-consumer/commit/54a013803cae7abafcdc5ae1fdee150b111bc26c))
+
 ## [2.6.1](https://github.com/Tracktor/treege-consumer/compare/2.6.0...2.6.1) (2026-01-06)
 
 
